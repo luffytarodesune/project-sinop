@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0f766e">
-<title>SINOP v110 · Personal finance</title>
+<title>SINOP v111 · Personal finance</title>
 <meta name="application-name" content="SINOP">
 <meta name="apple-mobile-web-app-title" content="SINOP">
 <meta name="description" content="SINOP — your personal money system for income, spending, savings, investments, goals, KKB, and financial tracking.">
@@ -1666,6 +1666,15 @@ body[data-theme="dark"] .account-flow-grid>div{background:#18231f}
 .account-field input,.account-field select,.account-field textarea{width:100%;border:1px solid var(--border);border-radius:10px;background:var(--panel);color:var(--text);padding:0 10px;outline:0}
 .account-field input,.account-field select{height:40px}
 .account-field textarea{min-height:72px;padding:10px;resize:vertical}
+
+.currency-code-pill{display:inline-flex;align-items:center;padding:3px 7px;border-radius:999px;background:var(--soft);color:var(--brand2);font-size:8px;font-weight:850;letter-spacing:.04em}
+.fx-equivalent{display:grid;gap:3px;margin-top:7px}
+.fx-equivalent strong{font-size:12px;color:var(--brand2)}
+.fx-equivalent small{font-size:8px;color:var(--muted);line-height:1.45}
+.fx-rate-strip{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:8px;padding:9px 10px;border:1px solid var(--border);border-radius:10px;background:var(--soft);font-size:9px}
+.fx-rate-strip strong{font-size:10px}
+.fx-rate-strip .text-btn{font-size:9px}
+.fx-account-note{display:block;margin-top:5px;color:var(--muted);font-size:8px;line-height:1.45}
 .account-helper{grid-column:1/-1;padding:11px 12px;border-radius:11px;background:var(--soft);color:var(--muted);font-size:9px;line-height:1.5}
 .transfer-list{display:grid;gap:7px}
 .transfer-row{display:grid;grid-template-columns:95px minmax(120px,1fr) 30px minmax(120px,1fr) 110px 36px;gap:9px;align-items:center;padding:9px 10px;border:1px solid var(--border);border-radius:11px;font-size:9px}
@@ -5106,10 +5115,10 @@ body[data-theme="dark"] .wrapped-hero{background:linear-gradient(135deg,color-mi
         <div>
           <p class="eyebrow">Accounts & wallets</p>
           <h2>Track where your money actually sits</h2>
-          <p class="subtle">Add cold cash, bank accounts, e-wallets, savings accounts, time deposits, Pag-IBIG MP2, or other money locations. Transfers move money without counting as income or spending.</p>
+          <p class="subtle">Add PHP or foreign-currency cash, bank accounts, e-wallets, savings, time deposits, Pag-IBIG MP2, or other money locations. Foreign balances stay in their native currency while SINOP shows a live reporting-currency equivalent. Transfers move money without counting as income or spending.</p>
         </div>
         <div class="action-row">
-          <button class="btn btn-secondary icon-leading" id="addTransferBtn" type="button"><span data-hero="arrows-right-left"></span>Transfer</button>
+          <button class="btn btn-secondary icon-leading" id="addTransferBtn" type="button"><span data-hero="arrows-right-left"></span>Transfer</button><button class="btn btn-secondary icon-leading" id="refreshFxRatesBtn" type="button"><span data-hero="arrow-path"></span>Refresh FX</button>
           <button class="btn btn-primary icon-leading" id="addAccountBtn" type="button"><span data-hero="plus"></span>Add account</button>
         </div>
       </div>
@@ -5832,7 +5841,7 @@ body[data-theme="dark"] .wrapped-hero{background:linear-gradient(135deg,color-mi
           <button class="btn btn-secondary btn-sm" data-jump="income">Go to Income</button>
         </div>
       </div>
-      <div class="manual-callout" style="margin-top:12px"><strong>Account rule:</strong> linking an income source to an account does not mean all planned pay is already in that account. The balance increases only for received occurrences dated after that account's balance snapshot. A received occurrence on or before the snapshot remains in monthly income reports but is not added again.</div>
+      <div class="manual-callout" style="margin-top:12px"><strong>Account rule:</strong> linking an income source to an account does not mean all planned pay is already in that account. The balance increases only for received occurrences dated after that account's balance snapshot. A received occurrence on or before the snapshot remains in monthly income reports but is not added again.</div><div class="manual-callout" style="margin-top:10px"><strong>Multi-currency accounts:</strong> choose a currency per account. SINOP keeps the ledger balance in that native currency and uses a cached Frankfurter reference rate only for the current reporting-currency equivalent and combined totals. Cross-currency transfers lock the conversion used for that movement, so later FX changes revalue the remaining balance without rewriting the historical transfer.</div>
       <div class="manual-callout" style="margin-top:10px"><strong>Untouched-month rule:</strong> The planner does not assume that recurring salary or other income was received in historical months you never tracked. Past months remain at zero until you explicitly confirm a receipt or record month-specific activity. This keeps Annual Wrapped, statements, and trend charts from inventing January–July income just because a recurring source exists.</div>
     </article>
 
@@ -5853,7 +5862,7 @@ body[data-theme="dark"] .wrapped-hero{background:linear-gradient(135deg,color-mi
       </table>
       <div class="manual-callout" style="margin-top:12px"><strong>Starting mid-month:</strong> if you begin on August 10 and your bank shows ₱25,000, enter ₱25,000 with <em>Balance as of August 10</em>. An August 2 salary can still appear in August Income, but it is tagged as included in the starting balance and is not credited to the bank again. Income received after August 10 does change the account. Use <strong>Reconcile</strong> later if the planner and the real account differ.</div>
       <div class="manual-card-grid" style="margin-top:12px">
-        <div class="manual-feature"><div class="manual-feature-head"><div class="manual-feature-icon"><span data-hero="arrows-right-left"></span></div><div><strong>Transfer money</strong><small>Choose From, To, amount, and date.</small></div></div><p class="subtle" style="font-size:10px;line-height:1.55">A transfer subtracts from the source and adds to the destination by the same amount. Total tracked money stays unchanged.</p></div>
+        <div class="manual-feature"><div class="manual-feature-head"><div class="manual-feature-icon"><span data-hero="arrows-right-left"></span></div><div><strong>Transfer money</strong><small>Choose From, To, amount, and date.</small></div></div><p class="subtle" style="font-size:10px;line-height:1.55">A same-currency transfer subtracts and adds the same amount. A cross-currency transfer stores the source amount, converted destination amount, and the FX rate used so the movement remains an internal transfer rather than income or spending.</p></div>
         <div class="manual-feature"><div class="manual-feature-head"><div class="manual-feature-icon"><span data-hero="adjustments-horizontal"></span></div><div><strong>Default spending account</strong><small>Set it once under Customize.</small></div></div><p class="subtle" style="font-size:10px;line-height:1.55">New spending-side dropdowns automatically start with this account instead of Untracked. Existing saved transactions are not retroactively reassigned.</p><button class="btn btn-secondary btn-sm" data-jump="settings">Open Customize</button></div>
       </div>
     </article>
@@ -6254,9 +6263,12 @@ body[data-theme="dark"] .wrapped-hero{background:linear-gradient(135deg,color-mi
     <div class="modal-body"><div class="account-modal-grid">
       <label class="account-field full"><span>Account / wallet name</span><input id="accountEditName" type="text" placeholder="e.g. Cold Cash, BPI Payroll, BDO Savings"></label>
       <label class="account-field"><span>Type</span><select id="accountEditType"><option value="cash">Cold cash</option><option value="bank">Bank account</option><option value="savings">Savings account</option><option value="time_deposit">Time deposit</option><option value="mp2">Pag-IBIG MP2</option><option value="ewallet">E-wallet</option><option value="investment">Investment account</option><option value="other">Other</option></select></label>
+      <label class="account-field"><span>Currency</span><select id="accountEditCurrency"></select></label>
       <label class="account-field"><span>Accent</span><input id="accountEditColor" type="color"></label>
-      <label class="account-field"><span>Current / starting balance</span><input id="accountEditOpeningBalance" type="number" step="1" placeholder="Balance you actually see"></label>
+      <label class="account-field"><span id="accountEditOpeningBalanceLabel">Current / starting balance</span><input id="accountEditOpeningBalance" type="number" step="0.01" placeholder="Balance you actually see"></label>
       <label class="account-field"><span>Balance as of</span><input id="accountEditBalanceAsOf" type="date"></label>
+      <label class="account-field" id="accountManualFxWrap" style="display:none"><span id="accountManualFxLabel">Fallback FX rate</span><input id="accountEditManualFx" type="number" min="0" step="0.0001" placeholder="Optional"></label>
+      <div id="accountFxPreview" class="account-helper full" style="display:none"></div>
       <label class="account-field full"><span>Notes (optional)</span><textarea id="accountEditNotes" placeholder="e.g. Payroll account, emergency savings, cash kept at home"></textarea></label>
       <div class="account-helper"><strong>Start from what you know.</strong> Enter the balance you actually see on the date above. Income, spending, transfers, bill payments, card payments, and IOU activity dated <strong>on or before</strong> that date can still appear in monthly reports, but they will not change this account balance again. Only later activity is applied.</div>
       <div id="accountInvestmentSettings" class="investment-settings">
@@ -6330,7 +6342,7 @@ body[data-theme="dark"] .wrapped-hero{background:linear-gradient(135deg,color-mi
     <div class="modal-body">
       <div class="account-modal-grid">
         <label class="account-field full"><span>Account</span><input id="accountContributionAccountName" type="text" disabled></label>
-        <label class="account-field"><span>Amount</span><input id="accountContributionAmount" type="number" min="0" step="100"></label>
+        <label class="account-field"><span id="accountContributionAmountLabel">Amount</span><input id="accountContributionAmount" type="number" min="0" step="0.01"></label>
         <label class="account-field"><span>Date</span><input id="accountContributionDate" type="date"></label>
         <label class="account-field full"><span>Money came from</span><select id="accountContributionSource"></select>
           <small class="account-select-note">Choose another tracked account to move money from it, or External / untracked if the money came from outside your tracked accounts.</small>
@@ -6373,8 +6385,9 @@ body[data-theme="dark"] .wrapped-hero{background:linear-gradient(135deg,color-mi
     <div class="modal-body"><div class="account-modal-grid">
       <label class="account-field"><span>From</span><select id="transferFrom"></select></label>
       <label class="account-field"><span>To</span><select id="transferTo"></select></label>
-      <label class="account-field"><span>Amount</span><input id="transferAmount" type="number" min="0" step="1"></label>
+      <label class="account-field"><span id="transferAmountLabel">Amount</span><input id="transferAmount" type="number" min="0" step="0.01"></label>
       <label class="account-field"><span>Date</span><input id="transferDate" type="date"></label>
+      <div id="transferFxPreview" class="account-helper full" style="display:none"></div>
       <label class="account-field full"><span>Note (optional)</span><textarea id="transferNote" placeholder="e.g. Withdraw cash for weekly allowance"></textarea></label>
     </div></div>
     <div class="modal-foot"><button class="btn btn-secondary" id="cancelTransferBtn" type="button">Cancel</button><button class="btn btn-primary" id="saveTransferBtn" type="button">Save transfer</button></div>
@@ -7616,10 +7629,53 @@ const currentMonth=`${nowLocal.getFullYear()}-${String(nowLocal.getMonth()+1).pa
 
 function uid(){return crypto?.randomUUID?crypto.randomUUID():Date.now()+"-"+Math.random().toString(16).slice(2)}
 function clone(v){return JSON.parse(JSON.stringify(v))}
-function money(v){
-  const currency=(typeof state!=="undefined"&&state.settings&&state.settings.currency)||"PHP";
+function reportingCurrency(){return (typeof state!=="undefined"&&state.settings?.currency)||"PHP"}
+function moneyIn(v,currency=reportingCurrency()){
   const cents=(typeof state==="undefined"||!state.settings)?true:!!state.settings.showCents;
-  return new Intl.NumberFormat("en-PH",{style:"currency",currency,minimumFractionDigits:cents?2:0,maximumFractionDigits:cents?2:0}).format(Number(v||0));
+  try{return new Intl.NumberFormat("en-PH",{style:"currency",currency:String(currency||"PHP").toUpperCase(),minimumFractionDigits:cents?2:0,maximumFractionDigits:cents?2:0}).format(Number(v||0))}
+  catch(e){return `${String(currency||"").toUpperCase()} ${Number(v||0).toLocaleString("en-PH",{minimumFractionDigits:cents?2:0,maximumFractionDigits:cents?2:0})}`}
+}
+function money(v){return moneyIn(v,reportingCurrency())}
+const SINOP_CURRENCIES=[["PHP","Philippine peso"],["USD","US dollar"],["EUR","Euro"],["GBP","British pound"],["JPY","Japanese yen"],["SGD","Singapore dollar"],["AUD","Australian dollar"],["CAD","Canadian dollar"],["HKD","Hong Kong dollar"],["NZD","New Zealand dollar"],["CHF","Swiss franc"],["CNY","Chinese yuan"],["KRW","South Korean won"]];
+function currencyOptionsHtml(selected="PHP"){selected=String(selected||"PHP").toUpperCase();return SINOP_CURRENCIES.map(([code,name])=>`<option value="${code}" ${code===selected?"selected":""}>${code} · ${name}</option>`).join("")}
+function accountCurrency(account){return String(account?.currency||reportingCurrency()||"PHP").toUpperCase()}
+function fxKey(from,to){return `${String(from||"").toUpperCase()}/${String(to||"").toUpperCase()}`}
+function fxRecord(from,to){
+  from=String(from||"").toUpperCase();to=String(to||"").toUpperCase();
+  if(!from||!to)return null;if(from===to)return {rate:1,date:localDateKey(),fetchedAt:Date.now(),source:"Identity"};
+  const direct=state?.fx?.rates?.[fxKey(from,to)];if(direct&&Number(direct.rate)>0)return direct;
+  const inverse=state?.fx?.rates?.[fxKey(to,from)];if(inverse&&Number(inverse.rate)>0)return {...inverse,rate:1/Number(inverse.rate),inverse:true};
+  return null;
+}
+function accountManualFxRate(account,from=accountCurrency(account),to=reportingCurrency()){
+  const manual=Math.max(0,Number(account?.manualFxRate||0));if(!manual)return 0;
+  const ac=accountCurrency(account),base=reportingCurrency();
+  if(from===ac&&to===base)return manual;if(from===base&&to===ac)return 1/manual;return 0;
+}
+function fxRate(from,to,accountHint=null){const r=fxRecord(from,to);return r?Number(r.rate):accountManualFxRate(accountHint,from,to)}
+function convertCurrency(amount,from,to,accountHint=null){from=String(from||"").toUpperCase();to=String(to||"").toUpperCase();if(from===to)return Number(amount||0);const rate=fxRate(from,to,accountHint);return rate>0?Number(amount||0)*rate:null}
+function accountValueInReporting(account,amount=accountBalance(account,state.month)){const v=convertCurrency(amount,accountCurrency(account),reportingCurrency(),account);return v===null?0:v}
+function reportingToAccountValue(amount,account){const v=convertCurrency(amount,reportingCurrency(),accountCurrency(account),account);return v===null?0:v}
+function fxRateFresh(record){return !!record&&Date.now()-Number(record.fetchedAt||0)<12*60*60*1000}
+async function refreshFxPair(from,to,{force=false,rerender=false}={}){
+  from=String(from||"").toUpperCase();to=String(to||"").toUpperCase();if(!from||!to||from===to)return 1;
+  const existing=fxRecord(from,to);if(!force&&fxRateFresh(existing))return Number(existing.rate);
+  try{
+    const res=await fetch(`https://api.frankfurter.dev/v2/rate/${encodeURIComponent(from)}/${encodeURIComponent(to)}`,{headers:{Accept:"application/json"}});
+    if(!res.ok)throw new Error(`HTTP ${res.status}`);const data=await res.json();const rate=Number(data.rate||0);if(!(rate>0))throw new Error("Invalid FX rate");
+    state.fx=state.fx||{rates:{}};state.fx.rates=state.fx.rates||{};state.fx.rates[fxKey(from,to)]={rate,date:data.date||localDateKey(),fetchedAt:Date.now(),source:"Frankfurter v2"};state.fx.lastRefreshAt=Date.now();scheduleAutoSave();
+    if(rerender){renderAccounts();renderOverviewAccounts()}
+    return rate;
+  }catch(err){return existing?Number(existing.rate):null}
+}
+async function refreshNeededFxRates({force=false,rerender=true}={}){
+  const base=reportingCurrency(),pairs=new Set();(state.accounts||[]).forEach(a=>{const cur=accountCurrency(a);if(cur!==base)pairs.add(fxKey(cur,base))});
+  await Promise.all([...pairs].map(k=>{const [from,to]=k.split("/");return refreshFxPair(from,to,{force,rerender:false})}));if(rerender&&pairs.size){renderAccounts();renderOverviewAccounts()}
+}
+function fxEquivalentHtml(account,amount){
+  const cur=accountCurrency(account),base=reportingCurrency();if(cur===base)return "";const rec=fxRecord(cur,base),rate=fxRate(cur,base,account),eq=rate>0?Number(amount||0)*rate:null;
+  const source=rec?`${rec.source||"Frankfurter v2"} · ${rec.date||"latest reference date"}`:(account?.manualFxRate?"Manual fallback rate":"Rate unavailable");
+  return `<div class="fx-equivalent"><strong>${eq===null?`${base} equivalent unavailable`:`≈ ${moneyIn(eq,base)}`}</strong><small>${rate>0?`1 ${cur} ≈ ${moneyIn(rate,base)} · ${source}`:`Connect to the internet to refresh the ${cur}/${base} reference rate.`}</small></div>`;
 }
 function esc(v){return String(v??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;")}
 function cap(v){return String(v).charAt(0).toUpperCase()+String(v).slice(1)}
@@ -7677,6 +7733,7 @@ const defaults={
       speakReplies:true
     }
   },
+  fx:{rates:{},lastRefreshAt:0,source:"Frankfurter v2"},
   billPayments:{},
   billPaymentDetails:{},
   billPaymentOccurrences:{},
@@ -7798,6 +7855,7 @@ function normalizeState(s){
   })).filter(x=>x.date&&x.amount>0);
   s.goalPlanner={...clone(defaults.goalPlanner),...(s.goalPlanner||{})};
   s.settings={...clone(defaults.settings),...(s.settings||{})};
+  s.fx={...clone(defaults.fx),...(s.fx||{})};s.fx.rates=(s.fx&&typeof s.fx.rates==="object")?s.fx.rates:{};
   if(["SINOP","Monthly budget planner","Budget planner","Personal Budget Planner","Personal budget planner"].includes(String(s.settings.plannerName||"").trim()))s.settings.plannerName="";
   s.settings.dashboard={...clone(defaults.settings.dashboard),...((s.settings&&s.settings.dashboard)||{})};
   s.settings.rules={...clone(defaults.settings.rules),...((s.settings&&s.settings.rules)||{})};
@@ -7887,6 +7945,8 @@ function normalizeState(s){
       ...a,
       name:a.name||"Account",
       type,
+      currency:String(a.currency||s.settings.currency||"PHP").toUpperCase(),
+      manualFxRate:Math.max(0,Number(a.manualFxRate||0)),
       openingBalance:Number(a.openingBalance||0),
       balanceAsOf,
       trackingStartMonth,
@@ -7905,7 +7965,7 @@ function normalizeState(s){
   });
   {
     const requestedDefault=s.settings.defaultSpendingAccountId||"";
-    const validDefault=s.accounts.find(a=>String(a.id)===String(requestedDefault)&&!["time_deposit","mp2"].includes(a.type));
+    const validDefault=s.accounts.find(a=>String(a.id)===String(requestedDefault)&&!["time_deposit","mp2"].includes(a.type)&&String(a.currency||s.settings.currency||"PHP").toUpperCase()===String(s.settings.currency||"PHP").toUpperCase());
     s.settings.defaultSpendingAccountId=validDefault?validDefault.id:"";
   }
   s.accountTransfers=(s.accountTransfers||[]).map(t=>({...t,amount:Number(t.amount||0)}));
@@ -9844,7 +9904,7 @@ function billActualVariance(b,month=state.month){return billValue(b,state.scenar
 function billHasActualActivity(b,month=state.month){return billActualAmount(b,month)>0.005}
 
 function groceryPaymentSourceOptions(event={}){
-  const accounts=spendableAccounts().map(a=>`<option value="account:${esc(a.id)}" ${event.paymentSourceType==="account"&&sameId(event.accountId,a.id)?"selected":""}>${esc(a.name)} · ${esc(accountTypeLabel(a.type))}</option>`).join("");
+  const accounts=budgetSourceAccounts().map(a=>`<option value="account:${esc(a.id)}" ${event.paymentSourceType==="account"&&sameId(event.accountId,a.id)?"selected":""}>${esc(a.name)} · ${esc(accountTypeLabel(a.type))}</option>`).join("");
   const cards=state.creditCards.map(c=>`<option value="card:${esc(c.id)}" ${event.paymentSourceType==="card"&&sameId(event.creditCardId,c.id)?"selected":""}>${esc(cardLabel(c))}</option>`).join("");
   return `<option value="other" ${event.paymentSourceType==="other"?"selected":""}>Untracked / other</option>${accounts?`<optgroup label="Accounts">${accounts}</optgroup>`:""}${cards?`<optgroup label="Credit cards">${cards}</optgroup>`:""}`;
 }
@@ -10521,7 +10581,7 @@ function renderTodayQuickSpend(){
   const todayRecord=dailyAllowanceRecord(today,false);
   const defaultAccount=currentAccount||(todayRecord?todayRecord.accountId:defaultSpendingAccountId());
 
-  accountEl.innerHTML=`<option value="">Untracked / other</option>${spendableAccounts().map(a=>`<option value="${esc(a.id)}" ${sameId(a.id,defaultAccount)?"selected":""}>${esc(a.name)} · ${esc(accountTypeLabel(a.type))}</option>`).join("")}`;
+  accountEl.innerHTML=`<option value="">Untracked / other</option>${budgetSourceAccounts().map(a=>`<option value="${esc(a.id)}" ${sameId(a.id,defaultAccount)?"selected":""}>${esc(a.name)} · ${esc(accountTypeLabel(a.type))}</option>`).join("")}`;
   kindEl.value=chosenKind;
   [kindEl,amountEl,accountEl,noteEl,addBtn].forEach(el=>el.disabled=!enabled);
 
@@ -11114,13 +11174,14 @@ function accountGoalReserved(accountId){
   return accountGoalAllocations(accountId).reduce((sum,row)=>sum+row.amount,0);
 }
 function accountAvailableAfterGoals(account,month=state.month){
-  return accountBalance(account,month)-accountGoalReserved(account.id);
+  const reservedNative=reportingToAccountValue(accountGoalReserved(account.id),account);
+  return accountBalance(account,month)-reservedNative;
 }
 function totalGoalReserved(){
   return state.accounts.reduce((sum,a)=>sum+accountGoalReserved(a.id),0);
 }
 function totalUsableMoney(month=state.month){
-  return spendableAccounts().reduce((sum,a)=>sum+Math.max(0,accountAvailableAfterGoals(a,month)),0);
+  return spendableAccounts().reduce((sum,a)=>sum+Math.max(0,accountValueInReporting(a,accountAvailableAfterGoals(a,month))),0);
 }
 function trimGoalAllocationsToSaved(goalId){
   const goal=goalById(goalId);
@@ -11141,13 +11202,13 @@ function trimGoalAllocationsToSaved(goalId){
   return true;
 }
 
-function isSpendableAccount(account){
-  return !!account && !["time_deposit","mp2"].includes(account.type);
-}
+function isSpendableAccount(account){return !!account && !["time_deposit","mp2"].includes(account.type)}
 function spendableAccounts(){return state.accounts.filter(isSpendableAccount)}
+function isBudgetSourceAccount(account){return isSpendableAccount(account)&&accountCurrency(account)===reportingCurrency()}
+function budgetSourceAccounts(){return state.accounts.filter(isBudgetSourceAccount)}
 function defaultSpendingAccount(){
   const account=accountById(state.settings?.defaultSpendingAccountId||"");
-  return isSpendableAccount(account)?account:null;
+  return isBudgetSourceAccount(account)?account:null;
 }
 function defaultSpendingAccountId(){return defaultSpendingAccount()?.id||""}
 function accountTransactionKeyForBill(billId,budgetMonth){return `bill:${budgetMonth}:${billId}`}
@@ -11247,7 +11308,7 @@ function accountInvestmentProjection(account,month=state.month,override=null){
 function accountProjectionCardHtml(account,month=state.month){
   const r=accountInvestmentProjection(account,month);
   if(!r)return"";
-  const settings=accountProjectionSettings(account);
+  const settings=accountProjectionSettings(account),cur=accountCurrency(account);
   const rateLabel=account.type==="mp2"?"Assumed dividend rate":"Annual interest rate";
   const earningsLabel=account.type==="mp2"?"Projected dividends":"Projected net interest";
   const valueLabel=account.type==="mp2"&&settings.payoutMode==="annual"?"Total projected proceeds":"Projected maturity value";
@@ -11257,20 +11318,20 @@ function accountProjectionCardHtml(account,month=state.month){
       <strong>${Number(r.rate||0).toFixed(2)}% p.a.</strong>
     </div>
     <div class="account-investment-grid">
-      <div><span>${esc(earningsLabel)}</span><strong class="projection-positive">${money(r.netEarnings)}</strong></div>
-      <div><span>${esc(valueLabel)}</span><strong>${money(r.projectedValue)}</strong></div>
+      <div><span>${esc(earningsLabel)}</span><strong class="projection-positive">${moneyIn(r.netEarnings,cur)}</strong></div>
+      <div><span>${esc(valueLabel)}</span><strong>${moneyIn(r.projectedValue,cur)}</strong></div>
       <div><span>Maturity</span><strong>${formatMonthFull(r.maturity)}</strong></div>
       <div><span>Time remaining</span><strong>${r.remaining} mo</strong></div>
     </div>
-    ${account.type==="time_deposit"?`<div class="deduction-note">Gross interest ${money(r.grossEarnings)} · estimated tax ${money(r.tax)} · net interest ${money(r.netEarnings)}</div>`:""}
-    ${account.type==="mp2"&&settings.monthlyContribution>0?`<div class="deduction-note">Includes ${money(r.futureContributions)} projection-only future contributions at ${money(settings.monthlyContribution)}/month. This forecast does not create actual MP2 deposits; use Recurring → Investment for real monthly contributions.</div>`:""}
+    ${account.type==="time_deposit"?`<div class="deduction-note">Gross interest ${moneyIn(r.grossEarnings,cur)} · estimated tax ${moneyIn(r.tax,cur)} · net interest ${moneyIn(r.netEarnings,cur)}</div>`:""}
+    ${account.type==="mp2"&&settings.monthlyContribution>0?`<div class="deduction-note">Includes ${moneyIn(r.futureContributions,cur)} projection-only future contributions at ${moneyIn(settings.monthlyContribution,cur)}/month. This forecast does not create actual MP2 deposits; use Recurring → Investment for real monthly contributions.</div>`:""}
   </div>`;
 }
 function accountTypeLabel(type){return ({cash:"Cold cash",bank:"Bank account",savings:"Savings account",time_deposit:"Time deposit",mp2:"Pag-IBIG MP2",ewallet:"E-wallet",investment:"Investment account",other:"Other"})[type]||"Account"}
 function accountIcon(type){if(type==="cash")return "banknotes";if(type==="ewallet")return "wallet";if(["bank","savings","time_deposit"].includes(type))return "building-library";if(["investment","mp2"].includes(type))return "chart-bar-square";return "wallet"}
 function accountOptions(selected="",includeBlank=true,spendableOnly=false){
-  const accounts=spendableOnly?spendableAccounts():state.accounts;
-  const opts=accounts.map(a=>`<option value="${a.id}" ${sameId(a.id,selected)?"selected":""}>${esc(a.name)} · ${esc(accountTypeLabel(a.type))}</option>`).join("");
+  const accounts=spendableOnly?budgetSourceAccounts():state.accounts;
+  const opts=accounts.map(a=>`<option value="${a.id}" ${sameId(a.id,selected)?"selected":""}>${esc(a.name)} · ${esc(accountTypeLabel(a.type))} · ${accountCurrency(a)}</option>`).join("");
   return `${includeBlank?`<option value="">Not tracked</option>`:""}${opts}`;
 }
 function paymentDetailState(month=state.month){state.billPaymentDetails[month]=state.billPaymentDetails[month]||{};return state.billPaymentDetails[month]}
@@ -11329,7 +11390,7 @@ function removeRecurringCommitmentLedgerEffect(billId,month,occurrenceIndex=null
 function recurringSourceSelectOptions(b,selectedDetail=null){
   const type=commitmentType(b);
   if(type==="expense")return sourceSelectOptions(selectedDetail);
-  const accounts=spendableAccounts();
+  const accounts=budgetSourceAccounts();
   const accountOpts=accounts.map(a=>`<option value="account:${a.id}" ${selectedDetail?.sourceType==="account"&&sameId(selectedDetail.accountId,a.id)?"selected":""}>${esc(a.name)} · ${esc(accountTypeLabel(a.type))}</option>`).join("");
   const allowOther=type!=="transfer";
   return `${accounts.length?`<optgroup label="Accounts & wallets">${accountOpts}</optgroup>`:""}${allowOther?`<optgroup label="Other"><option value="other" ${!selectedDetail||selectedDetail.sourceType==="other"?"selected":""}>Untracked / external</option></optgroup>`:""}`;
@@ -11395,8 +11456,8 @@ function accountMonthFlow(accountOrId,month,throughDate=""){
   });
   state.accountTransfers.forEach(t=>{
     if(!accountEventIncluded(account,t.date,month,throughDate))return;
-    if(sameId(t.toId,accountId))transferIn+=Number(t.amount||0);
-    if(sameId(t.fromId,accountId))transferOut+=Number(t.amount||0);
+    if(sameId(t.toId,accountId))transferIn+=Number(t.toAmount??t.amount??0);
+    if(sameId(t.fromId,accountId))transferOut+=Number(t.fromAmount??t.amount??0);
   });
   state.loans.forEach(loan=>{
     if(!sameId(loan.accountId,accountId)||!accountEventIncluded(account,loan.date,month,throughDate))return;
@@ -11426,10 +11487,10 @@ function accountBalanceOnDate(account,date){
   return balance;
 }
 function accountBalance(account,month=state.month){return accountBalanceOnDate(account,monthEndDate(month))}
-function totalAccountBalance(month=state.month){return state.accounts.reduce((s,a)=>s+accountBalance(a,month),0)}
-function accountBalanceByTypes(types,month=state.month){return state.accounts.filter(a=>types.includes(a.type)).reduce((s,a)=>s+accountBalance(a,month),0)}
+function totalAccountBalance(month=state.month){return state.accounts.reduce((s,a)=>s+accountValueInReporting(a,accountBalance(a,month)),0)}
+function accountBalanceByTypes(types,month=state.month){return state.accounts.filter(a=>types.includes(a.type)).reduce((s,a)=>s+accountValueInReporting(a,accountBalance(a,month)),0)}
 function sourceSelectOptions(selectedDetail=null){
-  const accountOpts=spendableAccounts().map(a=>`<option value="account:${a.id}" ${selectedDetail?.sourceType==="account"&&sameId(selectedDetail.accountId,a.id)?"selected":""}>${esc(a.name)} · ${esc(accountTypeLabel(a.type))}</option>`).join("");
+  const accountOpts=budgetSourceAccounts().map(a=>`<option value="account:${a.id}" ${selectedDetail?.sourceType==="account"&&sameId(selectedDetail.accountId,a.id)?"selected":""}>${esc(a.name)} · ${esc(accountTypeLabel(a.type))}</option>`).join("");
   const cardOpts=state.creditCards.map(c=>`<option value="card:${c.id}" ${selectedDetail?.sourceType==="card"&&selectedDetail.creditCardId===c.id?"selected":""}>${esc(cardLabel(c))}</option>`).join("");
   return `${state.accounts.length?`<optgroup label="Accounts & wallets">${accountOpts}</optgroup>`:""}${state.creditCards.length?`<optgroup label="Credit cards">${cardOpts}</optgroup>`:""}<optgroup label="Other"><option value="other" ${!selectedDetail||selectedDetail.sourceType==="other"?"selected":""}>Untracked / other</option></optgroup>`;
 }
@@ -11460,7 +11521,7 @@ function refreshGoalAllocationModal(){
       const input=document.querySelector(`#goalAllocationList [data-goal-account-amount="${account.id}"]`);
       const draftForGoal=Math.max(0,Number(input?.value||0));
       const otherReserved=accountGoalReserved(account.id)-Math.max(0,Number((state.goalAccountAllocations||{})[goal.id]?.[account.id]||0));
-      const availableBeforeThisGoal=accountBalance(account,state.month)-otherReserved;
+      const availableBeforeThisGoal=accountValueInReporting(account,accountBalance(account,state.month))-otherReserved;
       if(draftForGoal>availableBeforeThisGoal+0.005){
         accountOverages.push(`${account.name}: short by ${money(draftForGoal-availableBeforeThisGoal)}`);
       }
@@ -11498,7 +11559,7 @@ function allocateRemainingGoalSavingsToAccount(accountId){
     Number((state.goalAccountAllocations||{})[goal.id]?.[accountId]||0)
   );
   const otherGoalReserved=Math.max(0,accountGoalReserved(accountId)-currentThisGoal);
-  const available=Math.max(0,accountBalance(account,state.month)-otherGoalReserved);
+  const available=Math.max(0,accountValueInReporting(account,accountBalance(account,state.month))-otherGoalReserved);
 
   const amount=Math.min(remainingAfterOtherAccounts,available);
   target.value=amount>0?Math.round(amount*100)/100:"";
@@ -11529,13 +11590,13 @@ function openGoalAllocationModal(goalId){
     list.innerHTML=`<div class="empty"><strong>No accounts yet</strong>Add an account first, then return here to assign goal savings.</div>`;
   }else{
     list.innerHTML=state.accounts.map(account=>{
-      const balance=accountBalance(account,state.month);
+      const balance=accountBalance(account,state.month),balanceReporting=accountValueInReporting(account,balance),cur=accountCurrency(account);
       const alreadyOther=Math.max(0,accountGoalReserved(account.id)-Number(existing[account.id]||0));
-      const availableForGoal=balance-alreadyOther;
+      const availableForGoal=balanceReporting-alreadyOther;
       return `<label class="goal-allocation-account">
         <div class="goal-allocation-account-info">
-          <strong>${esc(account.name)} · ${esc(accountTypeLabel(account.type))}</strong>
-          <small>Total balance ${money(balance)} · reserved for other goals ${money(alreadyOther)} · available before this goal ${money(availableForGoal)}</small>
+          <strong>${esc(account.name)} · ${esc(accountTypeLabel(account.type))} · ${cur}</strong>
+          <small>Total balance ${moneyIn(balance,cur)}${cur!==reportingCurrency()?` (≈ ${money(balanceReporting)})`:""} · reserved for other goals ${money(alreadyOther)} · available before this goal ${money(availableForGoal)}</small>
         </div>
         <input data-goal-account-amount="${account.id}" type="number" min="0" step="1" value="${Number(existing[account.id]||0)||""}" placeholder="0">
         <button class="btn btn-secondary btn-sm" data-goal-allocate-all="${account.id}" type="button">Put the rest here</button>
@@ -11580,7 +11641,7 @@ function saveGoalAllocation(){
     if(!account)continue;
     const currentThisGoal=Math.max(0,Number((state.goalAccountAllocations||{})[goal.id]?.[accountId]||0));
     const otherReserved=accountGoalReserved(accountId)-currentThisGoal;
-    const available=accountBalance(account,state.month)-otherReserved;
+    const available=accountValueInReporting(account,accountBalance(account,state.month))-otherReserved;
     if(amount>available+0.005){
       refreshGoalAllocationModal();
       toast(`${account.name} does not have enough unreserved balance.`);
@@ -12893,14 +12954,14 @@ function refreshAccountContributionImpact(){
   const sourceValue=$("accountContributionSource").value;
   const kind=wealthKindForAccount(target);
   if(sourceValue==="external"){
-    $("accountContributionImpact").innerHTML=`${money(amount)} will be added directly to <strong>${esc(target.name)}</strong>. Because this is new ${kind==="investment"?"investment":"savings"} money, it can count toward Rewards.`;
-    return;
+    $("accountContributionImpact").innerHTML=`${moneyIn(amount,accountCurrency(target))} will be added directly to <strong>${esc(target.name)}</strong>. ${fxEquivalentHtml(target,amount)} Because this is new ${kind==="investment"?"investment":"savings"} money, it can count toward Rewards.`;return;
   }
   const source=accountById(sourceValue);
-  const sourceIsWealth=isRewardWealthAccount(source);
+  const sourceIsWealth=isRewardWealthAccount(source),targetCur=accountCurrency(target),sourceCur=accountCurrency(source),rate=targetCur===sourceCur?1:fxRate(targetCur,sourceCur,target),sourceAmount=rate>0?amount*rate:null;
+  const moveCopy=sourceAmount===null?`${moneyIn(amount,targetCur)} will be added to ${esc(target.name)}, but the ${targetCur}/${sourceCur} source conversion rate is not available yet.`:`${moneyIn(sourceAmount,sourceCur)} will move from <strong>${esc(source?.name||"the source")}</strong> to <strong>${esc(target.name)}</strong> as ${moneyIn(amount,targetCur)}.`;
   $("accountContributionImpact").innerHTML=sourceIsWealth
-    ?`${money(amount)} will move from <strong>${esc(source?.name||"the source")}</strong> to <strong>${esc(target.name)}</strong>. This is a reallocation between wealth accounts, so it will <strong>not</strong> create new wealth XP.`
-    :`${money(amount)} will move from <strong>${esc(source?.name||"the source")}</strong> to <strong>${esc(target.name)}</strong>. This is new ${kind==="investment"?"investment":"savings"} money and can count toward Rewards.`;
+    ?`${moveCopy} This is a reallocation between wealth accounts, so it will <strong>not</strong> create new wealth XP.`
+    :`${moveCopy} This is new ${kind==="investment"?"investment":"savings"} money and can count toward Rewards.`;
 }
 function openAccountContributionModal(accountId){
   const account=accountById(accountId);if(!account||!wealthKindForAccount(account))return;
@@ -12910,7 +12971,8 @@ function openAccountContributionModal(accountId){
   $("accountContributionSubtitle").textContent=kind==="investment"
     ?"Record new money added to this investment account."
     :"Record new money added to this savings account.";
-  $("accountContributionAccountName").value=`${account.name} · ${accountTypeLabel(account.type)}`;
+  $("accountContributionAccountName").value=`${account.name} · ${accountTypeLabel(account.type)} · ${accountCurrency(account)}`;
+  $("accountContributionAmountLabel").textContent=`Amount (${accountCurrency(account)})`;
   $("accountContributionAmount").value="";
   $("accountContributionDate").value=localDateKey();
   $("accountContributionSource").innerHTML=accountContributionSourceOptions(account.id);
@@ -12933,17 +12995,12 @@ function saveAccountContribution(){
   const note=$("accountContributionNote").value.trim();
   if(amount<=0){toast("Enter a contribution amount.");return}
   if(sourceValue==="external"){
-    state.accountTransactions.push({
-      id:uid(),referenceId:"",type:"wealth_contribution",direction:"credit",
-      accountId:target.id,amount,date,budgetMonth:date.slice(0,7),note
-    });
+    state.accountTransactions.push({id:uid(),referenceId:"",type:"wealth_contribution",direction:"credit",accountId:target.id,amount,currency:accountCurrency(target),date,budgetMonth:date.slice(0,7),note});
   }else{
-    const source=accountById(sourceValue);
-    if(!source){toast("Choose a valid source account.");return}
-    state.accountTransfers.push({
-      id:uid(),fromId:source.id,toId:target.id,amount,date,
-      note:note||`${target.type==="time_deposit"||target.type==="savings"?"Deposit":"Contribution"} to ${target.name}`
-    });
+    const source=accountById(sourceValue);if(!source){toast("Choose a valid source account.");return}
+    const fromCur=accountCurrency(source),toCur=accountCurrency(target);let fromAmount=amount,toAmount=amount,rate=1;
+    if(fromCur!==toCur){rate=fxRate(toCur,fromCur,target);if(!(rate>0)){toast(`No ${toCur}/${fromCur} exchange rate is available yet. Refresh the FX rate first.`);return}fromAmount=amount*rate}
+    state.accountTransfers.push({id:uid(),fromId:source.id,toId:target.id,amount:fromAmount,fromAmount,toAmount,fromCurrency:fromCur,toCurrency:toCur,fxRate:fromCur!==toCur?(toAmount/fromAmount):1,date,note:note||`${target.type==="time_deposit"||target.type==="savings"?"Deposit":"Contribution"} to ${target.name}`});
   }
   closeAccountContributionModal();
   scheduleAutoSave();
@@ -12955,13 +13012,15 @@ let editingAccountId=null;
 function openAccountEditor(id=null){
   editingAccountId=id;
   const a=id?clone(accountById(id)):{
-    id:uid(),name:"",type:"cash",openingBalance:0,balanceAsOf:localDateKey(),trackingStartMonth:localDateKey().slice(0,7),openingMonth:state.month,color:"#0f766e",notes:"",
+    id:uid(),name:"",type:"cash",currency:reportingCurrency(),manualFxRate:0,openingBalance:0,balanceAsOf:localDateKey(),trackingStartMonth:localDateKey().slice(0,7),openingMonth:state.month,color:"#0f766e",notes:"",
     projection:{rate:0,startMonth:state.month,termMonths:12,taxRate:20,payoutMode:"compound",monthlyContribution:0}
   };
   $("accountModalTitle").textContent=id?"Edit account":"Add account";
   $("deleteAccountBtn").style.visibility=id?"visible":"hidden";
   $("accountEditName").value=a.name||"";
   $("accountEditType").value=a.type||"cash";
+  $("accountEditCurrency").innerHTML=currencyOptionsHtml(accountCurrency(a));$("accountEditCurrency").value=accountCurrency(a);
+  $("accountEditManualFx").value=Number(a.manualFxRate||0)||"";
   $("accountEditOpeningBalance").value=Number(a.openingBalance||0)||"";
   $("accountEditBalanceAsOf").value=accountBaselineDate(a)||localDateKey();
   $("accountEditBalanceAsOf").max=localDateKey();
@@ -12979,8 +13038,18 @@ function openAccountEditor(id=null){
   $("accountModal").dataset.draftId=a.id;
   $("accountModal").classList.add("open");
   $("accountModal").setAttribute("aria-hidden","false");
-  refreshAccountInvestmentFields(false);
+  refreshAccountInvestmentFields(false);refreshAccountFxPreview(true);
   setTimeout(()=>$("accountEditName").focus(),40);
+}
+function accountDraftCurrency(){return String($("accountEditCurrency")?.value||reportingCurrency()).toUpperCase()}
+async function refreshAccountFxPreview(fetchIfNeeded=false){
+  if(!$("accountFxPreview"))return;const cur=accountDraftCurrency(),base=reportingCurrency(),amount=Math.max(0,Number($("accountEditOpeningBalance").value||0));
+  $("accountEditOpeningBalanceLabel").textContent=`Current / starting balance (${cur})`;const foreign=cur!==base;$("accountManualFxWrap").style.display=foreign?"block":"none";$("accountFxPreview").style.display=foreign?"block":"none";
+  if(!foreign)return;$("accountManualFxLabel").textContent=`Fallback rate · ${base} per 1 ${cur}`;
+  if(fetchIfNeeded&&!fxRecord(cur,base))await refreshFxPair(cur,base,{rerender:false});
+  const draft={currency:cur,manualFxRate:Math.max(0,Number($("accountEditManualFx").value||0))},rec=fxRecord(cur,base),rate=fxRate(cur,base,draft),eq=rate>0?amount*rate:null;
+  $("accountFxPreview").innerHTML=`<strong>${eq===null?"Current equivalent unavailable":`${moneyIn(amount,cur)} ≈ ${moneyIn(eq,base)}`}</strong><br>${rate>0?`1 ${cur} ≈ ${moneyIn(rate,base)} · ${rec?`${rec.source||"Frankfurter v2"} · ${rec.date||"latest"}`:"manual fallback"}`:`No cached online rate yet. Connect to the internet or enter an optional fallback rate.`}<div class="fx-rate-strip"><span>Online rates are refreshed from Frankfurter and cached locally.</span><button class="text-btn" id="refreshAccountFxBtn" type="button">Refresh rate</button></div>`;
+  $("refreshAccountFxBtn")?.addEventListener("click",async()=>{await refreshFxPair(cur,base,{force:true,rerender:false});refreshAccountFxPreview(false)});
 }
 
 function accountProjectionDraftFromForm(){
@@ -12989,6 +13058,8 @@ function accountProjectionDraftFromForm(){
     id:editingAccountId||$("accountModal").dataset.draftId||"draft",
     name:$("accountEditName").value||"Account",
     type,
+    currency:accountDraftCurrency(),
+    manualFxRate:Math.max(0,Number($("accountEditManualFx").value||0)),
     openingBalance:Number($("accountEditOpeningBalance").value||0),
     balanceAsOf:$("accountEditBalanceAsOf").value||localDateKey(),
     openingMonth:($("accountEditBalanceAsOf").value||localDateKey()).slice(0,7),
@@ -13064,10 +13135,10 @@ function refreshAccountInvestmentFields(typeChanged=false){
   $("accountProjectionEarningsLabel").textContent=isMp2?"Projected dividends":"Projected net interest";
 
   const draft=accountProjectionDraftFromForm();
-  const r=accountProjectionPreviewForDraft(draft);
-  $("accountProjectionPrincipal").textContent=money(r.principal);
-  $("accountProjectionEarnings").textContent=money(r.earnings);
-  $("accountProjectionValue").textContent=money(r.value);
+  const r=accountProjectionPreviewForDraft(draft),draftCur=accountCurrency(draft);
+  $("accountProjectionPrincipal").textContent=moneyIn(r.principal,draftCur);
+  $("accountProjectionEarnings").textContent=moneyIn(r.earnings,draftCur);
+  $("accountProjectionValue").textContent=moneyIn(r.value,draftCur);
   $("accountProjectionMaturity").textContent=formatMonthFull(r.maturity);
 
   if(isMp2){
@@ -13088,6 +13159,11 @@ function saveAccountEditor(){
   if(balanceAsOf>localDateKey()){toast("Balance as of cannot be in the future.");return}
   const openingMonth=balanceAsOf.slice(0,7)||state.month;
   const existing=editingAccountId?accountById(editingAccountId):null;
+  const newCurrency=accountDraftCurrency();
+  if(existing&&accountCurrency(existing)!==newCurrency){
+    const id=existing.id,hasActivity=state.accountTransfers.some(t=>sameId(t.fromId,id)||sameId(t.toId,id))||state.accountTransactions.some(tx=>sameId(tx.accountId,id))||state.incomes.some(x=>sameId(x.accountId,id)&&Object.values(state.incomeReceipts||{}).some(m=>m&&m[x.id]))||state.spending.some(x=>sameId(x.accountId,id))||state.dailySpendEntries.some(x=>sameId(x.accountId,id))||state.loans.some(x=>sameId(x.accountId,id))||state.loanPayments.some(x=>sameId(x.accountId,id));
+    if(hasActivity){toast("This account already has ledger activity. Create a separate account for the new currency so past PHP transactions are not reinterpreted as foreign currency.");return}
+  }
 
   const projection={
     rate:Math.max(0,Number($("accountYieldRate").value||0)),
@@ -13103,6 +13179,8 @@ function saveAccountEditor(){
     id:editingAccountId||$("accountModal").dataset.draftId||uid(),
     name,
     type,
+    currency:newCurrency,
+    manualFxRate:Math.max(0,Number($("accountEditManualFx").value||0)),
     openingBalance:Number($("accountEditOpeningBalance").value||0),
     balanceAsOf,
     trackingStartMonth:balanceAsOf.slice(0,7),
@@ -13120,7 +13198,7 @@ function saveAccountEditor(){
   const edited=!!editingAccountId;
   scheduleAutoSave();
   closeAccountEditor();
-  render();
+  render();refreshNeededFxRates({force:false,rerender:true});
   toast(edited?"Account updated.":"Account added.");
 }
 function deleteAccount(){
@@ -13192,24 +13270,29 @@ function saveReconcileAccount(){
     account.openingBalance=actual;
     scheduleAutoSave();closeReconcileAccount();render();toast("Starting balance snapshot updated to the reconciled amount.");return;
   }
-  state.accountTransactions.push({id:uid(),referenceId:"",type:"balance_adjustment",direction:difference>=0?"credit":"debit",accountId:account.id,amount:Math.abs(difference),date,budgetMonth:date.slice(0,7),note:$("reconcileNote").value.trim()||`Reconciled ${account.name} to ${money(actual)}`});
-  scheduleAutoSave();closeReconcileAccount();render();toast(`Account reconciled with a ${difference>=0?"credit":"debit"} adjustment of ${money(Math.abs(difference))}.`);
+  state.accountTransactions.push({id:uid(),referenceId:"",type:"balance_adjustment",direction:difference>=0?"credit":"debit",accountId:account.id,amount:Math.abs(difference),currency:accountCurrency(account),date,budgetMonth:date.slice(0,7),note:$("reconcileNote").value.trim()||`Reconciled ${account.name} to ${moneyIn(actual,accountCurrency(account))}`});
+  scheduleAutoSave();closeReconcileAccount();render();toast(`Account reconciled with a ${difference>=0?"credit":"debit"} adjustment of ${moneyIn(Math.abs(difference),accountCurrency(account))}.`);
 }
 
+async function refreshTransferFxPreview(fetchIfNeeded=false){
+  const from=accountById($("transferFrom")?.value),to=accountById($("transferTo")?.value),amount=Math.max(0,Number($("transferAmount")?.value||0));if(!from||!to)return;
+  const fromCur=accountCurrency(from),toCur=accountCurrency(to);$("transferAmountLabel").textContent=`Amount from ${from.name} (${fromCur})`;const box=$("transferFxPreview");if(fromCur===toCur){box.style.display="none";return}
+  box.style.display="block";if(fetchIfNeeded&&!fxRecord(fromCur,toCur))await refreshFxPair(fromCur,toCur,{rerender:false});const rec=fxRecord(fromCur,toCur),rate=fxRate(fromCur,toCur,from)||0,toAmount=rate>0?amount*rate:null;
+  box.innerHTML=rate>0?`<strong>${moneyIn(amount,fromCur)} → ${moneyIn(toAmount,toCur)}</strong><br>Rate locked for this transfer: 1 ${fromCur} ≈ ${moneyIn(rate,toCur)}${rec?` · ${rec.source||"Frankfurter v2"} · ${rec.date||"latest"}`:""}. The destination keeps the converted ${toCur} amount even if future exchange rates change.`:`No ${fromCur}/${toCur} rate is cached yet. <button class="text-btn" id="refreshTransferFxBtn" type="button">Fetch current rate</button>`;
+  $("refreshTransferFxBtn")?.addEventListener("click",async()=>{await refreshFxPair(fromCur,toCur,{force:true,rerender:false});refreshTransferFxPreview(false)});
+}
 function openTransferModal(){
   if(state.accounts.length<2){toast("Add at least two accounts before creating a transfer.");return}
   const opts=accountOptions("",false);$("transferFrom").innerHTML=opts;$("transferTo").innerHTML=opts;$("transferTo").selectedIndex=Math.min(1,$("transferTo").options.length-1);
-  $("transferAmount").value="";$("transferDate").value=localDateKey();$("transferNote").value="";$("transferModal").classList.add("open");$("transferModal").setAttribute("aria-hidden","false");
+  $("transferAmount").value="";$("transferDate").value=localDateKey();$("transferNote").value="";$("transferModal").classList.add("open");$("transferModal").setAttribute("aria-hidden","false");refreshTransferFxPreview(true);
 }
 function closeTransferModal(){$("transferModal").classList.remove("open");$("transferModal").setAttribute("aria-hidden","true")}
 function saveTransfer(){
-  const fromValue=$("transferFrom").value,toValue=$("transferTo").value,amount=Math.max(0,Number($("transferAmount").value||0));
-  const fromAccount=accountById(fromValue),toAccount=accountById(toValue);
-  if(!fromAccount||!toAccount){toast("Choose both accounts.");return}
-  if(sameId(fromAccount.id,toAccount.id)){toast("Choose two different accounts.");return}
-  if(amount<=0){toast("Enter a transfer amount.");return}
-  state.accountTransfers.push({id:uid(),fromId:fromAccount.id,toId:toAccount.id,amount,date:$("transferDate").value||localDateKey(),note:$("transferNote").value.trim()});
-  scheduleAutoSave();closeTransferModal();renderAccounts();renderOverviewAccounts();renderRewards({celebrate:true});renderDashboard();toast(`Transfer recorded: ${money(amount)} moved from ${fromAccount.name} to ${toAccount.name}.`);
+  const fromValue=$("transferFrom").value,toValue=$("transferTo").value,amount=Math.max(0,Number($("transferAmount").value||0));const fromAccount=accountById(fromValue),toAccount=accountById(toValue);
+  if(!fromAccount||!toAccount){toast("Choose both accounts.");return}if(sameId(fromAccount.id,toAccount.id)){toast("Choose two different accounts.");return}if(amount<=0){toast("Enter a transfer amount.");return}
+  const fromCur=accountCurrency(fromAccount),toCur=accountCurrency(toAccount);let rate=1,toAmount=amount;if(fromCur!==toCur){rate=fxRate(fromCur,toCur,fromAccount);if(!(rate>0)){toast(`No current ${fromCur}/${toCur} rate is available. Fetch the rate before saving.`);return}toAmount=amount*rate}
+  state.accountTransfers.push({id:uid(),fromId:fromAccount.id,toId:toAccount.id,amount,fromAmount:amount,toAmount,fromCurrency:fromCur,toCurrency:toCur,fxRate:rate,fxDate:fxRecord(fromCur,toCur)?.date||"",date:$("transferDate").value||localDateKey(),note:$("transferNote").value.trim()});
+  scheduleAutoSave();closeTransferModal();renderAccounts();renderOverviewAccounts();renderRewards({celebrate:true});renderDashboard();toast(`Transfer recorded: ${moneyIn(amount,fromCur)} → ${moneyIn(toAmount,toCur)}.`);
 }
 
 let pendingBillPayment={billId:null,month:null,onSaved:null,occurrenceIndex:null};
@@ -13264,10 +13347,12 @@ function saveBillPayment(){
     const dest=commitmentDestinationAccount(b);if(!dest){toast("This commitment has no valid destination account. Edit it first.");return}
     if(detail.sourceType==="account"){
       if(sameId(detail.accountId,dest.id)){toast("Source and destination cannot be the same account.");return}
-      state.accountTransfers.push({id:uid(),referenceId:commitRef,fromId:detail.accountId,toId:dest.id,amount:amountPaid,date:paidDate,note:detail.note||b.name,budgetMonth:month,billId,occurrenceIndex,commitmentType:type});
+      const sourceAccount=accountById(detail.accountId),fromCur=accountCurrency(sourceAccount),toCur=accountCurrency(dest);let toAmount=amountPaid,rate=1;if(fromCur!==toCur){rate=fxRate(fromCur,toCur,sourceAccount);if(!(rate>0)){toast(`No ${fromCur}/${toCur} FX rate is available. Refresh the destination account rate first.`);return}toAmount=amountPaid*rate}
+      state.accountTransfers.push({id:uid(),referenceId:commitRef,fromId:detail.accountId,toId:dest.id,amount:amountPaid,fromAmount:amountPaid,toAmount,fromCurrency:fromCur,toCurrency:toCur,fxRate:rate,fxDate:fxRecord(fromCur,toCur)?.date||"",date:paidDate,note:detail.note||b.name,budgetMonth:month,billId,occurrenceIndex,commitmentType:type});
     }else{
       if(type==="transfer"){toast("Choose a tracked source account for a transfer.");return}
-      state.accountTransactions.push({id:uid(),referenceId:commitRef,type:"wealth_contribution",direction:"credit",accountId:dest.id,amount:amountPaid,date:paidDate,budgetMonth:month,billId,occurrenceIndex,note:detail.note||b.name,commitmentType:type});
+      const toCur=accountCurrency(dest),nativeAmount=toCur===reportingCurrency()?amountPaid:convertCurrency(amountPaid,reportingCurrency(),toCur,dest);if(nativeAmount===null){toast(`No ${reportingCurrency()}/${toCur} FX rate is available. Refresh the destination account rate first.`);return}
+      state.accountTransactions.push({id:uid(),referenceId:commitRef,type:"wealth_contribution",direction:"credit",accountId:dest.id,amount:nativeAmount,baseAmount:amountPaid,currency:toCur,date:paidDate,budgetMonth:month,billId,occurrenceIndex,note:detail.note||b.name,commitmentType:type});
     }
   }else if(type==="debt"){
     const loan=commitmentLinkedLoan(b);if(!loan||loan.direction!=="borrowed"){toast("This recurring repayment is not linked to a valid amount you owe.");return}
@@ -13293,26 +13378,26 @@ function renderAccounts(){
   if(!state.accounts.length)grid.innerHTML=`<div class="account-empty">${heroSvg("building-library")}<br><strong>No accounts or wallets yet</strong><br>Add Cold Cash, a bank account, a time deposit, Pag-IBIG MP2, or an e-wallet to start tracking where your money is.</div>`;
   else{
     grid.innerHTML=state.accounts.map(a=>{
-      const bal=accountBalance(a,state.month),flow=accountMonthFlow(a,state.month),tracked=accountIsTrackedInMonth(a,state.month);
-      return `<article class="account-card" style="--account-accent:${esc(a.color||"#0f766e")}"><div class="account-card-head"><div class="account-card-title"><div class="account-card-icon">${heroSvg(accountIcon(a.type))}</div><div><strong>${esc(a.name)}</strong><small>${esc(accountTypeLabel(a.type))}</small></div></div><div class="account-card-actions">${wealthKindForAccount(a)?`<button class="btn btn-primary btn-sm" data-account-contribution="${a.id}" type="button">${a.type==="time_deposit"||a.type==="savings"?"Add deposit":"Add contribution"}</button>`:""}<button class="btn btn-secondary btn-sm" data-account-reconcile="${a.id}" type="button">Reconcile</button><button class="btn btn-secondary btn-sm" data-account-edit="${a.id}" type="button">Edit</button></div></div><div class="account-balance"><span>${tracked?`Balance through ${formatMonthFull(state.month)}`:"Not tracked yet"}</span><strong class="${bal<0?"negative":""}">${tracked?money(bal):"—"}</strong><small style="display:block;margin-top:5px;color:var(--muted);font-size:8px">${tracked?`Snapshot ${money(a.openingBalance)} as of ${formatDateFull(accountBaselineDate(a))} · ${money(flow.bills)} recurring bills paid this month`:`Tracking starts ${formatDateFull(accountBaselineDate(a))}`}</small></div>
+      const bal=accountBalance(a,state.month),flow=accountMonthFlow(a,state.month),tracked=accountIsTrackedInMonth(a,state.month),cur=accountCurrency(a),base=reportingCurrency(),reservedNative=reportingToAccountValue(accountGoalReserved(a.id),a);
+      return `<article class="account-card" style="--account-accent:${esc(a.color||"#0f766e")}"><div class="account-card-head"><div class="account-card-title"><div class="account-card-icon">${heroSvg(accountIcon(a.type))}</div><div><strong>${esc(a.name)}</strong><small>${esc(accountTypeLabel(a.type))} · <span class="currency-code-pill">${cur}</span></small></div></div><div class="account-card-actions">${wealthKindForAccount(a)?`<button class="btn btn-primary btn-sm" data-account-contribution="${a.id}" type="button">${a.type==="time_deposit"||a.type==="savings"?"Add deposit":"Add contribution"}</button>`:""}<button class="btn btn-secondary btn-sm" data-account-reconcile="${a.id}" type="button">Reconcile</button><button class="btn btn-secondary btn-sm" data-account-edit="${a.id}" type="button">Edit</button></div></div><div class="account-balance"><span>${tracked?`Balance through ${formatMonthFull(state.month)}`:"Not tracked yet"}</span><strong class="${bal<0?"negative":""}">${tracked?moneyIn(bal,cur):"—"}</strong>${tracked?fxEquivalentHtml(a,bal):""}<small style="display:block;margin-top:5px;color:var(--muted);font-size:8px">${tracked?`Snapshot ${moneyIn(a.openingBalance,cur)} as of ${formatDateFull(accountBaselineDate(a))} · ${moneyIn(flow.bills,cur)} recurring bills paid this month`:`Tracking starts ${formatDateFull(accountBaselineDate(a))}`}</small></div>
       <div class="account-availability">
-        <div class="usable"><span>${isSpendableAccount(a)?"Usable after goal savings":"Balance after goal savings"}</span><strong>${money(accountAvailableAfterGoals(a,state.month))}</strong></div>
-        <div class="reserved"><span>Reserved for goals</span><strong>${money(accountGoalReserved(a.id))}</strong></div>
+        <div class="usable"><span>${isSpendableAccount(a)?"Usable after goal savings":"Balance after goal savings"}</span><strong>${moneyIn(accountAvailableAfterGoals(a,state.month),cur)}</strong>${cur!==base?`<small class="fx-account-note">≈ ${money(accountValueInReporting(a,accountAvailableAfterGoals(a,state.month)))}</small>`:""}</div>
+        <div class="reserved"><span>Reserved for goals</span><strong>${cur===base?money(accountGoalReserved(a.id)):moneyIn(reservedNative,cur)}</strong>${cur!==base?`<small class="fx-account-note">${money(accountGoalReserved(a.id))} reporting value</small>`:""}</div>
       </div>
       ${accountGoalReserved(a.id)>0?`<div class="account-goal-breakdown">
         <div class="account-goal-breakdown-head"><strong>Goal savings planned for this account</strong><span>${accountGoalAllocations(a.id).length} goal${accountGoalAllocations(a.id).length===1?"":"s"}</span></div>
         ${accountGoalAllocations(a.id).map(row=>`<div class="account-goal-row"><span>${esc(row.goal.name)}</span><strong>${money(row.amount)}</strong></div>`).join("")}
       </div>`:""}
       <div class="account-flow-grid">
-        <div><span>Inflows this month</span><strong>${money(flow.inflow)}</strong></div>
-        <div><span>Outflows this month</span><strong>${money(flow.outflow)}</strong></div>
-        <div><span>Recurring expenses paid</span><strong>${money(flow.bills)}</strong></div>
-        <div><span>Actual spending</span><strong>${money(flow.spending)}</strong></div>
-        <div><span>Card payments</span><strong>${money(flow.cardPayments)}</strong></div>
-        <div><span>IOU net movement</span><strong>${money(flow.loanIn-flow.loanOut)}</strong></div>
-        <div><span>Direct additions</span><strong>${money(flow.wealthCredits||0)}</strong></div>
-        <div><span>Net movement</span><strong>${money(flow.net)}</strong></div>
-      </div>${accountProjectionCardHtml(a,state.month)}<div class="account-card-foot"><span class="account-type-pill">${heroSvg(accountIcon(a.type))}${esc(accountTypeLabel(a.type))}</span><small>Starting balance ${money(a.openingBalance)} · as of ${formatDateFull(accountBaselineDate(a))}</small></div></article>`;
+        <div><span>Inflows this month</span><strong>${moneyIn(flow.inflow,cur)}</strong></div>
+        <div><span>Outflows this month</span><strong>${moneyIn(flow.outflow,cur)}</strong></div>
+        <div><span>Recurring expenses paid</span><strong>${moneyIn(flow.bills,cur)}</strong></div>
+        <div><span>Actual spending</span><strong>${moneyIn(flow.spending,cur)}</strong></div>
+        <div><span>Card payments</span><strong>${moneyIn(flow.cardPayments,cur)}</strong></div>
+        <div><span>IOU net movement</span><strong>${moneyIn(flow.loanIn-flow.loanOut,cur)}</strong></div>
+        <div><span>Direct additions</span><strong>${moneyIn(flow.wealthCredits||0,cur)}</strong></div>
+        <div><span>Net movement</span><strong>${moneyIn(flow.net,cur)}</strong></div>
+      </div>${accountProjectionCardHtml(a,state.month)}<div class="account-card-foot"><span class="account-type-pill">${heroSvg(accountIcon(a.type))}${esc(accountTypeLabel(a.type))}</span><small>Starting balance ${moneyIn(a.openingBalance,cur)} · as of ${formatDateFull(accountBaselineDate(a))}</small></div></article>`;
     }).join("");
     grid.querySelectorAll("[data-account-edit]").forEach(btn=>btn.onclick=()=>openAccountEditor(btn.dataset.accountEdit));
     grid.querySelectorAll("[data-account-reconcile]").forEach(btn=>btn.onclick=()=>openReconcileAccount(btn.dataset.accountReconcile));
@@ -13329,7 +13414,7 @@ function renderAccounts(){
         <span>${esc(tx.date||"")}</span>
         <strong>${esc(account?.name||"Deleted account")}</strong>
         <span>${kind==="investment"?"Investment contribution":"Savings / deposit"}</span>
-        <span class="amount">${money(tx.amount)}</span>
+        <span class="amount">${moneyIn(tx.amount,accountCurrency(account))}${accountCurrency(account)!==reportingCurrency()?`<small class="fx-account-note">${fxEquivalentHtml(account,tx.amount)}</small>`:""}</span>
         <button class="icon-btn" type="button" data-direct-contribution-delete="${tx.id}" aria-label="Delete contribution">${heroSvg("trash")}</button>
       </div>`;
     }).join("")
@@ -13339,7 +13424,7 @@ function renderAccounts(){
     openConfirmAction({
       title:"Delete contribution",
       heading:"Delete this direct addition?",
-      message:`Remove the ${money(tx.amount)} contribution dated ${tx.date}?`,
+      message:`Remove the ${moneyIn(tx.amount,accountCurrency(accountById(tx.accountId)))} contribution dated ${tx.date}?`,
       warning:"The account balance and any Rewards XP earned from this contribution will be recalculated.",
       confirmLabel:"Delete contribution",
       onConfirm:()=>{
@@ -13350,10 +13435,10 @@ function renderAccounts(){
   });
 
   const transfers=[...state.accountTransfers].filter(t=>monthMatches(t.date,state.month)).sort((a,b)=>String(b.date).localeCompare(String(a.date)));
-  $("transferList").innerHTML=transfers.length?transfers.map(t=>`<div class="transfer-row"><span>${esc(t.date||"")}</span><strong>${esc(accountById(t.fromId)?.name||"Deleted account")}</strong><span class="arrow">${heroSvg("arrow-right")}</span><strong>${esc(accountById(t.toId)?.name||"Deleted account")}</strong><span class="amount">${money(t.amount)}</span><button class="icon-btn" data-transfer-delete="${t.id}" type="button" aria-label="Delete transfer">${heroSvg("trash")}</button></div>`).join(""):`<div class="empty"><strong>No transfers this month</strong>Transfers only move money between accounts and do not affect the budget.</div>`;
+  $("transferList").innerHTML=transfers.length?transfers.map(t=>`<div class="transfer-row"><span>${esc(t.date||"")}</span><strong>${esc(accountById(t.fromId)?.name||"Deleted account")}</strong><span class="arrow">${heroSvg("arrow-right")}</span><strong>${esc(accountById(t.toId)?.name||"Deleted account")}</strong><span class="amount">${moneyIn(Number(t.fromAmount??t.amount??0),accountCurrency(accountById(t.fromId)))}${accountCurrency(accountById(t.fromId))!==accountCurrency(accountById(t.toId))?` → ${moneyIn(Number(t.toAmount??t.amount??0),accountCurrency(accountById(t.toId)))}`:""}</span><button class="icon-btn" data-transfer-delete="${t.id}" type="button" aria-label="Delete transfer">${heroSvg("trash")}</button></div>`).join(""):`<div class="empty"><strong>No transfers this month</strong>Transfers only move money between accounts and do not affect the budget.</div>`;
   $("transferList").querySelectorAll("[data-transfer-delete]").forEach(btn=>btn.onclick=()=>{
     const t=state.accountTransfers.find(x=>x.id===btn.dataset.transferDelete);if(!t)return;
-    openConfirmAction({title:"Delete transfer",heading:"Delete this transfer?",message:`Remove the ${money(t.amount)} transfer from ${accountById(t.fromId)?.name||"account"} to ${accountById(t.toId)?.name||"account"}?`,warning:"Both account balances will be recalculated.",confirmLabel:"Delete transfer",onConfirm:()=>{state.accountTransfers=state.accountTransfers.filter(x=>x.id!==t.id);scheduleAutoSave();renderAccounts();renderOverviewAccounts();renderRewards();renderDashboard();toast("Transfer deleted.")}});
+    openConfirmAction({title:"Delete transfer",heading:"Delete this transfer?",message:`Remove the ${moneyIn(Number(t.fromAmount??t.amount??0),accountCurrency(accountById(t.fromId)))} transfer from ${accountById(t.fromId)?.name||"account"} to ${accountById(t.toId)?.name||"account"}?`,warning:"Both account balances will be recalculated.",confirmLabel:"Delete transfer",onConfirm:()=>{state.accountTransfers=state.accountTransfers.filter(x=>x.id!==t.id);scheduleAutoSave();renderAccounts();renderOverviewAccounts();renderRewards();renderDashboard();toast("Transfer deleted.")}});
   });
 }
 function accountBalanceBeforeMonth(account,month=state.month){
@@ -13366,7 +13451,7 @@ function accountBalanceBeforeMonth(account,month=state.month){
 function renderOverviewAccounts(){
   const box=$("overviewAccountGrid");if(!box)return;
   if(!state.accounts.length){box.innerHTML=`<div class="overview-account-mini"><span>Tracked money</span><strong>None yet</strong></div>`;return}
-  const sorted=[...state.accounts].sort((a,b)=>accountBalance(b,state.month)-accountBalance(a,state.month));
+  const sorted=[...state.accounts].sort((a,b)=>accountValueInReporting(b,accountBalance(b,state.month))-accountValueInReporting(a,accountBalance(a,state.month)));
   const total=totalAccountBalance(state.month);
   const banksSavings=accountBalanceByTypes(["bank","savings"],state.month);
   const cashWallets=accountBalanceByTypes(["cash","ewallet"],state.month);
@@ -13382,21 +13467,21 @@ function renderOverviewAccounts(){
       <div class="overview-account-mini"><span>Tracked money after IOUs</span><strong>${money(total-owed)}</strong></div>
     </div>
     ${sorted.map(a=>{
-      const current=accountBalance(a,state.month);
+      const current=accountBalance(a,state.month),cur=accountCurrency(a);
       const before=accountBalanceBeforeMonth(a,state.month);
       const flow=accountMonthFlow(a,state.month);
       const incomeAdded=flow.income;
       const otherActivity=current-before-incomeAdded;
       return `<div class="overview-account-detail" style="--account-accent:${esc(a.color||state.settings.accent||"#0f766e")}">
         <div class="overview-account-detail-head">
-          <div><strong>${esc(a.name)}</strong><small>${esc(accountTypeLabel(a.type))}</small></div>
-          <small>${isSpendableAccount(a)?`Usable ${money(accountAvailableAfterGoals(a,state.month))}`:"Asset balance"}</small>
+          <div><strong>${esc(a.name)}</strong><small>${esc(accountTypeLabel(a.type))} · ${cur}</small></div>
+          <small>${isSpendableAccount(a)?`Usable ${moneyIn(accountAvailableAfterGoals(a,state.month),cur)}`:"Asset balance"}</small>
         </div>
-        <strong class="overview-account-current">${money(current)}</strong>
+        <strong class="overview-account-current">${moneyIn(current,cur)}</strong>${fxEquivalentHtml(a,current)}
         <div class="overview-account-breakdown">
-          <div><span>${state.month===accountBaselineDate(a).slice(0,7)?"Starting snapshot":"Carried into month"}</span><strong>${money(before)}</strong></div>
-          <div><span>Income added this month</span><strong>${money(incomeAdded)}</strong></div>
-          <div><span>Other net activity</span><strong>${money(otherActivity)}</strong></div>
+          <div><span>${state.month===accountBaselineDate(a).slice(0,7)?"Starting snapshot":"Carried into month"}</span><strong>${moneyIn(before,cur)}</strong></div>
+          <div><span>Income added this month</span><strong>${moneyIn(incomeAdded,cur)}</strong></div>
+          <div><span>Other net activity</span><strong>${moneyIn(otherActivity,cur)}</strong></div>
         </div>
       </div>`;
     }).join("")}`;
@@ -13611,8 +13696,8 @@ function setupBillBasisOptions(selected="monthly"){
 function setupPriorityOptions(selected="medium"){
   return [["high","High"],["medium","Medium"],["low","Low"]].map(([v,l])=>`<option value="${v}" ${v===selected?"selected":""}>${l}</option>`).join("");
 }
-function setupAccountOptions(selected="",includeBlank=true){
-  const items=(state.accounts||[]).map(a=>`<option value="${esc(a.id)}" ${sameId(a.id,selected)?"selected":""}>${esc(a.name)} · ${esc(accountTypeLabel(a.type))}</option>`).join("");
+function setupAccountOptions(selected="",includeBlank=true,spendableOnly=false){
+  const source=spendableOnly?budgetSourceAccounts():(state.accounts||[]);const items=source.map(a=>`<option value="${esc(a.id)}" ${sameId(a.id,selected)?"selected":""}>${esc(a.name)} · ${esc(accountTypeLabel(a.type))} · ${accountCurrency(a)}</option>`).join("");
   return `${includeBlank?'<option value="">Untracked / choose later</option>':""}${items}`;
 }
 function setupDestinationOptions(type,selected=""){
@@ -13631,8 +13716,9 @@ function setupAccountRowHtml(a={},existing=false){
   const id=a.id||setupRecordId(),asOf=a.balanceAsOf||localDateKey();
   return `<div class="setup-row" data-setup-account-row data-record-id="${esc(id)}" data-existing="${existing?"1":"0"}">
     <div class="setup-row-grid">
-      <label class="setup-field setup-col-4"><span>Account name <b class="setup-required">*</b></span><input data-f="name" type="text" value="${esc(a.name||"")}" placeholder="Landbank, Cash, GCash…"></label>
-      <label class="setup-field setup-col-3"><span>Type</span><select data-f="type">${setupAccountTypeOptions(a.type||"bank")}</select></label>
+      <label class="setup-field setup-col-3"><span>Account name <b class="setup-required">*</b></span><input data-f="name" type="text" value="${esc(a.name||"")}" placeholder="Landbank, USD savings…"></label>
+      <label class="setup-field setup-col-2"><span>Type</span><select data-f="type">${setupAccountTypeOptions(a.type||"bank")}</select></label>
+      <label class="setup-field setup-col-2"><span>Currency</span><select data-f="currency">${currencyOptionsHtml(a.currency||state.settings.currency||"PHP")}</select></label>
       <label class="setup-field setup-col-3"><span>Current balance</span><input data-f="balance" type="number" step="0.01" value="${Number(a.openingBalance||0)||""}" placeholder="0"></label>
       <label class="setup-field setup-col-2"><span>Balance as of</span><input data-f="asOf" type="date" max="${localDateKey()}" value="${esc(asOf)}"></label>
     </div>
@@ -13648,7 +13734,7 @@ function setupIncomeRowHtml(x={},existing=false){
       <label class="setup-field setup-col-2"><span>Frequency</span><select data-f="frequency">${setupFrequencyOptions(x.frequency||"monthly")}</select></label>
       <label class="setup-field setup-col-2"><span>Amount / payment</span><input data-f="amount" type="number" min="0" step="0.01" value="${Number(x.amount||0)||""}" placeholder="0"></label>
       <label class="setup-field setup-col-2"><span>Expected payday(s)</span><input data-f="payDays" type="text" value="${esc((x.payDays||[]).join(", "))}" placeholder="e.g. 7, 22"></label>
-      <label class="setup-field setup-col-2"><span>Goes to</span><select data-f="accountId">${setupAccountOptions(x.accountId||"")}</select></label>
+      <label class="setup-field setup-col-2"><span>Goes to</span><select data-f="accountId">${setupAccountOptions(x.accountId||"",true,true)}</select></label>
     </div>
     <div class="setup-row-actions"><span class="setup-row-badge">${existing?"Created through setup":"Planned schedule only · actual receipt comes later"}</span>${setupRowRemoveButton(existing)}</div>
   </div>`;
@@ -13710,7 +13796,7 @@ function setupPopulateFromState(){
   if(eg)$("setupExistingGoalsNote").innerHTML=`<strong>${eg} existing goal${eg===1?"":"s"} protected.</strong> They remain untouched while you use setup.`;
   $("setupNoIncomeYet").checked=false; $("setupNoCommitmentsYet").checked=false; $("setupNoGoalsYet").checked=false;
   const off=new Set(dailyAllowanceRegularOffDays()); $("setupOffDays").querySelectorAll('input[type="checkbox"]').forEach(cb=>cb.checked=off.has(Number(cb.value)));
-  $("setupDefaultSpendingAccount").innerHTML=setupAccountOptions(state.settings.defaultSpendingAccountId||"");
+  $("setupDefaultSpendingAccount").innerHTML=setupAccountOptions(state.settings.defaultSpendingAccountId||"",true,true);
   const daily=dailyAllowanceTotals(state.month).total;
   document.querySelectorAll('input[name="setupDailyMode"]').forEach(r=>r.checked=false);
   document.querySelector(`input[name="setupDailyMode"][value="${daily>0?"plan":"later"}"]`).checked=true;
@@ -13733,8 +13819,8 @@ function setupCommitAccounts(){
     const name=row.querySelector('[data-f="name"]').value.trim(); if(!name)continue;
     const balance=Number(row.querySelector('[data-f="balance"]').value||0),asOf=row.querySelector('[data-f="asOf"]').value||localDateKey();
     if(asOf>localDateKey()){setupSetValidation(`"${name}" has a balance date in the future.`);return false}
-    const id=row.dataset.recordId||uid(),existing=state.accounts.find(a=>sameId(a.id,id)),type=row.querySelector('[data-f="type"]').value||"bank";
-    parsed.push({...existing,id,name,type,openingBalance:balance,balanceAsOf:asOf,trackingStartMonth:asOf.slice(0,7),openingMonth:asOf.slice(0,7),color:existing?.color||"#0f766e",notes:existing?.notes||"",projection:existing?.projection||{rate:type==="mp2"?7.12:0,startMonth:asOf.slice(0,7),termMonths:type==="mp2"?60:12,taxRate:type==="time_deposit"?20:0,payoutMode:"compound",monthlyContribution:0},setupOrigin:"setup"});
+    const id=row.dataset.recordId||uid(),existing=state.accounts.find(a=>sameId(a.id,id)),type=row.querySelector('[data-f="type"]').value||"bank",currency=String(row.querySelector('[data-f="currency"]')?.value||state.settings.currency||"PHP").toUpperCase();
+    parsed.push({...existing,id,name,type,currency,manualFxRate:existing?.manualFxRate||0,openingBalance:balance,balanceAsOf:asOf,trackingStartMonth:asOf.slice(0,7),openingMonth:asOf.slice(0,7),color:existing?.color||"#0f766e",notes:existing?.notes||"",projection:existing?.projection||{rate:type==="mp2"?7.12:0,startMonth:asOf.slice(0,7),termMonths:type==="mp2"?60:12,taxRate:type==="time_deposit"?20:0,payoutMode:"compound",monthlyContribution:0},setupOrigin:"setup"});
   }
   if(setupWalkthroughFirstRun&&!parsed.length&&!state.accounts.some(a=>a.setupOrigin!=="setup")){setupSetValidation("Add at least one place where you keep money. A current balance of 0 is okay.");return false}
   state.accounts=[...state.accounts.filter(a=>a.setupOrigin!=="setup"),...parsed];
@@ -13830,7 +13916,7 @@ function setupCommitReceipts(){
 }
 function setupRenderReview(){
   if(!$("setupReviewGrid"))return;
-  const snapshot=state.accounts.reduce((s,a)=>s+Number(a.openingBalance||0),0),received=totalCreditedIncome(state.month),daily=dailyAllowanceTotals(state.month).total,life=state.monthLifecycle[state.month];
+  const snapshot=state.accounts.reduce((s,a)=>s+accountValueInReporting(a,Number(a.openingBalance||0)),0),received=totalCreditedIncome(state.month),daily=dailyAllowanceTotals(state.month).total,life=state.monthLifecycle[state.month];
   $("setupReviewGrid").innerHTML=`
     <div class="setup-review-card"><span>Starting month</span><strong>${esc(formatMonthFull(state.month))}</strong><small>${life?.initialized?"Already initialized":"Will open when setup finishes"}</small></div>
     <div class="setup-review-card"><span>Accounts</span><strong>${state.accounts.length}</strong><small>${money(snapshot)} across entered snapshots</small></div>
@@ -13853,9 +13939,9 @@ function setupShowStep(step,{focus=true}={}){
   $("setupProgressFill").style.width=`${((step+1)/SETUP_STEP_COUNT)*100}%`;$("setupProgressCopy").textContent=`Step ${step+1} of ${SETUP_STEP_COUNT}`;$("setupBackBtn").classList.toggle("show",step>0);
   $("setupNextBtn").textContent=step===0?"Let's set it up":step===SETUP_STEP_COUNT-1?(setupWalkthroughFirstRun?"Start using SINOP":"Finish review"):"Continue";
   $("setupFootCopy").textContent=step===7?"Unchecked income stays planned—not received.":step===8?"Everything remains editable after setup.":"Continue when this step reflects your real situation.";
-  if(step===3)$("setupIncomeRows").querySelectorAll('[data-f="accountId"]').forEach(s=>{const value=s.value;s.innerHTML=setupAccountOptions(value);s.value=value});
+  if(step===3)$("setupIncomeRows").querySelectorAll('[data-f="accountId"]').forEach(s=>{const value=s.value;s.innerHTML=setupAccountOptions(value,true,true);s.value=value});
   if(step===4)$("setupBillRows").querySelectorAll("[data-setup-bill-row]").forEach(setupBindBillRow);
-  if(step===5){const value=$("setupDefaultSpendingAccount").value;$("setupDefaultSpendingAccount").innerHTML=setupAccountOptions(value);$("setupDefaultSpendingAccount").value=value||state.settings.defaultSpendingAccountId||"";setupRefreshDailyVisibility()}
+  if(step===5){const value=$("setupDefaultSpendingAccount").value;$("setupDefaultSpendingAccount").innerHTML=setupAccountOptions(value,true,true);$("setupDefaultSpendingAccount").value=value||state.settings.defaultSpendingAccountId||"";setupRefreshDailyVisibility()}
   if(step===7)setupRenderReceiptRows(); if(step===8)setupRenderReview();
   document.querySelector(".setup-content")?.scrollTo?.({top:0,behavior:"smooth"});
   if(focus)setTimeout(()=>document.querySelector(`[data-setup-panel="${step}"] input:not([type="checkbox"]):not([type="radio"]),[data-setup-panel="${step}"] select`)?.focus(),80);
@@ -15388,7 +15474,7 @@ function renderIncome(){
         ${salary?`<button class="salary-deduction-btn i-breakdown" type="button">View / attendance</button>`:""}
       </td>
       <td class="num salary-net i-monthly">${money(incomeMonthly(x))}</td>
-      <td><select class="cell-select i-account">${accountOptions(x.accountId||"",true)}</select><small class="account-select-note">Only confirmed payments are added to this balance.</small></td>
+      <td><select class="cell-select i-account">${accountOptions(x.accountId||"",true,true)}</select><small class="account-select-note">Income can be linked directly to accounts using the planner currency. Foreign-currency accounts are valued separately to avoid treating PHP income as foreign units.</small></td>
       <td><button class="icon-btn i-del" type="button" title="Delete income source" aria-label="Delete income source">${heroSvg("trash")}</button></td>`;
 
     const refresh=()=>{
@@ -15893,7 +15979,7 @@ function dailyDayStatusValue(date,record=null){
   return dailyAllowanceIsDayOff(date,r)?"off":(r.type||"work");
 }
 function dailySpendableAccountOptions(selected=""){
-  return `<option value="">Untracked / other</option>${spendableAccounts().map(a=>`<option value="${esc(a.id)}" ${sameId(a.id,selected)?"selected":""}>${esc(a.name)} · ${esc(accountTypeLabel(a.type))}</option>`).join("")}`;
+  return `<option value="">Untracked / other</option>${budgetSourceAccounts().map(a=>`<option value="${esc(a.id)}" ${sameId(a.id,selected)?"selected":""}>${esc(a.name)} · ${esc(accountTypeLabel(a.type))}</option>`).join("")}`;
 }
 function dailyDayModalDraftPlan(){
   const status=$("dailyDayStatus").value;
@@ -16306,7 +16392,7 @@ function renderSpending(){
       <td><select class="cell-select s-cat">${state.categories.spending.map(v=>`<option ${v===x.category?"selected":""}>${esc(v)}</option>`).join("")}</select></td>
       <td><select class="cell-select spending-status s-status"><option value="planned" ${x.status==="planned"?"selected":""}>Planned</option><option value="actual" ${(x.status||"actual")==="actual"?"selected":""}>Spent / actual</option></select></td>
       <td><select class="cell-select payment-method s-method">
-        ${spendableAccounts().length?`<optgroup label="Accounts & wallets">${spendableAccounts().map(a=>`<option value="account:${a.id}" ${sameId(x.accountId,a.id)?"selected":""}>${esc(a.name)} · ${esc(accountTypeLabel(a.type))}</option>`).join("")}</optgroup>`:""}
+        ${budgetSourceAccounts().length?`<optgroup label="Accounts & wallets">${budgetSourceAccounts().map(a=>`<option value="account:${a.id}" ${sameId(x.accountId,a.id)?"selected":""}>${esc(a.name)} · ${esc(accountTypeLabel(a.type))}</option>`).join("")}</optgroup>`:""}
         <optgroup label="Other payment methods">${state.settings.paymentMethods.filter(v=>v!=="Credit card").map(v=>`<option value="method:${esc(v)}" ${!x.accountId&&!x.creditCardId&&v===x.paymentMethod?"selected":""}>${esc(v)}</option>`).join("")}</optgroup>
         ${state.creditCards.length?`<optgroup label="Credit cards">${state.creditCards.map(c=>`<option value="card:${c.id}" ${x.creditCardId===c.id?"selected":""}>${esc(cardLabel(c))}</option>`).join("")}</optgroup>`:""}
       </select></td>
@@ -16888,9 +16974,9 @@ function wrappedGoalHtml(){
   return `<div class="wrapped-goals">${[...state.goals].sort((a,b)=>{const ap=Number(a.target||0)>0?Number(a.saved||0)/Number(a.target):0,bp=Number(b.target||0)>0?Number(b.saved||0)/Number(b.target):0;return bp-ap}).slice(0,4).map(g=>{const target=Math.max(0,Number(g.target||0)),saved=Math.max(0,Number(g.saved||0)),pct=target?Math.min(100,saved/target*100):0;return `<div class="wrapped-goal-row"><div class="wrapped-goal-top"><strong>${esc(g.name)}</strong><strong>${pct.toFixed(0)}%</strong></div><div class="progress-track"><div class="progress-fill" style="width:${pct}%"></div></div><small>${money(saved)} saved of ${money(target)}${pct>=100?" · funded":""}</small></div>`}).join("")}</div>`;
 }
 function wrappedAccountsHtml(month){
-  const rows=state.accounts.map(a=>({a,balance:accountBalance(a,month)})).filter(x=>x.balance!==0||accountTrackingStartMonth(x.a)<=month).sort((a,b)=>b.balance-a.balance).slice(0,5);
+  const rows=state.accounts.map(a=>({a,balance:accountBalance(a,month),reporting:accountValueInReporting(a,accountBalance(a,month))})).filter(x=>x.balance!==0||accountTrackingStartMonth(x.a)<=month).sort((a,b)=>b.reporting-a.reporting).slice(0,5);
   if(!rows.length)return `<div class="wrapped-empty"><strong>No tracked accounts</strong>Add your accounts to see where your money ended the period.</div>`;
-  return `<div class="wrapped-account-list">${rows.map(({a,balance})=>`<div class="wrapped-account-row"><div><strong>${esc(a.name)}</strong><span>${esc(accountTypeLabel(a.type))} · as of ${formatDueDate(new Date(`${monthEndDate(month)}T12:00:00`))}</span></div><strong>${money(balance)}</strong></div>`).join("")}</div>`;
+  return `<div class="wrapped-account-list">${rows.map(({a,balance})=>`<div class="wrapped-account-row"><div><strong>${esc(a.name)}</strong><span>${esc(accountTypeLabel(a.type))} · ${accountCurrency(a)} · as of ${formatDueDate(new Date(`${monthEndDate(month)}T12:00:00`))}</span></div><strong>${moneyIn(balance,accountCurrency(a))}${accountCurrency(a)!==reportingCurrency()?`<small style="display:block;color:var(--muted);font-size:8px">≈ ${money(accountValueInReporting(a,balance))}</small>`:""}</strong></div>`).join("")}</div>`;
 }
 function wrappedCommitmentBars(d){
   const rows=[["Expense",d.commitments.scheduled.expense,"var(--danger)"],["Savings",d.commitments.scheduled.savings,"var(--brand)"],["Investment",d.commitments.scheduled.investment,"var(--violet)"],["Debt",d.commitments.scheduled.debt,"var(--warn)"],["Transfer",d.commitments.scheduled.transfer,"var(--blue)"]];
@@ -17165,7 +17251,7 @@ $("closeAccountContributionBtn").onclick=closeAccountContributionModal;
 $("cancelAccountContributionBtn").onclick=closeAccountContributionModal;
 $("saveAccountContributionBtn").onclick=saveAccountContribution;
 $("accountContributionAmount").addEventListener("input",refreshAccountContributionImpact);
-$("accountContributionSource").addEventListener("change",refreshAccountContributionImpact);
+$("accountContributionSource").addEventListener("change",async()=>{const target=accountById(contributingAccountId),source=accountById($("accountContributionSource").value);if(target&&source&&accountCurrency(target)!==accountCurrency(source))await refreshFxPair(accountCurrency(target),accountCurrency(source),{rerender:false});refreshAccountContributionImpact()});
 $("accountContributionModal").addEventListener("click",e=>{if(e.target===$("accountContributionModal"))closeAccountContributionModal()});
 
 $("addAccountBtn").onclick=()=>openAccountEditor();
@@ -17194,9 +17280,14 @@ $("accountEditType").addEventListener("change",()=>{
   $(id).addEventListener("input",()=>refreshAccountInvestmentFields(false));
   $(id).addEventListener("change",()=>refreshAccountInvestmentFields(false));
 });
+$("accountEditCurrency")?.addEventListener("change",()=>{refreshAccountFxPreview(true);refreshAccountInvestmentFields(false)});
+$("accountEditManualFx")?.addEventListener("input",()=>refreshAccountFxPreview(false));
+$("accountEditOpeningBalance")?.addEventListener("input",()=>refreshAccountFxPreview(false));
 $("accountMp2Payout").addEventListener("change",()=>refreshAccountInvestmentFields(false));
 $("accountModal").addEventListener("click",e=>{if(e.target===$("accountModal"))closeAccountEditor()});
+$("refreshFxRatesBtn")?.addEventListener("click",async()=>{toast("Refreshing exchange rates…");await refreshNeededFxRates({force:true,rerender:true});toast("Exchange rates refreshed.")});
 $("addTransferBtn").onclick=openTransferModal;$("closeTransferModalBtn").onclick=closeTransferModal;$("cancelTransferBtn").onclick=closeTransferModal;$("saveTransferBtn").onclick=saveTransfer;
+$("transferFrom")?.addEventListener("change",()=>refreshTransferFxPreview(true));$("transferTo")?.addEventListener("change",()=>refreshTransferFxPreview(true));$("transferAmount")?.addEventListener("input",()=>refreshTransferFxPreview(false));
 $("transferModal").addEventListener("click",e=>{if(e.target===$("transferModal"))closeTransferModal()});
 $("closeBillPaymentModalBtn").onclick=closeBillPaymentModal;$("cancelBillPaymentBtn").onclick=closeBillPaymentModal;$("saveBillPaymentBtn").onclick=saveBillPayment;
 $("billPaymentSource").addEventListener("change",renderBillPaymentImpact);
@@ -17341,7 +17432,7 @@ $("settingAccent").oninput=e=>{state.settings.accent=e.target.value;applyAppeara
 $("settingSidebarStart").oninput=e=>{state.settings.sidebarStart=e.target.value;applyAppearance()};
 $("settingSidebarEnd").oninput=e=>{state.settings.sidebarEnd=e.target.value;applyAppearance()};
 $("settingSidebarText").oninput=e=>{state.settings.sidebarText=e.target.value;applyAppearance()};
-$("settingCurrency").onchange=e=>{state.settings.currency=e.target.value;render()};
+$("settingCurrency").onchange=e=>{state.settings.currency=e.target.value;render();refreshNeededFxRates({force:true,rerender:true})};
 $("settingDefaultSpendingAccount").onchange=e=>{
   const account=accountById(e.target.value);
   state.settings.defaultSpendingAccountId=isSpendableAccount(account)?account.id:"";
@@ -17878,7 +17969,7 @@ function renderSettings(){
   const defaultAccountSelect=$("settingDefaultSpendingAccount");
   if(defaultAccountSelect){
     const current=defaultSpendingAccountId();
-    defaultAccountSelect.innerHTML=`<option value="">No default · use Untracked</option>${spendableAccounts().map(a=>`<option value="${esc(a.id)}" ${sameId(a.id,current)?"selected":""}>${esc(a.name)} · ${esc(accountTypeLabel(a.type))}</option>`).join("")}`;
+    defaultAccountSelect.innerHTML=`<option value="">No default · use Untracked</option>${budgetSourceAccounts().map(a=>`<option value="${esc(a.id)}" ${sameId(a.id,current)?"selected":""}>${esc(a.name)} · ${esc(accountTypeLabel(a.type))}</option>`).join("")}`;
     defaultAccountSelect.value=current;
   }
   $("settingCents").checked=!!state.settings.showCents;
@@ -18635,7 +18726,7 @@ function renderMilestonesAndRecords(){if(!$("financialMilestoneGrid"))return;con
 function osSearchItems(){
   const items=[];const push=(type,label,sub,icon,target,action=null)=>items.push({type,label,sub,icon,target,action,search:`${label} ${sub} ${type}`.toLowerCase()});
   document.querySelectorAll('.nav-btn[data-target]').forEach(b=>push('Page',b.querySelector('.nav-label')?.textContent||b.dataset.target,'Open section',b.querySelector('svg')?'squares-2x2':'squares-2x2',b.dataset.target));
-  state.accounts.forEach(a=>push('Account',a.name,`${cap(a.type.replaceAll('_',' '))} · ${money(accountBalance(a,state.month))}`,'building-library','accounts'));
+  state.accounts.forEach(a=>push('Account',a.name,`${cap(a.type.replaceAll('_',' '))} · ${moneyIn(accountBalance(a,state.month),accountCurrency(a))}${accountCurrency(a)!==reportingCurrency()?` · ≈ ${money(accountValueInReporting(a,accountBalance(a,state.month)))}`:''}`,'building-library','accounts'));
   state.goals.forEach(g=>push('Goal',g.name,`${money(g.saved)} of ${money(g.target)}`,'flag','goals'));
   state.bills.forEach(b=>push('Recurring',b.name,`${commitmentTypeLabel(commitmentType(b))} · ${money(billValue(b,state.scenario,state.month))}`,'arrow-path','bills'));
   state.incomes.forEach(x=>push('Income',x.name,`${x.kind||'Income'} · ${money(incomeMonthly(x,state.month))} planned`,'plus-circle','income'));
@@ -18812,6 +18903,7 @@ $("saveScenarioBtn")?.addEventListener('click',saveScenario);
 window.matchMedia("(prefers-color-scheme: dark)").addEventListener?.("change",()=>{if(state.settings.theme==="system")applyAppearance()});
 initSidebar();
 render();
+refreshNeededFxRates({force:false,rerender:true});
 maybeStartFirstRunSetup();
 </script>
 </body>
