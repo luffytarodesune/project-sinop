@@ -4,13 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0f766e">
-<title>SINOP v108 · · Personal finance</title>
+<title>SINOP v109 · · Personal finance</title>
 <meta name="application-name" content="SINOP">
 <meta name="apple-mobile-web-app-title" content="SINOP">
 <meta name="description" content="SINOP — your personal money system for income, spending, savings, investments, goals, KKB, and financial tracking.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2718%27 fill=%27%230f766e%27/%3E%3Ctext x=%2732%27 y=%2743%27 text-anchor=%27middle%27 font-family=%27Arial,sans-serif%27 font-size=%2738%27 font-weight=%27900%27 fill=%27white%27%3ES%3C/text%3E%3C/svg%3E">
 <style>
-  
 :root{
   --bg:#f5f8f7;--panel:#fff;--soft:#eef6f3;--text:#18211e;--muted:#6e7d78;
   --border:#dce7e2;--brand:#0f766e;--brand2:#0a5c56;--brandsoft:#def3ed;
@@ -1394,6 +1393,28 @@ body[data-theme="dark"] .reward-streak{background:#18231f}
   .reward-path-row{grid-template-columns:90px 1fr 60px}
 }
 
+
+
+/* ----- v109 payroll periods, cash detail & funding reserve ----- */
+.cash-detail-metric{position:relative;overflow:visible;cursor:help}
+.cash-detail-metric:focus{outline:3px solid color-mix(in srgb,#fff 38%,transparent);outline-offset:2px}
+.cash-detail-popover{
+  position:absolute;right:0;top:calc(100% + 10px);z-index:35;width:min(390px,calc(100vw - 32px));
+  padding:13px;border:1px solid var(--border);border-radius:14px;background:var(--panel);color:var(--text);
+  box-shadow:0 18px 48px rgba(20,36,30,.22);opacity:0;visibility:hidden;transform:translateY(-4px);pointer-events:none;transition:.16s
+}
+.cash-detail-metric:hover .cash-detail-popover,.cash-detail-metric:focus .cash-detail-popover,.cash-detail-metric:focus-within .cash-detail-popover{opacity:1;visibility:visible;transform:none}
+.cash-detail-popover h3{margin:0 0 8px;font-size:12px}.cash-detail-popover p{margin:7px 0 0;color:var(--muted);font-size:8px;line-height:1.45}
+.cash-detail-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;padding:6px 0;border-bottom:1px solid var(--border);font-size:9px}
+.cash-detail-row:last-of-type{border-bottom:0}.cash-detail-row span{color:var(--muted)!important}.cash-detail-row strong{font-size:10px!important;color:var(--text)!important;margin:0!important;overflow:visible!important}
+.cash-detail-row.total{margin-top:3px;padding-top:9px;font-weight:900}.cash-detail-row.total strong{color:var(--brand2)!important}
+.salary-period-tabs{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px}.salary-period-tab{border:1px solid var(--border);background:var(--panel);color:var(--muted);border-radius:999px;padding:7px 10px;font-size:9px;font-weight:850}.salary-period-tab.active{background:var(--brandsoft);border-color:color-mix(in srgb,var(--brand) 30%,var(--border));color:var(--brand2)}
+.payday-editor{display:grid;gap:4px}.payday-editor input{width:100%;height:34px;border:1px solid var(--border);border-radius:8px;background:var(--panel);color:var(--text);padding:0 8px;font-size:9px}.payday-editor small{color:var(--muted);font-size:7.5px;line-height:1.3}
+.next-cycle-reserve{margin-bottom:14px;padding:15px 16px;border:1px solid color-mix(in srgb,var(--warn) 25%,var(--border));border-radius:15px;background:color-mix(in srgb,var(--warnsoft) 55%,var(--panel))}
+.next-cycle-reserve-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}.next-cycle-reserve-head h3{margin:2px 0 3px;font-size:13px}.next-cycle-reserve-head p{margin:0;color:var(--muted);font-size:9px;line-height:1.45}.next-cycle-reserve-total{text-align:right;white-space:nowrap}.next-cycle-reserve-total span{display:block;color:var(--muted);font-size:8px}.next-cycle-reserve-total strong{display:block;margin-top:3px;font-size:17px;color:var(--warn)}
+.next-cycle-reserve-list{display:grid;gap:6px;margin-top:11px}.next-cycle-reserve-row{display:grid;grid-template-columns:90px minmax(0,1fr) auto;gap:9px;align-items:center;padding:7px 9px;border-radius:10px;background:var(--panel);border:1px solid var(--border);font-size:8.5px}.next-cycle-reserve-row span{color:var(--muted)}.next-cycle-reserve-row strong:last-child{white-space:nowrap}.next-cycle-reserve-empty{margin-top:9px;color:var(--muted);font-size:8.5px}
+.grocery-recurring-actions{display:flex;gap:6px;flex-wrap:wrap}.grocery-recurring-actions .btn{padding:7px 9px}.grocery-manual-note{display:block;margin-top:4px;color:var(--blue);font-size:8px;font-weight:800}
+@media(max-width:620px){.cash-detail-popover{left:0;right:auto}.next-cycle-reserve-head{display:block}.next-cycle-reserve-total{text-align:left;margin-top:9px}.next-cycle-reserve-row{grid-template-columns:72px minmax(0,1fr)}.next-cycle-reserve-row strong:last-child{grid-column:2}}
 
 /* ----- Salary deductions & attendance ----- */
 .income-table{min-width:1710px}
@@ -3636,7 +3657,7 @@ body[data-theme="dark"] .manual-input-sim,body[data-theme="dark"] .manual-day-ro
 .income-receipt-occurrence{display:grid;grid-template-columns:minmax(115px,1fr) 132px;gap:6px 8px;align-items:center;padding:6px;border:1px solid var(--border);border-radius:10px;background:var(--panel)}
 .income-receipt-occurrence.checked{border-color:color-mix(in srgb,var(--brand) 30%,var(--border));background:color-mix(in srgb,var(--brandsoft) 45%,var(--panel))}
 .income-receipt-date{width:100%;min-width:0;height:32px;border:1px solid var(--border);border-radius:8px;background:var(--panel);color:var(--text);padding:0 7px;font-size:9px}
-.income-receipt-date:disabled{opacity:.5;background:var(--soft)}
+.income-receipt-date:disabled{opacity:.65;background:var(--soft)}
 .baseline-included{grid-column:1/-1;color:var(--blue);font-size:8px;font-weight:800;line-height:1.35}
 .reconcile-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.reconcile-grid .full{grid-column:1/-1}
 .reconcile-preview{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;padding:13px;border:1px solid var(--border);border-radius:14px;background:var(--soft)}
@@ -4415,7 +4436,7 @@ body[data-theme="dark"] .wrapped-hero{background:linear-gradient(135deg,color-mi
         <article class="metric"><span>Recurring commitments</span><strong id="mRecurring">₱0.00</strong><small id="scenarioNote">Expected scenario</small></article>
         <article class="metric"><span>Variable spending</span><strong id="mVariable">₱0.00</strong><small id="variableSplitNote">Planned + actual</small></article>
         <article class="metric"><span>Goal contributions</span><strong id="mGoals">₱0.00</strong><small>Planned this month</small></article>
-        <article class="metric accent"><span>Cash after IOUs</span><strong id="mRemaining">₱0.00</strong><small id="remainingNote">Budget balance less money you owe</small></article>
+        <article class="metric accent cash-detail-metric" tabindex="0" aria-describedby="cashAfterIousPopover"><span>Cash after IOUs</span><strong id="mRemaining">₱0.00</strong><small id="remainingNote">Budget balance less money you owe</small><div class="cash-detail-popover" id="cashAfterIousPopover" role="tooltip"><h3>Cash after IOUs breakdown</h3><div id="cashAfterIousBreakdown"></div><p>Hover this card, or focus/tap it on smaller screens, to inspect how SINOP arrived at the amount.</p></div></article>
       </div>
 
       <article class="card today-budget-card" id="todayBudgetCard">
@@ -4632,7 +4653,7 @@ body[data-theme="dark"] .wrapped-hero{background:linear-gradient(135deg,color-mi
         <table class="data-table income-table">
           <thead>
             <tr>
-              <th>Source</th><th>Type</th><th>Employment / tax treatment</th><th>Frequency</th><th>Received payments</th><th>Date if one-time</th>
+              <th>Source</th><th>Type</th><th>Employment / tax treatment</th><th>Frequency</th><th>Received payments</th><th>Expected payday(s) / one-time date</th>
               <th class="num">Gross / payment</th><th class="num">Deductions / month</th><th class="num">Planned net / month</th><th>Deposited to</th><th></th>
             </tr>
           </thead>
@@ -4661,6 +4682,10 @@ body[data-theme="dark"] .wrapped-hero{background:linear-gradient(135deg,color-mi
         <div class="bill-payment-card"><span>Still pending</span><strong id="billUnpaidMonth">₱0.00</strong></div>
         <div class="bill-payment-card"><span>Auto-pay / auto-transfer</span><strong id="billAutopayCount">0</strong></div>
       </div>
+      <article class="next-cycle-reserve" id="nextCycleReserveCard">
+        <div class="next-cycle-reserve-head"><div><span class="eyebrow">Pay-cycle protection</span><h3>Fund commitments that arrive before the next income</h3><p id="nextCycleReserveCopy">SINOP checks the next expected income date and reserves early next-month commitments from the current cycle when needed.</p></div><div class="next-cycle-reserve-total"><span>Reserve from this cycle</span><strong id="nextCycleReserveTotal">₱0.00</strong></div></div>
+        <div id="nextCycleReserveList" class="next-cycle-reserve-list"></div>
+      </article>
       <div class="commitment-breakdown-grid">
         <div class="commitment-breakdown-card"><span>Expenses</span><strong id="commitmentExpenseTotal">₱0.00</strong></div>
         <div class="commitment-breakdown-card"><span>Savings</span><strong id="commitmentSavingsTotal">₱0.00</strong></div>
@@ -4907,7 +4932,7 @@ body[data-theme="dark"] .wrapped-hero{background:linear-gradient(135deg,color-mi
         <div>
           <p class="eyebrow">Grocery</p>
           <h2>Plan the basket. Track the real cart.</h2>
-          <p class="subtle">Plan shopping trips, track the real cart, and manage household inventory with projected run-out dates. Scarce stock can become the next grocery list automatically.</p>
+          <p class="subtle">Optional detail module: plan shopping trips, track item prices, and manage household inventory with projected run-out dates. Recurring groceries can still be recorded as a single actual amount without using this module.</p>
         </div>
         <div class="action-row">
           <button class="btn btn-secondary" id="manageGroceryBudgetBtn" type="button">Grocery budget</button>
@@ -4965,7 +4990,7 @@ body[data-theme="dark"] .wrapped-hero{background:linear-gradient(135deg,color-mi
           <div>
             <p class="eyebrow">Shopping events</p>
             <h2>Every trip in this budget cycle</h2>
-            <p class="subtle">Draft a list before shopping. Completing a trip posts its actual total to the linked recurring grocery budget. Multiple trips accumulate.</p>
+            <p class="subtle">Optional item tracking: draft a list before shopping, keep prices, or manage inventory. You can instead record the real grocery amount directly from Recurring without entering any items.</p>
           </div>
           <span class="badge" id="groceryCycleBadge">Selected month</span>
         </div>
@@ -6415,12 +6440,12 @@ body[data-theme="dark"] .wrapped-hero{background:linear-gradient(135deg,color-mi
       <div>
         <p class="eyebrow">Recurring connection</p>
         <h2 id="groceryBudgetModalTitle">Connect a grocery budget</h2>
-        <p id="groceryBudgetModalSubtitle">Grocery needs one recurring planned amount so every trip can report an actual against it.</p>
+        <p id="groceryBudgetModalSubtitle">If you want item-level grocery tracking, connect it to a recurring grocery budget. You can still record the total amount directly in Recurring without entering items.</p>
       </div>
       <button class="icon-btn" id="closeGroceryBudgetModalBtn" type="button" aria-label="Close"><span data-hero="x-mark"></span></button>
     </div>
     <div class="modal-body">
-      <div class="grocery-budget-note" id="groceryBudgetModalNote">If you do not already have a grocery commitment, SINOP will create “Groceries” under Recurring → Expense. Shopping-event actuals will then update that row automatically.</div>
+      <div class="grocery-budget-note" id="groceryBudgetModalNote">This connection is optional. If you use it, SINOP can create “Groceries” under Recurring → Expense and shopping-event item totals can update that row automatically when no direct amount override is recorded.</div>
       <div class="grocery-budget-choice" style="margin-top:12px">
         <label><span>Use an existing recurring expense</span><select id="groceryBudgetExisting"><option value="">Create a new grocery budget</option></select></label>
         <label id="groceryBudgetAmountWrap"><span>Monthly planned grocery budget</span><input id="groceryBudgetAmount" type="number" min="0" step="100" placeholder="e.g. 10000"></label>
@@ -6518,7 +6543,8 @@ body[data-theme="dark"] .wrapped-hero{background:linear-gradient(135deg,color-mi
       <button class="icon-btn" id="closeBillPaymentModalBtn" aria-label="Close"><span data-hero="x-mark"></span></button>
     </div>
     <div class="modal-body"><div class="account-payment-source">
-      <div class="account-payment-summary"><div><span>Commitment</span><strong id="billPaymentName">—</strong></div><div><span>Amount</span><strong id="billPaymentAmount">₱0.00</strong></div></div>
+      <div class="account-payment-summary"><div><span>Commitment</span><strong id="billPaymentName">—</strong></div><div><span>Planned amount</span><strong id="billPaymentAmount">₱0.00</strong></div></div>
+      <label class="account-field"><span>Actual amount paid</span><input id="billPaymentAmountInput" type="number" min="0" step="0.01" placeholder="0"><small class="account-select-note">Use the real amount if it differs from the plan. This is especially useful for groceries and utilities.</small></label>
       <label class="account-field"><span id="billPaymentSourceLabel">Paid from / charged to</span><select id="billPaymentSource"></select><small id="billPaymentSourceNote" class="account-select-note">Choose the source of this commitment.</small></label>
       <div id="billPaymentImpact" class="account-helper">Choose an account to preview the balance impact.</div>
       <label class="account-field"><span>Payment date</span><input id="billPaymentDate" type="date"></label>
@@ -6910,6 +6936,7 @@ body[data-theme="dark"] .wrapped-hero{background:linear-gradient(135deg,color-mi
       <button class="icon-btn" id="closeSalaryBreakdownBtn" aria-label="Close"><span data-hero="x-mark"></span></button>
     </div>
     <div class="modal-body">
+      <div id="salaryPayPeriodTabs" class="salary-period-tabs"></div>
       <div class="salary-summary-grid">
         <div><span>Scheduled gross</span><strong id="salaryScheduledGross">₱0.00</strong></div>
         <div><span>Attendance deduction</span><strong id="salaryAttendanceDeduction">₱0.00</strong></div>
@@ -8002,6 +8029,7 @@ function normalizeState(s){
     frequency:x.frequency||"monthly",
     amount:Number(x.amount||0),
     date:x.date||"",
+    payDays:Array.isArray(x.payDays)?x.payDays.map(Number).filter(d=>Number.isFinite(d)&&d>=1&&d<=31).slice(0,x.frequency==="twice_monthly"?2:1):[],
     employmentType:x.employmentType||"none",
     accountId:x.accountId||""
   }));
@@ -8310,8 +8338,24 @@ function incomeReceiptDatesFor(x,month=state.month,create=false){
   }
   return dates;
 }
+function incomeConfiguredPayDays(x){
+  const days=(Array.isArray(x?.payDays)?x.payDays:[]).map(Number).filter(d=>Number.isFinite(d)&&d>=1&&d<=31);
+  if(x?.frequency==="twice_monthly")return days.slice(0,2);
+  return days.slice(0,1);
+}
+function incomeConfiguredDateForMonth(x,month,index=0){
+  if(x.frequency==="one_time"&&monthMatches(x.date,month))return x.date;
+  const days=incomeConfiguredPayDays(x);
+  if(x.frequency==="twice_monthly"){
+    const fallback=index===0?15:daysInMonthKey(month);
+    const day=days[index]||fallback;return incomeCoverageDateAtDay(month,day);
+  }
+  if(x.frequency==="monthly"){const day=days[0]||daysInMonthKey(month);return incomeCoverageDateAtDay(month,day)}
+  return "";
+}
 function defaultIncomeReceiptDate(x,month=state.month,index=0){
   if(x.frequency==="one_time"&&monthMatches(x.date,month))return x.date;
+  const configured=incomeConfiguredDateForMonth(x,month,index);if(configured)return configured;
   if(month===currentMonth)return localDateKey();
   return monthEndDate(month);
 }
@@ -8320,17 +8364,16 @@ function incomeReceiptDate(x,month=state.month,index=0){
   return dates[index]||defaultIncomeReceiptDate(x,month,index);
 }
 function incomeCreditedEvents(x,month=state.month){
-  const amountPerPayment=incomeNetPerPayment(x,month);
-  if(amountPerPayment<=0)return [];
+  if(incomeMonthly(x,month)<=0)return [];
   if(incomeUsesLegacyAutoCredit(x,month)){
     return [{date:monthEndDate(month),amount:Math.max(0,Number(incomeMonthly(x,month)||0)),index:0,legacy:true}];
   }
   const flags=incomeReceiptFlags(x,month,false);
-  return flags.map((checked,index)=>checked?{date:incomeReceiptDate(x,month,index),amount:amountPerPayment,index,legacy:false}:null).filter(Boolean);
+  return flags.map((checked,index)=>checked?{date:incomeReceiptDate(x,month,index),amount:incomeNetPerPayment(x,month,index),index,legacy:false}:null).filter(Boolean);
 }
-function incomeNetPerPayment(x,month=state.month){
-  const avgCount=incomeAveragePaymentsPerMonth(x,month);
-  if(avgCount<=0)return 0;
+function incomeNetPerPayment(x,month=state.month,index=0){
+  const avgCount=incomeAveragePaymentsPerMonth(x,month);if(avgCount<=0)return 0;
+  if(x.kind==="Salary"&&["monthly","twice_monthly"].includes(x.frequency))return salaryDeductionBreakdown(x,month,null,index).net;
   return Math.max(0,Number(incomeMonthly(x,month)||0)/avgCount);
 }
 function incomeCreditedCount(x,month=state.month){
@@ -8339,13 +8382,13 @@ function incomeCreditedCount(x,month=state.month){
 }
 function incomeCreditedAmount(x,month=state.month){
   if(incomeUsesLegacyAutoCredit(x,month))return Math.max(0,Number(incomeMonthly(x,month)||0));
-  return incomeReceiptFlags(x,month,false).filter(Boolean).length*incomeNetPerPayment(x,month);
+  return incomeReceiptFlags(x,month,false).reduce((sum,on,index)=>sum+(on?incomeNetPerPayment(x,month,index):0),0);
 }
 function totalCreditedIncome(month=state.month){
   return state.incomes.reduce((sum,x)=>sum+incomeCreditedAmount(x,month),0);
 }
 function incomeReceiptHelperText(x){
-  if(x.frequency==="twice_monthly")return "Tick the 1st and 2nd payment separately as each one is actually credited or received.";
+  if(x.frequency==="twice_monthly")return "Tick the 1st and 2nd payment separately. Salary deductions and attendance are stored independently for each pay period.";
   if(x.frequency==="weekly")return "Tick each weekly payment separately. A fifth checkbox is available for months with a fifth payday.";
   if(x.frequency==="biweekly")return "Tick each biweekly payment separately. A third checkbox is available for months with a third payday.";
   if(x.frequency==="quarterly")return "Tick the quarterly payment only when it actually arrives in the selected month.";
@@ -8375,12 +8418,12 @@ function incomeReceiptEditorHtml(x,month=state.month){
   const flags=incomeReceiptFlags(x,month,false);
   const dates=incomeReceiptDatesFor(x,month,false);
   const received=flags.filter(Boolean).length;
-  const perPayment=incomeNetPerPayment(x,month);
   const linkedAccount=accountById(x.accountId);
+  const receivedAmount=flags.reduce((sum,on,index)=>sum+(on?incomeNetPerPayment(x,month,index):0),0);
   return `<div class="income-receipt-editor">
     <div class="income-receipt-summary">
       <strong>${received} of ${count} confirmed</strong>
-      <small>${money(received*perPayment)} received</small>
+      <small>${money(receivedAmount)} received</small>
     </div>
     <div class="income-receipt-checks">
       ${flags.map((checked,index)=>{
@@ -8391,147 +8434,68 @@ function incomeReceiptEditorHtml(x,month=state.month){
             <input class="i-receipt" type="checkbox" data-receipt-index="${index}" ${checked?"checked":""}>
             <span>${esc(incomeReceiptSlotLabel(x,index,count))}</span>
           </label>
-          <input class="income-receipt-date i-receipt-date" type="date" data-receipt-index="${index}" value="${checked?esc(date):""}" ${checked?"":"disabled"}>
+          <input class="income-receipt-date i-receipt-date" type="date" data-receipt-index="${index}" value="${esc(date)}" title="${checked?"Actual received date":"Expected date — edit if this payment is delayed"}">
           ${included?`<small class="baseline-included">Included in ${esc(linkedAccount.name)} starting balance</small>`:""}
           ${checked?`<button class="income-plan-btn i-income-plan" type="button" data-receipt-index="${index}">Plan this income</button>`:""}
         </div>`;
       }).join("")}
     </div>
-    <small class="income-receipt-help">${esc(incomeReceiptHelperText(x))} Record the received date so account snapshots can avoid double-counting.</small>
+    <small class="income-receipt-help">${esc(incomeReceiptHelperText(x))} The date is editable before receipt as the expected payday; if pay is delayed, move it and SINOP will recalculate which commitments must be funded earlier.</small>
   </div>`;
 }
-function incomeAttendanceEntry(incomeId,month=state.month,create=true){
-  if(create){
-    state.incomeAttendance[month]=state.incomeAttendance[month]||{};
-    state.incomeAttendance[month][incomeId]=state.incomeAttendance[month][incomeId]||{
-      absentDays:0,lateMinutes:0,undertimeMinutes:0,workdays:22,hoursPerDay:8
-    };
-    return state.incomeAttendance[month][incomeId];
-  }
-  return (state.incomeAttendance[month]&&state.incomeAttendance[month][incomeId])||{
-    absentDays:0,lateMinutes:0,undertimeMinutes:0,workdays:22,hoursPerDay:8
-  };
+function salaryAttendanceDefault(){return {absentDays:0,lateMinutes:0,undertimeMinutes:0,workdays:22,hoursPerDay:8}}
+function normalizeSalaryAttendanceEntry(a={}){return {absentDays:Math.max(0,Number(a.absentDays||0)),lateMinutes:Math.max(0,Number(a.lateMinutes||0)),undertimeMinutes:Math.max(0,Number(a.undertimeMinutes||0)),workdays:Math.max(1,Number(a.workdays||22)),hoursPerDay:Math.max(1,Number(a.hoursPerDay||8))}}
+function incomeAttendanceEntries(incomeId,month=state.month,create=true){
+  const x=state.incomes.find(i=>sameId(i.id,incomeId)),count=Math.max(1,incomeReceiptSlotCount(x||{frequency:"monthly"},month)||1);
+  state.incomeAttendance=state.incomeAttendance||{};const raw=state.incomeAttendance?.[month]?.[incomeId];let entries=[];
+  if(Array.isArray(raw))entries=raw.map(normalizeSalaryAttendanceEntry);
+  else if(raw&&typeof raw==="object")entries=[normalizeSalaryAttendanceEntry(raw)];
+  while(entries.length<count)entries.push(salaryAttendanceDefault());entries=entries.slice(0,count);
+  if(create){state.incomeAttendance[month]=state.incomeAttendance[month]||{};state.incomeAttendance[month][incomeId]=entries}
+  return entries;
 }
-function attendanceBreakdown(x,month=state.month,attendanceOverride=null){
-  const gross=incomeGrossMonthly(x,month);
-  const a=attendanceOverride||incomeAttendanceEntry(x.id,month,false);
-  const workdays=Math.max(1,Number(a.workdays||22));
-  const hoursPerDay=Math.max(1,Number(a.hoursPerDay||8));
-  const daily=gross/workdays;
-  const hourly=daily/hoursPerDay;
-  const minute=hourly/60;
-  const absentDays=Math.max(0,Number(a.absentDays||0));
-  const lateMinutes=Math.max(0,Number(a.lateMinutes||0));
-  const undertimeMinutes=Math.max(0,Number(a.undertimeMinutes||0));
-  const absenceDeduction=absentDays*daily;
-  const lateDeduction=lateMinutes*minute;
-  const undertimeDeduction=undertimeMinutes*minute;
-  const total=Math.min(gross,absenceDeduction+lateDeduction+undertimeDeduction);
-  return {workdays,hoursPerDay,daily,hourly,minute,absentDays,lateMinutes,undertimeMinutes,absenceDeduction,lateDeduction,undertimeDeduction,total};
+function incomeAttendanceEntry(incomeId,month=state.month,occurrenceIndex=0,create=true){return incomeAttendanceEntries(incomeId,month,create)[Math.max(0,Number(occurrenceIndex||0))]||salaryAttendanceDefault()}
+function salaryGrossPerPayment(x,month=state.month){const count=incomeAveragePaymentsPerMonth(x,month);return count>0?incomeGrossMonthly(x,month)/count:0}
+function attendanceBreakdown(x,month=state.month,attendanceOverride=null,occurrenceIndex=0){
+  const grossMonthly=incomeGrossMonthly(x,month),grossPayment=Math.max(0,salaryGrossPerPayment(x,month)),a=normalizeSalaryAttendanceEntry(attendanceOverride||incomeAttendanceEntry(x.id,month,occurrenceIndex,false));
+  const daily=grossMonthly/a.workdays,hourly=daily/a.hoursPerDay,minute=hourly/60;
+  const absenceDeduction=a.absentDays*daily,lateDeduction=a.lateMinutes*minute,undertimeDeduction=a.undertimeMinutes*minute,total=Math.min(grossPayment,absenceDeduction+lateDeduction+undertimeDeduction);
+  return {...a,daily,hourly,minute,absenceDeduction,lateDeduction,undertimeDeduction,total};
 }
-function pagibigFundSalary(grossMonthly){
-  return Math.min(10000,Math.max(0,Number(grossMonthly||0)));
+function salaryMonthlyAttendanceBreakdown(x,month=state.month,overrideIndex=null,attendanceOverride=null){
+  const entries=incomeAttendanceEntries(x.id,month,false);let totals={absenceDeduction:0,lateDeduction:0,undertimeDeduction:0,total:0,absentDays:0,lateMinutes:0,undertimeMinutes:0};
+  entries.forEach((entry,index)=>{const d=attendanceBreakdown(x,month,index===overrideIndex?attendanceOverride:entry,index);totals.absenceDeduction+=d.absenceDeduction;totals.lateDeduction+=d.lateDeduction;totals.undertimeDeduction+=d.undertimeDeduction;totals.total+=d.total;totals.absentDays+=d.absentDays;totals.lateMinutes+=d.lateMinutes;totals.undertimeMinutes+=d.undertimeMinutes;if(index===0)Object.assign(totals,{workdays:d.workdays,hoursPerDay:d.hoursPerDay,daily:d.daily,hourly:d.hourly,minute:d.minute})});
+  return {...salaryAttendanceDefault(),...totals,total:Math.min(incomeGrossMonthly(x,month),totals.total)};
 }
-function pagibigEmployeeContribution(grossMonthly){
-  const salary=Math.max(0,Number(grossMonthly||0));
-  if(salary<=0)return 0;
-  const fundSalary=pagibigFundSalary(salary);
-  if(salary<=1500)return fundSalary*.01;
-  return fundSalary*.02;
+function pagibigFundSalary(grossMonthly){return Math.min(10000,Math.max(0,Number(grossMonthly||0)))}
+function pagibigEmployeeContribution(grossMonthly){const salary=Math.max(0,Number(grossMonthly||0));if(salary<=0)return 0;const fundSalary=pagibigFundSalary(salary);if(salary<=1500)return fundSalary*.01;return fundSalary*.02}
+function pagibigEmployerContribution(grossMonthly){return pagibigFundSalary(grossMonthly)*.02}
+function philhealthContributionBase(monthlyBasicSalary){const salary=Math.max(0,Number(monthlyBasicSalary||0));if(salary<=0)return 0;return Math.min(100000,Math.max(10000,salary))}
+function philhealthTotalPremium(monthlyBasicSalary){return philhealthContributionBase(monthlyBasicSalary)*.05}
+function philhealthEmployeeContribution(monthlyBasicSalary){return philhealthTotalPremium(monthlyBasicSalary)/2}
+function philhealthEmployerContribution(monthlyBasicSalary){return philhealthTotalPremium(monthlyBasicSalary)/2}
+function gsisEmployeeContribution(monthlyCompensation){return Math.max(0,Number(monthlyCompensation||0))*.09}
+function gsisEmployerContribution(monthlyCompensation){return Math.max(0,Number(monthlyCompensation||0))*.12}
+function sssMonthlySalaryCredit(actualRemuneration){const salary=Math.max(0,Number(actualRemuneration||0));if(salary<=0)return 0;return Math.min(35000,Math.max(5000,Math.round(salary/500)*500))}
+function sssEmployeeContribution(actualRemuneration){return sssMonthlySalaryCredit(actualRemuneration)*.05}
+function sssEmployerContribution(actualRemuneration){return sssMonthlySalaryCredit(actualRemuneration)*.10}
+function sssEmployerEC(actualRemuneration){const msc=sssMonthlySalaryCredit(actualRemuneration);if(msc<=0)return 0;return msc<=14500?10:30}
+function birMonthlyWithholding(taxableMonthly){const t=Math.max(0,Number(taxableMonthly||0));if(t<=20833)return 0;if(t<=33332)return (t-20833)*.15;if(t<=66666)return 1875+(t-33333)*.20;if(t<=166666)return 8541.80+(t-66667)*.25;if(t<=666666)return 33541.80+(t-166667)*.30;return 183541.80+(t-666667)*.35}
+function cosRequestedWithholding(payrollGross){const annualized=Math.max(0,Number(payrollGross||0))*12,taxableExcess=Math.max(0,annualized-250000);return taxableExcess*.05/12}
+function salaryMonthlyStatutoryBreakdown(x,month=state.month,overrideIndex=null,attendanceOverride=null){
+  const scheduledGross=incomeGrossMonthly(x,month),attendance=salaryMonthlyAttendanceBreakdown(x,month,overrideIndex,attendanceOverride),payrollGross=Math.max(0,scheduledGross-attendance.total),employment=x.kind==="Salary"?(x.employmentType||"none"):"none";let sss=0,gsis=0,philhealth=0,pagibig=0,tax=0;
+  if(employment==="government_permanent"){gsis=gsisEmployeeContribution(scheduledGross);philhealth=philhealthEmployeeContribution(scheduledGross);pagibig=pagibigEmployeeContribution(scheduledGross);tax=birMonthlyWithholding(Math.max(0,payrollGross-gsis-philhealth-pagibig))}
+  else if(employment==="private_permanent"){sss=sssEmployeeContribution(payrollGross);philhealth=philhealthEmployeeContribution(scheduledGross);pagibig=pagibigEmployeeContribution(scheduledGross);tax=birMonthlyWithholding(Math.max(0,payrollGross-sss-philhealth-pagibig))}
+  else if(employment==="cos_jo")tax=cosRequestedWithholding(payrollGross);
+  const statutory=sss+gsis+philhealth+pagibig+tax,totalDeductions=Math.min(scheduledGross,attendance.total+statutory),net=Math.max(0,scheduledGross-totalDeductions);return {scheduledGross,payrollGross,attendance,employment,sss,gsis,philhealth,pagibig,tax,statutory,totalDeductions,net};
 }
-function pagibigEmployerContribution(grossMonthly){
-  return pagibigFundSalary(grossMonthly)*.02;
+function salaryDeductionBreakdown(x,month=state.month,attendanceOverride=null,occurrenceIndex=null){
+  const monthly=salaryMonthlyStatutoryBreakdown(x,month,occurrenceIndex,attendanceOverride);if(occurrenceIndex===null||occurrenceIndex===undefined)return monthly;
+  const scheduledGross=Math.max(0,salaryGrossPerPayment(x,month)),attendance=attendanceBreakdown(x,month,attendanceOverride,occurrenceIndex),share=monthly.scheduledGross>0?scheduledGross/monthly.scheduledGross:0;
+  const sss=monthly.sss*share,gsis=monthly.gsis*share,philhealth=monthly.philhealth*share,pagibig=monthly.pagibig*share,tax=monthly.tax*share,statutory=sss+gsis+philhealth+pagibig+tax,payrollGross=Math.max(0,scheduledGross-attendance.total),totalDeductions=Math.min(scheduledGross,attendance.total+statutory),net=Math.max(0,scheduledGross-totalDeductions);
+  return {scheduledGross,payrollGross,attendance,employment:monthly.employment,sss,gsis,philhealth,pagibig,tax,statutory,totalDeductions,net,monthly};
 }
-function philhealthContributionBase(monthlyBasicSalary){
-  const salary=Math.max(0,Number(monthlyBasicSalary||0));
-  if(salary<=0)return 0;
-  return Math.min(100000,Math.max(10000,salary));
-}
-function philhealthTotalPremium(monthlyBasicSalary){
-  return philhealthContributionBase(monthlyBasicSalary)*.05;
-}
-function philhealthEmployeeContribution(monthlyBasicSalary){
-  return philhealthTotalPremium(monthlyBasicSalary)/2;
-}
-function philhealthEmployerContribution(monthlyBasicSalary){
-  return philhealthTotalPremium(monthlyBasicSalary)/2;
-}
-function gsisEmployeeContribution(monthlyCompensation){
-  return Math.max(0,Number(monthlyCompensation||0))*.09;
-}
-function gsisEmployerContribution(monthlyCompensation){
-  return Math.max(0,Number(monthlyCompensation||0))*.12;
-}
-function sssMonthlySalaryCredit(actualRemuneration){
-  const salary=Math.max(0,Number(actualRemuneration||0));
-  if(salary<=0)return 0;
-  return Math.min(35000,Math.max(5000,Math.round(salary/500)*500));
-}
-function sssEmployeeContribution(actualRemuneration){
-  const msc=sssMonthlySalaryCredit(actualRemuneration);
-  return msc*.05;
-}
-function sssEmployerContribution(actualRemuneration){
-  const msc=sssMonthlySalaryCredit(actualRemuneration);
-  return msc*.10;
-}
-function sssEmployerEC(actualRemuneration){
-  const msc=sssMonthlySalaryCredit(actualRemuneration);
-  if(msc<=0)return 0;
-  return msc<=14500?10:30;
-}
-function birMonthlyWithholding(taxableMonthly){
-  const t=Math.max(0,Number(taxableMonthly||0));
-  if(t<=20833)return 0;
-  if(t<=33332)return (t-20833)*.15;
-  if(t<=66666)return 1875+(t-33333)*.20;
-  if(t<=166666)return 8541.80+(t-66667)*.25;
-  if(t<=666666)return 33541.80+(t-166667)*.30;
-  return 183541.80+(t-666667)*.35;
-}
-function cosRequestedWithholding(payrollGross){
-  const annualized=Math.max(0,Number(payrollGross||0))*12;
-  const taxableExcess=Math.max(0,annualized-250000);
-  return taxableExcess*.05/12;
-}
-function salaryDeductionBreakdown(x,month=state.month,attendanceOverride=null){
-  const scheduledGross=incomeGrossMonthly(x,month);
-  const attendance=attendanceBreakdown(x,month,attendanceOverride);
-  const payrollGross=Math.max(0,scheduledGross-attendance.total);
-  const employment=x.kind==="Salary"?(x.employmentType||"none"):"none";
-
-  let sss=0,gsis=0,philhealth=0,pagibig=0,tax=0;
-  if(employment==="government_permanent"){
-    // GSIS uses fixed/actual monthly compensation. PhilHealth explicitly uses
-    // Monthly Basic Salary before deductions caused by tardiness, undertime,
-    // leave without pay or absences. Pag-IBIG uses Monthly Fund Salary.
-    gsis=gsisEmployeeContribution(scheduledGross);
-    philhealth=philhealthEmployeeContribution(scheduledGross);
-    pagibig=pagibigEmployeeContribution(scheduledGross);
-    tax=birMonthlyWithholding(Math.max(0,payrollGross-gsis-philhealth-pagibig));
-  }else if(employment==="private_permanent"){
-    // SSS is based on actual remuneration for the month, so attendance can
-    // move the employee to a different MSC bracket. PhilHealth/Pag-IBIG use
-    // their defined contribution bases rather than take-home pay.
-    sss=sssEmployeeContribution(payrollGross);
-    philhealth=philhealthEmployeeContribution(scheduledGross);
-    pagibig=pagibigEmployeeContribution(scheduledGross);
-    tax=birMonthlyWithholding(Math.max(0,payrollGross-sss-philhealth-pagibig));
-  }else if(employment==="cos_jo"){
-    tax=cosRequestedWithholding(payrollGross);
-  }
-
-  const statutory=sss+gsis+philhealth+pagibig+tax;
-  const totalDeductions=Math.min(scheduledGross,attendance.total+statutory);
-  const net=Math.max(0,scheduledGross-totalDeductions);
-  return {scheduledGross,payrollGross,attendance,employment,sss,gsis,philhealth,pagibig,tax,statutory,totalDeductions,net};
-}
-function incomeMonthly(x,month=state.month){
-  if(x.kind==="Salary" && (x.employmentType||"none")!=="none"){
-    return salaryDeductionBreakdown(x,month).net;
-  }
-  return incomeGrossMonthly(x,month);
-}
+function incomeMonthly(x,month=state.month){if(x.kind==="Salary" && (x.employmentType||"none")!=="none")return salaryDeductionBreakdown(x,month).net;if(x.kind==="Salary"){const attendance=salaryMonthlyAttendanceBreakdown(x,month);return Math.max(0,incomeGrossMonthly(x,month)-attendance.total)}return incomeGrossMonthly(x,month)}
 function totalGrossIncome(month=state.month){return state.incomes.reduce((s,x)=>s+incomeGrossMonthly(x,month),0)}
 function totalIncomeDeductions(month=state.month){return Math.max(0,totalGrossIncome(month)-totalIncome(month))}
 function totalIncome(month=state.month){return state.incomes.reduce((s,x)=>s+incomeMonthly(x,month),0)}
@@ -8581,6 +8545,13 @@ function incomeCoverageDateAtDay(month,day){
 }
 function incomeCoverageNextCandidateForIncome(x,afterDate,currentIncomeId=""){
   if(x.frequency==="one_time")return x.date&&x.date>afterDate?x.date:"";
+  const futureExpected=[];
+  for(let offset=0;offset<4;offset++){const month=shiftMonth(afterDate.slice(0,7),offset),dates=incomeReceiptDatesFor(x,month,false);dates.forEach((d,index)=>{const date=d||incomeConfiguredDateForMonth(x,month,index);if(date&&date>afterDate)futureExpected.push(date)})}
+  if(futureExpected.length)return futureExpected.sort()[0];
+  const configuredNow=incomeConfiguredDateForMonth(x,afterDate.slice(0,7),x.frequency==="twice_monthly"?1:0);
+  if(configuredNow&&configuredNow>afterDate)return configuredNow;
+  const configuredNext=incomeConfiguredDateForMonth(x,shiftMonth(afterDate.slice(0,7),1),0);
+  if(configuredNext&&configuredNext>afterDate)return configuredNext;
   const allConfirmed=incomeCoverageConfirmedDates(x),confirmed=allConfirmed.filter(d=>d<=afterDate);
 
   // Semi-monthly pay is usually tied to two days of the month rather than a
@@ -9856,9 +9827,11 @@ function groceryActualForBill(billId,month=state.month){
   return groceryCompletedEvents(month,billId).reduce((s,e)=>s+groceryEventActualTotal(e),0)
 }
 function groceryTripCount(billId,month=state.month){return groceryCompletedEvents(month,billId).length}
+function groceryManualActualDetail(billId,month=state.month){const d=state.billPaymentDetails?.[month]?.[billId]||null;return d&&isBillPaid(billId,month)?d:null}
+function groceryBillHasManualActual(billId,month=state.month){return !!groceryManualActualDetail(billId,month)}
 function billActualAmount(b,month=state.month){
   if(!b||!billActiveInMonth(b,month))return 0;
-  if(isGroceryBill(b))return groceryActualForBill(b.id,month);
+  if(isGroceryBill(b)){const manual=groceryManualActualDetail(b.id,month);return manual?Math.max(0,Number(manual.amountPaid||0)):groceryActualForBill(b.id,month)};
   if(billOccurrenceRecordExists(b.id,month)){
     const schedule=billOccurrenceSchedule(b,month,state.scenario),flags=billOccurrenceFlags(b.id,month,false),details=billOccurrenceDetails(b.id,month,false);
     return schedule.reduce((sum,occ,i)=>{if(!flags[i])return sum;const d=details[i];const amount=d&&d.amountPaid!==""&&d.amountPaid!==null&&d.amountPaid!==undefined?Math.max(0,Number(d.amountPaid||0)):Math.max(0,Number(occ.amount||0));return sum+amount},0);
@@ -9881,6 +9854,7 @@ function groceryRemoveLedgerEffect(eventId){
 function groceryApplyLedgerEffect(event){
   groceryRemoveLedgerEffect(event.id);
   if(event.status!=="completed")return;
+  if(event.budgetBillId&&groceryBillHasManualActual(event.budgetBillId,event.date.slice(0,7)))return;
   const amount=groceryEventActualTotal(event);
   if(amount<=0)return;
   if(event.paymentSourceType==="account"&&accountById(event.accountId)){
@@ -10182,7 +10156,7 @@ function renderGroceryBudget(){
   }
   $("groceryBudgetCard").classList.add("linked");
   const planned=billValue(bill,state.scenario,month),actual=groceryActualForBill(bill.id,month),remaining=planned-actual,pct=planned>0?actual/planned*100:0;
-  box.innerHTML=`<div class="grocery-budget-head"><div><p class="eyebrow">Connected recurring budget</p><h2>${esc(bill.name)}</h2><div class="grocery-budget-copy">${esc(formatMonthFull(month))} · Actual comes only from completed grocery shopping events.</div></div><button class="btn btn-secondary btn-sm" type="button" id="openLinkedRecurringBudget">Open Recurring</button></div>
+  box.innerHTML=`<div class="grocery-budget-head"><div><p class="eyebrow">Connected recurring budget</p><h2>${esc(bill.name)}</h2><div class="grocery-budget-copy">${esc(formatMonthFull(month))} · Actual can come from a direct Recurring amount or, when no direct override exists, from completed grocery shopping events.</div></div><button class="btn btn-secondary btn-sm" type="button" id="openLinkedRecurringBudget">Open Recurring</button></div>
   <div class="grocery-budget-kpis">
     <div class="grocery-kpi"><span>Planned</span><strong>${money(planned)}</strong><small>Recurring budget</small></div>
     <div class="grocery-kpi"><span>Actual</span><strong>${money(actual)}</strong><small>${trips} completed trip${trips===1?"":"s"}</small></div>
@@ -13241,7 +13215,7 @@ function saveTransfer(){
 let pendingBillPayment={billId:null,month:null,onSaved:null,occurrenceIndex:null};
 function renderBillPaymentImpact(){
   const {billId,month,occurrenceIndex}=pendingBillPayment;const b=state.bills.find(x=>sameId(x.id,billId));if(!b||!$("billPaymentImpact"))return;
-  const type=commitmentType(b);let amount=occurrenceIndex===null||occurrenceIndex===undefined?billValue(b,state.scenario,month):billOccurrenceAmount(b,occurrenceIndex,month,state.scenario);const source=$("billPaymentSource").value;const paidDate=$("billPaymentDate").value||paymentDateForBudgetMonth(month);const sourceAccount=source.startsWith("account:")?accountById(source.slice(8)):null;
+  const type=commitmentType(b);let amount=Math.max(0,Number($("billPaymentAmountInput")?.value||0))||(occurrenceIndex===null||occurrenceIndex===undefined?billValue(b,state.scenario,month):billOccurrenceAmount(b,occurrenceIndex,month,state.scenario));const source=$("billPaymentSource").value;const paidDate=$("billPaymentDate").value||paymentDateForBudgetMonth(month);const sourceAccount=source.startsWith("account:")?accountById(source.slice(8)):null;
   if(type==="expense"){
     if(sourceAccount){const before=accountBalanceOnDate(sourceAccount,paidDate);$("billPaymentImpact").innerHTML=`<strong>${esc(sourceAccount.name)}</strong> will decrease by <strong>${money(amount)}</strong>. Estimated balance after: <strong>${money(before-amount)}</strong>.`;return}
     if(source.startsWith("card:")){const card=cardById(source.slice(5));$("billPaymentImpact").innerHTML=`This recurring expense will be charged to <strong>${esc(card?cardLabel(card):"the selected card")}</strong>. Cash is reduced only when that card statement is paid.`;return}
@@ -13267,7 +13241,7 @@ function openBillPaymentModal(billId,month=state.month,onSaved=null,occurrenceIn
   const existing=occurrence?billPaymentOccurrenceDetail(billId,occurrenceIndex,month):(state.billPaymentDetails?.[month]?.[billId]||null),type=commitmentType(b),amount=occurrence?occurrence.amount:billValue(b,state.scenario,month);
   $("billPaymentModalTitle").textContent=type==="expense"?"Complete recurring expense":type==="savings"?"Record recurring savings":type==="investment"?"Record recurring investment":type==="debt"?"Record recurring debt repayment":"Complete recurring transfer";
   $("billPaymentModalSubtitle").textContent=occurrence?`${occurrence.label}${occurrence.date?` · due ${occurrence.date}`:""}. Only this payment will be completed.`:(type==="expense"?"Choose how this expense was paid.":type==="savings"?"Choose where the saving came from; the destination is set on the commitment.":type==="investment"?"Choose the funding source; the investment destination is set on the commitment.":type==="debt"?"Choose the account used for the repayment, or leave it untracked.":"Choose the source account for this internal transfer.");
-  $("billPaymentName").textContent=occurrence?`${b.name} · ${occurrence.label}`:b.name;$("billPaymentAmount").textContent=money(existing&&existing.amountPaid!==""&&existing.amountPaid!==null&&existing.amountPaid!==undefined?existing.amountPaid:amount);$("billPaymentDate").value=existing?.paidDate||occurrence?.date||paymentDateForBudgetMonth(month);$("billPaymentNote").value=existing?.note||"";
+  $("billPaymentName").textContent=occurrence?`${b.name} · ${occurrence.label}`:b.name;$("billPaymentAmount").textContent=money(amount);$("billPaymentAmountInput").value=Number(existing&&existing.amountPaid!==""&&existing.amountPaid!==null&&existing.amountPaid!==undefined?existing.amountPaid:amount);$("billPaymentDate").value=existing?.paidDate||occurrence?.date||paymentDateForBudgetMonth(month);$("billPaymentNote").value=existing?.note||"";
   let initial=existing;if(!initial&&type==="expense"&&b.creditCardId)initial={sourceType:"card",creditCardId:b.creditCardId};if(!initial){const a=defaultSpendingAccount();if(a)initial={sourceType:"account",accountId:a.id,creditCardId:""}}
   $("billPaymentSource").innerHTML=recurringSourceSelectOptions(b,initial);if(initial){if(initial.sourceType==="account")$("billPaymentSource").value=`account:${initial.accountId}`;else if(initial.sourceType==="card")$("billPaymentSource").value=`card:${initial.creditCardId}`;else $("billPaymentSource").value="other"}
   $("billPaymentSourceLabel").textContent=type==="expense"?"Paid from / charged to":type==="transfer"?"Transfer from":type==="debt"?"Repayment source":"Funding source";
@@ -13277,13 +13251,14 @@ function openBillPaymentModal(billId,month=state.month,onSaved=null,occurrenceIn
 }
 function closeBillPaymentModal(){$("billPaymentModal").classList.remove("open");$("billPaymentModal").setAttribute("aria-hidden","true");pendingBillPayment={billId:null,month:null,onSaved:null,occurrenceIndex:null};renderBills()}
 function saveBillPayment(){
-  const {billId,month,onSaved,occurrenceIndex}=pendingBillPayment;if(!billId)return;const b=state.bills.find(x=>sameId(x.id,billId));if(!b)return;const type=commitmentType(b),source=$("billPaymentSource").value,occurrence=occurrenceIndex===null||occurrenceIndex===undefined?null:billOccurrenceSchedule(b,month,state.scenario)[occurrenceIndex],paidDate=$("billPaymentDate").value||occurrence?.date||paymentDateForBudgetMonth(month);let amountPaid=Math.max(0,occurrence?occurrence.amount:billValue(b,state.scenario,month));
+  const {billId,month,onSaved,occurrenceIndex}=pendingBillPayment;if(!billId)return;const b=state.bills.find(x=>sameId(x.id,billId));if(!b)return;const type=commitmentType(b),source=$("billPaymentSource").value,occurrence=occurrenceIndex===null||occurrenceIndex===undefined?null:billOccurrenceSchedule(b,month,state.scenario)[occurrenceIndex],paidDate=$("billPaymentDate").value||occurrence?.date||paymentDateForBudgetMonth(month);let amountPaid=Math.max(0,Number($("billPaymentAmountInput")?.value||0));if(amountPaid<=0){toast("Enter the actual amount paid.");return}
   let detail={sourceType:"other",accountId:"",creditCardId:"",destinationAccountId:b.destinationAccountId||"",loanId:b.loanId||"",commitmentType:type,paidDate,note:$("billPaymentNote").value.trim(),budgetMonth:month,amountPaid,occurrenceIndex,occurrenceLabel:occurrence?.label||"Payment"};
   if(source.startsWith("account:")){const account=accountById(source.slice(8));if(!isSpendableAccount(account)){toast("Choose a spendable source account.");return}detail.sourceType="account";detail.accountId=account.id}else if(source.startsWith("card:")){if(type!=="expense"){toast("Only recurring expenses can be charged to a credit card.");return}detail.sourceType="card";detail.creditCardId=source.slice(5)}
   if(type==="transfer"&&detail.sourceType!=="account"){toast("Choose the account the transfer comes from.");return}
   removeRecurringCommitmentLedgerEffect(billId,month,occurrenceIndex);
   const billRef=occurrence?accountTransactionKeyForBillOccurrence(billId,month,occurrenceIndex):accountTransactionKeyForBill(billId,month),commitRef=recurringCommitmentReference(billId,month,occurrenceIndex);
   if(type==="expense"){
+    if(isGroceryBill(b))state.accountTransactions=state.accountTransactions.filter(tx=>!(tx.type==="grocery_event"&&sameId(tx.billId,billId)&&tx.budgetMonth===month));
     if(detail.sourceType==="account")upsertAccountTransaction({referenceId:billRef,type:"bill_payment",direction:"debit",accountId:detail.accountId,amount:amountPaid,date:paidDate,budgetMonth:month,billId,occurrenceIndex,note:detail.note});
   }else if(["savings","investment","transfer"].includes(type)){
     const dest=commitmentDestinationAccount(b);if(!dest){toast("This commitment has no valid destination account. Edit it first.");return}
@@ -13451,7 +13426,7 @@ function cardMonthTransactions(cardId,month=state.month,actualOnly=true){
     .filter(x=>x.creditCardId===cardId && (!actualOnly || (x.status||"actual")==="actual"))
     .map(x=>({...x,source:"spending"}));
   const recurring=recurringCardCharges(cardId,month);
-  const grocery=(state.groceryEvents||[]).filter(e=>monthMatches(e.date,month)&&e.status==="completed"&&e.paymentSourceType==="card"&&sameId(e.creditCardId,cardId))
+  const grocery=(state.groceryEvents||[]).filter(e=>monthMatches(e.date,month)&&e.status==="completed"&&e.paymentSourceType==="card"&&sameId(e.creditCardId,cardId)&&!groceryBillHasManualActual(e.budgetBillId||state.grocerySettings.billId,month))
     .map(e=>({id:`grocery:${e.id}`,date:e.date,description:e.name||"Grocery shopping",category:"Groceries",amount:groceryEventActualTotal(e),creditCardId:cardId,status:"actual",source:"grocery"}));
   return [...spending,...recurring,...grocery].sort((a,b)=>String(a.date||"").localeCompare(String(b.date||"")));
 }
@@ -13540,10 +13515,41 @@ function cardStatementMonthForDueDate(card,dueDate){
   return `${statementCloseDate(card,state.month).getFullYear()}-${String(statementCloseDate(card,state.month).getMonth()+1).padStart(2,"0")}`;
 }
 
+function nextExpectedIncomeAfter(afterDate){
+  const candidates=state.incomes.map(x=>({income:x,date:incomeCoverageNextCandidateForIncome(x,afterDate)})).filter(x=>x.date&&x.date>afterDate).sort((a,b)=>a.date.localeCompare(b.date));
+  const salaryCandidates=candidates.filter(x=>x.income?.kind==="Salary");
+  return salaryCandidates[0]||candidates[0]||null;
+}
+function nextCycleFundingReserve(month=state.month){
+  const monthEnd=monthEndDate(month),nextMonth=shiftMonth(month,1),nextIncome=nextExpectedIncomeAfter(monthEnd),rows=[];
+  if(!nextIncome)return {month,nextMonth,nextIncome:null,total:0,rows,unknown:true};
+  state.bills.forEach(b=>{
+    if(!billActiveInMonth(b,nextMonth)||commitmentType(b)==="transfer")return;
+    if(isGroceryBill(b)){
+      const due=billDueDateForMonth(b,nextMonth),date=due?localDateKey(due):"",planned=Math.max(0,Number(billValue(b,state.scenario,nextMonth)||0)),actual=Math.max(0,Number(billActualAmount(b,nextMonth)||0)),amount=Math.max(0,planned-actual);
+      if(date&&date<nextIncome.date&&amount>0.005)rows.push({bill:b,index:0,date,amount,label:"Payment",type:commitmentType(b)});
+      return;
+    }
+    const schedule=billOccurrenceSchedule(b,nextMonth,state.scenario),flags=billOccurrenceFlags(b.id,nextMonth,false),details=billOccurrenceDetails(b.id,nextMonth,false);
+    schedule.forEach((occ,index)=>{
+      if(flags[index]||!occ.date||occ.date>=nextIncome.date||occ.amount<=0.005)return;
+      const d=details[index],amount=d&&d.amountPaid!==""&&d.amountPaid!==null&&d.amountPaid!==undefined?Math.max(0,Number(occ.amount||0)-Number(d.amountPaid||0)):Math.max(0,Number(occ.amount||0));
+      if(amount>0.005)rows.push({bill:b,index,date:occ.date,amount,label:schedule.length>1?occ.label:"Payment",type:commitmentType(b)});
+    });
+  });
+  rows.sort((a,b)=>a.date.localeCompare(b.date)||String(a.bill.name||"").localeCompare(String(b.bill.name||"")));return {month,nextMonth,nextIncome,total:rows.reduce((sum,r)=>sum+r.amount,0),rows,unknown:false};
+}
+function renderNextCycleFundingReserve(){
+  if(!$("nextCycleReserveCard"))return;const r=nextCycleFundingReserve(state.month);$("nextCycleReserveTotal").textContent=money(r.total);const copy=$("nextCycleReserveCopy"),list=$("nextCycleReserveList");
+  if(r.unknown){copy.textContent="SINOP cannot identify the next income date yet. Add expected payday(s) under Income so early next-month commitments can be reserved from the correct pay cycle.";list.innerHTML=`<div class="next-cycle-reserve-empty">No next-income schedule is available yet.</div>`;return}
+  copy.innerHTML=`Next expected ${r.nextIncome.income?.kind==="Salary"?"salary":"income"}: <strong>${esc(r.nextIncome.income?.name||"Income")}</strong> on <strong>${esc(formatDueDate(incomeCoverageDateObj(r.nextIncome.date)))}</strong>. Unpaid commitments due before that date are held from ${esc(formatMonthFull(state.month))}.`;
+  list.innerHTML=r.rows.length?r.rows.map(x=>`<div class="next-cycle-reserve-row"><span>${esc(formatDueDate(incomeCoverageDateObj(x.date)))}</span><strong>${esc(x.bill.name)}${x.label!=="Payment"?` · ${esc(x.label)}`:""}</strong><strong>${money(x.amount)}</strong></div>`).join(""):`<div class="next-cycle-reserve-empty">Nothing due next month before the next expected income. No carry-forward reserve is needed.</div>`;
+}
+
 function monthSummary(month){
   const isPastUntouched=month<currentMonth && !monthHasTrackedActivity(month);
   if(isPastUntouched){
-    return {month,income:0,recurring:0,recurringExpense:0,recurringSavings:0,recurringInvestment:0,recurringDebt:0,recurringTransfer:0,variable:0,goals:0,outflow:0,remaining:0,iouOutstanding:0,cashAfterIous:0,untracked:true};
+    return {month,income:0,recurring:0,recurringExpense:0,recurringSavings:0,recurringInvestment:0,recurringDebt:0,recurringTransfer:0,variable:0,goals:0,outflow:0,remaining:0,iouOutstanding:0,nextCycleReserve:0,cashAfterIous:0,untracked:true};
   }
   const income=totalIncome(month);
   const recurringExpense=recurringCommitmentTotal(state.scenario,month,"expense");
@@ -13556,8 +13562,8 @@ function monthSummary(month){
   const goals=goalMonthly();
   const outflow=recurring+variable+goals;
   const remaining=income-outflow;
-  const iouOutstanding=loansOutstanding("borrowed",month);
-  return {month,income,recurring,recurringExpense,recurringSavings,recurringInvestment,recurringDebt,recurringTransfer,variable,goals,outflow,remaining,iouOutstanding,cashAfterIous:remaining-iouOutstanding};
+  const iouOutstanding=loansOutstanding("borrowed",month),nextCycleReserve=nextCycleFundingReserve(month).total;
+  return {month,income,recurring,recurringExpense,recurringSavings,recurringInvestment,recurringDebt,recurringTransfer,variable,goals,outflow,remaining,iouOutstanding,nextCycleReserve,cashAfterIous:remaining-iouOutstanding-nextCycleReserve};
 }
 
 
@@ -13610,7 +13616,7 @@ function setupAccountOptions(selected="",includeBlank=true){
   return `${includeBlank?'<option value="">Untracked / choose later</option>':""}${items}`;
 }
 function setupDestinationOptions(type,selected=""){
-  const allowed=type==="savings"?["savings","time_deposit"]:type==="investment"?["mp2","investment"]:type==="transfer"?["cash","bank","ewallet","savings","time_deposit","mp2","investment"]:[];
+  const allowed=type==="savings"?["cash","bank","ewallet","savings","time_deposit"]:type==="investment"?["mp2","investment"]:type==="transfer"?["cash","bank","ewallet","savings","time_deposit","mp2","investment"]:[];
   return `<option value="">Choose destination</option>`+state.accounts.filter(a=>allowed.includes(a.type)).map(a=>`<option value="${esc(a.id)}" ${sameId(a.id,selected)?"selected":""}>${esc(a.name)} · ${esc(accountTypeLabel(a.type))}</option>`).join("");
 }
 function setupSetValidation(message=""){
@@ -13641,6 +13647,7 @@ function setupIncomeRowHtml(x={},existing=false){
       <label class="setup-field setup-col-2"><span>Kind</span><select data-f="kind"><option ${x.kind==="Salary"?"selected":""}>Salary</option><option ${x.kind==="Freelance"?"selected":""}>Freelance</option><option ${x.kind==="Business"?"selected":""}>Business</option><option ${x.kind==="Allowance"?"selected":""}>Allowance</option><option ${x.kind==="Other"?"selected":""}>Other</option></select></label>
       <label class="setup-field setup-col-2"><span>Frequency</span><select data-f="frequency">${setupFrequencyOptions(x.frequency||"monthly")}</select></label>
       <label class="setup-field setup-col-2"><span>Amount / payment</span><input data-f="amount" type="number" min="0" step="0.01" value="${Number(x.amount||0)||""}" placeholder="0"></label>
+      <label class="setup-field setup-col-2"><span>Expected payday(s)</span><input data-f="payDays" type="text" value="${esc((x.payDays||[]).join(", "))}" placeholder="e.g. 7, 22"></label>
       <label class="setup-field setup-col-2"><span>Goes to</span><select data-f="accountId">${setupAccountOptions(x.accountId||"")}</select></label>
     </div>
     <div class="setup-row-actions"><span class="setup-row-badge">${existing?"Created through setup":"Planned schedule only · actual receipt comes later"}</span>${setupRowRemoveButton(existing)}</div>
@@ -13743,7 +13750,8 @@ function setupCommitIncome(){
     if(!name){setupSetValidation("Give each income source a name.");return false}
     if(amount<=0){setupSetValidation(`Enter an amount for "${name}".`);return false}
     const id=row.dataset.recordId||uid(),frequency=row.querySelector('[data-f="frequency"]').value||"monthly",existing=state.incomes.find(x=>sameId(x.id,id));
-    parsed.push({...existing,id,name,kind:row.querySelector('[data-f="kind"]').value||"Salary",frequency,amount,date:frequency==="one_time"?`${state.month}-01`:"",employmentType:existing?.employmentType||"none",accountId:row.querySelector('[data-f="accountId"]').value||"",setupOrigin:"setup"});
+    const payDays=String(row.querySelector('[data-f="payDays"]')?.value||"").split(/[,\s]+/).map(Number).filter(d=>Number.isFinite(d)&&d>=1&&d<=31).slice(0,frequency==="twice_monthly"?2:1);
+    parsed.push({...existing,id,name,kind:row.querySelector('[data-f="kind"]').value||"Salary",frequency,amount,date:frequency==="one_time"?`${state.month}-01`:"",payDays,employmentType:existing?.employmentType||"none",accountId:row.querySelector('[data-f="accountId"]').value||"",setupOrigin:"setup"});
   }
   if(setupWalkthroughFirstRun&&!parsed.length&&!state.incomes.some(x=>x.setupOrigin!=="setup")){setupSetValidation("Add an income source, or explicitly choose “I don't have an income source to add yet.”");return false}
   state.incomes=[...state.incomes.filter(x=>x.setupOrigin!=="setup"),...parsed]; return true;
@@ -13805,13 +13813,13 @@ function setupRenderReceiptRows(){
     return Array.from({length:count},(_,index)=>{
       const checked=!!flags[index],date=dates[index]||defaultIncomeReceiptDate(x,state.month,index);
       return `<label class="setup-receipt" data-setup-receipt data-income-id="${esc(x.id)}" data-index="${index}">
-        <span><strong>${esc(x.name)} · ${esc(incomeReceiptSlotLabel(x,index,count))}</strong><small>${money(incomeNetPerPayment(x,state.month))} planned for this payment</small></span>
+        <span><strong>${esc(x.name)} · ${esc(incomeReceiptSlotLabel(x,index,count))}</strong><small>${money(incomeNetPerPayment(x,state.month,index))} planned for this payment</small></span>
         <span class="setup-receipt-check"><input type="checkbox" data-f="checked" ${checked?"checked":""}>Actually received</span>
-        <input type="date" data-f="date" value="${esc(date)}" ${checked?"":"disabled"}>
+        <input type="date" data-f="date" value="${esc(date)}" title="Expected date before receipt; actual date after confirmation">
       </label>`;
     }).join("");
   }).join("");
-  $("setupReceiptRows").querySelectorAll('[data-f="checked"]').forEach(cb=>cb.onchange=()=>{const row=cb.closest("[data-setup-receipt]"),date=row.querySelector('[data-f="date"]');date.disabled=!cb.checked;if(cb.checked&&!date.value)date.value=localDateKey()});
+  $("setupReceiptRows").querySelectorAll('[data-f="checked"]').forEach(cb=>cb.onchange=()=>{const row=cb.closest("[data-setup-receipt]"),date=row.querySelector('[data-f="date"]');if(cb.checked&&!date.value)date.value=localDateKey()});
 }
 function setupCommitReceipts(){
   const grouped={};
@@ -14635,9 +14643,19 @@ function renderOverview(){
   $("scenarioBadge").textContent=cap(state.scenario);
   $("remainingNote").textContent=summary.income===0
     ?"Add income sources"
-    :summary.iouOutstanding>0
-      ?`${money(summary.remaining)} budget balance − ${money(summary.iouOutstanding)} you owe`
+    :summary.iouOutstanding>0||summary.nextCycleReserve>0
+      ?`${money(summary.remaining)} balance − ${money(summary.iouOutstanding)} IOUs${summary.nextCycleReserve>0?` − ${money(summary.nextCycleReserve)} early-next-month reserve`:""}`
       :summary.remaining>=0?"After all planned outflows · no outstanding IOUs":"Budget is over-allocated";
+  if($("cashAfterIousBreakdown"))$("cashAfterIousBreakdown").innerHTML=`
+    <div class="cash-detail-row"><span>Planned net income</span><strong>${money(summary.income)}</strong></div>
+    <div class="cash-detail-row"><span>Recurring commitments</span><strong>− ${money(summary.recurring)}</strong></div>
+    <div class="cash-detail-row"><span>Variable spending</span><strong>− ${money(summary.variable)}</strong></div>
+    <div class="cash-detail-row"><span>Goal contributions</span><strong>− ${money(summary.goals)}</strong></div>
+    <div class="cash-detail-row"><span>Budget balance</span><strong>${money(summary.remaining)}</strong></div>
+    <div class="cash-detail-row"><span>Outstanding borrowed IOUs</span><strong>− ${money(summary.iouOutstanding)}</strong></div>
+    <div class="cash-detail-row"><span>Reserved for commitments due before next income</span><strong>− ${money(summary.nextCycleReserve||0)}</strong></div>
+    <div class="cash-detail-row total"><span>Cash after IOUs & reserve</span><strong>${money(summary.cashAfterIous)}</strong></div>`;
+  renderNextCycleFundingReserve();
 
   const low=billTotal("low"),exp=billTotal("expected"),high=billTotal("high");
   $("sLow").textContent=money(low);$("sExpected").textContent=money(exp);$("sHigh").textContent=money(high);$("buffer").textContent=money(Math.max(0,high-exp));
@@ -15362,11 +15380,11 @@ function renderIncome(){
         ${[["monthly","Monthly"],["twice_monthly","Twice monthly"],["biweekly","Biweekly"],["weekly","Weekly"],["quarterly","Quarterly"],["annual","Annual"],["one_time","One-time"]].map(([v,l])=>`<option value="${v}" ${v===x.frequency?"selected":""}>${l}</option>`).join("")}
       </select></td>
       <td><div class="income-receipt-cell">${incomeReceiptEditorHtml(x,state.month)}</div></td>
-      <td><input class="cell-input date-input i-date" type="date" value="${x.date||""}" ${x.frequency==="one_time"?"":"disabled"}></td>
+      <td>${x.frequency==="one_time"?`<input class="cell-input date-input i-date" type="date" value="${x.date||""}">`:["monthly","twice_monthly"].includes(x.frequency)?`<div class="payday-editor"><input class="i-paydays" type="text" value="${esc(incomeConfiguredPayDays(x).join(", "))}" placeholder="${x.frequency==="twice_monthly"?"e.g. 7, 22":"e.g. 7"}"><small>Baseline schedule. Edit an expected date under Received payments when a particular payday is delayed.</small></div>`:`<div class="payday-editor"><small>Expected dates follow confirmed receipt history/cadence. Edit the dates under Received payments when needed.</small></div>`}</td>
       <td class="num"><input class="cell-input amount i-amount" type="number" min="0" step="1" value="${Number(x.amount||0)}"></td>
       <td class="num salary-deduction-cell">
         <strong>${money(d.totalDeductions)}</strong>
-        <small>${d.attendance.total>0?`${money(d.attendance.total)} attendance · `:""}${treatment==="none"?"No payroll estimate":"Includes payroll estimate"}</small>
+        <small>${x.frequency==="twice_monthly"?`1st ${money(salaryDeductionBreakdown(x,state.month,null,0).totalDeductions)} · 2nd ${money(salaryDeductionBreakdown(x,state.month,null,1).totalDeductions)}`:d.attendance.total>0?`${money(d.attendance.total)} attendance · `:""}${treatment==="none"?"No payroll estimate":"Includes payroll estimate"}</small>
         ${salary?`<button class="salary-deduction-btn i-breakdown" type="button">View / attendance</button>`:""}
       </td>
       <td class="num salary-net i-monthly">${money(incomeMonthly(x))}</td>
@@ -15429,7 +15447,8 @@ function renderIncome(){
     });
     tr.querySelectorAll(".i-income-plan").forEach(btn=>btn.onclick=()=>openIncomeCoverage(x.id,state.month,Number(btn.dataset.receiptIndex||0)));
     tr.querySelector(".i-account").onchange=e=>{x.accountId=e.target.value;scheduleAutoSave();renderAccounts();renderOverview();renderMonthlyStatement()};
-    tr.querySelector(".i-date").onchange=e=>{x.date=e.target.value;refresh();renderIncome()};
+    tr.querySelector(".i-date")?.addEventListener("change",e=>{x.date=e.target.value;refresh();renderIncome()});
+    tr.querySelector(".i-paydays")?.addEventListener("change",e=>{x.payDays=String(e.target.value||"").split(/[,\s]+/).map(Number).filter(d=>Number.isFinite(d)&&d>=1&&d<=31).slice(0,x.frequency==="twice_monthly"?2:1);scheduleAutoSave();renderIncome();renderOverview();renderBills()});
     tr.querySelector(".i-amount").oninput=e=>{
       x.amount=Number(e.target.value||0);
       refresh();
@@ -15650,112 +15669,42 @@ function salaryComputationGuideHtml(x,attendanceOverride=null){
 }
 
 let editingSalaryIncomeId=null;
-let salaryAttendanceDraft=null;
+let salaryAttendanceDrafts=[];
+let editingSalaryOccurrenceIndex=0;
 let pendingSalaryReceipt=null;
 
 function salaryIncomeById(id){return state.incomes.find(x=>x.id===id)}
-function openSalaryBreakdown(incomeId){
-  const x=salaryIncomeById(incomeId);if(!x)return;
-  editingSalaryIncomeId=incomeId;
-  salaryAttendanceDraft=clone(incomeAttendanceEntry(incomeId,state.month,false));
-  const pending=pendingSalaryReceipt&&pendingSalaryReceipt.incomeId===incomeId&&pendingSalaryReceipt.month===state.month?pendingSalaryReceipt:null;
-  if(pending){
-    const count=incomeReceiptSlotCount(x,state.month);
-    const label=incomeReceiptSlotLabel(x,pending.index,count);
-    $("salaryBreakdownTitle").textContent=`Confirm ${label}`;
-    $("salaryBreakdownSubtitle").textContent=`${x.name||"Salary"} · ${formatMonth(state.month)} · Enter absences, late minutes, or undertime before confirming this payment.`;
-  }else{
-    $("salaryBreakdownTitle").textContent=`${x.name||"Salary"} — deductions`;
-    $("salaryBreakdownSubtitle").textContent=`${formatMonth(state.month)} · ${employmentTreatmentLabel(x.employmentType||"none")}`;
-  }
-  $("salaryAttendanceMonth").textContent=formatMonth(state.month);
-  loadSalaryAttendanceDraft();
-  renderSalaryBreakdownModal();
-  $("salaryBreakdownModal").classList.add("open");
-  $("salaryBreakdownModal").setAttribute("aria-hidden","false");
+function openSalaryBreakdown(incomeId,occurrenceIndex=null){
+  const x=salaryIncomeById(incomeId);if(!x)return;editingSalaryIncomeId=incomeId;salaryAttendanceDrafts=clone(incomeAttendanceEntries(incomeId,state.month,false));
+  const pending=pendingSalaryReceipt&&pendingSalaryReceipt.incomeId===incomeId&&pendingSalaryReceipt.month===state.month?pendingSalaryReceipt:null;editingSalaryOccurrenceIndex=occurrenceIndex===null||occurrenceIndex===undefined?(pending?.index||0):Number(occurrenceIndex||0);
+  if(pending){const count=incomeReceiptSlotCount(x,state.month),label=incomeReceiptSlotLabel(x,pending.index,count);$("salaryBreakdownTitle").textContent=`Confirm ${label}`;$("salaryBreakdownSubtitle").textContent=`${x.name||"Salary"} · ${formatMonth(state.month)} · Deductions and attendance are stored separately for this payment.`}
+  else{$("salaryBreakdownTitle").textContent=`${x.name||"Salary"} — deductions by payment`;$("salaryBreakdownSubtitle").textContent=`${formatMonth(state.month)} · ${employmentTreatmentLabel(x.employmentType||"none")} · Switch pay periods below to review them separately.`}
+  $("salaryAttendanceMonth").textContent=formatMonth(state.month);loadSalaryAttendanceDraft();renderSalaryBreakdownModal();$("salaryBreakdownModal").classList.add("open");$("salaryBreakdownModal").setAttribute("aria-hidden","false");
 }
-function closeSalaryBreakdown(){
-  $("salaryBreakdownModal").classList.remove("open");
-  $("salaryBreakdownModal").setAttribute("aria-hidden","true");
-  editingSalaryIncomeId=null;salaryAttendanceDraft=null;pendingSalaryReceipt=null;
-}
-function loadSalaryAttendanceDraft(){
-  const a=salaryAttendanceDraft||{absentDays:0,lateMinutes:0,undertimeMinutes:0,workdays:22,hoursPerDay:8};
-  $("salaryAbsentDays").value=Number(a.absentDays||0)||"";
-  $("salaryLateMinutes").value=Number(a.lateMinutes||0)||"";
-  $("salaryUndertimeMinutes").value=Number(a.undertimeMinutes||0)||"";
-  $("salaryWorkdays").value=Number(a.workdays||22);
-  $("salaryHoursPerDay").value=Number(a.hoursPerDay||8);
-}
-function syncSalaryAttendanceDraft(){
-  if(!salaryAttendanceDraft)salaryAttendanceDraft={};
-  salaryAttendanceDraft.absentDays=Math.max(0,Number($("salaryAbsentDays").value||0));
-  salaryAttendanceDraft.lateMinutes=Math.max(0,Number($("salaryLateMinutes").value||0));
-  salaryAttendanceDraft.undertimeMinutes=Math.max(0,Number($("salaryUndertimeMinutes").value||0));
-  salaryAttendanceDraft.workdays=Math.max(1,Number($("salaryWorkdays").value||22));
-  salaryAttendanceDraft.hoursPerDay=Math.max(1,Number($("salaryHoursPerDay").value||8));
-}
+function closeSalaryBreakdown(){$("salaryBreakdownModal").classList.remove("open");$("salaryBreakdownModal").setAttribute("aria-hidden","true");editingSalaryIncomeId=null;salaryAttendanceDrafts=[];editingSalaryOccurrenceIndex=0;pendingSalaryReceipt=null}
+function currentSalaryAttendanceDraft(){return salaryAttendanceDrafts[editingSalaryOccurrenceIndex]||salaryAttendanceDefault()}
+function loadSalaryAttendanceDraft(){const a=currentSalaryAttendanceDraft();$("salaryAbsentDays").value=Number(a.absentDays||0)||"";$("salaryLateMinutes").value=Number(a.lateMinutes||0)||"";$("salaryUndertimeMinutes").value=Number(a.undertimeMinutes||0)||"";$("salaryWorkdays").value=Number(a.workdays||22);$("salaryHoursPerDay").value=Number(a.hoursPerDay||8)}
+function syncSalaryAttendanceDraft(){salaryAttendanceDrafts[editingSalaryOccurrenceIndex]=normalizeSalaryAttendanceEntry({absentDays:$("salaryAbsentDays").value,lateMinutes:$("salaryLateMinutes").value,undertimeMinutes:$("salaryUndertimeMinutes").value,workdays:$("salaryWorkdays").value,hoursPerDay:$("salaryHoursPerDay").value})}
 function salaryRuleCopy(type){
-  if(type==="government_permanent")return `<strong>Government permanent estimate:</strong> GSIS employee share, PhilHealth employee share, Pag-IBIG employee share, and monthly BIR withholding are estimated. Attendance reduces payroll gross, but the contribution base is not identical for every program. The attendance divisor defaults to 22 workdays × 8 hours and is editable to match your payroll office.`;
-  if(type==="private_permanent")return `<strong>Private permanent estimate:</strong> SSS employee share, PhilHealth employee share, Pag-IBIG employee share, and monthly BIR withholding are estimated. SSS uses actual remuneration/MSC while PhilHealth uses Monthly Basic Salary. Verify the attendance divisor against your employer’s payroll rules.`;
-  if(type==="cos_jo")return `<strong>COS / JO rule used here:</strong> 5% × the annualized payroll gross above ₱250,000, divided back to a monthly estimate, exactly following the simplified rule requested for this planner. SSS, GSIS, PhilHealth, and Pag-IBIG are not automatically deducted in this mode.`;
-  return `<strong>No payroll deductions:</strong> the salary amount is treated as take-home income except for any attendance deduction you explicitly enter.`;
+  if(type==="government_permanent")return `<strong>Government permanent estimate:</strong> statutory deductions are still estimated from the monthly payroll base, then allocated to each scheduled salary payment. Attendance, lateness, and undertime are stored separately per pay period.`;
+  if(type==="private_permanent")return `<strong>Private permanent estimate:</strong> monthly SSS/PhilHealth/Pag-IBIG/tax estimates are allocated across salary payments, while attendance adjustments are specific to the selected pay period.`;
+  if(type==="cos_jo")return `<strong>COS / JO rule used here:</strong> the simplified monthly 5% withholding estimate is allocated across pay periods. Attendance remains separate for each payment.`;
+  return `<strong>No statutory payroll estimate:</strong> each payment is reduced only by the attendance adjustment saved for that pay period.`;
 }
+function renderSalaryPeriodTabs(x){const count=incomeReceiptSlotCount(x,state.month),tabs=$("salaryPayPeriodTabs");if(!tabs)return;tabs.innerHTML=Array.from({length:count},(_,index)=>`<button class="salary-period-tab ${index===editingSalaryOccurrenceIndex?"active":""}" type="button" data-salary-period="${index}">${esc(incomeReceiptSlotLabel(x,index,count))} · ${money(incomeNetPerPayment(x,state.month,index))} net</button>`).join("");tabs.querySelectorAll("[data-salary-period]").forEach(btn=>btn.onclick=()=>{syncSalaryAttendanceDraft();editingSalaryOccurrenceIndex=Number(btn.dataset.salaryPeriod||0);loadSalaryAttendanceDraft();renderSalaryBreakdownModal()})}
 function renderSalaryBreakdownModal(){
-  const x=salaryIncomeById(editingSalaryIncomeId);if(!x)return;
-  syncSalaryAttendanceDraft();
-  const d=salaryDeductionBreakdown(x,state.month,salaryAttendanceDraft);
-  $("salaryScheduledGross").textContent=money(d.scheduledGross);
-  $("salaryAttendanceDeduction").textContent=money(d.attendance.total);
-  $("salaryPayrollGross").textContent=money(d.payrollGross);
-  $("salaryNetMonthly").textContent=money(d.net);
-  $("salaryDailyRate").textContent=money(d.attendance.daily);
-  $("salaryHourlyRate").textContent=money(d.attendance.hourly);
-  $("salaryMinuteRate").textContent=money(d.attendance.minute);
-
-  const rows=[
-    ["Unpaid absences",d.attendance.absenceDeduction],
-    ["Late",d.attendance.lateDeduction],
-    ["Undertime",d.attendance.undertimeDeduction],
-    ["SSS — employee share",d.sss],
-    ["GSIS — employee share",d.gsis],
-    ["PhilHealth — employee share",d.philhealth],
-    ["Pag-IBIG — employee share",d.pagibig],
-    [d.employment==="cos_jo"?"COS 5% withholding estimate":"BIR withholding tax estimate",d.tax]
-  ];
-  $("salaryBreakdownRows").innerHTML=rows.map(([label,value])=>`
-    <div class="salary-breakdown-row"><span>${esc(label)}</span><strong>${money(value)}</strong></div>`).join("")+
-    `<div class="salary-breakdown-row total"><span>Total deductions from scheduled gross</span><strong>${money(d.totalDeductions)}</strong></div>
-     <div class="salary-breakdown-row total net"><span>Estimated take-home income</span><strong>${money(d.net)}</strong></div>`;
-  $("salaryRuleNote").innerHTML=salaryRuleCopy(d.employment);
-  $("salaryComputationGuide").innerHTML=salaryComputationGuideHtml(x,salaryAttendanceDraft);
+  const x=salaryIncomeById(editingSalaryIncomeId);if(!x)return;syncSalaryAttendanceDraft();renderSalaryPeriodTabs(x);const a=currentSalaryAttendanceDraft(),d=salaryDeductionBreakdown(x,state.month,a,editingSalaryOccurrenceIndex),count=incomeReceiptSlotCount(x,state.month),label=incomeReceiptSlotLabel(x,editingSalaryOccurrenceIndex,count);
+  $("salaryAttendanceMonth").textContent=`${formatMonth(state.month)} · ${label}`;$("salaryScheduledGross").textContent=money(d.scheduledGross);$("salaryAttendanceDeduction").textContent=money(d.attendance.total);$("salaryPayrollGross").textContent=money(d.payrollGross);$("salaryNetMonthly").textContent=money(d.net);$("salaryDailyRate").textContent=money(d.attendance.daily);$("salaryHourlyRate").textContent=money(d.attendance.hourly);$("salaryMinuteRate").textContent=money(d.attendance.minute);
+  const rows=[["Unpaid absences",d.attendance.absenceDeduction],["Late",d.attendance.lateDeduction],["Undertime",d.attendance.undertimeDeduction],["SSS — allocated employee share",d.sss],["GSIS — allocated employee share",d.gsis],["PhilHealth — allocated employee share",d.philhealth],["Pag-IBIG — allocated employee share",d.pagibig],[d.employment==="cos_jo"?"COS withholding — allocated":"BIR withholding — allocated",d.tax]];
+  $("salaryBreakdownRows").innerHTML=rows.map(([label,value])=>`<div class="salary-breakdown-row"><span>${esc(label)}</span><strong>${money(value)}</strong></div>`).join("")+`<div class="salary-breakdown-row total"><span>Total deductions for ${esc(label)}</span><strong>${money(d.totalDeductions)}</strong></div><div class="salary-breakdown-row total net"><span>Estimated take-home for ${esc(label)}</span><strong>${money(d.net)}</strong></div>`;
+  $("salaryRuleNote").innerHTML=salaryRuleCopy(d.employment);$("salaryComputationGuide").innerHTML=salaryComputationGuideHtml(x);
 }
 function saveSalaryAttendance(){
-  const x=salaryIncomeById(editingSalaryIncomeId);if(!x)return;
-  syncSalaryAttendanceDraft();
-  state.incomeAttendance[state.month]=state.incomeAttendance[state.month]||{};
-  state.incomeAttendance[state.month][x.id]=clone(salaryAttendanceDraft);
-
-  const pending=pendingSalaryReceipt&&pendingSalaryReceipt.incomeId===x.id&&pendingSalaryReceipt.month===state.month
-    ?{...pendingSalaryReceipt}
-    :null;
-  if(pending){
-    const flags=incomeReceiptFlags(x,pending.month,true);
-    const dates=incomeReceiptDatesFor(x,pending.month,true);
-    flags[pending.index]=true;
-    if(!dates[pending.index])dates[pending.index]=defaultIncomeReceiptDate(x,pending.month,pending.index);
-  }
-
-  scheduleAutoSave();closeSalaryBreakdown();renderIncome();renderAccounts();renderOverview();renderDashboard();renderMonthlyStatement();renderRewards();
-  if(pending){
-    toast("Payment confirmed and attendance saved.");
-    openIncomeCoverage(x.id,pending.month,pending.index);
-  }else toast("Attendance adjustments saved.");
+  const x=salaryIncomeById(editingSalaryIncomeId);if(!x)return;syncSalaryAttendanceDraft();state.incomeAttendance[state.month]=state.incomeAttendance[state.month]||{};state.incomeAttendance[state.month][x.id]=clone(salaryAttendanceDrafts);
+  const pending=pendingSalaryReceipt&&pendingSalaryReceipt.incomeId===x.id&&pendingSalaryReceipt.month===state.month?{...pendingSalaryReceipt}:null;if(pending){const flags=incomeReceiptFlags(x,pending.month,true),dates=incomeReceiptDatesFor(x,pending.month,true);flags[pending.index]=true;if(!dates[pending.index])dates[pending.index]=defaultIncomeReceiptDate(x,pending.month,pending.index)}
+  scheduleAutoSave();closeSalaryBreakdown();renderIncome();renderAccounts();renderOverview();renderDashboard();renderMonthlyStatement();renderRewards();if(pending){toast("Payment confirmed with its own deductions and attendance.");openIncomeCoverage(x.id,pending.month,pending.index)}else toast("Pay-period deductions and attendance saved.")
 }
-function resetSalaryAttendance(){
-  salaryAttendanceDraft={absentDays:0,lateMinutes:0,undertimeMinutes:0,workdays:22,hoursPerDay:8};
-  loadSalaryAttendanceDraft();renderSalaryBreakdownModal();
-}
+function resetSalaryAttendance(){salaryAttendanceDrafts[editingSalaryOccurrenceIndex]=salaryAttendanceDefault();loadSalaryAttendanceDraft();renderSalaryBreakdownModal()}
 
 let editingBillId=null;
 let editingBillDraft=null;
@@ -15799,13 +15748,13 @@ function renderBills(){
     tr.dataset.active=active?"1":"0";tr.dataset.schedule=b.schedule||"ongoing";tr.dataset.paid=(grocery?actual>0:paid)?"1":"0";tr.dataset.type=type;if(!active)tr.classList.add("bill-inactive");
     let termClass="active";if(!active)termClass="inactive";else if(months!==null&&months<=2)termClass="warn";
     let movementDetail="";
-    if(grocery)movementDetail=`Actual is cumulative from ${groceryTripCount(b.id,state.month)} completed Grocery trip${groceryTripCount(b.id,state.month)===1?"":"s"}`;
+    if(grocery)movementDetail=groceryBillHasManualActual(b.id,state.month)?"Recurring actual entered directly · Grocery item tracking is optional":`Actual is cumulative from ${groceryTripCount(b.id,state.month)} completed Grocery trip${groceryTripCount(b.id,state.month)===1?"":"s"} · item tracking is optional`;
     else if(type==="expense")movementDetail=b.creditCardId&&cardById(b.creditCardId)?`Charged to ${esc(cardLabel(cardById(b.creditCardId)))} · day ${Number(b.cardChargeDay||b.dueDay||1)}`:(b.schedule==="fixed"&&b.endMonth?`Ends ${formatMonth(b.endMonth)}`:b.schedule==="fixed"?"Fixed term":"Repeats until changed");
     else if(["savings","investment","transfer"].includes(type)){const dest=commitmentDestinationAccount(b);movementDetail=dest?`${type==="savings"?"Save to":type==="investment"?"Invest in":"Move to"} ${esc(dest.name)}`:"Choose a destination account"}
     else if(type==="debt"){const loan=commitmentLinkedLoan(b);movementDetail=loan?`Repay ${esc(loan.person)} · ${money(loanRemainingAsOfMonth(loan,state.month))} outstanding`:"Choose a loan / IOU"}
 
     const actualNote=grocery?(actual<=0.005?"No actual yet":variance>=0?`${money(variance)} under plan`:`${money(Math.abs(variance))} over plan`):schedule.length>1?`${paidCount} of ${schedule.length} payment${schedule.length===1?"":"s"} completed`:(actual<=0.005?"No actual yet":variance>=0?`${money(variance)} under plan`:`${money(Math.abs(variance))} over plan`),actualClass=variance<0?"over":"under";
-    const occurrenceEditor=grocery?`<button class="grocery-live-pill b-open-grocery" type="button">${heroSvg("shopping-cart")}Open Grocery</button>`:`<div class="bill-occurrence-editor"><div class="bill-occurrence-summary ${paid?"complete":partial?"partial":""}"><span>${schedule.length>1?`${paidCount}/${schedule.length} completed`:paid?"Completed":"Pending"}</span><span>${money(actual)}</span></div>${schedule.map((occ,index)=>{const on=!!flags[index],d=details[index],dateText=occ.date?formatDueDate(new Date(Number(occ.date.slice(0,4)),Number(occ.date.slice(5,7))-1,Number(occ.date.slice(8,10)))):"No due date";return `<label class="bill-occurrence-line ${on?"done":""}"><input class="b-paid-occurrence" data-occurrence-index="${index}" type="checkbox" ${on?"checked":""} ${!active?"disabled":""}><span class="bill-occurrence-copy"><strong>${esc(schedule.length>1?occ.label:"Payment")}</strong><small>${esc(dateText)}</small></span><span class="bill-occurrence-amount">${money(occ.amount)}</span>${on&&d?`<small class="bill-occurrence-source">${esc(paymentSourceLabel(d))}${d.paidDate?` · paid ${esc(d.paidDate)}`:""}</small>`:""}</label>`}).join("")}</div>`;
+    const occurrenceEditor=grocery?`<div class="grocery-recurring-actions"><button class="btn btn-primary btn-sm b-grocery-record" type="button">${groceryBillHasManualActual(b.id,state.month)?"Edit amount":"Record amount"}</button><button class="btn btn-secondary btn-sm b-open-grocery" type="button">${heroSvg("shopping-cart")} Track items</button>${groceryBillHasManualActual(b.id,state.month)?`<button class="text-btn b-grocery-clear" type="button">Use item totals instead</button>`:""}</div>`:`<div class="bill-occurrence-editor"><div class="bill-occurrence-summary ${paid?"complete":partial?"partial":""}"><span>${schedule.length>1?`${paidCount}/${schedule.length} completed`:paid?"Completed":"Pending"}</span><span>${money(actual)}</span></div>${schedule.map((occ,index)=>{const on=!!flags[index],d=details[index],dateText=occ.date?formatDueDate(new Date(Number(occ.date.slice(0,4)),Number(occ.date.slice(5,7))-1,Number(occ.date.slice(8,10)))):"No due date";return `<label class="bill-occurrence-line ${on?"done":""}"><input class="b-paid-occurrence" data-occurrence-index="${index}" type="checkbox" ${on?"checked":""} ${!active?"disabled":""}><span class="bill-occurrence-copy"><strong>${esc(schedule.length>1?occ.label:"Payment")}</strong><small>${esc(dateText)}</small></span><span class="bill-occurrence-amount">${money(occ.amount)}</span>${on&&d?`<small class="bill-occurrence-source">${esc(paymentSourceLabel(d))}${d.paidDate?` · paid ${esc(d.paidDate)}`:""}</small>`:""}</label>`}).join("")}</div>`;
     const aggregateDetail=actual>0.005?billPaymentDetail(b.id,state.month):null;
     tr.innerHTML=`
       <td><div class="bill-summary-name"><strong>${esc(b.name)}</strong><small>${basisLabel(b)}${b.basis==="daily_weekly"?` · ${Number(b.daysPerWeek||0)} days/week`:""}${grocery?` · Grocery linked`:""}</small></div></td>
@@ -15819,9 +15768,11 @@ function renderBills(){
       <td><div class="bill-actions"><button class="btn btn-secondary btn-sm b-edit" type="button">Edit</button><button class="icon-btn b-del" type="button" title="Delete commitment" aria-label="Delete ${esc(b.name)}">${heroSvg("trash")}</button></div></td>`;
 
     tr.querySelectorAll(".b-paid-occurrence").forEach(cb=>cb.addEventListener("change",e=>{const index=Number(e.currentTarget.dataset.occurrenceIndex),multi=billUsesOccurrencePayments(b);if(e.currentTarget.checked){e.currentTarget.checked=false;openBillPaymentModal(b.id,state.month,null,multi?index:null)}else{if(multi)markBillOccurrenceUnpaid(b.id,index,state.month);else markBillUnpaid(b.id,state.month)}}));
+    tr.querySelector(".b-grocery-record")?.addEventListener("click",()=>openBillPaymentModal(b.id,state.month));
+    tr.querySelector(".b-grocery-clear")?.addEventListener("click",()=>{markBillUnpaid(b.id,state.month);groceryCompletedEvents(state.month,b.id).forEach(groceryApplyLedgerEffect);scheduleAutoSave();render();toast("Direct grocery actual cleared. Recurring now uses completed Grocery item totals.")});
     tr.querySelector(".b-open-grocery")?.addEventListener("click",()=>document.querySelector('.nav-btn[data-target="grocery"]')?.click());tr.querySelector(".b-edit").onclick=()=>openBillEditor(b.id);tr.querySelector(".b-del").onclick=()=>deleteRecurringCommitment(b.id);body.appendChild(tr);
   });
-  updateBillTotals();renderBillPaymentSummary();applyListFilters();
+  updateBillTotals();renderBillPaymentSummary();renderNextCycleFundingReserve();applyListFilters();
 }
 function updateBillTotals(){
   if($("billSelectedTotal"))$("billSelectedTotal").textContent=money(recurringCommitmentTotal(state.scenario,state.month));
@@ -15836,7 +15787,7 @@ function newBillDraft(){
   return {id:uid(),name:"",commitmentType:"expense",category:state.categories.bills[0]||"Other",destinationAccountId:"",loanId:"",basis:"monthly",daysPerWeek:1,low:0,expected:0,high:0,schedule:"ongoing",startMonth:"",endMonth:"",dueDay:0,autopay:false,creditCardId:"",cardChargeDay:0};
 }
 function eligibleCommitmentDestinations(type){
-  if(type==="savings")return state.accounts.filter(a=>["savings","time_deposit"].includes(a.type));
+  if(type==="savings")return state.accounts.filter(a=>["cash","bank","ewallet","savings","time_deposit"].includes(a.type));
   if(type==="investment")return state.accounts.filter(a=>["mp2","investment"].includes(a.type));
   if(type==="transfer")return state.accounts.filter(a=>!wealthKindForAccount(a));
   return [];
@@ -15872,7 +15823,7 @@ function refreshBillEditorVisibility(initial=false){
   const desiredDest=(initial?editingBillDraft?.destinationAccountId:$("editBillDestination").value)||editingBillDraft?.destinationAccountId||"";
   const dests=eligibleCommitmentDestinations(type);$("editBillDestination").innerHTML=`<option value="">Choose destination</option>`+dests.map(a=>`<option value="${a.id}" ${sameId(a.id,desiredDest)?"selected":""}>${esc(a.name)} · ${esc(accountTypeLabel(a.type))}</option>`).join("");
   $("editBillDestinationLabel").textContent=type==="savings"?"Savings destination":type==="investment"?"Investment destination":"Transfer destination";
-  $("editBillDestinationHelp").textContent=type==="savings"?"Choose a Savings or Time Deposit account. Completing this commitment moves money there and counts it as savings.":type==="investment"?"Choose an MP2 or Investment account. Completing this commitment moves money there and counts it as an investment.":"Choose the account that should receive this internal transfer.";
+  $("editBillDestinationHelp").textContent=type==="savings"?"Choose the bank, cash, e-wallet, Savings, or Time Deposit account where this money will be kept. Completing this commitment moves/records the saving there.":type==="investment"?"Choose an MP2 or Investment account. Completing this commitment moves money there and counts it as an investment.":"Choose the account that should receive this internal transfer.";
   const desiredLoan=(initial?editingBillDraft?.loanId:$("editBillLoan").value)||editingBillDraft?.loanId||"";
   const loans=state.loans.filter(l=>l.direction==="borrowed"&&loanRemainingAsOfMonth(l,state.month)>0.005);$("editBillLoan").innerHTML=`<option value="">Choose loan / IOU</option>`+loans.map(l=>`<option value="${l.id}" ${sameId(l.id,desiredLoan)?"selected":""}>${esc(l.person)} · ${money(loanRemainingAsOfMonth(l,state.month))} remaining</option>`).join("");
   if(type!=="expense"){$("editBillCreditCard").value="";$("editBillChargeDay").value=""}
@@ -17250,6 +17201,7 @@ $("transferModal").addEventListener("click",e=>{if(e.target===$("transferModal")
 $("closeBillPaymentModalBtn").onclick=closeBillPaymentModal;$("cancelBillPaymentBtn").onclick=closeBillPaymentModal;$("saveBillPaymentBtn").onclick=saveBillPayment;
 $("billPaymentSource").addEventListener("change",renderBillPaymentImpact);
 $("billPaymentDate").addEventListener("change",renderBillPaymentImpact);
+$("billPaymentAmountInput")?.addEventListener("input",renderBillPaymentImpact);
 $("billPaymentModal").addEventListener("click",e=>{if(e.target===$("billPaymentModal"))closeBillPaymentModal()});
 
 $("closeGoalAllocationBtn").onclick=closeGoalAllocationModal;
