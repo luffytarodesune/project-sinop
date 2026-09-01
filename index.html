@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0f766e">
-<title>SINOP v111 · Personal finance</title>
+<title>SINOP v112 · Personal finance</title>
 <meta name="application-name" content="SINOP">
 <meta name="apple-mobile-web-app-title" content="SINOP">
 <meta name="description" content="SINOP — your personal money system for income, spending, savings, investments, goals, KKB, and financial tracking.">
@@ -4323,8 +4323,31 @@ body[data-theme="dark"] .wrapped-hero{background:linear-gradient(135deg,color-mi
 @media(max-width:760px){
   .income-table{width:2040px;min-width:2040px}
 }
+
+/* ----- v112 Google Drive private cloud sync ----- */
+.cloud-top-btn{display:inline-flex;align-items:center;gap:7px;white-space:nowrap}
+.cloud-top-btn .hero-icon{width:15px;height:15px}
+.cloud-top-btn.connected{border-color:color-mix(in srgb,var(--brand) 38%,var(--border));color:var(--brand2);background:var(--brandsoft)}
+.cloud-top-btn.pending{border-color:#ead69c;color:#7a5a10;background:#fff8e8}
+.cloud-settings-card{overflow:hidden}
+.cloud-settings-layout{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(280px,.8fr);gap:16px;align-items:stretch}
+.cloud-account-panel,.cloud-sync-panel{padding:16px;border:1px solid var(--border);border-radius:15px;background:#fbfcfc}
+body[data-theme="dark"] .cloud-account-panel,body[data-theme="dark"] .cloud-sync-panel{background:#18231f}
+.cloud-account-row{display:flex;gap:12px;align-items:center}
+.cloud-avatar{width:42px;height:42px;border-radius:50%;object-fit:cover;background:var(--soft);border:1px solid var(--border);display:none}
+.cloud-avatar.show{display:block}
+.cloud-account-copy{min-width:0}.cloud-account-copy span{display:block;color:var(--muted);font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.06em}.cloud-account-copy strong{display:block;margin-top:3px;font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.cloud-account-copy small{display:block;margin-top:3px;color:var(--muted);font-size:9px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cloud-sync-state{display:flex;align-items:center;gap:8px;font-size:11px;font-weight:850}.cloud-sync-dot{width:9px;height:9px;border-radius:50%;background:#98a29f}.cloud-sync-state.synced .cloud-sync-dot{background:var(--brand)}.cloud-sync-state.pending .cloud-sync-dot{background:var(--warn)}.cloud-sync-state.error .cloud-sync-dot{background:var(--danger)}
+.cloud-sync-meta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:13px}.cloud-sync-meta div{padding:9px 10px;border-radius:11px;background:var(--panel);border:1px solid var(--border)}.cloud-sync-meta span{display:block;color:var(--muted);font-size:8px}.cloud-sync-meta strong{display:block;margin-top:3px;font-size:10px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cloud-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.cloud-privacy-note{margin-top:12px;padding:11px 12px;border-radius:12px;background:var(--soft);color:var(--muted);font-size:9px;line-height:1.5}.cloud-privacy-note strong{color:var(--text)}
+.cloud-choice-summary{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}.cloud-choice-summary>div{padding:12px;border:1px solid var(--border);border-radius:13px;background:#fbfcfc}.cloud-choice-summary span{display:block;color:var(--muted);font-size:9px}.cloud-choice-summary strong{display:block;margin-top:4px;font-size:12px}.cloud-choice-summary small{display:block;margin-top:3px;color:var(--muted);font-size:8px;line-height:1.4}
+.setup-cloud-restore{margin-top:12px;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 13px;border:1px solid color-mix(in srgb,var(--brand) 20%,var(--border));border-radius:13px;background:var(--brandsoft)}.setup-cloud-restore strong{display:block;font-size:10px;color:var(--brand2)}.setup-cloud-restore small{display:block;margin-top:2px;color:var(--muted);font-size:8.5px;line-height:1.4}
+@media(max-width:850px){.cloud-settings-layout{grid-template-columns:1fr}.cloud-choice-summary{grid-template-columns:1fr}}
+@media(max-width:760px){.cloud-top-btn .cloud-top-label{display:none}.cloud-top-btn{padding-left:11px;padding-right:11px}.setup-cloud-restore{align-items:flex-start;flex-direction:column}}
+
 </style>
 <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body>
 <div class="app">
@@ -4388,7 +4411,7 @@ body[data-theme="dark"] .wrapped-hero{background:linear-gradient(135deg,color-mi
         <button class="nav-btn" data-target="user-manual"><span class="nav-icon"><span data-hero="question-mark-circle"></span></span><span class="nav-label">User manual</span></button>
       </div>
     </nav>
-    <div class="sinop-sidebar-footer"><small>Your personal money system · v107</small></div>
+    <div class="sinop-sidebar-footer"><small>Your personal money system · v112</small></div>
   </aside>
 
   <main class="main">
@@ -4414,6 +4437,7 @@ body[data-theme="dark"] .wrapped-hero{background:linear-gradient(135deg,color-mi
           <span class="top-level-chip-number" id="topRewardLevelNumber">L1</span>
           <span class="top-level-chip-title" id="topRewardLevelTitle">First Step</span>
         </button>
+        <button class="btn btn-secondary cloud-top-btn" id="cloudTopBtn" type="button" title="Google Drive cloud sync"><span data-hero="building-library"></span><span class="cloud-top-label" id="cloudTopLabel">Connect Drive</span></button>
         <button class="btn btn-primary" id="saveBtn">Save now</button>
         <span id="saveStatus" class="save-status saved"><span class="save-status-dot"></span><span id="saveStatusText">Saved locally</span></span>
       </div>
@@ -5935,12 +5959,12 @@ body[data-theme="dark"] .wrapped-hero{background:linear-gradient(135deg,color-mi
 
     <article class="manual-section" id="manualReports">
       <div class="manual-section-head">
-        <div><p class="eyebrow">Reports & backup</p><h2>Review history and protect your data</h2><p>Your data is stored locally in your browser. Statements and exports help you review and preserve what you have entered.</p></div>
+        <div><p class="eyebrow">Reports & backup</p><h2>Review history and protect your data</h2><p>SINOP saves locally first. You can optionally synchronize one private JSON copy through Google Drive app data, while statements and exports remain available for review and independent backup.</p></div>
         <div class="manual-section-icon"><span data-hero="banknotes"></span></div>
       </div>
       <div class="manual-card-grid">
         <div class="manual-feature"><div class="manual-feature-head"><div class="manual-feature-icon"><span data-hero="banknotes"></span></div><div><strong>Statements</strong><small>Generate a monthly or annual ledger view from recorded activity.</small></div></div><ul><li>Review debit and credit entries. Debits show money coming in; credits show money going out.</li><li>Use monthly mode for a selected budget month.</li><li>Use annual mode for a year-level review.</li><li>Account and transaction data determine the ledger rows.</li></ul><button class="btn btn-secondary btn-sm" data-jump="monthly-statement">Open Statements</button></div>
-        <div class="manual-feature"><div class="manual-feature-head"><div class="manual-feature-icon"><span data-hero="shield-check"></span></div><div><strong>Backup and restore</strong><small>Use a full JSON backup before major changes or moving browsers/computers.</small></div></div><ul><li>Export full backup (.json) to preserve your data.</li><li>Import a backup to restore that saved state.</li><li>Export the selected month to CSV for tabular analysis.</li><li>Your data otherwise stays local to this browser.</li></ul><button class="btn btn-secondary btn-sm" data-jump="settings">Open Customize</button></div>
+        <div class="manual-feature"><div class="manual-feature-head"><div class="manual-feature-icon"><span data-hero="shield-check"></span></div><div><strong>Backup and restore</strong><small>Use a full JSON backup before major changes or moving browsers/computers.</small></div></div><ul><li>Export full backup (.json) to preserve your data.</li><li>Import a backup to restore that saved state.</li><li>Export the selected month to CSV for tabular analysis.</li><li>Without Google Drive sync, data stays local to this browser. With Drive sync enabled, SINOP keeps a private app-data copy while local saving remains active.</li></ul><button class="btn btn-secondary btn-sm" data-jump="settings">Open Customize</button></div>
         <div class="manual-feature"><div class="manual-feature-head"><div class="manual-feature-icon"><span data-hero="sparkles"></span></div><div><strong>Wrapped</strong><small>Your visual monthly or yearly money story.</small></div></div><p class="subtle" style="font-size:10px;line-height:1.55">Wrapped opens as a full-screen animated money story. Scroll or use Next/Previous to move through scenes with changing backgrounds, animated figures, spending highlights, no-spend days, Daily allowance behavior, recurring commitments, wealth streaks, goals, accounts, rewards, IOUs, and KKB activity. Use Replay to watch the story again.</p></div>
         <div class="manual-feature"><div class="manual-feature-head"><div class="manual-feature-icon"><span data-hero="adjustments-horizontal"></span></div><div><strong>Customize</strong><small>Control design and defaults without rewriting your financial history.</small></div></div><ul><li>Theme, colors, compact layout, and dashboard visibility.</li><li>Financial rules, category budgets, payment methods, and reminder settings.</li><li>Default spending account for new payment-source dropdowns.</li><li>Design reset does not erase financial records.</li></ul><button class="btn btn-secondary btn-sm" data-jump="settings">Open Customize</button></div>
       </div>
@@ -6185,8 +6209,38 @@ body[data-theme="dark"] .wrapped-hero{background:linear-gradient(135deg,color-mi
           </div>
         </article>
 
+        <article class="card settings-card full cloud-settings-card" id="cloudSettingsCard">
+          <div class="section-head">
+            <div><p class="eyebrow">Private cloud sync</p><h2>Google Drive</h2><p class="subtle">Keep SINOP local-first while synchronizing one private JSON copy to your Google Drive app-data folder.</p></div>
+            <span class="badge" id="cloudSettingsBadge">Not connected</span>
+          </div>
+          <div class="cloud-settings-layout">
+            <div class="cloud-account-panel">
+              <div class="cloud-account-row">
+                <img id="cloudAccountAvatar" class="cloud-avatar" alt="">
+                <div class="cloud-account-copy"><span>Google account</span><strong id="cloudAccountName">No account connected</strong><small id="cloudAccountEmail">Sign in to enable private cloud sync.</small></div>
+              </div>
+              <div class="cloud-actions">
+                <button class="btn btn-primary icon-leading" id="cloudConnectBtn" type="button"><span data-hero="building-library"></span><span id="cloudConnectLabel">Sign in with Google</span></button>
+                <button class="btn btn-secondary" id="cloudSyncNowBtn" type="button" disabled>Sync now</button>
+                <button class="btn btn-secondary" id="cloudDisconnectBtn" type="button" disabled>Disconnect this device</button>
+              </div>
+              <div class="cloud-privacy-note"><strong>What SINOP can access:</strong> only its hidden <code>appDataFolder</code> file using the <code>drive.appdata</code> permission. SINOP does not request access to your ordinary Drive files. Your Google access token is kept only in memory and is never stored inside the SINOP backup.</div>
+            </div>
+            <div class="cloud-sync-panel">
+              <div class="cloud-sync-state" id="cloudSyncState"><span class="cloud-sync-dot"></span><span id="cloudSyncStateText">Local only</span></div>
+              <div class="cloud-sync-meta">
+                <div><span>Last cloud sync</span><strong id="cloudLastSync">Never</strong></div>
+                <div><span>Cloud revision</span><strong id="cloudRevision">—</strong></div>
+                <div><span>Local changes</span><strong id="cloudLocalChanges">None</strong></div>
+                <div><span>Storage</span><strong>Private Drive app data</strong></div>
+              </div>
+            </div>
+          </div>
+        </article>
+
         <article class="card settings-card full">
-          <div class="section-head"><div><p class="eyebrow">Data portability</p><h2>Backup, restore & export</h2><p class="subtle">Everything stays local in your browser unless you explicitly export it.</p></div></div>
+          <div class="section-head"><div><p class="eyebrow">Data portability</p><h2>Backup, restore & export</h2><p class="subtle">SINOP always saves locally. You can also enable private Google Drive sync above and keep manual JSON exports as an independent backup.</p></div></div>
           <div class="data-actions">
             <button class="btn btn-primary" id="exportJsonBtn">Export full backup (.json)</button>
             <button class="btn btn-secondary" id="importJsonBtn">Import backup</button>
@@ -6211,6 +6265,21 @@ body[data-theme="dark"] .wrapped-hero{background:linear-gradient(135deg,color-mi
 
 
 
+
+
+<div id="cloudChoiceModal" class="modal-backdrop" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="cloudChoiceTitle" style="width:min(620px,100%)">
+    <div class="modal-head"><div><p class="eyebrow">Google Drive sync</p><h2 id="cloudChoiceTitle">Choose which SINOP copy to use</h2><p id="cloudChoiceCopy">SINOP found different local and cloud data.</p></div><button class="icon-btn" id="closeCloudChoiceBtn" type="button" aria-label="Close"><span data-hero="x-mark"></span></button></div>
+    <div class="modal-body">
+      <div class="cloud-choice-summary">
+        <div><span>This device</span><strong id="cloudChoiceLocalTitle">Local SINOP</strong><small id="cloudChoiceLocalMeta">Changes on this browser</small></div>
+        <div><span>Google Drive</span><strong id="cloudChoiceRemoteTitle">Cloud SINOP</strong><small id="cloudChoiceRemoteMeta">Private app-data copy</small></div>
+      </div>
+      <div class="reminder-setting-note" id="cloudChoiceWarning"><strong>No silent overwrite:</strong> choose which complete copy should become current. Manual JSON backup remains available before either choice.</div>
+    </div>
+    <div class="modal-foot" style="gap:8px;flex-wrap:wrap"><button class="btn btn-secondary" id="cloudChoiceLocalBtn" type="button">Keep this device</button><button class="btn btn-primary" id="cloudChoiceRemoteBtn" type="button">Use Drive data</button></div>
+  </div>
+</div>
 
 <div id="monthOpenModal" class="modal-backdrop" aria-hidden="true">
   <div class="modal" role="dialog" aria-modal="true" aria-labelledby="monthOpenTitle" style="width:min(620px,100%)">
@@ -7368,6 +7437,7 @@ body[data-theme="dark"] .wrapped-hero{background:linear-gradient(135deg,color-mi
             </div>
           </div>
           <div class="setup-hint" style="margin-top:12px"><strong>Important:</strong> recurring salary is a plan, not an actual receipt. Historical months are never backfilled unless you explicitly record them.</div>
+          <div class="setup-cloud-restore"><div><strong>Already use SINOP on another device?</strong><small>Sign in to Google Drive and restore the private SINOP cloud copy instead of rebuilding setup.</small></div><button class="btn btn-secondary" id="setupCloudRestoreBtn" type="button">Restore from Drive</button></div>
         </section>
 
         <section class="setup-panel" data-setup-panel="1">
@@ -7563,6 +7633,10 @@ const KEY_V1="personal-budget-planner-v1";
 const SETUP_COMPLETE_KEY="sinop-guided-setup-complete-v1";
 const SETUP_STARTED_KEY="sinop-guided-setup-started-v1";
 const SETUP_STEP_KEY="sinop-guided-setup-step-v1";
+const GOOGLE_CLIENT_ID="226170068172-fsn8vfklkntkse00t63pfa8ke9fp9q0l.apps.googleusercontent.com";
+const GOOGLE_SCOPES="openid email profile https://www.googleapis.com/auth/drive.appdata";
+const CLOUD_FILE_NAME="sinop-data.json";
+const CLOUD_META_KEY="sinop-google-drive-sync-v1";
 const HAD_EXISTING_PLANNER_DATA=!!localStorage.getItem(KEY)||!!localStorage.getItem(KEY_V2)||!!localStorage.getItem(KEY_V1);
 const WPM=52/12;
 const $=id=>document.getElementById(id);
@@ -8213,6 +8287,14 @@ function load(){
   return normalizeState(clone(defaults));
 }
 let state=load();
+let cloudMeta=loadCloudMeta();
+let googleTokenClient=null;
+let googleAccessToken="";
+let googleTokenExpiresAt=0;
+let cloudSyncTimer=null;
+let cloudSyncInFlight=false;
+let cloudConnectIntent="sync";
+let cloudChoiceHandlers={local:null,remote:null};
 
 /* Fresh installs begin clean instead of inheriting author/demo defaults.
    Existing saved users are untouched. A setup in progress is persisted so a
@@ -8249,16 +8331,136 @@ function setSaveStatus(mode,text){
   if(mode)box.classList.add(mode);
   label.textContent=text;
 }
-function save(show=true){
+function save(show=true,{fromCloud=false}={}){
   localStorage.setItem(KEY,JSON.stringify(state));
-  setSaveStatus("saved","Saved locally");
-  if(show)toast("Saved on this device.");
+  if(!fromCloud && cloudMeta.linked){cloudMeta.localDirty=true;cloudMeta.localChangedAt=new Date().toISOString();persistCloudMeta()}
+  const cloudText=cloudMeta.enabled?(cloudTokenValid()?"Saved locally · sync pending":"Saved locally · reconnect Drive"):"Saved locally";
+  setSaveStatus("saved",cloudText);
+  if(!fromCloud)queueCloudSync();
+  if(show)toast(cloudMeta.enabled?"Saved locally. Drive sync queued.":"Saved on this device.");
+  renderCloudStatus();
 }
 function scheduleAutoSave(){
   setSaveStatus("saving","Saving…");
   clearTimeout(autoSaveTimer);
   autoSaveTimer=setTimeout(()=>save(false),650);
 }
+
+/* ----- Google Drive appDataFolder cloud sync ----- */
+function newCloudMeta(){return {enabled:false,linked:false,fileId:"",lastSyncedRevision:0,lastSyncedAt:"",localDirty:false,localChangedAt:"",deviceId:(crypto?.randomUUID?crypto.randomUUID():`device-${Date.now()}-${Math.random().toString(16).slice(2)}`),accountSub:"",accountName:"",accountEmail:"",accountPicture:""}}
+function loadCloudMeta(){try{return {...newCloudMeta(),...(JSON.parse(localStorage.getItem(CLOUD_META_KEY)||"null")||{})}}catch(e){return newCloudMeta()}}
+function persistCloudMeta(){try{localStorage.setItem(CLOUD_META_KEY,JSON.stringify(cloudMeta))}catch(e){}}
+function cloudTokenValid(){return !!googleAccessToken && Date.now()<googleTokenExpiresAt-15000}
+function cloudFmtTime(v){if(!v)return "Never";const d=new Date(v);return Number.isNaN(d.getTime())?"Never":d.toLocaleString("en-PH",{month:"short",day:"numeric",hour:"numeric",minute:"2-digit"})}
+function cloudHasMeaningfulLocalData(){return !!((state.accounts||[]).length||(state.incomes||[]).length||(state.bills||[]).length||(state.spending||[]).length||(state.goals||[]).length||(state.loans||[]).length||(state.kkbTrips||[]).length||(state.groceryEvents||[]).length||localStorage.getItem(SETUP_COMPLETE_KEY)==="1")}
+function cloudEnvelope(revision){return {app:"SINOP",schemaVersion:112,revision:Number(revision||1),updatedAt:new Date().toISOString(),deviceId:cloudMeta.deviceId,state:clone(state)}}
+function renderCloudStatus(){
+  const token=cloudTokenValid(),enabled=!!cloudMeta.enabled,linked=!!cloudMeta.linked;
+  const top=$("cloudTopBtn"),topLabel=$("cloudTopLabel"),badge=$("cloudSettingsBadge"),connect=$("cloudConnectBtn"),connectLabel=$("cloudConnectLabel"),sync=$("cloudSyncNowBtn"),disconnect=$("cloudDisconnectBtn");
+  if(top){top.classList.toggle("connected",enabled&&token&&!cloudMeta.localDirty);top.classList.toggle("pending",enabled&&(!token||cloudMeta.localDirty));}
+  if(topLabel)topLabel.textContent=!enabled?"Connect Drive":token?(cloudMeta.localDirty?"Sync Drive":"Drive synced"):"Reconnect Drive";
+  if(badge)badge.textContent=!enabled?"Not connected":token?(cloudMeta.localDirty?"Changes pending":"Connected"):"Reconnect needed";
+  if(connectLabel)connectLabel.textContent=!enabled?"Sign in with Google":token?"Google connected":"Reconnect Google Drive";
+  if(connect)connect.disabled=enabled&&token;
+  if(sync)sync.disabled=!enabled||!token||cloudSyncInFlight;
+  if(disconnect)disconnect.disabled=!enabled&&!linked;
+  if($("cloudAccountName"))$("cloudAccountName").textContent=cloudMeta.accountName||"No account connected";
+  if($("cloudAccountEmail"))$("cloudAccountEmail").textContent=cloudMeta.accountEmail||(enabled?"Google authorization is needed for this browser session.":"Sign in to enable private cloud sync.");
+  const avatar=$("cloudAccountAvatar");if(avatar){if(cloudMeta.accountPicture){avatar.src=cloudMeta.accountPicture;avatar.classList.add("show")}else{avatar.removeAttribute("src");avatar.classList.remove("show")}}
+  if($("cloudLastSync"))$("cloudLastSync").textContent=cloudFmtTime(cloudMeta.lastSyncedAt);
+  if($("cloudRevision"))$("cloudRevision").textContent=cloudMeta.lastSyncedRevision?`r${cloudMeta.lastSyncedRevision}`:"—";
+  if($("cloudLocalChanges"))$("cloudLocalChanges").textContent=cloudMeta.localDirty?"Waiting to sync":"None";
+  const stateBox=$("cloudSyncState"),stateText=$("cloudSyncStateText");if(stateBox&&stateText){stateBox.classList.remove("synced","pending","error");let text="Local only",cls="";if(enabled&&cloudSyncInFlight){text="Syncing to Google Drive…";cls="pending"}else if(enabled&&!token){text="Cloud paused · reconnect Google";cls="pending"}else if(enabled&&cloudMeta.localDirty){text="Local changes waiting to sync";cls="pending"}else if(enabled&&token){text="Synced to Google Drive";cls="synced"}else if(linked){text="Drive sync disabled on this device"}if(cls)stateBox.classList.add(cls);stateText.textContent=text}
+}
+function initGoogleCloudAuth(attempt=0){
+  if(window.google?.accounts?.oauth2){
+    googleTokenClient=google.accounts.oauth2.initTokenClient({client_id:GOOGLE_CLIENT_ID,scope:GOOGLE_SCOPES,include_granted_scopes:true,callback:handleGoogleToken,error_callback:()=>{toast("Google sign-in was cancelled or could not open.");renderCloudStatus()}});
+    renderCloudStatus();return;
+  }
+  if(attempt<40)setTimeout(()=>initGoogleCloudAuth(attempt+1),250);else{if($("cloudSyncStateText"))$("cloudSyncStateText").textContent="Google Identity library could not load"}
+}
+function connectGoogleDrive(intent="sync"){
+  cloudConnectIntent=intent;
+  if(!googleTokenClient){initGoogleCloudAuth();toast("Google sign-in is still loading. Try again in a moment.");return}
+  googleTokenClient.requestAccessToken({prompt:"select_account"});
+}
+async function handleGoogleToken(response){
+  if(!response||response.error){toast(`Google authorization failed${response?.error?`: ${response.error}`:"."}`);return}
+  googleAccessToken=response.access_token||"";googleTokenExpiresAt=Date.now()+Math.max(60,Number(response.expires_in||3600))*1000;
+  try{
+    const profile=await cloudFetchProfile();
+    if(cloudMeta.accountSub&&profile.sub&&cloudMeta.accountSub!==profile.sub){cloudMeta.fileId="";cloudMeta.lastSyncedRevision=0;cloudMeta.lastSyncedAt="";cloudMeta.linked=false;cloudMeta.localDirty=cloudHasMeaningfulLocalData()}
+    cloudMeta.enabled=true;cloudMeta.accountSub=profile.sub||"";cloudMeta.accountName=profile.name||profile.email||"Google account";cloudMeta.accountEmail=profile.email||"";cloudMeta.accountPicture=profile.picture||"";persistCloudMeta();renderCloudStatus();
+    await initializeCloudAfterAuth(cloudConnectIntent);
+  }catch(e){console.error(e);toast(e?.message||"Could not connect Google Drive.");renderCloudStatus()}
+}
+async function cloudFetchProfile(){
+  const r=await fetch("https://openidconnect.googleapis.com/v1/userinfo",{headers:{Authorization:`Bearer ${googleAccessToken}`}});if(!r.ok)throw new Error("Could not read the signed-in Google account.");return r.json();
+}
+async function driveFetch(url,options={}){
+  if(!cloudTokenValid())throw new Error("Google Drive authorization expired. Reconnect to continue syncing.");
+  const headers=new Headers(options.headers||{});headers.set("Authorization",`Bearer ${googleAccessToken}`);const r=await fetch(url,{...options,headers});
+  if(r.status===401||r.status===403){googleAccessToken="";googleTokenExpiresAt=0;renderCloudStatus();throw new Error("Google Drive authorization expired or was denied. Reconnect Google Drive.")}
+  if(!r.ok){let detail="";try{const j=await r.json();detail=j?.error?.message||""}catch(e){}throw new Error(detail||`Google Drive request failed (${r.status}).`)}return r;
+}
+async function findCloudFile(){
+  const q=`name='${CLOUD_FILE_NAME.replaceAll("'","\\'")}'`;
+  const p=new URLSearchParams({spaces:"appDataFolder",q,fields:"files(id,name,modifiedTime,size)",pageSize:"10"});const r=await driveFetch(`https://www.googleapis.com/drive/v3/files?${p}`);const j=await r.json();return (j.files||[])[0]||null;
+}
+async function readCloudEnvelope(fileId){const r=await driveFetch(`https://www.googleapis.com/drive/v3/files/${encodeURIComponent(fileId)}?alt=media`);const j=await r.json();if(!j||j.app!=="SINOP"||!j.state)throw new Error("The SINOP Drive file is invalid or from an unsupported version.");return j}
+async function createCloudFile(envelope){
+  const boundary=`sinop_${Date.now()}_${Math.random().toString(16).slice(2)}`;const metadata={name:CLOUD_FILE_NAME,parents:["appDataFolder"],mimeType:"application/json"};
+  const body=new Blob([`--${boundary}\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n${JSON.stringify(metadata)}\r\n--${boundary}\r\nContent-Type: application/json\r\n\r\n${JSON.stringify(envelope)}\r\n--${boundary}--`],{type:`multipart/related; boundary=${boundary}`});
+  const r=await driveFetch("https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id,name,modifiedTime",{method:"POST",headers:{"Content-Type":`multipart/related; boundary=${boundary}`},body});return r.json();
+}
+async function updateCloudFile(fileId,envelope){const r=await driveFetch(`https://www.googleapis.com/upload/drive/v3/files/${encodeURIComponent(fileId)}?uploadType=media&fields=id,modifiedTime`,{method:"PATCH",headers:{"Content-Type":"application/json; charset=UTF-8"},body:JSON.stringify(envelope)});return r.json()}
+function closeCloudChoice(){const m=$("cloudChoiceModal");if(m){m.classList.remove("open");m.setAttribute("aria-hidden","true")}cloudChoiceHandlers={local:null,remote:null}}
+function openCloudChoice({title,copy,localMeta,remoteMeta,localLabel="Keep this device",remoteLabel="Use Drive data",onLocal,onRemote}){
+  $("cloudChoiceTitle").textContent=title;$("cloudChoiceCopy").textContent=copy;$("cloudChoiceLocalMeta").textContent=localMeta||"Local SINOP data";$("cloudChoiceRemoteMeta").textContent=remoteMeta||"Google Drive copy";$("cloudChoiceLocalBtn").textContent=localLabel;$("cloudChoiceRemoteBtn").textContent=remoteLabel;cloudChoiceHandlers={local:onLocal,remote:onRemote};const m=$("cloudChoiceModal");m.classList.add("open");m.setAttribute("aria-hidden","false");
+}
+async function applyCloudEnvelope(env,{toastMessage="Drive data loaded on this device."}={}){
+  state=normalizeState({...clone(defaults),...(env.state||{}),planner:{...defaults.planner,...(env.state?.planner||{})},goalPlanner:{...defaults.goalPlanner,...(env.state?.goalPlanner||{})}});localStorage.setItem(KEY,JSON.stringify(state));localStorage.setItem(SETUP_COMPLETE_KEY,"1");localStorage.removeItem(SETUP_STARTED_KEY);localStorage.removeItem(SETUP_STEP_KEY);cloudMeta.lastSyncedRevision=Number(env.revision||1);cloudMeta.lastSyncedAt=env.updatedAt||new Date().toISOString();cloudMeta.localDirty=false;cloudMeta.linked=true;cloudMeta.enabled=true;persistCloudMeta();
+  const setup=$("setupWalkthrough");if(setup){setup.classList.remove("open");setup.setAttribute("aria-hidden","true")}document.body.classList.remove("setup-lock");render();refreshNeededFxRates({force:false,rerender:true});renderCloudStatus();setSaveStatus("saved","Synced to Drive");toast(toastMessage);
+}
+async function initializeCloudAfterAuth(intent="sync"){
+  cloudSyncInFlight=true;renderCloudStatus();
+  try{
+    let file=cloudMeta.fileId?{id:cloudMeta.fileId}:await findCloudFile();
+    if(!file){
+      if(intent==="restore"){cloudMeta.enabled=true;cloudMeta.linked=false;persistCloudMeta();toast("No SINOP cloud copy was found in this Google account.");return}
+      const env=cloudEnvelope(1),created=await createCloudFile(env);cloudMeta.fileId=created.id;cloudMeta.lastSyncedRevision=1;cloudMeta.lastSyncedAt=env.updatedAt;cloudMeta.localDirty=false;cloudMeta.linked=true;persistCloudMeta();setSaveStatus("saved","Synced to Drive");toast("Private SINOP cloud sync is ready.");return
+    }
+    cloudMeta.fileId=file.id;const env=await readCloudEnvelope(file.id);const remoteRev=Number(env.revision||1);cloudMeta.linked=true;persistCloudMeta();
+    if(!cloudMeta.lastSyncedRevision){
+      if(!cloudHasMeaningfulLocalData()||intent==="restore"){await applyCloudEnvelope(env,{toastMessage:"SINOP restored from Google Drive."});return}
+      openCloudChoice({title:"SINOP data already exists in Drive",copy:"This browser also has SINOP data. Choose which complete copy should become current before sync begins.",localMeta:cloudMeta.localChangedAt?`Changed ${cloudFmtTime(cloudMeta.localChangedAt)}`:"Existing data on this browser",remoteMeta:`Revision ${remoteRev} · ${cloudFmtTime(env.updatedAt)}`,localLabel:"Upload this device",remoteLabel:"Use Drive data",onLocal:()=>forceUploadLocalOverCloud(env),onRemote:()=>applyCloudEnvelope(env)});return
+    }
+    if(remoteRev>Number(cloudMeta.lastSyncedRevision||0)){
+      if(cloudMeta.localDirty){openCloudConflict(env);return}
+      await applyCloudEnvelope(env,{toastMessage:"Newer SINOP data downloaded from Drive."});return
+    }
+    if(cloudMeta.localDirty){cloudSyncInFlight=false;await syncCloudNow({manual:false});return}
+    cloudMeta.lastSyncedRevision=Math.max(remoteRev,Number(cloudMeta.lastSyncedRevision||0));cloudMeta.lastSyncedAt=env.updatedAt||cloudMeta.lastSyncedAt;persistCloudMeta();setSaveStatus("saved","Synced to Drive");
+  }finally{cloudSyncInFlight=false;renderCloudStatus()}
+}
+function openCloudConflict(env){const remoteRev=Number(env.revision||1);openCloudChoice({title:"Changes found on another device",copy:"Both this browser and Google Drive changed since the last successful sync. SINOP will not silently overwrite either copy.",localMeta:`Unsynced local changes${cloudMeta.localChangedAt?` · ${cloudFmtTime(cloudMeta.localChangedAt)}`:""}`,remoteMeta:`Drive revision ${remoteRev} · ${cloudFmtTime(env.updatedAt)}`,localLabel:"Keep & upload this device",remoteLabel:"Use Drive data",onLocal:()=>forceUploadLocalOverCloud(env),onRemote:()=>applyCloudEnvelope(env)})}
+async function forceUploadLocalOverCloud(remoteEnv){closeCloudChoice();cloudMeta.lastSyncedRevision=Number(remoteEnv?.revision||cloudMeta.lastSyncedRevision||0);persistCloudMeta();await syncCloudNow({manual:true,force:true})}
+function queueCloudSync(){if(!cloudMeta.enabled||!cloudMeta.linked||!cloudMeta.localDirty)return;clearTimeout(cloudSyncTimer);if(!cloudTokenValid()){renderCloudStatus();return}cloudSyncTimer=setTimeout(()=>syncCloudNow({manual:false}),2800)}
+async function syncCloudNow({manual=true,force=false}={}){
+  if(!cloudMeta.enabled){if(manual)connectGoogleDrive("sync");return}
+  if(!cloudTokenValid()){if(manual)connectGoogleDrive("sync");else renderCloudStatus();return}
+  if(cloudSyncInFlight)return;cloudSyncInFlight=true;renderCloudStatus();
+  try{
+    let file=cloudMeta.fileId?{id:cloudMeta.fileId}:await findCloudFile();if(!file){const env=cloudEnvelope(1),created=await createCloudFile(env);cloudMeta.fileId=created.id;cloudMeta.lastSyncedRevision=1;cloudMeta.lastSyncedAt=env.updatedAt;cloudMeta.localDirty=false;cloudMeta.linked=true;persistCloudMeta();setSaveStatus("saved","Synced to Drive");if(manual)toast("SINOP synced to Google Drive.");return}
+    cloudMeta.fileId=file.id;let remote=null;try{remote=await readCloudEnvelope(file.id)}catch(e){if(!force)throw e}
+    const remoteRev=Number(remote?.revision||0),baseRev=Number(cloudMeta.lastSyncedRevision||0);
+    if(!force&&remoteRev>baseRev&&cloudMeta.localDirty){openCloudConflict(remote);return}
+    if(!cloudMeta.localDirty&&!force){if(remoteRev>baseRev)await applyCloudEnvelope(remote,{toastMessage:"Newer SINOP data downloaded from Drive."});else if(manual)toast("SINOP is already synced.");return}
+    const nextRev=Math.max(remoteRev,baseRev)+1,env=cloudEnvelope(nextRev);await updateCloudFile(file.id,env);cloudMeta.lastSyncedRevision=nextRev;cloudMeta.lastSyncedAt=env.updatedAt;cloudMeta.localDirty=false;cloudMeta.linked=true;persistCloudMeta();setSaveStatus("saved","Synced to Drive");if(manual)toast("SINOP synced to Google Drive.");
+  }catch(e){console.error(e);setSaveStatus("saved","Saved locally · Drive sync paused");if(manual)toast(e?.message||"Google Drive sync failed.")}
+  finally{cloudSyncInFlight=false;renderCloudStatus()}
+}
+function disconnectGoogleDrive(){googleAccessToken="";googleTokenExpiresAt=0;cloudMeta.enabled=false;persistCloudMeta();renderCloudStatus();setSaveStatus("saved","Saved locally");toast("Google Drive sync is off on this device. Your local SINOP data was kept.")}
 
 const toastQueue=[];
 let toastShowing=false;
@@ -17182,6 +17384,15 @@ $("printStatementBtn").onclick=printMonthlyStatement;
 document.querySelectorAll("[data-scenario]").forEach(b=>b.onclick=()=>{state.scenario=b.dataset.scenario;render()});
 $("budgetMonth").onchange=e=>{state.month=e.target.value||currentMonth;render()};
 $("saveBtn").onclick=()=>save(true);
+$("cloudTopBtn")?.addEventListener("click",()=>cloudTokenValid()?syncCloudNow({manual:true}):connectGoogleDrive("sync"));
+$("cloudConnectBtn")?.addEventListener("click",()=>connectGoogleDrive("sync"));
+$("cloudSyncNowBtn")?.addEventListener("click",()=>syncCloudNow({manual:true}));
+$("cloudDisconnectBtn")?.addEventListener("click",disconnectGoogleDrive);
+$("setupCloudRestoreBtn")?.addEventListener("click",()=>connectGoogleDrive("restore"));
+$("closeCloudChoiceBtn")?.addEventListener("click",closeCloudChoice);
+$("cloudChoiceLocalBtn")?.addEventListener("click",()=>{const fn=cloudChoiceHandlers.local;closeCloudChoice();if(fn)fn()});
+$("cloudChoiceRemoteBtn")?.addEventListener("click",()=>{const fn=cloudChoiceHandlers.remote;closeCloudChoice();if(fn)fn()});
+$("cloudChoiceModal")?.addEventListener("click",e=>{if(e.target===$("cloudChoiceModal"))closeCloudChoice()});
 
 $("scanKkbReceiptBtn").onclick=openKkbReceiptPicker;
 $("kkbReceiptImageInput").onchange=e=>{
@@ -18903,6 +19114,8 @@ $("saveScenarioBtn")?.addEventListener('click',saveScenario);
 window.matchMedia("(prefers-color-scheme: dark)").addEventListener?.("change",()=>{if(state.settings.theme==="system")applyAppearance()});
 initSidebar();
 render();
+renderCloudStatus();
+initGoogleCloudAuth();
 refreshNeededFxRates({force:false,rerender:true});
 maybeStartFirstRunSetup();
 </script>
