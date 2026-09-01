@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0f766e">
-<title>SINOP v115 · Personal finance</title>
+<title>SINOP v117 · Personal finance</title>
 <meta name="application-name" content="SINOP">
 <meta name="apple-mobile-web-app-title" content="SINOP">
 <meta name="description" content="SINOP — your personal money system for income, spending, savings, investments, goals, KKB, and financial tracking.">
@@ -4407,6 +4407,7 @@ body[data-theme="dark"] .barkada-group-btn,body[data-theme="dark"] .barkada-memb
 </style>
 <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
+<script src="https://apis.google.com/js/api.js" async defer></script>
 </head>
 <body class="sinop-auth-locked">
 <div id="sinopLoginGate" class="sinop-login-gate" aria-hidden="false">
@@ -4498,7 +4499,7 @@ body[data-theme="dark"] .barkada-group-btn,body[data-theme="dark"] .barkada-memb
         <button class="nav-btn" data-target="user-manual"><span class="nav-icon"><span data-hero="question-mark-circle"></span></span><span class="nav-label">User manual</span></button>
       </div>
     </nav>
-    <div class="sinop-sidebar-footer"><small>Your personal money system · v115</small></div>
+    <div class="sinop-sidebar-footer"><small>Your personal money system · v117</small></div>
   </aside>
 
   <main class="main">
@@ -6331,7 +6332,7 @@ body[data-theme="dark"] .barkada-group-btn,body[data-theme="dark"] .barkada-memb
                 <button class="btn btn-secondary" id="cloudSyncNowBtn" type="button" disabled>Sync now</button>
                 <button class="btn btn-secondary" id="cloudDisconnectBtn" type="button" disabled>Log out / switch account</button>
               </div>
-              <div class="cloud-privacy-note"><strong>What SINOP can access:</strong> only its hidden <code>appDataFolder</code> file using the <code>drive.appdata</code> permission. SINOP does not request access to your ordinary Drive files. Your Google access token is kept only in memory and is never stored inside the SINOP backup.</div>
+              <div class="cloud-privacy-note"><strong>What SINOP can access:</strong> your private SINOP app-data file through <code>drive.appdata</code>, plus only Barkada files that SINOP creates or that you explicitly open for SINOP through Google Picker using <code>drive.file</code>. SINOP does not request permission to browse all of your ordinary Drive files. Your Google access token is kept only in memory and is never stored inside the SINOP backup.</div>
             </div>
             <div class="cloud-sync-panel">
               <div class="cloud-sync-state" id="cloudSyncState"><span class="cloud-sync-dot"></span><span id="cloudSyncStateText">Local only</span></div>
@@ -7746,6 +7747,10 @@ const SETUP_STARTED_KEY="sinop-guided-setup-started-v1";
 const SETUP_STEP_KEY="sinop-guided-setup-step-v1";
 const GOOGLE_CLIENT_ID="226170068172-fsn8vfklkntkse00t63pfa8ke9fp9q0l.apps.googleusercontent.com";
 const GOOGLE_SCOPES="openid email profile https://www.googleapis.com/auth/drive.appdata https://www.googleapis.com/auth/drive.file";
+const GOOGLE_PROJECT_NUMBER="226170068172";
+/* Required only for Barkada invite acceptance through Google Picker.
+   Create a browser-restricted key in the same Google Cloud project and paste it here. */
+const GOOGLE_PICKER_API_KEY="AIzaSyDLVdVtI6284PquwhYDvp4RvTFKCg3ERvQ";
 const BARKADA_APP="SINOP_BARKADA";
 const BARKADA_SCHEMA_VERSION=1;
 const CLOUD_FILE_NAME="sinop-data.json";
@@ -8419,9 +8424,11 @@ let googleTokenExpiresAt=0;
 let cloudSyncTimer=null;
 let cloudSyncInFlight=false;
 let cloudConnectIntent="sync";
-let sinopAuthGranted=false;
+let sinopAuthGranted=cloudMeta.authSession===true||(cloudMeta.authSession==null&&!!cloudMeta.accountSub&&!!cloudMeta.enabled);
 let sinopAuthInFlight=false;
 let cloudChoiceHandlers={local:null,remote:null};
+let googlePickerReady=false;
+let googlePickerLoadStarted=false;
 
 /* Fresh installs begin clean instead of inheriting author/demo defaults.
    Existing saved users are untouched. A setup in progress is persisted so a
@@ -8475,7 +8482,7 @@ function scheduleAutoSave(){
 }
 
 /* ----- Google Drive appDataFolder cloud sync ----- */
-function newCloudMeta(){return {enabled:false,linked:false,fileId:"",lastSyncedRevision:0,lastSyncedAt:"",localDirty:false,localChangedAt:"",deviceId:(crypto?.randomUUID?crypto.randomUUID():`device-${Date.now()}-${Math.random().toString(16).slice(2)}`),accountSub:"",accountName:"",accountEmail:"",accountPicture:""}}
+function newCloudMeta(){return {enabled:false,linked:false,authSession:null,fileId:"",lastSyncedRevision:0,lastSyncedAt:"",localDirty:false,localChangedAt:"",deviceId:(crypto?.randomUUID?crypto.randomUUID():`device-${Date.now()}-${Math.random().toString(16).slice(2)}`),accountSub:"",accountName:"",accountEmail:"",accountPicture:""}}
 function loadCloudMeta(){try{return {...newCloudMeta(),...(JSON.parse(localStorage.getItem(CLOUD_META_KEY)||"null")||{})}}catch(e){return newCloudMeta()}}
 function persistCloudMeta(){try{localStorage.setItem(CLOUD_META_KEY,JSON.stringify(cloudMeta))}catch(e){}}
 function googleAccountStateKey(sub){return `${ACCOUNT_STATE_PREFIX}${String(sub||"").replace(/[^a-zA-Z0-9._-]/g,"_")}`}
@@ -8506,7 +8513,7 @@ function restoreGoogleAccountWorkspace(sub){
 function cloudTokenValid(){return !!googleAccessToken && Date.now()<googleTokenExpiresAt-15000}
 function cloudFmtTime(v){if(!v)return "Never";const d=new Date(v);return Number.isNaN(d.getTime())?"Never":d.toLocaleString("en-PH",{month:"short",day:"numeric",hour:"numeric",minute:"2-digit"})}
 function cloudHasMeaningfulLocalData(){return !!((state.accounts||[]).length||(state.incomes||[]).length||(state.bills||[]).length||(state.spending||[]).length||(state.goals||[]).length||(state.loans||[]).length||(state.kkbTrips||[]).length||(state.groceryEvents||[]).length||localStorage.getItem(SETUP_COMPLETE_KEY)==="1")}
-function cloudEnvelope(revision){return {app:"SINOP",schemaVersion:115,revision:Number(revision||1),updatedAt:new Date().toISOString(),deviceId:cloudMeta.deviceId,state:clone(state)}}
+function cloudEnvelope(revision){return {app:"SINOP",schemaVersion:116,revision:Number(revision||1),updatedAt:new Date().toISOString(),deviceId:cloudMeta.deviceId,state:clone(state)}}
 function renderCloudStatus(){
   const token=cloudTokenValid(),enabled=!!cloudMeta.enabled,linked=!!cloudMeta.linked;
   const top=$("cloudTopBtn"),topLabel=$("cloudTopLabel"),badge=$("cloudSettingsBadge"),connect=$("cloudConnectBtn"),connectLabel=$("cloudConnectLabel"),sync=$("cloudSyncNowBtn"),disconnect=$("cloudDisconnectBtn"),logout=$("logoutTopBtn");
@@ -8573,7 +8580,7 @@ async function handleGoogleToken(response){
         cloudMeta.fileId="";cloudMeta.lastSyncedRevision=0;cloudMeta.lastSyncedAt="";cloudMeta.linked=false;cloudMeta.localDirty=false;cloudMeta.localChangedAt="";
       }
     }
-    cloudMeta.enabled=true;cloudMeta.accountSub=nextSub;cloudMeta.accountName=profile.name||profile.email||"Google account";cloudMeta.accountEmail=profile.email||"";cloudMeta.accountPicture=profile.picture||"";persistCloudMeta();unlockSinopAfterGoogle();renderCloudStatus();
+    cloudMeta.enabled=true;cloudMeta.authSession=true;cloudMeta.accountSub=nextSub;cloudMeta.accountName=profile.name||profile.email||"Google account";cloudMeta.accountEmail=profile.email||"";cloudMeta.accountPicture=profile.picture||"";persistCloudMeta();unlockSinopAfterGoogle();renderCloudStatus();
     if(switchedAccount)render();
     await initializeCloudAfterAuth(cloudConnectIntent);
     await processPendingBarkadaInvite();
@@ -8588,8 +8595,68 @@ async function driveFetch(url,options={}){
   if(!cloudTokenValid())throw new Error("Google Drive authorization expired. Reconnect to continue syncing.");
   const headers=new Headers(options.headers||{});headers.set("Authorization",`Bearer ${googleAccessToken}`);const r=await fetch(url,{...options,headers});
   if(r.status===401){googleAccessToken="";googleTokenExpiresAt=0;renderCloudStatus();throw new Error("Google Drive authorization expired. Reconnect Google Drive.")}
-  if(!r.ok){let detail="";try{const j=await r.json();detail=j?.error?.message||""}catch(e){}throw new Error(detail||`Google Drive request failed (${r.status}).`)}return r;
+  if(!r.ok){
+    let detail="",reason="";
+    try{const j=await r.json();detail=j?.error?.message||"";reason=j?.error?.errors?.[0]?.reason||j?.error?.status||""}catch(e){}
+    const err=new Error(detail||`Google Drive request failed (${r.status}).`);
+    err.status=r.status;err.reason=reason;throw err;
+  }
+  return r;
 }
+
+function initGooglePickerApi(attempt=0){
+  if(googlePickerReady)return;
+  if(window.gapi?.load){
+    if(googlePickerLoadStarted)return;
+    googlePickerLoadStarted=true;
+    try{gapi.load("picker",()=>{googlePickerReady=!!window.google?.picker;googlePickerLoadStarted=false})}
+    catch(e){googlePickerLoadStarted=false}
+    return;
+  }
+  if(attempt<40)setTimeout(()=>initGooglePickerApi(attempt+1),250);
+}
+function barkadaPickerConfigured(){return !!String(GOOGLE_PICKER_API_KEY||"").trim()}
+function isBarkadaAppAuthorizationError(e){return e?.reason==="appNotAuthorizedToFile"||Number(e?.status||0)===404||(/not found|not authorized.*file/i).test(String(e?.message||""))}
+function authorizeBarkadaFileWithPicker(inviteFileId){
+  return new Promise((resolve,reject)=>{
+    if(!cloudTokenValid()){reject(new Error("Reconnect Google before accepting this Barkada invite."));return}
+    if(!barkadaPickerConfigured()){
+      const err=new Error("Barkada invite authorization is not configured yet. The SINOP owner must enable Google Picker API and add its browser API key to SINOP.");
+      err.code="picker_not_configured";reject(err);return;
+    }
+    if(!googlePickerReady||!window.google?.picker){initGooglePickerApi();const err=new Error("Google Picker is still loading. Try Join again in a moment.");err.code="picker_loading";reject(err);return}
+    let settled=false;
+    const finish=(fn,value)=>{if(settled)return;settled=true;fn(value)};
+    try{
+      const view=new google.picker.DocsView(google.picker.ViewId.DOCS);
+      if(google.picker.DocsViewMode?.LIST)view.setMode(google.picker.DocsViewMode.LIST);
+      if(typeof view.setQuery==="function")view.setQuery("SINOP Barkada");
+      const picker=new google.picker.PickerBuilder()
+        .addView(view)
+        .setOAuthToken(googleAccessToken)
+        .setDeveloperKey(GOOGLE_PICKER_API_KEY)
+        .setAppId(GOOGLE_PROJECT_NUMBER)
+        .setTitle("Select the SINOP Barkada invitation")
+        .setCallback(data=>{
+          const action=data?.[google.picker.Response.ACTION];
+          if(action===google.picker.Action.PICKED){
+            const doc=(data?.[google.picker.Response.DOCUMENTS]||[])[0];
+            const pickedId=String(doc?.[google.picker.Document.ID]||"");
+            if(pickedId!==String(inviteFileId)){
+              finish(reject,new Error("That is a different file. Select the SINOP Barkada file from this invite."));
+              return;
+            }
+            finish(resolve,true);
+          }else if(action===google.picker.Action.CANCEL){
+            const err=new Error("Barkada file selection was cancelled.");err.code="picker_cancelled";finish(reject,err);
+          }
+        })
+        .build();
+      picker.setVisible(true);
+    }catch(e){finish(reject,e)}
+  });
+}
+
 async function findCloudFile(){
   const q=`name='${CLOUD_FILE_NAME.replaceAll("'","\\'")}'`;
   const p=new URLSearchParams({spaces:"appDataFolder",q,fields:"files(id,name,modifiedTime,size)",pageSize:"10"});const r=await driveFetch(`https://www.googleapis.com/drive/v3/files?${p}`);const j=await r.json();return (j.files||[])[0]||null;
@@ -8649,7 +8716,7 @@ async function syncCloudNow({manual=true,force=false}={}){
 }
 function disconnectGoogleDrive(){
   persistGoogleAccountWorkspace(cloudMeta.accountSub);
-  googleAccessToken="";googleTokenExpiresAt=0;cloudMeta.enabled=false;persistCloudMeta();setSaveStatus("saved","Signed out · data kept locally");
+  googleAccessToken="";googleTokenExpiresAt=0;cloudMeta.enabled=false;cloudMeta.authSession=false;persistCloudMeta();setSaveStatus("saved","Signed out · data kept locally");
   lockSinopForSignIn("Logged out. Choose any Google account to continue. Your previous account data remains separate and saved in its Drive/local profile.");
   renderCloudStatus();toast("Logged out. You can now sign in with another Google account.");
 }
@@ -12559,9 +12626,48 @@ function closeAddBarkadaMemberModal(){$('addBarkadaMemberModal').classList.remov
 async function saveAddBarkadaMember(){const ref=activeBarkadaRef(),doc=ref&&barkadaCache.get(ref.groupId);if(!ref||!doc)return;const email=$('barkadaMemberEmail').value.trim().toLowerCase(),name=$('barkadaMemberName').value.trim();if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){toast('Enter a valid Google email.');return}if((doc.members||[]).some(m=>String(m.email||'').toLowerCase()===email)){toast('That email is already in this Barkada.');return}const btn=$('saveAddBarkadaMemberBtn');btn.disabled=true;btn.textContent='Inviting…';try{await shareBarkadaFile(ref.fileId,email,doc.name);doc.members.push({id:uid(),email,name,role:'member',status:'invited',invitedAt:new Date().toISOString()});await updateBarkadaFile(ref.fileId,doc);barkadaCache.set(doc.groupId,doc);ref.lastRevision=doc.revision;ref.lastSyncedAt=doc.updatedAt;scheduleAutoSave();closeAddBarkadaMemberModal();renderBarkada();toast('Barkada invitation sent.')}catch(e){console.error(e);toast(e.message||'Could not invite that Google account.')}finally{btn.disabled=false;btn.textContent='Send invite'}}
 function openJoinBarkadaModal(){$('barkadaInviteInput').value='';$('joinBarkadaModal').classList.add('open');$('joinBarkadaModal').setAttribute('aria-hidden','false');setTimeout(()=>$('barkadaInviteInput').focus(),40)}
 function closeJoinBarkadaModal(){$('joinBarkadaModal').classList.remove('open');$('joinBarkadaModal').setAttribute('aria-hidden','true')}
-async function joinBarkadaFile(fileId,{quiet=false}={}){if(!fileId)return false;if(!cloudTokenValid()){connectGoogleDrive('sync');return false}try{const doc=await readBarkadaFile(fileId),email=barkadaCurrentEmail();let me=barkadaDocMember(doc,email);if(!me){me={id:uid(),email,name:cloudMeta.accountName||email,role:'member',status:'active',joinedAt:new Date().toISOString()};doc.members.push(me);await updateBarkadaFile(fileId,doc)}else if(me.status!=='active'||(!me.name&&cloudMeta.accountName)){me.status='active';me.name=me.name||cloudMeta.accountName||email;me.joinedAt=me.joinedAt||new Date().toISOString();await updateBarkadaFile(fileId,doc)}upsertBarkadaRef(doc,fileId);renderBarkada();if(!quiet)toast(`Joined ${doc.name}.`);return true}catch(e){console.error(e);if(!quiet)toast(e.message||'Could not join this Barkada. Make sure this Google email was invited.');return false}}
+async function joinBarkadaFile(fileId,{quiet=false}={}){
+  if(!fileId)return false;
+  if(!cloudTokenValid()){showPendingBarkadaInvite(fileId,"Reconnect Google to authorize this shared Barkada file.");return false}
+  try{
+    let doc;
+    try{doc=await readBarkadaFile(fileId)}
+    catch(e){
+      if(!isBarkadaAppAuthorizationError(e))throw e;
+      try{await authorizeBarkadaFileWithPicker(fileId);doc=await readBarkadaFile(fileId)}
+      catch(pickerError){
+        console.error(pickerError);
+        showPendingBarkadaInvite(fileId,pickerError.code==="picker_not_configured"
+          ?"This Barkada was shared to your Google account, but SINOP still needs Google Picker configured by the project owner before invited accounts can authorize shared files."
+          :(pickerError.message||"Authorize the Barkada file in Google Picker to continue."));
+        if(!quiet&&pickerError.code!=="picker_cancelled")toast(pickerError.message||"Could not authorize this Barkada file.");
+        return false;
+      }
+    }
+    const email=barkadaCurrentEmail();
+    let me=barkadaDocMember(doc,email);
+    if(!me){me={id:uid(),email,name:cloudMeta.accountName||email,role:'member',status:'active',joinedAt:new Date().toISOString()};doc.members.push(me);await updateBarkadaFile(fileId,doc)}
+    else if(me.status!=='active'||(!me.name&&cloudMeta.accountName)){me.status='active';me.name=me.name||cloudMeta.accountName||email;me.joinedAt=me.joinedAt||new Date().toISOString();await updateBarkadaFile(fileId,doc)}
+    upsertBarkadaRef(doc,fileId);renderBarkada();if(!quiet)toast(`Joined ${doc.name}.`);return true;
+  }catch(e){console.error(e);showPendingBarkadaInvite(fileId,e.message||"Could not open this Barkada.");if(!quiet)toast(e.message||'Could not join this Barkada. Make sure this Google email was invited.');return false}
+}
 async function confirmJoinBarkada(){const id=parseBarkadaFileId($('barkadaInviteInput').value);if(!id){toast('Paste a valid SINOP Barkada invite.');return}const btn=$('confirmJoinBarkadaBtn');btn.disabled=true;btn.textContent='Joining…';try{if(await joinBarkadaFile(id)){closeJoinBarkadaModal();document.querySelector('.nav-btn[data-target="barkada"]')?.click()}}finally{btn.disabled=false;btn.textContent='Join Barkada'}}
-async function processPendingBarkadaInvite(){const id=new URL(location.href).searchParams.get('barkada');if(!id)return;const ok=await joinBarkadaFile(id,{quiet:false});if(ok){const u=new URL(location.href);u.searchParams.delete('barkada');history.replaceState({},'',u.pathname+u.search+u.hash);setTimeout(()=>document.querySelector('.nav-btn[data-target="barkada"]')?.click(),80)}}
+function showPendingBarkadaInvite(fileId,message="This Barkada invitation is waiting for Google authorization."){
+  document.querySelector('.nav-btn[data-target="barkada"]')?.click();
+  const box=$('barkadaWorkspace');if(!box)return;
+  box.innerHTML=`<div class="barkada-error"><strong>Barkada invitation pending</strong><br>${esc(message)}<div class="action-row" style="margin-top:12px"><button class="btn btn-primary btn-sm" id="authorizePendingBarkadaBtn" type="button">${cloudTokenValid()?"Authorize & join":"Reconnect Google & join"}</button></div><small class="barkada-join-note">Use the same Google email that the Barkada owner invited. Your personal SINOP data remains private.</small></div>`;
+  $('authorizePendingBarkadaBtn')?.addEventListener('click',async()=>{
+    if(!cloudTokenValid()){connectGoogleDrive('join_barkada');return}
+    const ok=await joinBarkadaFile(fileId,{quiet:false});
+    if(ok){const u=new URL(location.href);u.searchParams.delete('barkada');history.replaceState({},'',u.pathname+u.search+u.hash);setTimeout(()=>document.querySelector('.nav-btn[data-target="barkada"]')?.click(),80)}
+  });
+}
+async function processPendingBarkadaInvite(){
+  const id=new URL(location.href).searchParams.get('barkada');if(!id)return;
+  if(!cloudTokenValid()){showPendingBarkadaInvite(id,"You are still signed in on this device. Reconnect Google once to authorize the shared Barkada file.");return}
+  const ok=await joinBarkadaFile(id,{quiet:false});
+  if(ok){const u=new URL(location.href);u.searchParams.delete('barkada');history.replaceState({},'',u.pathname+u.search+u.hash);setTimeout(()=>document.querySelector('.nav-btn[data-target="barkada"]')?.click(),80)}
+}
 function startKkbFromBarkada(doc,ref){const trip={id:uid(),title:`${doc.name} KKB`,date:localDateKey(),location:'',barkadaGroupId:doc.groupId,barkadaFileId:ref.fileId,members:(doc.members||[]).map(m=>({id:uid(),name:m.name||String(m.email||'Member').split('@')[0],email:m.email||''})),expenses:[],settlements:[]};if(trip.members.length<2){toast('Add at least one more Barkada member before starting KKB.');return}state.kkbTrips.push(trip);state.kkbActiveTripId=trip.id;scheduleAutoSave();renderKkb();renderBarkada();openBarkadaKkb(trip.id)}
 function openBarkadaKkb(tripId){const trip=kkbTripById(tripId);if(!trip)return;state.kkbActiveTripId=trip.id;scheduleAutoSave();document.querySelector('.nav-btn[data-target="kkb"]')?.click();renderKkb()}
 
@@ -19384,6 +19490,8 @@ render();
 renderCloudStatus();
 renderSinopLoginGate();
 initGoogleCloudAuth();
+initGooglePickerApi();
+if(sinopAuthGranted&&new URL(location.href).searchParams.get("barkada"))setTimeout(()=>processPendingBarkadaInvite(),320);
 refreshNeededFxRates({force:false,rerender:true});
 maybeStartFirstRunSetup();
 </script>
