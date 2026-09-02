@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0f766e">
-<title>SINOP v120 · Personal finance</title>
+<title>SINOP v121 · Personal finance</title>
 <meta name="application-name" content="SINOP">
 <meta name="apple-mobile-web-app-title" content="SINOP">
 <meta name="description" content="SINOP — your personal money system for income, spending, savings, investments, goals, KKB, and financial tracking.">
@@ -4405,6 +4405,184 @@ body[data-theme="dark"] .sinop-known-account,body[data-theme="dark"] .sinop-goog
 body[data-theme="dark"] .barkada-group-btn,body[data-theme="dark"] .barkada-member-row,body[data-theme="dark"] .barkada-summary-card{background:#18231f}
 @media(max-width:950px){.barkada-layout{grid-template-columns:1fr}.barkada-list{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:650px){.barkada-summary-grid,.barkada-list{grid-template-columns:1fr}.barkada-workspace-head,.barkada-kkb-panel-head{flex-direction:column}.barkada-workspace-actions{justify-content:flex-start}}
 
+
+
+/* ===== SINOP v121 · mobile-first UX ===== */
+.mobile-appbar,.mobile-month-chip,.mobile-quick{display:none}
+.feature-xp-summary{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:0 0 12px}
+.feature-xp-summary>div{padding:12px 13px;border:1px solid var(--border);border-radius:13px;background:var(--soft)}
+.feature-xp-summary span,.feature-xp-summary small{display:block;color:var(--muted);font-size:8px;line-height:1.4}
+.feature-xp-summary strong{display:block;margin:4px 0 3px;font-size:17px}
+
+@media(max-width:760px){
+  html{width:100%;max-width:100%;overflow-x:hidden;scroll-padding-top:72px;scroll-padding-bottom:82px}
+  body{width:100%;max-width:100%;overflow-x:hidden}
+  body.mobile-sidebar-open{overflow:hidden}
+  .app,.app.sidebar-collapsed{display:block;width:100%;min-width:0}
+  .main{width:100%;min-width:0;padding:calc(70px + env(safe-area-inset-top)) 12px calc(86px + env(safe-area-inset-bottom))}
+  .section,.section.active,.goal-list,.goal-card,.goal-projection-panel,.goal-dss,.goal-recommendation-table{min-width:0;max-width:100%}
+
+  /* Compact sticky app bar. The workspace/budget name is deliberately not repeated on every page. */
+  .topbar{position:fixed;z-index:34;top:0;left:0;right:0;height:calc(58px + env(safe-area-inset-top));margin:0;padding:max(8px,env(safe-area-inset-top)) 12px 8px;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:8px;background:color-mix(in srgb,var(--panel) 94%,transparent);border-bottom:1px solid color-mix(in srgb,var(--border) 82%,transparent);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:0 5px 20px rgba(24,33,30,.05)}
+  body[data-theme="dark"] .topbar{background:color-mix(in srgb,var(--panel) 92%,transparent)}
+  .sinop-topbar-copy{display:none!important}
+  .mobile-appbar{display:flex;align-items:center;gap:9px;min-width:0}
+  .mobile-app-mark{width:34px;height:34px;flex:0 0 34px;border-radius:11px;display:grid;place-items:center;background:var(--brand);color:#fff;font-size:17px;font-weight:950;box-shadow:0 7px 16px color-mix(in srgb,var(--brand) 22%,transparent)}
+  .mobile-app-copy{min-width:0;display:grid;gap:1px}
+  .mobile-app-copy>span{font-size:7.5px;line-height:1;text-transform:uppercase;letter-spacing:.13em;color:var(--muted);font-weight:900}
+  .mobile-app-copy>strong{font-size:14px;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .top-actions{margin:0;display:flex;align-items:center;justify-content:flex-end;gap:7px;flex-wrap:nowrap}
+  .top-actions>*{display:none!important}
+  .top-actions>.mobile-month-chip,.top-actions>#notificationBell{display:flex!important}
+  .mobile-month-chip{position:relative;align-items:center;justify-content:center;gap:5px;height:38px;min-width:76px;padding:0 9px;border:1px solid var(--border);border-radius:12px;background:var(--panel);color:var(--text);font-size:9px;font-weight:850;overflow:hidden}
+  .mobile-month-chip .hero-icon{width:15px;height:15px;color:var(--brand)}
+  .mobile-month-chip input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer}
+  #notificationBell{width:38px;min-width:38px;height:38px;padding:0;border-radius:12px;align-items:center;justify-content:center;background:var(--panel)}
+  #notificationBell .hero-icon{width:19px;height:19px}
+
+  /* Content hierarchy and touch ergonomics. */
+  .section-head{align-items:flex-start;gap:9px;flex-wrap:wrap;margin-bottom:13px}
+  .section-head>div:first-child{min-width:0}
+  .section-head h2,.page-head h2{font-size:18px;line-height:1.22;margin-bottom:3px}
+  .section-head .subtle,.page-head .subtle{font-size:10px;line-height:1.45}
+  .page-head{margin:2px 0 14px}
+  .eyebrow{font-size:8px;margin-bottom:4px}
+  .card,.os-card,.settings-card,.metric,.analytics-card{min-width:0;border-radius:15px}
+  .card-pad,.goal-card{padding:14px}
+  .os-card{padding:14px}
+  .os-card-head{align-items:flex-start;gap:8px}
+  .os-card-head h2{font-size:16px}
+  .os-card-head p{font-size:9px;line-height:1.4}
+  .btn,.icon-btn,button{touch-action:manipulation}
+  .btn{min-height:42px}
+  .btn-sm{min-height:36px}
+  input,select,textarea{font-size:16px!important;max-width:100%}
+  input[type="checkbox"],input[type="radio"]{font-size:initial!important}
+  .segmented{max-width:100%;overflow-x:auto;scrollbar-width:none}
+  .segmented::-webkit-scrollbar{display:none}
+  .segmented button{min-height:38px;white-space:nowrap}
+
+  /* Small KPI cards should use the width instead of becoming a long one-card column. */
+  .summary-grid,.analytics-grid,.info-grid,.account-summary-grid,.kkb-summary-grid,.daily-summary-grid,.os-kpi-grid,.barkada-summary-grid,.preview-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:9px}
+  .goal-summary{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:0;padding:12px 10px}
+  .goal-summary>div{min-width:0;padding:2px 8px!important}
+  .goal-summary>div+div{border-left:1px solid var(--border);border-top:0!important}
+  .goal-summary strong{font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .summary-grid .metric{padding:13px}
+  .summary-grid .metric strong{font-size:19px}
+  .summary-grid .metric:last-child:nth-child(odd){grid-column:1/-1}
+  .daily-summary-card,.barkada-summary-card{padding:12px}
+  .daily-summary-card strong,.barkada-summary-card strong{font-size:16px}
+  .os-overview-grid,.overview-grid,.dashboard-grid,.dss-grid,.goal-fields,.goal-list,.os-briefing-grid,.runway-grid,.autopsy-grid,.decision-compare,.milestone-grid,.record-grid,.os-three-col,.wealth-tracker-expanded{grid-template-columns:1fr!important}
+  .goal-plan-metrics,.goal-controls,.goal-meta-fields,.overview-account-grid,.account-flow-grid,.account-payment-summary,.account-modal-grid,.cc-modal-grid,.barkada-grid,.barkada-workspace-grid,.daily-controls,.data-actions{grid-template-columns:1fr!important}
+  .goal-controls{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px}
+  .goal-controls label:last-child:nth-child(odd){grid-column:1/-1}
+  .goal-name{font-size:15px}
+  .goal-earmark-row{align-items:flex-start;gap:8px;flex-direction:column}
+  .goal-earmark-btn{width:100%}
+  .feature-xp-summary{grid-template-columns:1fr 1fr;gap:8px}
+  .reward-path-row{grid-template-columns:minmax(92px,.75fr) minmax(0,1.8fr) auto;gap:8px;padding:10px}
+  .reward-path-row>*{min-width:0}
+  .reward-path-row span{overflow-wrap:anywhere}
+
+  /* Dense tabular modules scroll inside their card, never resize the entire viewport. */
+  .table-card{padding:0;overflow:hidden}
+  .table-wrap,.inventory-table-wrap,.grocery-items-table-wrap,.kkb-table-wrap,.statement-table-wrap,.goal-recommendation-table,.daily-matrix-scroll{width:100%;max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
+  .data-table,.inventory-table,.grocery-items-table,.kkb-table{font-size:10px}
+  .data-table th,.data-table td{padding:10px 9px;white-space:nowrap}
+  .goal-recommendation-row{min-width:600px}
+
+  /* Goal monthly projection becomes a readable vertical ledger rather than a 590px desktop table. */
+  .goal-projection-toggle{min-height:44px;padding:10px 11px;font-size:10px;text-align:left}
+  .goal-projection-toggle .toggle-copy{min-width:0}
+  .goal-projection-toggle .toggle-copy span:last-child{white-space:normal;line-height:1.3}
+  .goal-projection-panel{overflow:hidden;border-radius:13px}
+  .goal-projection-head{padding:12px}
+  .goal-projection-head strong{font-size:11px}
+  .goal-projection-head small{font-size:9px;line-height:1.45}
+  .goal-projection-summary{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:6px;padding:8px}
+  .goal-projection-summary>div{min-width:0;padding:8px 7px}
+  .goal-projection-summary span{font-size:7px}
+  .goal-projection-summary strong{font-size:10px;white-space:normal;overflow-wrap:anywhere}
+  .goal-projection-table-wrap{max-height:370px;overflow-y:auto;overflow-x:hidden;padding:8px;background:var(--soft)}
+  .goal-projection-table{display:block;width:100%;min-width:0!important;font-size:9px}
+  .goal-projection-table thead{display:none}
+  .goal-projection-table tbody{display:grid;gap:8px;width:100%}
+  .goal-projection-table tr{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;padding:10px;border:1px solid var(--border);border-radius:11px;background:var(--panel);box-shadow:0 3px 10px rgba(24,33,30,.03)}
+  .goal-projection-table tr.goal-funded-row{background:var(--brandsoft)}
+  .goal-projection-table td,.goal-projection-table td:first-child{display:grid;gap:2px;padding:0!important;border:0!important;text-align:left!important;white-space:normal!important;min-width:0;background:transparent!important;color:var(--text)}
+  .goal-projection-table td:first-child{grid-column:1/-1;padding-bottom:5px!important;border-bottom:1px solid var(--border)!important;font-weight:900}
+  .goal-projection-table td::before{content:attr(data-label);display:block;color:var(--muted);font-size:7px;font-weight:800;text-transform:uppercase;letter-spacing:.05em}
+  .goal-projection-table td:first-child::before{display:none}
+  .goal-projection-table tr.goal-funded-row td{color:var(--brand2)}
+  .goal-projection-empty{grid-column:1/-1;padding:7px 2px;font-size:9px}
+  .goal-projection-note{padding:11px 12px;font-size:9px;line-height:1.55}
+
+  /* Drawer is secondary navigation on mobile. */
+  .sidebar{position:fixed;top:0;left:0;z-index:50;width:min(88vw,330px);height:100dvh;padding:max(18px,env(safe-area-inset-top)) 14px calc(22px + env(safe-area-inset-bottom));gap:18px;transform:translateX(-106%);box-shadow:20px 0 45px rgba(0,0,0,.18)}
+  body.mobile-sidebar-open .sidebar{transform:translateX(0)}
+  .sidebar-toggle{display:none!important}
+  body.mobile-sidebar-open .mobile-overlay{display:block;opacity:1;pointer-events:auto;z-index:45}
+  .nav{gap:13px}
+  .nav-group-label{font-size:8px;letter-spacing:.08em}
+  .nav-btn{min-height:42px;font-size:12px;border-radius:11px}
+  .sinop-sidebar-footer{padding-bottom:8px}
+
+  /* One designed floating quick-access control replaces the bottom native nav. */
+  .mobile-quick{display:block;position:fixed;z-index:48;left:12px;bottom:calc(12px + env(safe-area-inset-bottom));pointer-events:none}
+  .mobile-quick-fab{pointer-events:auto;width:50px;height:50px;padding:0;border:1px solid color-mix(in srgb,var(--brand) 65%,var(--border));border-radius:50%;display:grid;place-items:center;background:var(--brand);color:#fff;box-shadow:0 12px 28px color-mix(in srgb,var(--brand) 34%,transparent);transition:transform .18s ease,box-shadow .18s ease}
+  .mobile-quick-fab .hero-icon{width:21px;height:21px;grid-area:1/1}
+  .mobile-quick-fab-close{opacity:0;transform:scale(.65) rotate(-45deg);transition:.18s}
+  .mobile-quick-fab-open{opacity:1;transform:scale(1);transition:.18s}
+  .mobile-quick.open .mobile-quick-fab{transform:rotate(3deg);box-shadow:0 8px 20px color-mix(in srgb,var(--brand) 28%,transparent)}
+  .mobile-quick.open .mobile-quick-fab-open{opacity:0;transform:scale(.65) rotate(45deg)}
+  .mobile-quick.open .mobile-quick-fab-close{opacity:1;transform:scale(1) rotate(0)}
+  .mobile-quick-menu{pointer-events:none;position:absolute;left:0;bottom:62px;width:min(330px,calc(100vw - 24px));max-height:min(610px,calc(100dvh - 145px));overflow:auto;padding:12px;border:1px solid var(--border);border-radius:18px;background:color-mix(in srgb,var(--panel) 96%,transparent);box-shadow:0 20px 54px rgba(24,33,30,.18);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);opacity:0;transform:translateY(10px) scale(.97);transform-origin:bottom left;visibility:hidden;transition:.16s ease}
+  body[data-theme="dark"] .mobile-quick-menu{background:color-mix(in srgb,var(--panel) 95%,transparent)}
+  .mobile-quick.open .mobile-quick-menu{pointer-events:auto;opacity:1;transform:none;visibility:visible}
+  .mobile-quick-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:2px 2px 10px}
+  .mobile-quick-head span{display:block;color:var(--muted);font-size:8px;text-transform:uppercase;letter-spacing:.09em;font-weight:850}
+  .mobile-quick-head strong{display:block;margin-top:2px;font-size:13px}
+  .mobile-quick-close{width:34px;height:34px;border:0;border-radius:10px;background:var(--soft);color:var(--text);display:grid;place-items:center}
+  .mobile-quick-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+  .mobile-quick-grid button{min-width:0;min-height:48px;padding:9px 10px;border:1px solid var(--border);border-radius:12px;background:var(--panel);color:var(--text);display:flex;align-items:center;gap:8px;text-align:left;font-size:10px;font-weight:800}
+  .mobile-quick-grid button .hero-icon{width:17px;height:17px;flex:0 0 17px;color:var(--brand)}
+  .mobile-quick-grid button.active{border-color:color-mix(in srgb,var(--brand) 36%,var(--border));background:var(--brandsoft);color:var(--brand2)}
+  .mobile-all-features{width:100%;margin-top:8px;min-height:50px;padding:8px 10px;border:1px solid var(--border);border-radius:12px;background:var(--soft);color:var(--text);display:grid;grid-template-columns:20px minmax(0,1fr) 16px;gap:8px;align-items:center;text-align:left}
+  .mobile-all-features>span:nth-child(2){min-width:0}
+  .mobile-all-features strong,.mobile-all-features small{display:block}
+  .mobile-all-features strong{font-size:10px}.mobile-all-features small{margin-top:2px;color:var(--muted);font-size:8px}
+  .mobile-all-features .hero-icon{width:17px;height:17px;color:var(--brand)}
+  .mobile-quick-tools{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:5px;margin-top:8px;padding-top:8px;border-top:1px solid var(--border)}
+  .mobile-quick-tools button{min-width:0;min-height:42px;padding:5px 2px;border:0;border-radius:10px;background:transparent;color:var(--muted);display:flex;align-items:center;justify-content:center;gap:3px;flex-direction:column;font-size:7.5px;font-weight:800}
+  .mobile-quick-tools button:hover,.mobile-quick-tools button:focus{background:var(--soft);color:var(--text)}
+  .mobile-quick-tools .hero-icon{width:16px;height:16px}
+  .mobile-quick-tools button[hidden]{display:none!important}
+
+  .toast{left:72px;right:10px;bottom:calc(15px + env(safe-area-inset-bottom));max-width:none;text-align:left;z-index:47}
+}
+
+@media(max-width:430px){
+  .main{padding-left:10px;padding-right:10px}
+  .topbar{padding-left:10px;padding-right:10px}
+  .mobile-app-mark{width:32px;height:32px;flex-basis:32px;border-radius:10px}
+  .mobile-month-chip{min-width:70px;padding:0 7px}
+  .summary-grid,.analytics-grid,.info-grid,.account-summary-grid,.kkb-summary-grid,.daily-summary-grid,.os-kpi-grid,.barkada-summary-grid,.preview-grid{gap:7px}
+  .metric,.analytics-card{padding:11px!important}
+  .metric strong{font-size:17px!important}
+  .goal-controls{grid-template-columns:1fr!important}
+  .goal-controls label{grid-column:auto!important}
+  .reward-path-row{grid-template-columns:1fr auto}
+  .reward-path-row>span:nth-child(2){grid-column:1/-1;grid-row:2}
+  .feature-xp-summary{grid-template-columns:1fr}
+}
+
+@media(max-width:350px){
+  .mobile-month-chip{min-width:38px;width:38px;padding:0}
+  .mobile-month-chip #mobileMonthLabel{display:none}
+  .mobile-app-copy>strong{font-size:13px}
+  .goal-projection-summary{grid-template-columns:1fr!important}
+}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
@@ -4500,17 +4678,28 @@ body[data-theme="dark"] .barkada-group-btn,body[data-theme="dark"] .barkada-memb
         <button class="nav-btn" data-target="user-manual"><span class="nav-icon"><span data-hero="question-mark-circle"></span></span><span class="nav-label">User manual</span></button>
       </div>
     </nav>
-    <div class="sinop-sidebar-footer"><small>Your personal money system · v120</small></div>
+    <div class="sinop-sidebar-footer"><small>Your personal money system · v121</small></div>
   </aside>
 
   <main class="main">
     <header class="topbar">
+      <div class="mobile-appbar" aria-label="SINOP mobile navigation">
+        <span class="mobile-app-mark" aria-hidden="true">S</span>
+        <div class="mobile-app-copy">
+          <span>SINOP</span>
+          <strong id="mobileSectionTitle">Overview</strong>
+        </div>
+      </div>
       <div class="sinop-topbar-copy">
         <div class="sinop-title-lockup"><h1 id="plannerTitle">Personal finance</h1><span id="workspaceLabelTop" class="sinop-workspace-label"></span></div>
         <p class="subtle">Your money, organized in one place — income, spending, daily allowance, accounts, investments, KKB, goals, and reports.</p>
         <span class="sinop-tagline">Your money, in order.</span>
       </div>
       <div class="top-actions">
+        <label class="mobile-month-chip" aria-label="Change budget month">
+          <span data-hero="calendar-days"></span><span id="mobileMonthLabel">Month</span>
+          <input id="mobileBudgetMonth" type="month" aria-label="Budget month">
+        </label>
         <label class="month-control"><span>Budget month</span><input id="budgetMonth" type="month"></label>
         <button id="notificationBell" class="notification-bell" type="button" aria-label="Bill reminders" title="Bill reminders">
           <span data-hero="bell"></span><span id="notificationBadge" class="notification-badge">0</span>
@@ -5653,7 +5842,7 @@ body[data-theme="dark"] .barkada-group-btn,body[data-theme="dark"] .barkada-memb
         <div>
           <p class="eyebrow">Rewards & levels</p>
           <h2>Make progress feel rewarding</h2>
-          <p class="subtle">Earn XP for healthy habits: saving, investing, paying obligations, staying within your own budgets, and completing goals.</p>
+          <p class="subtle">Earn XP across SINOP when you use features meaningfully—not by repeatedly tapping buttons. Financial habits earn the most, while planning, tracking, KKB, Barkada, Grocery, and other modules add supporting XP.</p>
         </div>
       </div>
 
@@ -5740,7 +5929,11 @@ body[data-theme="dark"] .barkada-group-btn,body[data-theme="dark"] .barkada-memb
       <article class="card card-pad">
         <div class="section-head"><div><p class="eyebrow">How XP works</p><h2>Healthy actions earn progress</h2><p class="subtle">XP is recalculated from your current data. If you undo a qualifying action—such as marking a bill unpaid—the related XP is removed automatically.</p></div></div>
         <div class="reminder-setting-note" style="margin-bottom:12px">
-          <strong>Live rewards:</strong> XP and live badges—including First Save, Investor Started, Bills Cleared, Budget Guardian, streaks, and Statement Cleared—recalculate from your current data. If the qualifying data is removed or returned to zero, the badge locks again. Lifetime milestone badges remain unlocked once legitimately achieved.
+          <strong>Meaningful-use rule:</strong> repeated opening, tapping, or refreshing does not farm XP. Most activity XP is capped, counted once per saved object/day/month, or tied to persisted financial actions. Reversible activity recalculates when its source data is removed.
+        </div>
+        <div class="feature-xp-summary">
+          <div><span>Core money habits</span><strong id="coreRewardXpText">0 XP</strong><small>Saving, investing, bills, budgets, goals and debt/card milestones.</small></div>
+          <div><span>SINOP feature activity</span><strong id="featureRewardXpText">0 XP</strong><small>Meaningful use of tracking, KKB, Barkada, Grocery, planning and other modules.</small></div>
         </div>
         <div class="reward-path">
           <div class="reward-path-row"><strong>Save money</strong><span>New money added to Savings / Time Deposit accounts, or an untracked savings amount.</span><span class="path-xp">+15+</span></div>
@@ -5749,6 +5942,11 @@ body[data-theme="dark"] .barkada-group-btn,body[data-theme="dark"] .barkada-memb
           <div class="reward-path-row"><strong>Pay bills</strong><span>Mark all active recurring bills paid for a tracked month.</span><span class="path-xp">+20</span></div>
           <div class="reward-path-row"><strong>Stay on budget</strong><span>Keep configured spending categories within their limits.</span><span class="path-xp">+15</span></div>
           <div class="reward-path-row"><strong>Finish goals</strong><span>Fully fund a purchase or savings goal.</span><span class="path-xp">+40</span></div>
+          <div class="reward-path-row"><strong>Track real activity</strong><span>Confirm income, record actual spending, use daily envelopes, transfers, loan payments, card statements, and monthly open/close rituals.</span><span class="path-xp">Capped</span></div>
+          <div class="reward-path-row"><strong>Use KKB</strong><span>Create a real shared trip, add shared expenses, and record settlements. Repeatedly opening a trip earns nothing.</span><span class="path-xp">+10+</span></div>
+          <div class="reward-path-row"><strong>Join a Barkada</strong><span>Participating in a saved Barkada group contributes collaboration XP.</span><span class="path-xp">+15</span></div>
+          <div class="reward-path-row"><strong>Manage Grocery</strong><span>Complete grocery runs and maintain inventory rather than merely opening the module.</span><span class="path-xp">+8+</span></div>
+          <div class="reward-path-row"><strong>Plan & review</strong><span>Use journal entries, saved decision scenarios, month lifecycle tools, and first-time feature exploration.</span><span class="path-xp">Capped</span></div>
         </div>
       </article>
       <article class="card card-pad" style="margin-bottom:16px">
@@ -6363,13 +6561,38 @@ body[data-theme="dark"] .barkada-group-btn,body[data-theme="dark"] .barkada-memb
 </div>
 
 
-<nav class="mobile-bottom-nav" id="mobileBottomNav" aria-label="Mobile primary navigation">
-  <button class="mobile-nav-btn active" type="button" data-mobile-target="overview" aria-label="Overview"><span data-hero="home"></span><span>Overview</span></button>
-  <button class="mobile-nav-btn" type="button" data-mobile-target="spending" aria-label="Spending"><span data-hero="wallet"></span><span>Spending</span></button>
-  <button class="mobile-nav-btn" type="button" data-mobile-target="bills" aria-label="Recurring"><span data-hero="arrow-path"></span><span>Recurring</span></button>
-  <button class="mobile-nav-btn" type="button" data-mobile-target="accounts" aria-label="Accounts"><span data-hero="building-library"></span><span>Accounts</span></button>
-  <button class="mobile-nav-btn" id="mobileMoreBtn" type="button" aria-label="More SINOP modules"><span data-hero="squares-2x2"></span><span>More</span></button>
-</nav>
+<div class="mobile-quick" id="mobileQuickAccess">
+  <div class="mobile-quick-menu" id="mobileQuickMenu" aria-hidden="true">
+    <div class="mobile-quick-head">
+      <div><span>Quick access</span><strong>Jump anywhere in SINOP</strong></div>
+      <button class="mobile-quick-close" id="mobileQuickCloseBtn" type="button" aria-label="Close quick access"><span data-hero="x-mark"></span></button>
+    </div>
+    <div class="mobile-quick-grid" aria-label="Quick destinations">
+      <button type="button" data-mobile-target="overview"><span data-hero="home"></span><span>Overview</span></button>
+      <button type="button" data-mobile-target="income"><span data-hero="plus-circle"></span><span>Income</span></button>
+      <button type="button" data-mobile-target="spending"><span data-hero="wallet"></span><span>Spending</span></button>
+      <button type="button" data-mobile-target="bills"><span data-hero="arrow-path"></span><span>Recurring</span></button>
+      <button type="button" data-mobile-target="daily-allowance"><span data-hero="calendar-days"></span><span>Daily</span></button>
+      <button type="button" data-mobile-target="accounts"><span data-hero="building-library"></span><span>Accounts</span></button>
+      <button type="button" data-mobile-target="goals"><span data-hero="flag"></span><span>Goals</span></button>
+      <button type="button" data-mobile-target="kkb"><span data-hero="calculator"></span><span>KKB</span></button>
+      <button type="button" data-mobile-target="barkada"><span data-hero="user-group"></span><span>Barkada</span></button>
+      <button type="button" data-mobile-target="grocery"><span data-hero="shopping-cart"></span><span>Grocery</span></button>
+    </div>
+    <button class="mobile-all-features" id="mobileAllFeaturesBtn" type="button"><span data-hero="squares-2x2"></span><span><strong>All features</strong><small>Open the complete SINOP menu</small></span><span data-hero="arrow-right"></span></button>
+    <div class="mobile-quick-tools">
+      <button id="mobileSearchBtn" type="button" aria-label="Search"><span data-hero="magnifying-glass"></span><span>Search</span></button>
+      <button id="mobileLevelBtn" type="button" aria-label="Rewards and levels"><span data-hero="trophy"></span><span>Level</span></button>
+      <button id="mobileSaveBtn" type="button" aria-label="Save now"><span data-hero="check-circle"></span><span>Save</span></button>
+      <button id="mobileCloudBtn" type="button" aria-label="Google Drive sync"><span data-hero="building-library"></span><span>Drive</span></button>
+      <button id="mobileLogoutBtn" type="button" aria-label="Log out" hidden><span data-hero="arrow-right"></span><span>Logout</span></button>
+    </div>
+  </div>
+  <button class="mobile-quick-fab" id="mobileQuickFab" type="button" aria-expanded="false" aria-controls="mobileQuickMenu" aria-label="Open SINOP quick access">
+    <span class="mobile-quick-fab-open" data-hero="squares-2x2"></span>
+    <span class="mobile-quick-fab-close" data-hero="x-mark"></span>
+  </button>
+</div>
 
 <button id="sidebarToggle" class="sidebar-toggle" aria-label="Toggle sidebar" title="Toggle sidebar"><span data-hero="chevron-left"></span></button>
 <div id="mobileOverlay" class="mobile-overlay"></div>
@@ -7971,7 +8194,7 @@ const defaults={
   dailySpendEntries:[],
   wealthContributions:{},
   goalAccountAllocations:{},
-  rewards:{seenBadges:{},earnedBadges:{}},
+  rewards:{seenBadges:{},earnedBadges:{},moduleUsage:{}},
   categories:{
     bills:["Housing & utilities","Debt & installments","Daily living","Subscriptions","Insurance","Health","Other"],
     spending:["Daily allowance","Transportation","Miscellaneous","Shopping","Entertainment","Food & dining","Health","Personal care","Household","Travel","Gifts","Education","Hobbies","Other"]
@@ -8329,9 +8552,10 @@ function normalizeState(s){
     e.savingsDate=e.savingsDate||`${month}-01`;
     e.investmentDate=e.investmentDate||`${month}-01`;
   });
-  s.rewards=s.rewards||{seenBadges:{},earnedBadges:{}};
+  s.rewards=s.rewards||{seenBadges:{},earnedBadges:{},moduleUsage:{}};
   s.rewards.seenBadges=s.rewards.seenBadges||{};
   s.rewards.earnedBadges=s.rewards.earnedBadges||{};
+  s.rewards.moduleUsage=s.rewards.moduleUsage||{};
   // These badges are live/reversible as of v38.
   delete s.rewards.earnedBadges["first-save"];
   delete s.rewards.earnedBadges["first-invest"];
@@ -8535,6 +8759,7 @@ function renderCloudStatus(){
   if(sync)sync.disabled=!enabled||!token||cloudSyncInFlight;
   if(disconnect)disconnect.disabled=!sinopAuthGranted;
   if(logout)logout.hidden=!sinopAuthGranted;
+  if($("mobileLogoutBtn"))$("mobileLogoutBtn").hidden=!sinopAuthGranted;
   if($("cloudAccountName"))$("cloudAccountName").textContent=cloudMeta.accountName||"No account connected";
   if($("cloudAccountEmail"))$("cloudAccountEmail").textContent=cloudMeta.accountEmail||(enabled?"Google authorization is needed for this browser session.":"Sign in to enable private cloud sync.");
   const avatar=$("cloudAccountAvatar");if(avatar){if(cloudMeta.accountPicture){avatar.src=cloudMeta.accountPicture;avatar.classList.add("show")}else{avatar.removeAttribute("src");avatar.classList.remove("show")}}
@@ -15027,7 +15252,7 @@ function totalSavingsContributions(){
 function totalInvestmentContributions(){
   return trackedRewardMonths().reduce((sum,month)=>sum+wealthContributionByKind(month,"investment"),0);
 }
-function rewardXp(){
+function coreRewardXp(){
   let xp=0;
   trackedRewardMonths().forEach(month=>{
     const savings=wealthContributionByKind(month,"savings");
@@ -15047,6 +15272,69 @@ function rewardXp(){
   xp+=completedInstallments().length*40;
   xp+=fullyPaidCardStatements()*20;
   return Math.round(xp);
+}
+function rewardFeatureXpBreakdown(){
+  const rows=[];
+  const add=(id,label,xp)=>{xp=Math.max(0,Math.round(Number(xp||0)));if(xp>0)rows.push({id,label,xp})};
+
+  const received=(state.incomeReceipts?Object.values(state.incomeReceipts):[]).reduce((sum,records)=>sum+Object.values(records||{}).reduce((n,flags)=>n+(Array.isArray(flags)?flags.filter(Boolean).length:0),0),0);
+  add("income-tracking","Income tracking",Math.min(60,received*3));
+
+  const actualSpend=(state.spending||[]).filter(x=>Number(x.amount||0)>0).length;
+  add("spending-tracking","Spending tracking",Math.min(35,actualSpend*2));
+
+  const dailyDays=new Set((state.dailySpendEntries||[]).filter(x=>Number(x.amount||0)>0).map(x=>String(x.date||"")).filter(Boolean));
+  add("daily","Daily allowance use",Math.min(30,dailyDays.size*2));
+
+  const accountActivity=(state.accountTransfers||[]).length+(state.accountTransactions||[]).filter(tx=>Number(tx.amount||0)>0).length;
+  add("accounts","Accounts & transfers",Math.min(40,accountActivity*2));
+
+  const loanPayments=(state.loanPayments||[]).filter(x=>Number(x.amount||0)>0).length;
+  add("loans","Loans & IOUs",Math.min(35,loanPayments*4));
+
+  let cardActivity=0;
+  Object.values(state.cardStatements||{}).forEach(records=>Object.values(records||{}).forEach(r=>{if(Number(r.statementBalance||0)>0||Number(r.paidAmount||0)>0)cardActivity++}));
+  add("cards","Credit-card tracking",Math.min(30,cardActivity*3));
+
+  const activeGoalProgress=(state.goals||[]).filter(g=>Number(g.saved||0)>0&&Number(g.target||0)>Number(g.saved||0)).length;
+  add("goal-progress","Goal progress",Math.min(40,activeGoalProgress*8));
+
+  const completedGroceries=(state.groceryEvents||[]).filter(e=>e.status==="completed").length;
+  const maintainedInventory=(state.groceryInventory||[]).filter(i=>Number(i.quantity||0)>0||Number(i.usagePerWeek||0)>0||Number(i.targetQuantity||0)>0).length;
+  add("grocery","Grocery & inventory",Math.min(55,completedGroceries*8+Math.min(15,maintainedInventory)));
+
+  const usedKkb=(state.kkbTrips||[]).filter(t=>(t.expenses||[]).some(e=>Number(e.amount||0)>0));
+  const kkbExpenses=usedKkb.reduce((n,t)=>n+(t.expenses||[]).filter(e=>Number(e.amount||0)>0).length,0);
+  const kkbSettlements=(state.kkbTrips||[]).reduce((n,t)=>n+(t.settlements||[]).filter(x=>Number(x.amount||0)>0).length,0);
+  add("kkb","KKB",Math.min(100,usedKkb.length*10+kkbExpenses*2+kkbSettlements*5));
+
+  add("barkada","Barkada collaboration",Math.min(45,(state.barkadaGroups||[]).length*15));
+
+  const lifecycle=Object.values(state.monthLifecycle||{});
+  const opened=lifecycle.filter(x=>x&&x.initialized).length;
+  const closed=lifecycle.filter(x=>x&&x.status==="closed").length;
+  add("month-rhythm","Month planning",Math.min(60,opened*3+closed*7));
+
+  add("journal","Activity journal",Math.min(24,(state.moneyJournal||[]).length*2));
+  add("decisions","Saved decision scenarios",Math.min(25,(state.savedScenarios||[]).length*5));
+
+  const settingsChanged=!!(String(state.settings?.plannerName||"").trim() || state.settings?.theme!==defaults.settings.theme || state.settings?.accent!==defaults.settings.accent || state.settings?.defaultSpendingAccountId || state.settings?.compact);
+  add("customize","Personalized setup",settingsChanged?5:0);
+
+  const modules=Object.keys(state.rewards?.moduleUsage||{}).length;
+  add("explore","Feature exploration",Math.min(50,modules*2));
+
+  return {items:rows,total:rows.reduce((sum,row)=>sum+row.xp,0)};
+}
+function rewardXp(){return Math.round(coreRewardXp()+rewardFeatureXpBreakdown().total)}
+function markRewardModuleUsed(target){
+  if(!target)return;
+  state.rewards=state.rewards||{seenBadges:{},earnedBadges:{},moduleUsage:{}};
+  state.rewards.moduleUsage=state.rewards.moduleUsage||{};
+  if(state.rewards.moduleUsage[target])return;
+  state.rewards.moduleUsage[target]=new Date().toISOString();
+  scheduleAutoSave();
+  if(typeof renderRewards==="function")renderRewards();
 }
 function rewardLevel(xp=rewardXp()){
   let current=REWARD_LEVELS[0];
@@ -15149,6 +15437,9 @@ function rewardBadges(){
   const debtDone=completedInstallments().length;
   const cardsPaid=fullyPaidCardStatements();
   const cardProgress=bestCardStatementProgress();
+  const kkbUsed=(state.kkbTrips||[]).filter(t=>(t.expenses||[]).some(e=>Number(e.amount||0)>0)).length;
+  const barkadaCount=(state.barkadaGroups||[]).length;
+  const groceryDone=(state.groceryEvents||[]).filter(e=>e.status==="completed").length;
 
   const savingsMonths=months.filter(m=>wealthContributionByKind(m,"savings")>0).length;
   const investmentMonths=months.filter(m=>wealthContributionByKind(m,"investment")>0).length;
@@ -15203,6 +15494,24 @@ function rewardBadges(){
       condition:anyBudgetGuard,lifetime:false,
       current:budgetProgress.within,target:budgetProgress.total,kind:"categories",
       explicitPct:budgetProgress.pct
+    },
+    {
+      id:"kkb-starter",title:"KKB Starter",icon:"calculator",
+      desc:"Use KKB for a real shared expense.",
+      condition:kkbUsed>=1,lifetime:false,
+      current:kkbUsed,target:1,kind:"count",suffix:"KKB trip"
+    },
+    {
+      id:"barkada-together",title:"Barkada Together",icon:"user-group",
+      desc:"Create or join a Barkada in SINOP.",
+      condition:barkadaCount>=1,lifetime:false,
+      current:barkadaCount,target:1,kind:"count",suffix:"Barkada"
+    },
+    {
+      id:"grocery-planner",title:"Grocery Planner",icon:"shopping-cart",
+      desc:"Complete a grocery run and keep it in your SINOP history.",
+      condition:groceryDone>=1,lifetime:false,
+      current:groceryDone,target:1,kind:"count",suffix:"grocery run"
     },
     {
       id:"goal-getter",title:"Goal Getter",icon:"flag",
@@ -15421,6 +15730,8 @@ function renderRewards({celebrate=false}={}){
   $("rewardLevelSubtitle").textContent=level.current.subtitle;
   $("rewardLevelNumber").textContent=`Level ${level.current.level}`;
   $("rewardXpText").textContent=`${xp} XP`;
+  if($("coreRewardXpText"))$("coreRewardXpText").textContent=`${coreRewardXp().toLocaleString()} XP`;
+  if($("featureRewardXpText"))$("featureRewardXpText").textContent=`${rewardFeatureXpBreakdown().total.toLocaleString()} XP`;
   $("rewardXpProgress").style.width=`${level.pct}%`;
   if($("rewardLevelIcon")){
     $("rewardLevelIcon").className=`reward-level-icon ${rewardLevelThemeClass(level.current)}`;
@@ -15550,6 +15861,8 @@ function applyDashboardVisibility(){
 function render(){
   applyAppearance();
   $("budgetMonth").value=state.month||currentMonth;
+  if($("mobileBudgetMonth"))$("mobileBudgetMonth").value=state.month||currentMonth;
+  updateMobileShell(currentSinopSectionId()||"overview");
   document.querySelectorAll("[data-scenario]").forEach(b=>b.classList.toggle("active",b.dataset.scenario===state.scenario));
   $("targetSavingsInput").value=state.planner.targetSavings;
   $("bufferTargetInput").value=state.planner.bufferTarget;
@@ -17575,7 +17888,7 @@ function renderGoalProjectionPanel(card,goal,detailedProjection){
   monthsNode.textContent=remaining<=0?"Funded":recommendedMonths?`${recommendedMonths} mo`:"—";
 
   if(remaining<=0){
-    body.innerHTML=`<tr class="goal-funded-row"><td>${formatMonthFull(state.month)}</td><td>${money(starting)}</td><td>${money(0)}</td><td>${money(starting)}</td><td>${money(0)}</td></tr>`;
+    body.innerHTML=`<tr class="goal-funded-row"><td data-label="Month">${formatMonthFull(state.month)}</td><td data-label="Starting">${money(starting)}</td><td data-label="Contribution">${money(0)}</td><td data-label="Projected saved">${money(starting)}</td><td data-label="Remaining">${money(0)}</td></tr>`;
     note.innerHTML=`<strong>This goal is already funded.</strong> No additional monthly contributions are required.`;
     return;
   }
@@ -17588,11 +17901,11 @@ function renderGoalProjectionPanel(card,goal,detailedProjection){
 
   body.innerHTML=rows.map(row=>`
     <tr class="${row.funded?"goal-funded-row":""}">
-      <td>${formatMonthFull(row.month)}</td>
-      <td>${money(row.startSaved)}</td>
-      <td>${money(row.contribution)}</td>
-      <td>${money(row.endSaved)}</td>
-      <td>${money(row.remaining)}</td>
+      <td data-label="Month">${formatMonthFull(row.month)}</td>
+      <td data-label="Starting">${money(row.startSaved)}</td>
+      <td data-label="Contribution">${money(row.contribution)}</td>
+      <td data-label="Projected saved">${money(row.endSaved)}</td>
+      <td data-label="Remaining">${money(row.remaining)}</td>
     </tr>`).join("");
 
   const firstContribution=rows[0]?.contribution||0;
@@ -17982,6 +18295,9 @@ document.querySelectorAll(".nav-btn").forEach(b=>b.onclick=()=>{
   document.querySelectorAll(".section").forEach(x=>x.classList.remove("active"));
   b.classList.add("active");
   const target=$(b.dataset.target);if(target)target.classList.add("active");
+  markRewardModuleUsed(b.dataset.target);
+  updateMobileShell(b.dataset.target);
+  closeMobileQuickAccess();
   if(b.dataset.target==="wrapped")renderWrapped();
   if(b.dataset.target==="grocery"){renderGrocery();ensureGroceryBudgetLink({prompt:true})}
   if(b.dataset.target==="barkada"||b.dataset.target==="kkb")setTimeout(()=>barkadaRealtimeTick(),80);
@@ -18745,91 +19061,6 @@ function statementPrintDocumentHtml(){
     .foot{display:flex;justify-content:space-between;margin-top:10px;color:#6b7671;font-size:7px}
   
 
-/* ===== SINOP v120 · mobile-first shell ===== */
-.mobile-bottom-nav{display:none}
-@media(max-width:760px){
-  html{scroll-padding-bottom:92px}
-  body{overflow-x:hidden}
-  body.mobile-sidebar-open{overflow:hidden}
-  .app,.app.sidebar-collapsed{display:block;min-width:0}
-  .main{min-width:0;padding:18px 12px calc(92px + env(safe-area-inset-bottom))}
-  .topbar{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:start;gap:10px;margin-bottom:16px}
-  .sinop-topbar-copy{min-width:0;padding-right:4px}
-  .sinop-topbar-copy .subtle,.sinop-tagline{display:none}
-  .sinop-title-lockup{display:block}
-  .sinop-title-lockup h1{font-size:22px;line-height:1.1;margin:0}
-  .sinop-workspace-label{display:block;margin-top:4px;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-  .top-actions{margin:0;display:flex;align-items:center;justify-content:flex-end;gap:6px;flex-wrap:wrap}
-  .month-control{order:10;width:100%;display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:8px;padding:8px 10px}
-  .month-control span{white-space:nowrap;font-size:9px}
-  .month-control input{min-width:0;width:100%}
-  #saveBtn,#saveStatus,.cloud-top-btn,#logoutTopBtn{display:none!important}
-  .notification-bell,.command-button,.tour-button,.top-level-chip{min-width:40px;height:40px;border-radius:12px}
-  .top-level-chip-title{display:none}
-  .top-level-chip{padding:0 10px}
-
-  .section-head{align-items:flex-start;gap:10px;flex-wrap:wrap}
-  .section-head>div:first-child{min-width:0}
-  .section-head h2{font-size:18px;line-height:1.25}
-  .section-head .subtle{font-size:10px;line-height:1.45}
-  .section-head>.btn,.section-head>div:last-child{max-width:100%}
-  .segmented{max-width:100%;overflow-x:auto;scrollbar-width:none}
-  .segmented::-webkit-scrollbar{display:none}
-  .segmented button{min-height:38px;white-space:nowrap}
-
-  .card,.os-card,.settings-card{border-radius:15px}
-  .card{padding:14px}
-  .os-card{padding:14px}
-  .os-card-head{align-items:flex-start;gap:8px}
-  .os-card-head h2{font-size:17px}
-  .os-card-head p{font-size:9px;line-height:1.4}
-  .summary-grid,.overview-grid,.dashboard-grid,.dss-grid,.analytics-grid,.preview-grid,.info-grid,.planner-controls,.goal-fields,.goal-list,.os-overview-grid,.os-briefing-grid,.os-kpi-grid,.runway-grid,.autopsy-grid,.decision-compare,.milestone-grid,.record-grid,.os-three-col{grid-template-columns:1fr!important}
-  .summary-card,.metric,.kpi-card{min-width:0}
-
-  .btn,.icon-btn,button{touch-action:manipulation}
-  .btn{min-height:42px}
-  .btn-sm{min-height:36px}
-  input,select,textarea{font-size:16px!important}
-  input[type="checkbox"],input[type="radio"]{font-size:initial!important}
-
-  /* Tables stay readable without forcing the whole page wider than the phone. */
-  .table-card{padding:0;overflow:hidden}
-  .table-wrap,.inventory-table-wrap,.grocery-items-table-wrap,.kkb-table-wrap,.goal-projection-table-wrap,.statement-table-wrap{width:100%;max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
-  .data-table,.inventory-table,.grocery-items-table,.kkb-table{font-size:10px}
-  .data-table th,.data-table td{padding:10px 9px;white-space:nowrap}
-  .table-wrap:after,.inventory-table-wrap:after,.grocery-items-table-wrap:after,.kkb-table-wrap:after{content:"Swipe sideways for more";position:sticky;left:0;display:block;width:max-content;padding:5px 9px;color:var(--muted);font-size:8px;font-weight:700;background:var(--panel)}
-
-  /* Keep dense controls from forming tiny multi-column desktop fragments. */
-  .goal-plan-metrics,.goal-controls,.goal-meta-fields,.account-summary-grid,.overview-account-grid,.account-flow-grid,.account-payment-summary,.account-modal-grid,.cc-modal-grid,.barkada-grid,.barkada-workspace-grid,.daily-controls,.data-actions{grid-template-columns:1fr!important}
-  .data-actions{display:grid!important}
-  .data-actions .btn{width:100%}
-
-  /* Full navigation becomes a drawer; the five most-used destinations live at thumb level. */
-  .sidebar{padding:18px 14px calc(24px + env(safe-area-inset-bottom));width:min(88vw,330px);box-shadow:20px 0 45px rgba(0,0,0,.18)}
-  .sidebar-toggle{display:none!important}
-  body.mobile-sidebar-open .mobile-overlay{display:block;opacity:1;pointer-events:auto}
-  .nav{gap:14px}
-  .nav-group-label{font-size:8px;letter-spacing:.08em}
-  .nav-btn{min-height:42px;font-size:12px;border-radius:11px}
-  .sinop-sidebar-footer{padding-bottom:8px}
-
-  .mobile-bottom-nav{position:fixed;z-index:55;left:8px;right:8px;bottom:max(8px,env(safe-area-inset-bottom));display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:3px;padding:6px;border:1px solid var(--border);border-radius:18px;background:color-mix(in srgb,var(--panel) 94%,transparent);box-shadow:0 12px 34px rgba(24,33,30,.16);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
-  .mobile-nav-btn{border:0;background:transparent;color:var(--muted);display:flex;min-width:0;min-height:54px;align-items:center;justify-content:center;flex-direction:column;gap:3px;padding:5px 2px;border-radius:13px;font-size:9px;font-weight:750;line-height:1}
-  .mobile-nav-btn .hero-icon{width:19px;height:19px}
-  .mobile-nav-btn.active{background:var(--brandsoft);color:var(--brand2)}
-  body[data-theme="dark"] .mobile-bottom-nav{background:color-mix(in srgb,var(--panel) 92%,transparent)}
-
-  .toast{left:10px;right:10px;bottom:calc(82px + env(safe-area-inset-bottom));max-width:none;text-align:center}
-}
-@media(max-width:390px){
-  .main{padding-left:10px;padding-right:10px}
-  .topbar{grid-template-columns:1fr}
-  .top-actions{justify-content:flex-start}
-  .notification-bell,.command-button,.tour-button,.top-level-chip{flex:0 0 40px}
-  .month-control{grid-column:1/-1}
-  .mobile-bottom-nav{left:5px;right:5px;gap:1px;padding:5px}
-  .mobile-nav-btn{font-size:8px}
-}
 </style></head><body>
   <div class="statement">
     <div class="head">
@@ -19850,32 +20081,56 @@ $("saveScenarioBtn")?.addEventListener('click',saveScenario);
 
 
 
-function syncMobileBottomNav(target){
-  document.querySelectorAll('.mobile-nav-btn[data-mobile-target]').forEach(btn=>btn.classList.toggle('active',btn.dataset.mobileTarget===target));
+
+function mobileSectionLabel(target){
+  const nav=document.querySelector(`.sidebar .nav-btn[data-target="${target}"] .nav-label`);
+  return nav?.textContent?.trim()||"Overview";
+}
+function updateMobileShell(target=currentSinopSectionId()||"overview"){
+  if($("mobileSectionTitle"))$("mobileSectionTitle").textContent=mobileSectionLabel(target);
+  if($("mobileMonthLabel")){
+    const d=parseMonth(state.month||currentMonth);
+    $("mobileMonthLabel").textContent=d.toLocaleDateString("en-PH",{month:"short",year:"2-digit"});
+  }
+  document.querySelectorAll('.mobile-quick-grid [data-mobile-target]').forEach(btn=>btn.classList.toggle('active',btn.dataset.mobileTarget===target));
+}
+function closeMobileQuickAccess(){
+  const shell=$("mobileQuickAccess"),menu=$("mobileQuickMenu"),fab=$("mobileQuickFab");
+  if(shell)shell.classList.remove("open");
+  if(menu)menu.setAttribute("aria-hidden","true");
+  if(fab)fab.setAttribute("aria-expanded","false");
+}
+function toggleMobileQuickAccess(){
+  const shell=$("mobileQuickAccess"),menu=$("mobileQuickMenu"),fab=$("mobileQuickFab");if(!shell)return;
+  const open=!shell.classList.contains("open");
+  shell.classList.toggle("open",open);menu?.setAttribute("aria-hidden",open?"false":"true");fab?.setAttribute("aria-expanded",open?"true":"false");
+  if(open)closeMobileSidebar();
 }
 function openSinopTarget(target){
   const desktopNav=document.querySelector(`.sidebar .nav-btn[data-target="${target}"]`);
   if(desktopNav)desktopNav.click();
-  syncMobileBottomNav(target);
+  updateMobileShell(target);
   closeMobileSidebar();
+  closeMobileQuickAccess();
 }
-document.querySelectorAll('.mobile-nav-btn[data-mobile-target]').forEach(btn=>{
-  btn.addEventListener('click',()=>openSinopTarget(btn.dataset.mobileTarget));
-});
-$('mobileMoreBtn')?.addEventListener('click',()=>{
-  document.body.classList.add('mobile-sidebar-open');
-  document.querySelector('.sidebar .nav-btn.active')?.scrollIntoView({block:'center'});
-});
-document.querySelectorAll('.sidebar .nav-btn[data-target]').forEach(btn=>{
-  btn.addEventListener('click',()=>syncMobileBottomNav(btn.dataset.target));
-});
-window.addEventListener('resize',()=>{
-  if(!isMobileSidebar())document.body.classList.remove('mobile-sidebar-open');
-});
+document.querySelectorAll('.mobile-quick-grid [data-mobile-target]').forEach(btn=>btn.addEventListener('click',()=>openSinopTarget(btn.dataset.mobileTarget)));
+$("mobileQuickFab")?.addEventListener("click",toggleMobileQuickAccess);
+$("mobileQuickCloseBtn")?.addEventListener("click",closeMobileQuickAccess);
+$("mobileAllFeaturesBtn")?.addEventListener("click",()=>{closeMobileQuickAccess();document.body.classList.add("mobile-sidebar-open");document.querySelector('.sidebar .nav-btn.active')?.scrollIntoView({block:'center'});});
+$("mobileSearchBtn")?.addEventListener("click",()=>{closeMobileQuickAccess();$("commandPaletteBtn")?.click()});
+$("mobileLevelBtn")?.addEventListener("click",()=>{closeMobileQuickAccess();$("topRewardLevelBtn")?.click()});
+$("mobileSaveBtn")?.addEventListener("click",()=>{closeMobileQuickAccess();$("saveBtn")?.click()});
+$("mobileCloudBtn")?.addEventListener("click",()=>{closeMobileQuickAccess();$("cloudTopBtn")?.click()});
+$("mobileLogoutBtn")?.addEventListener("click",()=>{closeMobileQuickAccess();$("logoutTopBtn")?.click()});
+$("mobileBudgetMonth")?.addEventListener("change",e=>{state.month=e.target.value||currentMonth;$("budgetMonth").value=state.month;render()});
+document.addEventListener("click",e=>{if($("mobileQuickAccess")?.classList.contains("open")&&!e.target.closest("#mobileQuickAccess"))closeMobileQuickAccess()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeMobileQuickAccess()});
+window.addEventListener('resize',()=>{if(!isMobileSidebar()){document.body.classList.remove('mobile-sidebar-open');closeMobileQuickAccess()}});
 
 window.matchMedia("(prefers-color-scheme: dark)").addEventListener?.("change",()=>{if(state.settings.theme==="system")applyAppearance()});
 initSidebar();
 render();
+markRewardModuleUsed(currentSinopSectionId()||"overview");
 renderCloudStatus();
 renderSinopLoginGate();
 initGoogleCloudAuth();
