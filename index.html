@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0f766e">
-<title>SINOP v119 · Personal finance</title>
+<title>SINOP v120 · Personal finance</title>
 <meta name="application-name" content="SINOP">
 <meta name="apple-mobile-web-app-title" content="SINOP">
 <meta name="description" content="SINOP — your personal money system for income, spending, savings, investments, goals, KKB, and financial tracking.">
@@ -4500,7 +4500,7 @@ body[data-theme="dark"] .barkada-group-btn,body[data-theme="dark"] .barkada-memb
         <button class="nav-btn" data-target="user-manual"><span class="nav-icon"><span data-hero="question-mark-circle"></span></span><span class="nav-label">User manual</span></button>
       </div>
     </nav>
-    <div class="sinop-sidebar-footer"><small>Your personal money system · v119</small></div>
+    <div class="sinop-sidebar-footer"><small>Your personal money system · v120</small></div>
   </aside>
 
   <main class="main">
@@ -6361,6 +6361,15 @@ body[data-theme="dark"] .barkada-group-btn,body[data-theme="dark"] .barkada-memb
 
   </main>
 </div>
+
+
+<nav class="mobile-bottom-nav" id="mobileBottomNav" aria-label="Mobile primary navigation">
+  <button class="mobile-nav-btn active" type="button" data-mobile-target="overview" aria-label="Overview"><span data-hero="home"></span><span>Overview</span></button>
+  <button class="mobile-nav-btn" type="button" data-mobile-target="spending" aria-label="Spending"><span data-hero="wallet"></span><span>Spending</span></button>
+  <button class="mobile-nav-btn" type="button" data-mobile-target="bills" aria-label="Recurring"><span data-hero="arrow-path"></span><span>Recurring</span></button>
+  <button class="mobile-nav-btn" type="button" data-mobile-target="accounts" aria-label="Accounts"><span data-hero="building-library"></span><span>Accounts</span></button>
+  <button class="mobile-nav-btn" id="mobileMoreBtn" type="button" aria-label="More SINOP modules"><span data-hero="squares-2x2"></span><span>More</span></button>
+</nav>
 
 <button id="sidebarToggle" class="sidebar-toggle" aria-label="Toggle sidebar" title="Toggle sidebar"><span data-hero="chevron-left"></span></button>
 <div id="mobileOverlay" class="mobile-overlay"></div>
@@ -18734,7 +18743,94 @@ function statementPrintDocumentHtml(){
     .debit{font-weight:700}
     tfoot td{background:#f1f4f2;font-weight:700;border-bottom:0;border-top:2px solid #21372e}
     .foot{display:flex;justify-content:space-between;margin-top:10px;color:#6b7671;font-size:7px}
-  </style></head><body>
+  
+
+/* ===== SINOP v120 · mobile-first shell ===== */
+.mobile-bottom-nav{display:none}
+@media(max-width:760px){
+  html{scroll-padding-bottom:92px}
+  body{overflow-x:hidden}
+  body.mobile-sidebar-open{overflow:hidden}
+  .app,.app.sidebar-collapsed{display:block;min-width:0}
+  .main{min-width:0;padding:18px 12px calc(92px + env(safe-area-inset-bottom))}
+  .topbar{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:start;gap:10px;margin-bottom:16px}
+  .sinop-topbar-copy{min-width:0;padding-right:4px}
+  .sinop-topbar-copy .subtle,.sinop-tagline{display:none}
+  .sinop-title-lockup{display:block}
+  .sinop-title-lockup h1{font-size:22px;line-height:1.1;margin:0}
+  .sinop-workspace-label{display:block;margin-top:4px;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .top-actions{margin:0;display:flex;align-items:center;justify-content:flex-end;gap:6px;flex-wrap:wrap}
+  .month-control{order:10;width:100%;display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:8px;padding:8px 10px}
+  .month-control span{white-space:nowrap;font-size:9px}
+  .month-control input{min-width:0;width:100%}
+  #saveBtn,#saveStatus,.cloud-top-btn,#logoutTopBtn{display:none!important}
+  .notification-bell,.command-button,.tour-button,.top-level-chip{min-width:40px;height:40px;border-radius:12px}
+  .top-level-chip-title{display:none}
+  .top-level-chip{padding:0 10px}
+
+  .section-head{align-items:flex-start;gap:10px;flex-wrap:wrap}
+  .section-head>div:first-child{min-width:0}
+  .section-head h2{font-size:18px;line-height:1.25}
+  .section-head .subtle{font-size:10px;line-height:1.45}
+  .section-head>.btn,.section-head>div:last-child{max-width:100%}
+  .segmented{max-width:100%;overflow-x:auto;scrollbar-width:none}
+  .segmented::-webkit-scrollbar{display:none}
+  .segmented button{min-height:38px;white-space:nowrap}
+
+  .card,.os-card,.settings-card{border-radius:15px}
+  .card{padding:14px}
+  .os-card{padding:14px}
+  .os-card-head{align-items:flex-start;gap:8px}
+  .os-card-head h2{font-size:17px}
+  .os-card-head p{font-size:9px;line-height:1.4}
+  .summary-grid,.overview-grid,.dashboard-grid,.dss-grid,.analytics-grid,.preview-grid,.info-grid,.planner-controls,.goal-fields,.goal-list,.os-overview-grid,.os-briefing-grid,.os-kpi-grid,.runway-grid,.autopsy-grid,.decision-compare,.milestone-grid,.record-grid,.os-three-col{grid-template-columns:1fr!important}
+  .summary-card,.metric,.kpi-card{min-width:0}
+
+  .btn,.icon-btn,button{touch-action:manipulation}
+  .btn{min-height:42px}
+  .btn-sm{min-height:36px}
+  input,select,textarea{font-size:16px!important}
+  input[type="checkbox"],input[type="radio"]{font-size:initial!important}
+
+  /* Tables stay readable without forcing the whole page wider than the phone. */
+  .table-card{padding:0;overflow:hidden}
+  .table-wrap,.inventory-table-wrap,.grocery-items-table-wrap,.kkb-table-wrap,.goal-projection-table-wrap,.statement-table-wrap{width:100%;max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
+  .data-table,.inventory-table,.grocery-items-table,.kkb-table{font-size:10px}
+  .data-table th,.data-table td{padding:10px 9px;white-space:nowrap}
+  .table-wrap:after,.inventory-table-wrap:after,.grocery-items-table-wrap:after,.kkb-table-wrap:after{content:"Swipe sideways for more";position:sticky;left:0;display:block;width:max-content;padding:5px 9px;color:var(--muted);font-size:8px;font-weight:700;background:var(--panel)}
+
+  /* Keep dense controls from forming tiny multi-column desktop fragments. */
+  .goal-plan-metrics,.goal-controls,.goal-meta-fields,.account-summary-grid,.overview-account-grid,.account-flow-grid,.account-payment-summary,.account-modal-grid,.cc-modal-grid,.barkada-grid,.barkada-workspace-grid,.daily-controls,.data-actions{grid-template-columns:1fr!important}
+  .data-actions{display:grid!important}
+  .data-actions .btn{width:100%}
+
+  /* Full navigation becomes a drawer; the five most-used destinations live at thumb level. */
+  .sidebar{padding:18px 14px calc(24px + env(safe-area-inset-bottom));width:min(88vw,330px);box-shadow:20px 0 45px rgba(0,0,0,.18)}
+  .sidebar-toggle{display:none!important}
+  body.mobile-sidebar-open .mobile-overlay{display:block;opacity:1;pointer-events:auto}
+  .nav{gap:14px}
+  .nav-group-label{font-size:8px;letter-spacing:.08em}
+  .nav-btn{min-height:42px;font-size:12px;border-radius:11px}
+  .sinop-sidebar-footer{padding-bottom:8px}
+
+  .mobile-bottom-nav{position:fixed;z-index:55;left:8px;right:8px;bottom:max(8px,env(safe-area-inset-bottom));display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:3px;padding:6px;border:1px solid var(--border);border-radius:18px;background:color-mix(in srgb,var(--panel) 94%,transparent);box-shadow:0 12px 34px rgba(24,33,30,.16);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+  .mobile-nav-btn{border:0;background:transparent;color:var(--muted);display:flex;min-width:0;min-height:54px;align-items:center;justify-content:center;flex-direction:column;gap:3px;padding:5px 2px;border-radius:13px;font-size:9px;font-weight:750;line-height:1}
+  .mobile-nav-btn .hero-icon{width:19px;height:19px}
+  .mobile-nav-btn.active{background:var(--brandsoft);color:var(--brand2)}
+  body[data-theme="dark"] .mobile-bottom-nav{background:color-mix(in srgb,var(--panel) 92%,transparent)}
+
+  .toast{left:10px;right:10px;bottom:calc(82px + env(safe-area-inset-bottom));max-width:none;text-align:center}
+}
+@media(max-width:390px){
+  .main{padding-left:10px;padding-right:10px}
+  .topbar{grid-template-columns:1fr}
+  .top-actions{justify-content:flex-start}
+  .notification-bell,.command-button,.tour-button,.top-level-chip{flex:0 0 40px}
+  .month-control{grid-column:1/-1}
+  .mobile-bottom-nav{left:5px;right:5px;gap:1px;padding:5px}
+  .mobile-nav-btn{font-size:8px}
+}
+</style></head><body>
   <div class="statement">
     <div class="head">
       <div><div class="brand">SINOP · PERSONAL FINANCE</div><h1>${esc(title)}</h1><div class="period">${esc(period)}</div></div>
@@ -19751,6 +19847,31 @@ document.querySelectorAll('[data-forecast-horizon]').forEach(b=>b.addEventListen
 $("runAffordabilityBtn")?.addEventListener('click',renderAffordability);['affordAmount','affordMarkup','affordMonths'].forEach(id=>$(id)?.addEventListener('input',()=>{if(Number($("affordAmount").value||0)>0)renderAffordability()}));
 $("saveScenarioBtn")?.addEventListener('click',saveScenario);
 
+
+
+
+function syncMobileBottomNav(target){
+  document.querySelectorAll('.mobile-nav-btn[data-mobile-target]').forEach(btn=>btn.classList.toggle('active',btn.dataset.mobileTarget===target));
+}
+function openSinopTarget(target){
+  const desktopNav=document.querySelector(`.sidebar .nav-btn[data-target="${target}"]`);
+  if(desktopNav)desktopNav.click();
+  syncMobileBottomNav(target);
+  closeMobileSidebar();
+}
+document.querySelectorAll('.mobile-nav-btn[data-mobile-target]').forEach(btn=>{
+  btn.addEventListener('click',()=>openSinopTarget(btn.dataset.mobileTarget));
+});
+$('mobileMoreBtn')?.addEventListener('click',()=>{
+  document.body.classList.add('mobile-sidebar-open');
+  document.querySelector('.sidebar .nav-btn.active')?.scrollIntoView({block:'center'});
+});
+document.querySelectorAll('.sidebar .nav-btn[data-target]').forEach(btn=>{
+  btn.addEventListener('click',()=>syncMobileBottomNav(btn.dataset.target));
+});
+window.addEventListener('resize',()=>{
+  if(!isMobileSidebar())document.body.classList.remove('mobile-sidebar-open');
+});
 
 window.matchMedia("(prefers-color-scheme: dark)").addEventListener?.("change",()=>{if(state.settings.theme==="system")applyAppearance()});
 initSidebar();
