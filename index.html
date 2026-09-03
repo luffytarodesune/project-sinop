@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0f766e">
-<title>SINOP v132 · Income + Spending Mobile Redesign</title>
+<title>SINOP v134 · Barkada Social</title>
 <meta name="application-name" content="SINOP">
 <meta name="apple-mobile-web-app-title" content="SINOP">
 <meta name="description" content="SINOP — your personal money system for income, spending, savings, investments, goals, KKB, and financial tracking.">
@@ -5684,7 +5684,7 @@ body[data-theme="dark"] .barkada-group-btn,body[data-theme="dark"] .barkada-memb
         <button class="nav-btn" data-target="user-manual"><span class="nav-icon"><span data-hero="question-mark-circle"></span></span><span class="nav-label">User manual</span></button>
       </div>
     </nav>
-    <div class="sinop-sidebar-footer"><small>Your personal money system · v131</small></div>
+    <div class="sinop-sidebar-footer"><small>Your personal money system · v134</small></div>
   </aside>
 
   <main class="main">
@@ -6556,15 +6556,15 @@ body[data-theme="dark"] .barkada-group-btn,body[data-theme="dark"] .barkada-memb
 
 <section id="barkada" class="section">
   <div class="section-head page-head">
-    <div><p class="eyebrow">Barkada</p><h2>Your shared money circles</h2><p class="subtle">Create a Barkada, add friends by Google email, and reuse the group roster when starting a KKB.</p></div>
+    <div><p class="eyebrow">Barkada</p><h2>Your friends on SINOP</h2><p class="subtle">See your friends’ SINOP progress, compare levels and badges, and find your rank among the people in each Barkada. Shared KKB stays built in when you need it.</p></div>
     <div class="action-row"><button class="btn btn-secondary" id="joinBarkadaBtn" type="button"><span data-hero="plus-circle"></span>Join with invite</button><button class="btn btn-primary icon-leading" id="createBarkadaBtn" type="button"><span data-hero="user-group"></span>Create Barkada</button></div>
   </div>
   <div class="barkada-summary-grid">
     <div class="barkada-summary-card"><span>Your Barkada groups</span><strong id="barkadaGroupCount">0</strong></div>
     <div class="barkada-summary-card"><span>People connected</span><strong id="barkadaPeopleCount">0</strong></div>
-    <div class="barkada-summary-card"><span>KKB sheets linked</span><strong id="barkadaKkbCount">0</strong></div>
+    <div class="barkada-summary-card"><span>Your peer rank</span><strong id="barkadaPeerRank">—</strong></div>
   </div>
-  <div class="barkada-privacy-note"><strong>Private by design:</strong> your accounts, salary, spending, goals and personal SINOP file are never shared with a Barkada. A Barkada uses a separate SINOP-created Google Drive file for its roster and Barkada-linked KKB sheets. Members you add receive access only to that shared group file. Shared KKB trips and collaboration notifications are checked approximately every 2 seconds while SINOP is open and Google Drive is connected.</div>
+  <div class="barkada-privacy-note"><strong>What friends can see:</strong> your display name, SINOP XP score, level, and earned badge names inside this Barkada. Your salary, balances, accounts, transactions, goals, budgets, and other personal finance details stay private. Barkada and its KKB sheets continue to use a separate SINOP-created shared Drive file.</div>
   <div class="barkada-layout">
     <article class="card barkada-list-card"><div class="section-head"><div><p class="eyebrow">Groups</p><h3>Your circles</h3></div><button class="text-btn" id="refreshBarkadaAllBtn" type="button">Refresh</button></div><div id="barkadaGroupList" class="barkada-list"></div></article>
     <article class="card barkada-workspace-card"><div id="barkadaWorkspace"><div class="barkada-loading">Choose a Barkada group, or create one to start adding people.</div></div></article>
@@ -7241,7 +7241,7 @@ body[data-theme="dark"] .barkada-group-btn,body[data-theme="dark"] .barkada-memb
       <div class="manual-card-grid">
         <div class="manual-feature"><div class="manual-feature-head"><div class="manual-feature-icon"><span data-hero="wallet"></span></div><div><strong>Variable spending</strong><small>Shopping, dining, household, entertainment, and other non-recurring items.</small></div></div><ol><li>Add the date, description, category, and amount.</li><li>Use Planned while it is only an intention.</li><li>Switch to Actual when you really spend it.</li><li>Select the payment account or card so the ledger can move correctly.</li></ol><button class="btn btn-secondary btn-sm" data-jump="spending">Open Spending</button></div>
         <div class="manual-feature"><div class="manual-feature-head"><div class="manual-feature-icon"><span data-hero="arrow-path"></span></div><div><strong>Recurring commitments</strong><small>Classify repeating cash movements before you complete them.</small></div></div><ol><li><strong>Expense</strong> — rent, utilities, subscriptions and other consumption.</li><li><strong>Savings</strong> — moves money into Savings or Time Deposit without counting as an expense.</li><li><strong>Investment</strong> — moves money into MP2 or an Investment account and counts toward wealth-building.</li><li><strong>Debt repayment</strong> — creates a real repayment against a linked IOU.</li><li><strong>Transfer</strong> — moves money between your own accounts without changing total cash.</li></ol><div class="manual-callout"><strong>MP2 example:</strong> create “MP2 contribution” as <strong>Investment</strong>, choose your MP2 account as the destination, and set the monthly amount. When you complete it, the funding account decreases and MP2 increases automatically.</div><div class="manual-callout"><strong>Do not double-enter:</strong> when you complete a Savings, Investment, or Transfer commitment, the planner creates the account movement automatically. Do not also add the same transfer under Accounts.</div><button class="btn btn-secondary btn-sm" data-jump="bills">Open Recurring</button></div>
-        <div class="manual-feature"><div class="manual-feature-head"><div class="manual-feature-icon"><span data-hero="calculator"></span></div><div><strong>KKB / group expenses</strong><small>Split shared trips, meals, or gala expenses fairly.</small></div></div><ol><li>Create a KKB trip and add the members.</li><li>Enter each shared item as a row.</li><li>Tick the members who shared that item.</li><li>Choose who paid upfront.</li><li>Use the settlement plan to see who should reimburse whom, then record payments as they happen.</li></ol><button class="btn btn-secondary btn-sm" data-jump="kkb">Open KKB</button></div><div class="manual-feature"><div class="manual-feature-head"><div class="manual-feature-icon"><span data-hero="user-group"></span></div><div><strong>Barkada</strong><small>Keep reusable groups of people without exposing your personal finances.</small></div></div><ol><li>Create a Barkada and add members using their Google email.</li><li>SINOP creates a separate shared Drive file for the group roster.</li><li>The invited person signs in with that Google account and joins through the invite link.</li><li>Start a shared KKB from the Barkada; rows, payers and reimbursements are written to the same shared group file.</li><li>While SINOP is open and Drive is connected, it checks joined Barkada files approximately every 2 seconds for new KKB trips and member changes.</li><li>Creating a shared KKB adds a Barkada notification event so every active member sees it in the notification bell and, if enabled, as a browser notification.</li></ol><div class="manual-callout"><strong>Privacy boundary:</strong> Barkada members can access the shared group roster and Barkada-linked KKB sheets, not your accounts, salary, spending, goals, or private SINOP cloud file.</div><button class="btn btn-secondary btn-sm" data-jump="barkada">Open Barkada</button></div>
+        <div class="manual-feature"><div class="manual-feature-head"><div class="manual-feature-icon"><span data-hero="calculator"></span></div><div><strong>KKB / group expenses</strong><small>Split shared trips, meals, or gala expenses fairly.</small></div></div><ol><li>Create a KKB trip and add the members.</li><li>Enter each shared item as a row.</li><li>Tick the members who shared that item.</li><li>Choose who paid upfront.</li><li>Use the settlement plan to see who should reimburse whom, then record payments as they happen.</li></ol><button class="btn btn-secondary btn-sm" data-jump="kkb">Open KKB</button></div><div class="manual-feature"><div class="manual-feature-head"><div class="manual-feature-icon"><span data-hero="user-group"></span></div><div><strong>Barkada</strong><small>See friends’ SINOP levels, XP scores, badges, and peer rank without exposing personal finances.</small></div></div><ol><li>Create a Barkada and add friends using their Google email.</li><li>Each active friend shares only their SINOP XP score, level, and earned badges to the Barkada leaderboard.</li><li>SINOP ranks active friends by XP, using badge count to break ties.</li><li>SINOP creates a separate shared Drive file for the group roster.</li><li>The invited person signs in with that Google account and joins through the invite link.</li><li>Start a shared KKB from the Barkada; rows, payers and reimbursements are written to the same shared group file.</li><li>While SINOP is open and Drive is connected, it checks joined Barkada files approximately every 2 seconds for new KKB trips and member changes.</li><li>Creating a shared KKB adds a Barkada notification event so every active member sees it in the notification bell and, if enabled, as a browser notification.</li></ol><div class="manual-callout"><strong>Privacy boundary:</strong> Barkada members can access the shared group roster and Barkada-linked KKB sheets, not your accounts, salary, spending, goals, or private SINOP cloud file.</div><button class="btn btn-secondary btn-sm" data-jump="barkada">Open Barkada</button></div>
         <div class="manual-feature"><div class="manual-feature-head"><div class="manual-feature-icon"><span data-hero="squares-2x2"></span></div><div><strong>Overview vs. Dashboard</strong><small>Use Overview for today's operational picture; use Dashboard for patterns and decisions.</small></div></div><ul><li><strong>Overview:</strong> received income, current balances, daily budget, quick spend, IOUs, cards, and immediate status.</li><li><strong>Dashboard:</strong> trends, category analysis, fixed-term outlooks, and planning guidance.</li></ul><button class="btn btn-secondary btn-sm" data-jump="dashboard">Open Dashboard</button></div>
       </div>
       <div class="manual-callout" style="margin-top:12px"><strong>Daily budget rule:</strong> unpaid recurring bills are not reserved inside the Daily budget card because that feature treats your recurring-bill money as separately funded. Planned Spending items and future daily envelopes still affect the day-to-day planning calculation.</div>
@@ -8953,7 +8953,7 @@ const GOOGLE_PROJECT_NUMBER="226170068172";
    Create a browser-restricted key in the same Google Cloud project and paste it here. */
 const GOOGLE_PICKER_API_KEY="AIzaSyDLVdVtI6284PquwhYDvp4RvTFKCg3ERvQ";
 const BARKADA_APP="SINOP_BARKADA";
-const BARKADA_SCHEMA_VERSION=3;
+const BARKADA_SCHEMA_VERSION=4;
 const CLOUD_FILE_NAME="sinop-data.json";
 const CLOUD_META_KEY="sinop-google-drive-sync-v1";
 const ACCOUNT_STATE_PREFIX="sinop-google-account-state-v1:";
@@ -13816,7 +13816,19 @@ function normalizeSharedKkbTrip(raw,doc,fileId){
 }
 function normalizeBarkadaDoc(doc,fileId=""){
   doc=doc&&typeof doc==="object"?doc:{};
-  doc.members=Array.isArray(doc.members)?doc.members:[];
+  doc.members=(Array.isArray(doc.members)?doc.members:[]).map(member=>{
+    const m={...member};
+    if(m.sinopProfile&&typeof m.sinopProfile==="object"){
+      const p=m.sinopProfile;
+      m.sinopProfile={
+        xp:Math.max(0,Math.round(Number(p.xp||0))),
+        level:Math.max(1,Math.round(Number(p.level||1))),
+        badgeIds:Array.isArray(p.badgeIds)?[...new Set(p.badgeIds.map(String).filter(Boolean))].slice(0,50):[],
+        updatedAt:String(p.updatedAt||"")
+      };
+    }else m.sinopProfile=null;
+    return m;
+  });
   doc.sharedKkbTrips=Array.isArray(doc.sharedKkbTrips)?doc.sharedKkbTrips:[];
   doc.sharedKkbDeleted=doc.sharedKkbDeleted&&typeof doc.sharedKkbDeleted==="object"?doc.sharedKkbDeleted:{};
   doc.events=Array.isArray(doc.events)?doc.events.filter(e=>e&&e.id&&e.type).slice(-150):[];
@@ -14035,6 +14047,42 @@ function barkadaRefByGroupId(groupId){return (state.barkadaGroups||[]).find(g=>g
 function activeBarkadaRef(){return barkadaRefByGroupId(state.barkadaActiveGroupId)}
 function barkadaInitials(v){return String(v||"B").trim().split(/\s+/).slice(0,2).map(x=>x[0]?.toUpperCase()||"").join("")||"B"}
 function barkadaCurrentEmail(){return String(cloudMeta.accountEmail||"").trim().toLowerCase()}
+function barkadaLocalSocialProfile(){
+  const xp=Math.max(0,Math.round(Number(rewardXp()||0)));
+  const levelInfo=rewardLevel(xp)?.current||REWARD_LEVELS[0];
+  const badgeIds=earnedRewardBadges().map(b=>String(b.id)).filter(Boolean).sort();
+  return {xp,level:Number(levelInfo?.level||1),badgeIds,updatedAt:barkadaIsoNow()};
+}
+function barkadaProfileComparable(profile){
+  const p=profile&&typeof profile==="object"?profile:{};
+  return JSON.stringify({xp:Math.max(0,Math.round(Number(p.xp||0))),level:Math.max(1,Math.round(Number(p.level||1))),badgeIds:[...new Set(Array.isArray(p.badgeIds)?p.badgeIds.map(String):[])].filter(Boolean).sort()});
+}
+function barkadaProfileNeedsSync(member,next){return barkadaProfileComparable(member?.sinopProfile)!==barkadaProfileComparable(next)}
+function barkadaBadgeCatalog(){
+  const map=new Map();
+  rewardBadges().forEach(b=>map.set(String(b.id),{id:String(b.id),title:b.title||"Badge",icon:b.icon||"trophy"}));
+  return map;
+}
+function barkadaLevelInfo(profile){
+  const lvl=Math.max(1,Math.round(Number(profile?.level||1)));
+  return REWARD_LEVELS.find(x=>Number(x.level)===lvl)||REWARD_LEVELS[0];
+}
+function barkadaRankedMembers(members=[]){
+  const active=members.filter(m=>m?.status==="active"&&m?.sinopProfile);
+  active.sort((a,b)=>{
+    const ax=Number(a.sinopProfile?.xp||0),bx=Number(b.sinopProfile?.xp||0);
+    if(bx!==ax)return bx-ax;
+    const ab=(a.sinopProfile?.badgeIds||[]).length,bb=(b.sinopProfile?.badgeIds||[]).length;
+    if(bb!==ab)return bb-ab;
+    return String(a.name||a.email||"").localeCompare(String(b.name||b.email||""));
+  });
+  return active.map((member,index)=>({member,rank:index+1}));
+}
+function barkadaPeerRankText(doc){
+  const meEmail=barkadaCurrentEmail(),ranked=barkadaRankedMembers(doc?.members||[]);
+  const mine=ranked.find(x=>String(x.member?.email||"").toLowerCase()===meEmail);
+  return mine?`#${mine.rank} of ${ranked.length}`:"—";
+}
 function barkadaInviteUrl(fileId){const u=new URL(location.href);u.searchParams.set("barkada",fileId);u.hash="";return u.toString()}
 async function copyBarkadaInvite(fileId){const text=barkadaInviteUrl(fileId);try{if(navigator.clipboard?.writeText)await navigator.clipboard.writeText(text);else{const ta=document.createElement('textarea');ta.value=text;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove()}toast('Barkada invite link copied.')}catch(e){toast('Could not copy the invite link.')}}
 function parseBarkadaFileId(value){const raw=String(value||"").trim();if(!raw)return "";try{const u=new URL(raw,location.href);const q=u.searchParams.get("barkada");if(q)return q.trim()}catch(e){}const m=raw.match(/[?&]barkada=([^&#]+)/i);if(m)return decodeURIComponent(m[1]);return raw.replace(/^barkada:/i,"").trim()}
@@ -14059,11 +14107,26 @@ async function shareBarkadaFile(fileId,email,groupName){
 }
 async function loadBarkadaGroup(ref,{force=false}={}){
   if(!ref?.fileId)return null;if(!force&&barkadaCache.has(ref.groupId))return barkadaCache.get(ref.groupId);if(barkadaLoading.has(ref.fileId))return null;
-  barkadaLoading.add(ref.fileId);try{let doc=await readBarkadaFile(ref.fileId);const me=barkadaDocMember(doc);if(me&&me.status!=="active"){me.status="active";me.name=me.name||cloudMeta.accountName||me.email;doc=await updateBarkadaFile(ref.fileId,doc)}upsertBarkadaRef(doc,ref.fileId);if(await promoteLegacyBarkadaKkb(doc,ref)){doc=await readBarkadaFile(ref.fileId);upsertBarkadaRef(doc,ref.fileId)}mirrorSharedKkbTripsFromDoc(doc,ref.fileId,{render:false});processBarkadaEvents(doc);return doc}finally{barkadaLoading.delete(ref.fileId)}
+  barkadaLoading.add(ref.fileId);
+  try{
+    let doc=await readBarkadaFile(ref.fileId),changed=false;
+    const me=barkadaDocMember(doc);
+    if(me){
+      if(me.status!=="active"){me.status="active";changed=true}
+      if(!me.name&&(cloudMeta.accountName||me.email)){me.name=cloudMeta.accountName||me.email;changed=true}
+      me.joinedAt=me.joinedAt||new Date().toISOString();
+      const profile=barkadaLocalSocialProfile();
+      if(barkadaProfileNeedsSync(me,profile)){me.sinopProfile=profile;changed=true}
+    }
+    if(changed)doc=await updateBarkadaFile(ref.fileId,doc);
+    upsertBarkadaRef(doc,ref.fileId);
+    if(await promoteLegacyBarkadaKkb(doc,ref)){doc=await readBarkadaFile(ref.fileId);upsertBarkadaRef(doc,ref.fileId)}
+    mirrorSharedKkbTripsFromDoc(doc,ref.fileId,{render:false});processBarkadaEvents(doc);return doc;
+  }finally{barkadaLoading.delete(ref.fileId)}
 }
 function barkadaUniquePeople(){const emails=new Set();barkadaCache.forEach(doc=>(doc.members||[]).forEach(m=>{if(m.email)emails.add(String(m.email).toLowerCase())}));return emails.size}
 function renderBarkada(){
-  if(!$('barkadaGroupList'))return;const refs=state.barkadaGroups||[];$('barkadaGroupCount').textContent=refs.length;$('barkadaKkbCount').textContent=(state.kkbTrips||[]).filter(t=>t.barkadaGroupId).length;$('barkadaPeopleCount').textContent=barkadaUniquePeople();
+  if(!$('barkadaGroupList'))return;const refs=state.barkadaGroups||[];$('barkadaGroupCount').textContent=refs.length;$('barkadaPeopleCount').textContent=barkadaUniquePeople();$('barkadaPeerRank').textContent='—';
   if(!refs.length){$('barkadaGroupList').innerHTML='<div class="barkada-list-empty"><strong>No Barkada yet.</strong><br>Create one and invite friends by Google email.</div>';$('barkadaWorkspace').innerHTML='<div class="barkada-loading">Your personal finance data stays private. Barkada groups use separate shared files.</div>';return}
   if(!state.barkadaActiveGroupId||!refs.some(r=>r.groupId===state.barkadaActiveGroupId))state.barkadaActiveGroupId=refs[0].groupId;
   $('barkadaGroupList').innerHTML=refs.map(r=>`<button class="barkada-group-btn ${r.groupId===state.barkadaActiveGroupId?'active':''}" data-barkada-group="${esc(r.groupId)}" type="button"><span class="barkada-group-avatar">${esc(barkadaInitials(r.name))}</span><span class="barkada-group-copy"><strong>${esc(r.name)}</strong><small>${r.role==='owner'?'You created this group':`Owned by ${esc(r.ownerEmail||'another member')}`}</small></span><span class="barkada-group-role">${esc(r.role)}</span></button>`).join('');
@@ -14073,7 +14136,23 @@ function renderBarkada(){
 async function refreshActiveBarkada(force=true){const ref=activeBarkadaRef();if(!ref)return;if(!cloudTokenValid()){connectGoogleDrive('sync');return}try{const doc=await loadBarkadaGroup(ref,{force});if(doc){renderBarkada();renderBarkadaWorkspace(doc,ref)}}catch(e){console.error(e);$('barkadaWorkspace').innerHTML=`<div class="barkada-error"><strong>Could not load this Barkada.</strong><br>${esc(e.message||'Google Drive access failed.')}</div>`}}
 function renderBarkadaWorkspace(doc,ref){
   const me=barkadaDocMember(doc),isOwner=(me?.role==='owner'||String(doc.ownerEmail||'').toLowerCase()===barkadaCurrentEmail()),members=doc.members||[],localTrips=(state.kkbTrips||[]).filter(t=>t.barkadaGroupId===doc.groupId);
-  $('barkadaPeopleCount').textContent=barkadaUniquePeople();$('barkadaWorkspace').innerHTML=`<div class="barkada-workspace-head"><div><p class="eyebrow">Shared group</p><h2>${esc(doc.name||'Barkada')}</h2><div class="barkada-sync-meta"><span>${members.length} member${members.length===1?'':'s'}</span><span>Revision r${Number(doc.revision||1)}</span><span>Updated ${esc(cloudFmtTime(doc.updatedAt))}</span><span class="barkada-live-pill ${cloudTokenValid()?'':'paused'}"><span class="barkada-live-dot"></span>${cloudTokenValid()?'Live · ~2s':'Live paused · reconnect'}</span></div></div><div class="barkada-workspace-actions"><button class="btn btn-secondary btn-sm" id="copyBarkadaInviteBtn" type="button">Copy invite link</button><button class="btn btn-secondary btn-sm" id="refreshBarkadaBtn" type="button">Refresh</button>${isOwner?'<button class="btn btn-primary btn-sm" id="addBarkadaMemberBtn" type="button">Add member</button>':''}</div></div><div class="section-head" style="margin-top:17px;margin-bottom:8px"><div><p class="eyebrow">People</p><h3>Members</h3></div></div><div class="barkada-member-list">${members.map(m=>`<div class="barkada-member-row"><span class="barkada-member-avatar">${esc(barkadaInitials(m.name||m.email))}</span><span class="barkada-member-copy"><strong>${esc(m.name||m.email||'Member')}${String(m.email||'').toLowerCase()===barkadaCurrentEmail()?' · You':''}</strong><small>${esc(m.email||'')}</small></span><span class="barkada-member-state"><span class="barkada-status-pill ${m.status==='active'?'active':'invited'}">${m.status==='active'?'Active':'Invited'}</span><span class="barkada-member-role">${esc(m.role||'member')}</span></span></div>`).join('')}</div><div class="barkada-kkb-panel"><div class="barkada-kkb-panel-head"><div><p class="eyebrow">Shared KKB</p><h3>Live KKB sheets for this Barkada</h3><p class="subtle">KKB sheets started here are stored in the shared Barkada file. Members see the same rows, payers and settlements, with Drive changes checked approximately every 2 seconds while SINOP is open and Google Drive is connected.</p></div><button class="btn btn-primary btn-sm" id="startBarkadaKkbBtn" type="button">${localTrips.length?'Open / new KKB':'Start KKB'}</button></div><div class="barkada-local-trips">${localTrips.length?localTrips.map(t=>`<div class="barkada-local-trip"><div><strong>${esc(t.title)}</strong><small>${esc(t.date||'')} · ${t.expenses?.length||0} rows</small></div><button class="text-btn" data-open-barkada-kkb="${esc(t.id)}" type="button">Open</button></div>`).join(''):'<div class="barkada-list-empty">No shared KKB sheet yet. Start one and every Barkada member will receive the same sheet.</div>'}</div></div>`;
+  const ranked=barkadaRankedMembers(members),rankMap=new Map(ranked.map(x=>[String(x.member.email||'').toLowerCase(),x.rank]));
+  const badgeCatalog=barkadaBadgeCatalog(),meRank=barkadaPeerRankText(doc);
+  $('barkadaPeopleCount').textContent=barkadaUniquePeople();$('barkadaPeerRank').textContent=meRank;
+  const peerRows=[...members].sort((a,b)=>{
+    const ar=rankMap.get(String(a.email||'').toLowerCase())||9999,br=rankMap.get(String(b.email||'').toLowerCase())||9999;
+    return ar-br||String(a.name||a.email||'').localeCompare(String(b.name||b.email||''));
+  }).map(member=>{
+    const email=String(member.email||'').toLowerCase(),profile=member.sinopProfile,rank=rankMap.get(email),isMe=email===barkadaCurrentEmail();
+    if(member.status!=='active'||!profile){
+      return `<div class="barkada-peer-row barkada-peer-pending"><span class="barkada-peer-rank">—</span><span class="barkada-member-avatar">${esc(barkadaInitials(member.name||member.email))}</span><span class="barkada-peer-copy"><strong>${esc(member.name||member.email||'Member')}${isMe?' · You':''}</strong><small>${member.status==='active'?'Progress will appear after this member syncs SINOP.':'Invited · joins leaderboard after accepting'}</small></span><span class="barkada-status-pill ${member.status==='active'?'active':'invited'}">${member.status==='active'?'Syncing':'Invited'}</span></div>`;
+    }
+    const level=barkadaLevelInfo(profile),ids=(profile.badgeIds||[]).filter(id=>badgeCatalog.has(String(id))),badges=ids.map(id=>badgeCatalog.get(String(id)));
+    const preview=badges.slice(0,3).map(b=>`<span class="barkada-badge-dot" title="${esc(b.title)}">${heroSvg(b.icon)}</span>`).join('');
+    const badgePanel=badges.length?`<div class="barkada-peer-badges">${badges.map(b=>`<span class="barkada-peer-badge"><span>${heroSvg(b.icon)}</span><strong>${esc(b.title)}</strong></span>`).join('')}</div>`:`<div class="barkada-peer-no-badges">No earned badges yet.</div>`;
+    return `<details class="barkada-peer-row ${isMe?'is-you':''}"><summary><span class="barkada-peer-rank">#${rank}</span><span class="barkada-member-avatar">${esc(barkadaInitials(member.name||member.email))}</span><span class="barkada-peer-copy"><strong>${esc(member.name||member.email||'Member')}${isMe?' · You':''}</strong><small>Level ${Number(profile.level||1)} · ${esc(level?.title||'SINOP member')}</small></span><span class="barkada-peer-score"><strong>${Number(profile.xp||0).toLocaleString()} XP</strong><small>${badges.length} badge${badges.length===1?'':'s'}</small><span class="barkada-badge-preview">${preview}</span></span><span class="barkada-peer-chevron">${heroSvg('chevron-down')}</span></summary>${badgePanel}</details>`;
+  }).join('');
+  $('barkadaWorkspace').innerHTML=`<div class="barkada-workspace-head"><div><p class="eyebrow">Shared group</p><h2>${esc(doc.name||'Barkada')}</h2><div class="barkada-sync-meta"><span>${members.length} member${members.length===1?'':'s'}</span><span>${ranked.length} ranked</span><span>Updated ${esc(cloudFmtTime(doc.updatedAt))}</span><span class="barkada-live-pill ${cloudTokenValid()?'':'paused'}"><span class="barkada-live-dot"></span>${cloudTokenValid()?'Live · ~2s':'Live paused · reconnect'}</span></div></div><div class="barkada-workspace-actions"><button class="btn btn-secondary btn-sm" id="copyBarkadaInviteBtn" type="button">Invite</button><button class="btn btn-secondary btn-sm" id="refreshBarkadaBtn" type="button">Refresh</button>${isOwner?'<button class="btn btn-primary btn-sm" id="addBarkadaMemberBtn" type="button">Add friend</button>':''}</div></div><section class="barkada-social-section"><div class="barkada-social-head"><div><p class="eyebrow">Peer ranking</p><h3>Leaderboard</h3><p>Ranked by SINOP XP. Earned badges break XP ties.</p></div>${meRank!=='—'?`<span class="barkada-your-rank">You · ${esc(meRank)}</span>`:''}</div><div class="barkada-peer-list">${peerRows||'<div class="barkada-list-empty">Invite friends to start your peer leaderboard.</div>'}</div></section><div class="barkada-kkb-panel"><div class="barkada-kkb-panel-head"><div><p class="eyebrow">Shared expenses</p><h3>KKB with this Barkada</h3><p class="subtle">Start or open a shared KKB only when you need to split a trip, meal, or other group expense.</p></div><button class="btn btn-primary btn-sm" id="startBarkadaKkbBtn" type="button">${localTrips.length?'Open / new KKB':'Start KKB'}</button></div><div class="barkada-local-trips">${localTrips.length?localTrips.map(t=>`<div class="barkada-local-trip"><div><strong>${esc(t.title)}</strong><small>${esc(t.date||'')} · ${t.expenses?.length||0} rows</small></div><button class="text-btn" data-open-barkada-kkb="${esc(t.id)}" type="button">Open</button></div>`).join(''):'<div class="barkada-list-empty">No shared KKB yet.</div>'}</div></div>`;
   $('copyBarkadaInviteBtn')?.addEventListener('click',()=>copyBarkadaInvite(ref.fileId));$('refreshBarkadaBtn')?.addEventListener('click',()=>refreshActiveBarkada(true));$('addBarkadaMemberBtn')?.addEventListener('click',openAddBarkadaMemberModal);$('startBarkadaKkbBtn')?.addEventListener('click',()=>startKkbFromBarkada(doc,ref));$('barkadaWorkspace').querySelectorAll('[data-open-barkada-kkb]').forEach(btn=>btn.onclick=()=>openBarkadaKkb(btn.dataset.openBarkadaKkb));
 }
 function openCreateBarkadaModal(){if(!cloudTokenValid()){toast('Reconnect Google before creating a Barkada.');connectGoogleDrive('sync');return}$('barkadaNameInput').value='';$('barkadaInitialEmails').value='';$('createBarkadaModal').classList.add('open');$('createBarkadaModal').setAttribute('aria-hidden','false');setTimeout(()=>$('barkadaNameInput').focus(),40)}
@@ -14082,7 +14161,7 @@ function barkadaEmailList(v){return [...new Set(String(v||'').split(/[\s,;]+/).m
 async function saveCreateBarkada(){
   const name=$('barkadaNameInput').value.trim();if(!name){toast('Enter a Barkada name.');return}if(!cloudTokenValid()){connectGoogleDrive('sync');return}
   const me=barkadaCurrentEmail();if(!me){toast('Your Google email is unavailable. Sign in again.');return}
-  const btn=$('saveCreateBarkadaBtn');btn.disabled=true;btn.textContent='Creating…';try{const groupId=uid(),doc={app:BARKADA_APP,schemaVersion:BARKADA_SCHEMA_VERSION,groupId,name,ownerEmail:me,createdAt:new Date().toISOString(),updatedAt:new Date().toISOString(),revision:1,members:[{id:uid(),email:me,name:cloudMeta.accountName||me,role:'owner',status:'active',joinedAt:new Date().toISOString()}],sharedKkbTrips:[],sharedKkbDeleted:{},events:[]};const created=await createBarkadaFile(doc);const emails=barkadaEmailList($('barkadaInitialEmails').value).filter(e=>e!==me);const failed=[];for(const email of emails){try{await shareBarkadaFile(created.id,email,name);doc.members.push({id:uid(),email,name:'',role:'member',status:'invited',invitedAt:new Date().toISOString()})}catch(e){failed.push(email)}}if(emails.length)await updateBarkadaFile(created.id,doc);upsertBarkadaRef(doc,created.id);closeCreateBarkadaModal();renderBarkada();toast(failed.length?`Barkada created. Could not invite: ${failed.join(', ')}`:'Barkada created and invitations sent.')}catch(e){console.error(e);toast(e.message||'Could not create Barkada.')}finally{btn.disabled=false;btn.textContent='Create & invite'}}
+  const btn=$('saveCreateBarkadaBtn');btn.disabled=true;btn.textContent='Creating…';try{const groupId=uid(),doc={app:BARKADA_APP,schemaVersion:BARKADA_SCHEMA_VERSION,groupId,name,ownerEmail:me,createdAt:new Date().toISOString(),updatedAt:new Date().toISOString(),revision:1,members:[{id:uid(),email:me,name:cloudMeta.accountName||me,role:'owner',status:'active',joinedAt:new Date().toISOString(),sinopProfile:barkadaLocalSocialProfile()}],sharedKkbTrips:[],sharedKkbDeleted:{},events:[]};const created=await createBarkadaFile(doc);const emails=barkadaEmailList($('barkadaInitialEmails').value).filter(e=>e!==me);const failed=[];for(const email of emails){try{await shareBarkadaFile(created.id,email,name);doc.members.push({id:uid(),email,name:'',role:'member',status:'invited',invitedAt:new Date().toISOString()})}catch(e){failed.push(email)}}if(emails.length)await updateBarkadaFile(created.id,doc);upsertBarkadaRef(doc,created.id);closeCreateBarkadaModal();renderBarkada();toast(failed.length?`Barkada created. Could not invite: ${failed.join(', ')}`:'Barkada created and invitations sent.')}catch(e){console.error(e);toast(e.message||'Could not create Barkada.')}finally{btn.disabled=false;btn.textContent='Create & invite'}}
 function openAddBarkadaMemberModal(){$('barkadaMemberEmail').value='';$('barkadaMemberName').value='';$('addBarkadaMemberModal').classList.add('open');$('addBarkadaMemberModal').setAttribute('aria-hidden','false');setTimeout(()=>$('barkadaMemberEmail').focus(),40)}
 function closeAddBarkadaMemberModal(){$('addBarkadaMemberModal').classList.remove('open');$('addBarkadaMemberModal').setAttribute('aria-hidden','true')}
 async function saveAddBarkadaMember(){const ref=activeBarkadaRef(),doc=ref&&barkadaCache.get(ref.groupId);if(!ref||!doc)return;const email=$('barkadaMemberEmail').value.trim().toLowerCase(),name=$('barkadaMemberName').value.trim();if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){toast('Enter a valid Google email.');return}if((doc.members||[]).some(m=>String(m.email||'').toLowerCase()===email)){toast('That email is already in this Barkada.');return}const btn=$('saveAddBarkadaMemberBtn');btn.disabled=true;btn.textContent='Inviting…';try{await shareBarkadaFile(ref.fileId,email,doc.name);doc.members.push({id:uid(),email,name,role:'member',status:'invited',invitedAt:new Date().toISOString()});await updateBarkadaFile(ref.fileId,doc);barkadaCache.set(doc.groupId,doc);ref.lastRevision=doc.revision;ref.lastSyncedAt=doc.updatedAt;scheduleAutoSave();closeAddBarkadaMemberModal();renderBarkada();toast('Barkada invitation sent.')}catch(e){console.error(e);toast(e.message||'Could not invite that Google account.')}finally{btn.disabled=false;btn.textContent='Send invite'}}
@@ -14108,8 +14187,8 @@ async function joinBarkadaFile(fileId,{quiet=false}={}){
     }
     const email=barkadaCurrentEmail();
     let me=barkadaDocMember(doc,email);
-    if(!me){me={id:uid(),email,name:cloudMeta.accountName||email,role:'member',status:'active',joinedAt:new Date().toISOString()};doc.members.push(me);await updateBarkadaFile(fileId,doc)}
-    else if(me.status!=='active'||(!me.name&&cloudMeta.accountName)){me.status='active';me.name=me.name||cloudMeta.accountName||email;me.joinedAt=me.joinedAt||new Date().toISOString();await updateBarkadaFile(fileId,doc)}
+    if(!me){me={id:uid(),email,name:cloudMeta.accountName||email,role:'member',status:'active',joinedAt:new Date().toISOString(),sinopProfile:barkadaLocalSocialProfile()};doc.members.push(me);await updateBarkadaFile(fileId,doc)}
+    else {const profile=barkadaLocalSocialProfile(),changed=me.status!=='active'||(!me.name&&cloudMeta.accountName)||barkadaProfileNeedsSync(me,profile);me.status='active';me.name=me.name||cloudMeta.accountName||email;me.joinedAt=me.joinedAt||new Date().toISOString();me.sinopProfile=profile;if(changed)await updateBarkadaFile(fileId,doc)}
     upsertBarkadaRef(doc,fileId);renderBarkada();if(!quiet)toast(`Joined ${doc.name}.`);return true;
   }catch(e){console.error(e);showPendingBarkadaInvite(fileId,e.message||"Could not open this Barkada.");if(!quiet)toast(e.message||'Could not join this Barkada. Make sure this Google email was invited.');return false}
 }
@@ -20065,6 +20144,38 @@ function statementPrintDocumentHtml(){
   #income .v132-income-field-label{font-size:9px!important;line-height:1.2!important}
 }
 </style>
+
+<style id="sinop-v134-barkada-social-style">
+/* ===== SINOP v134 · Barkada is a social progress layer ===== */
+.barkada-social-section{margin-top:16px;padding:15px;border:1px solid var(--border);border-radius:16px;background:var(--panel)}
+.barkada-social-head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:10px}
+.barkada-social-head h3{margin:1px 0 3px;font-size:17px}.barkada-social-head p{margin:0;color:var(--muted);font-size:11px;line-height:1.4}
+.barkada-your-rank{flex:0 0 auto;padding:7px 10px;border-radius:999px;background:var(--brandsoft);color:var(--brand2);font-size:11px;font-weight:850}
+.barkada-peer-list{display:grid;gap:7px}.barkada-peer-row{min-width:0;border:1px solid color-mix(in srgb,var(--border) 88%,var(--text) 12%);border-radius:13px;background:var(--panel);overflow:hidden}
+details.barkada-peer-row>summary{list-style:none;cursor:pointer}.barkada-peer-row>summary::-webkit-details-marker{display:none}
+.barkada-peer-row>summary,.barkada-peer-pending{min-height:62px;padding:8px 10px;display:grid;grid-template-columns:34px 40px minmax(0,1fr) auto 20px;gap:8px;align-items:center}
+.barkada-peer-pending{grid-template-columns:34px 40px minmax(0,1fr) auto}
+.barkada-peer-row.is-you{border-color:color-mix(in srgb,var(--brand) 48%,var(--border));background:color-mix(in srgb,var(--brandsoft) 32%,var(--panel))}
+.barkada-peer-rank{font-size:13px;font-weight:950;color:var(--muted);text-align:center}.barkada-peer-row:nth-child(1) .barkada-peer-rank{color:#9a6700}
+.barkada-peer-copy{min-width:0}.barkada-peer-copy strong{display:block;min-width:0;font-size:13px;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.barkada-peer-copy small{display:block;margin-top:3px;color:var(--muted);font-size:11px;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.barkada-peer-score{display:grid;justify-items:end;gap:1px;min-width:76px}.barkada-peer-score>strong{font-size:12px;line-height:1.2;white-space:nowrap}.barkada-peer-score>small{font-size:10px;color:var(--muted);white-space:nowrap}
+.barkada-badge-preview{display:flex;gap:2px;margin-top:2px}.barkada-badge-dot{width:18px;height:18px;border-radius:6px;display:grid;place-items:center;background:var(--soft);color:var(--brand2)}.barkada-badge-dot .hero-icon{width:11px;height:11px}
+.barkada-peer-chevron{display:grid;place-items:center;color:var(--muted)}.barkada-peer-chevron .hero-icon{width:16px;height:16px;transition:transform .16s ease}details.barkada-peer-row[open] .barkada-peer-chevron .hero-icon{transform:rotate(180deg)}
+.barkada-peer-badges{padding:10px;border-top:1px solid var(--border);display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;background:var(--soft)}
+.barkada-peer-badge{min-width:0;min-height:40px;padding:7px 8px;border:1px solid var(--border);border-radius:10px;background:var(--panel);display:flex;align-items:center;gap:6px}.barkada-peer-badge>span{width:24px;height:24px;flex:0 0 24px;border-radius:7px;display:grid;place-items:center;background:var(--brandsoft);color:var(--brand2)}.barkada-peer-badge .hero-icon{width:14px;height:14px}.barkada-peer-badge strong{min-width:0;font-size:10px;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.barkada-peer-no-badges{padding:11px;border-top:1px solid var(--border);background:var(--soft);color:var(--muted);font-size:11px}
+@media(max-width:760px){
+  #barkada .barkada-summary-grid{display:flex!important;overflow-x:auto!important;gap:8px!important;padding-bottom:2px!important;scroll-snap-type:x proximity}.barkada-summary-card{flex:0 0 min(42vw,160px)!important;min-height:70px!important;padding:11px 12px!important;scroll-snap-align:start}.barkada-summary-card span{font-size:11px!important}.barkada-summary-card strong{font-size:19px!important}
+  .barkada-social-section{padding:10px;margin-top:11px;border-radius:14px}.barkada-social-head{align-items:flex-start}.barkada-social-head h3{font-size:16px}.barkada-social-head p{font-size:11px}.barkada-your-rank{font-size:10px;padding:6px 8px}
+  .barkada-peer-row>summary,.barkada-peer-pending{grid-template-columns:28px 38px minmax(0,1fr) auto 18px;min-height:60px;padding:8px;gap:7px}.barkada-peer-pending{grid-template-columns:28px 38px minmax(0,1fr) auto}
+  .barkada-member-avatar{width:38px!important;height:38px!important;font-size:11px!important}.barkada-peer-copy strong{font-size:13px}.barkada-peer-copy small{font-size:11px}.barkada-peer-score{min-width:68px}.barkada-peer-score>strong{font-size:11.5px}.barkada-peer-score>small{font-size:10px}.barkada-peer-badges{grid-template-columns:repeat(2,minmax(0,1fr));padding:8px}.barkada-peer-badge strong{font-size:10.5px}
+  .barkada-workspace-head{padding-bottom:10px!important}.barkada-workspace-head h2{font-size:20px!important}.barkada-sync-meta{font-size:10px!important;gap:6px 10px!important}.barkada-workspace-actions{width:100%;display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px!important}.barkada-workspace-actions .btn{min-height:42px!important;width:100%!important;padding:7px!important;font-size:11px!important}
+  .barkada-kkb-panel{margin-top:11px!important}.barkada-kkb-panel .subtle{font-size:11px!important}
+}
+@media(max-width:420px){
+  .barkada-peer-row>summary,.barkada-peer-pending{grid-template-columns:26px 36px minmax(0,1fr) 18px;min-height:64px}.barkada-peer-pending{grid-template-columns:26px 36px minmax(0,1fr) auto}.barkada-peer-score{grid-column:3;justify-items:start;margin-top:-2px}.barkada-peer-score .barkada-badge-preview{display:none}.barkada-peer-chevron{grid-column:4;grid-row:1/3}.barkada-peer-copy small{white-space:normal;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical}.barkada-peer-badges{grid-template-columns:1fr}.barkada-your-rank{white-space:nowrap}.barkada-social-head{gap:8px}
+}
+</style>
 </head><body>
   <div class="statement">
     <div class="head">
@@ -22911,6 +23022,17 @@ maybeStartFirstRunSetup();
   mq.addEventListener?.('change',schedule);
   window.addEventListener('resize',schedule,{passive:true});
   schedule();
+})();
+</script>
+
+<script id="sinop-v134-barkada-social-sync">
+(()=>{
+  let timer=0;
+  document.addEventListener('click',e=>{
+    const nav=e.target.closest('[data-target="barkada"],[data-jump="barkada"],[data-v124-more-target="barkada"]');
+    if(!nav)return;
+    clearTimeout(timer);timer=setTimeout(()=>{if(typeof refreshActiveBarkada==='function'&&activeBarkadaRef())refreshActiveBarkada(true)},180);
+  });
 })();
 </script>
 </body>
