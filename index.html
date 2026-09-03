@@ -22666,7 +22666,200 @@ maybeStartFirstRunSetup();
 })();
 </script>
 
-<script id="sinop-v132-income-label-script">
+
+
+<style id="sinop-v133-mobile-readability">
+/* ===== SINOP v133 · readable adaptive mobile UI ===== */
+@media (max-width:760px){
+  :root{
+    --m-text:clamp(12px,3.2vw,14px);
+    --m-meta:clamp(10.5px,2.85vw,12px);
+    --m-label:clamp(10.5px,2.8vw,11.5px);
+    --m-border:color-mix(in srgb,var(--text) 17%,var(--border));
+  }
+
+  /* Never render duplicate injected Income labels. data-label/::before is the one source of truth. */
+  #income .v132-income-field-label{display:none!important}
+  #income table.v125-compact-list>tbody>tr.v125-expanded>td:not(.v125-summary-cell)::before{
+    display:block!important;
+    content:attr(data-label)!important;
+    width:100%!important;
+    margin:0 0 7px!important;
+    padding:0!important;
+    color:var(--muted)!important;
+    font-size:var(--m-label)!important;
+    line-height:1.25!important;
+    font-weight:800!important;
+    letter-spacing:.01em!important;
+    text-transform:none!important;
+    white-space:normal!important;
+    overflow:visible!important;
+    text-overflow:clip!important;
+    overflow-wrap:anywhere!important;
+  }
+  #income table.v125-compact-list>tbody>tr.v125-expanded>td:nth-child(11)::before{display:none!important;content:none!important}
+
+  /* Income list: clear hierarchy, readable type, no hairline separators. */
+  #income .table-card{
+    border:1px solid var(--m-border)!important;
+    border-radius:14px!important;
+    overflow:hidden!important;
+    box-shadow:none!important;
+  }
+  #income table.v125-compact-list>tbody{gap:0!important}
+  #income table.v125-compact-list>tbody>tr{
+    border:0!important;
+    border-radius:0!important;
+    background:var(--panel)!important;
+    box-shadow:none!important;
+    overflow:hidden!important;
+  }
+  #income table.v125-compact-list>tbody>tr+tr{
+    border-top:1px solid var(--m-border)!important;
+  }
+  #income .v131-mobile-summary{
+    min-height:68px!important;
+    padding:11px 12px!important;
+    grid-template-columns:minmax(0,1fr) minmax(82px,30%) 20px!important;
+    gap:10px!important;
+  }
+  #income .v131-mobile-main{gap:4px!important}
+  #income .v131-mobile-main strong{
+    font-size:clamp(14px,3.8vw,16px)!important;
+    line-height:1.25!important;
+    white-space:normal!important;
+    display:-webkit-box!important;
+    -webkit-line-clamp:2!important;
+    -webkit-box-orient:vertical!important;
+    overflow:hidden!important;
+  }
+  #income .v131-mobile-main small{
+    font-size:var(--m-meta)!important;
+    line-height:1.35!important;
+    white-space:normal!important;
+    overflow:visible!important;
+    text-overflow:clip!important;
+  }
+  #income .v131-mobile-side{
+    width:auto!important;max-width:none!important;min-width:0!important;
+    gap:4px!important;text-align:right!important;justify-items:end!important;
+  }
+  #income .v131-mobile-side strong{
+    font-size:clamp(13px,3.5vw,15px)!important;
+    line-height:1.25!important;
+    overflow:visible!important;text-overflow:clip!important;
+  }
+  #income .v131-mobile-side small{
+    font-size:var(--m-meta)!important;
+    line-height:1.25!important;
+    white-space:normal!important;
+    overflow:visible!important;text-overflow:clip!important;
+  }
+  #income .v131-mobile-summary>.v125-row-chevron,
+  #income .v131-mobile-summary>.v125-row-chevron .hero-icon{
+    width:20px!important;height:20px!important;
+  }
+
+  /* Expanded Income form cards use contrast and space instead of thin dividers. */
+  #income table.v125-compact-list>tbody>tr.v125-expanded{
+    gap:9px!important;
+    padding:0 10px 12px!important;
+    background:var(--soft)!important;
+  }
+  #income table.v125-compact-list>tbody>tr.v125-expanded>.v125-summary-cell{
+    margin:0 -10px 2px!important;
+    background:var(--panel)!important;
+    border-bottom:1px solid var(--m-border)!important;
+  }
+  #income table.v125-compact-list>tbody>tr.v125-expanded>td:not(.v125-summary-cell){
+    min-height:74px!important;
+    padding:11px!important;
+    border:1px solid var(--m-border)!important;
+    border-radius:12px!important;
+    background:var(--panel)!important;
+    overflow:visible!important;
+  }
+  #income table.v125-compact-list>tbody>tr.v125-expanded input,
+  #income table.v125-compact-list>tbody>tr.v125-expanded select{
+    min-height:46px!important;
+    padding-left:11px!important;padding-right:11px!important;
+    border:1px solid var(--m-border)!important;
+    border-radius:10px!important;
+    background:var(--panel)!important;
+    color:var(--text)!important;
+    font-size:16px!important;
+    line-height:1.25!important;
+  }
+  #income table.v125-compact-list>tbody>tr.v125-expanded .salary-treatment-note,
+  #income table.v125-compact-list>tbody>tr.v125-expanded .account-select-note,
+  #income table.v125-compact-list>tbody>tr.v125-expanded .payday-editor small,
+  #income table.v125-compact-list>tbody>tr.v125-expanded .salary-deduction-cell small,
+  #income table.v125-compact-list>tbody>tr.v125-expanded .income-receipt-cell small{
+    font-size:var(--m-meta)!important;
+    line-height:1.45!important;
+  }
+
+  /* Readability floor for module helper text and dense controls throughout mobile SINOP. */
+  .section small{font-size:var(--m-meta)!important;line-height:1.4!important}
+  .section .eyebrow{font-size:var(--m-label)!important;line-height:1.25!important;letter-spacing:.055em!important}
+  .section .subtle,.section .v131-list-help,.section .v125-list-help,
+  .section [class$="-note"],.section [class*="-note "]{
+    font-size:var(--m-meta)!important;
+    line-height:1.45!important;
+  }
+  .section .btn,.section .text-btn,.section button:not(.icon-btn):not(.mobile-bottom-create){
+    line-height:1.25!important;
+  }
+  .section .badge,.section .summary-pill,.section .commitment-type-pill,.section .account-type-pill{
+    font-size:var(--m-meta)!important;
+    line-height:1.25!important;
+  }
+
+  /* Make separators visible without relying on fragile sub-pixel rules. */
+  .section .table-card,
+  .section .card,
+  .section .metric,
+  .section .analytics-card{
+    border-color:var(--m-border)!important;
+  }
+}
+
+/* Narrow phones: stop squeezing Income into two columns. One readable field per row. */
+@media (max-width:480px){
+  #income table.v125-compact-list>tbody>tr.v125-expanded{
+    grid-template-columns:minmax(0,1fr)!important;
+  }
+  #income table.v125-compact-list>tbody>tr.v125-expanded>td:not(.v125-summary-cell){
+    grid-column:1/-1!important;
+    width:100%!important;
+    min-height:0!important;
+  }
+  #income table.v125-compact-list>tbody>tr.v125-expanded>td:nth-child(n){grid-column:1/-1!important}
+  #income .v131-mobile-summary{
+    grid-template-columns:minmax(0,1fr) auto 20px!important;
+    padding:11px 10px!important;
+    gap:8px!important;
+  }
+  #income .v131-mobile-side{max-width:40vw!important}
+}
+
+/* Very narrow phones: amount/status moves under the source rather than becoming unreadable. */
+@media (max-width:350px){
+  #income .v131-mobile-summary{
+    grid-template-columns:minmax(0,1fr) 20px!important;
+    min-height:78px!important;
+  }
+  #income .v131-mobile-main{grid-column:1!important;grid-row:1!important}
+  #income .v131-mobile-side{
+    grid-column:1!important;grid-row:2!important;
+    max-width:none!important;justify-items:start!important;text-align:left!important;
+    grid-template-columns:auto auto!important;align-items:center!important;gap:8px!important;
+  }
+  #income .v131-mobile-side strong,#income .v131-mobile-side small{text-align:left!important;width:auto!important}
+  #income .v131-mobile-summary>.v125-row-chevron{grid-column:2!important;grid-row:1/3!important;align-self:center!important}
+}
+</style>
+<script id="sinop-v133-income-single-label-system">
 (() => {
   const mq=window.matchMedia('(max-width:760px)');
   const body=document.getElementById('incomeBody');
@@ -22676,7 +22869,7 @@ maybeStartFirstRunSetup();
     const frequency=row.querySelector('.i-frequency')?.value||'monthly';
     const kind=row.querySelector('.i-kind')?.value||'';
     const treatment=row.querySelector('.i-employment')?.value||'none';
-    const labels={
+    return ({
       1:'Source',
       2:'Type',
       3:'Tax treatment',
@@ -22686,25 +22879,19 @@ maybeStartFirstRunSetup();
       7:frequency==='one_time'?'Gross amount':'Gross / payment',
       8:(kind==='Salary'&&treatment!=='none')?'Estimated deductions':'Deductions this month',
       9:'Net this month',
-      10:'Deposited to'
-    };
-    return labels[index]||'';
+      10:'Deposited to',
+      11:''
+    })[index]||'';
   }
 
   function syncRow(row){
-    if(!mq.matches||!row.classList.contains('v125-expanded')||row.querySelector('.empty'))return;
+    if(row.querySelector('.empty'))return;
+    /* Remove remnants from the superseded v132 injected-label implementation. */
+    row.querySelectorAll('.v132-income-field-label').forEach(n=>n.remove());
     const cells=[...row.children].filter(td=>td.tagName==='TD'&&!td.classList.contains('v125-summary-cell'));
     cells.forEach((cell,i)=>{
-      const index=i+1;
-      cell.querySelectorAll(':scope > .v132-income-field-label').forEach(n=>n.remove());
-      if(index===11)return;
-      const text=labelFor(row,index);if(!text)return;
-      const label=document.createElement('span');
-      label.className='v132-income-field-label';
-      label.textContent=text;
-      cell.prepend(label);
-      /* Keep legacy data-label inert and synchronized for accessibility/debugging. */
-      cell.dataset.label=text;
+      const label=labelFor(row,i+1);
+      if(label)cell.dataset.label=label;else cell.removeAttribute('data-label');
     });
   }
 
@@ -22712,18 +22899,17 @@ maybeStartFirstRunSetup();
     if(!mq.matches)return;
     body.querySelectorAll(':scope>tr').forEach(syncRow);
   }
-
   let queued=false;
   function schedule(){
     if(queued)return;queued=true;
     requestAnimationFrame(()=>requestAnimationFrame(()=>{queued=false;sync()}));
   }
-
-  new MutationObserver(schedule).observe(body,{childList:true,subtree:true,attributes:true,attributeFilter:['class','data-label']});
+  new MutationObserver(schedule).observe(body,{childList:true,subtree:true});
   body.addEventListener('change',schedule);
   body.addEventListener('input',e=>{if(e.target.matches('.i-kind,.i-frequency,.i-employment'))schedule()});
   document.addEventListener('click',e=>{if(e.target.closest('#income .v131-mobile-summary,#income .v125-row-summary'))schedule()});
   mq.addEventListener?.('change',schedule);
+  window.addEventListener('resize',schedule,{passive:true});
   schedule();
 })();
 </script>
