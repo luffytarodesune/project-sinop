@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0f766e">
-<title>SINOP v131 · Income + Spending Mobile Redesign</title>
+<title>SINOP v132 · Income + Spending Mobile Redesign</title>
 <meta name="application-name" content="SINOP">
 <meta name="apple-mobile-web-app-title" content="SINOP">
 <meta name="description" content="SINOP — your personal money system for income, spending, savings, investments, goals, KKB, and financial tracking.">
@@ -20039,6 +20039,32 @@ function statementPrintDocumentHtml(){
 
 
 
+
+<style id="sinop-v132-income-label-stability">
+@media(max-width:760px){
+  /* v132: Income uses real DOM labels. Disable the legacy pseudo-label layer so
+     rerenders cannot swap in long desktop headers or clipped conditional text. */
+  #income table.v125-compact-list>tbody>tr.v125-expanded>td:not(.v125-summary-cell)::before{
+    display:none!important;content:none!important
+  }
+  #income .v132-income-field-label{
+    display:block!important;width:100%!important;min-width:0!important;margin:0 0 5px!important;padding:0!important;
+    color:var(--muted)!important;font-size:9px!important;line-height:1.25!important;font-weight:850!important;
+    letter-spacing:.025em!important;text-transform:none!important;white-space:normal!important;overflow:visible!important;
+    text-overflow:clip!important;overflow-wrap:normal!important;word-break:normal!important
+  }
+  #income table.v125-compact-list>tbody>tr.v125-expanded>td:nth-child(3) .v132-income-field-label,
+  #income table.v125-compact-list>tbody>tr.v125-expanded>td:nth-child(5) .v132-income-field-label,
+  #income table.v125-compact-list>tbody>tr.v125-expanded>td:nth-child(6) .v132-income-field-label,
+  #income table.v125-compact-list>tbody>tr.v125-expanded>td:nth-child(8) .v132-income-field-label,
+  #income table.v125-compact-list>tbody>tr.v125-expanded>td:nth-child(10) .v132-income-field-label{
+    font-size:9.5px!important
+  }
+}
+@media(max-width:390px){
+  #income .v132-income-field-label{font-size:9px!important;line-height:1.2!important}
+}
+</style>
 </head><body>
   <div class="statement">
     <div class="head">
@@ -22636,6 +22662,68 @@ maybeStartFirstRunSetup();
   document.addEventListener('click',e=>{if(e.target.closest('[data-target],[data-jump],[data-v122-nav-target],[data-v124-more-target]'))schedule()});
   mq.addEventListener?.('change',schedule);
   window.addEventListener('resize',schedule,{passive:true});
+  schedule();
+})();
+</script>
+
+<script id="sinop-v132-income-label-script">
+(() => {
+  const mq=window.matchMedia('(max-width:760px)');
+  const body=document.getElementById('incomeBody');
+  if(!body)return;
+
+  function labelFor(row,index){
+    const frequency=row.querySelector('.i-frequency')?.value||'monthly';
+    const kind=row.querySelector('.i-kind')?.value||'';
+    const treatment=row.querySelector('.i-employment')?.value||'none';
+    const labels={
+      1:'Source',
+      2:'Type',
+      3:'Tax treatment',
+      4:'Frequency',
+      5:'Received payments',
+      6:frequency==='one_time'?'Income date':(['monthly','twice_monthly'].includes(frequency)?'Expected payday(s)':'Expected schedule'),
+      7:frequency==='one_time'?'Gross amount':'Gross / payment',
+      8:(kind==='Salary'&&treatment!=='none')?'Estimated deductions':'Deductions this month',
+      9:'Net this month',
+      10:'Deposited to'
+    };
+    return labels[index]||'';
+  }
+
+  function syncRow(row){
+    if(!mq.matches||!row.classList.contains('v125-expanded')||row.querySelector('.empty'))return;
+    const cells=[...row.children].filter(td=>td.tagName==='TD'&&!td.classList.contains('v125-summary-cell'));
+    cells.forEach((cell,i)=>{
+      const index=i+1;
+      cell.querySelectorAll(':scope > .v132-income-field-label').forEach(n=>n.remove());
+      if(index===11)return;
+      const text=labelFor(row,index);if(!text)return;
+      const label=document.createElement('span');
+      label.className='v132-income-field-label';
+      label.textContent=text;
+      cell.prepend(label);
+      /* Keep legacy data-label inert and synchronized for accessibility/debugging. */
+      cell.dataset.label=text;
+    });
+  }
+
+  function sync(){
+    if(!mq.matches)return;
+    body.querySelectorAll(':scope>tr').forEach(syncRow);
+  }
+
+  let queued=false;
+  function schedule(){
+    if(queued)return;queued=true;
+    requestAnimationFrame(()=>requestAnimationFrame(()=>{queued=false;sync()}));
+  }
+
+  new MutationObserver(schedule).observe(body,{childList:true,subtree:true,attributes:true,attributeFilter:['class','data-label']});
+  body.addEventListener('change',schedule);
+  body.addEventListener('input',e=>{if(e.target.matches('.i-kind,.i-frequency,.i-employment'))schedule()});
+  document.addEventListener('click',e=>{if(e.target.closest('#income .v131-mobile-summary,#income .v125-row-summary'))schedule()});
+  mq.addEventListener?.('change',schedule);
   schedule();
 })();
 </script>
