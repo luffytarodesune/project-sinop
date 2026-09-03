@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0f766e">
-<title>SINOP v130 · iPhone 14 UX + Phone Notifications</title>
+<title>SINOP v131 · Income + Spending Mobile Redesign</title>
 <meta name="application-name" content="SINOP">
 <meta name="apple-mobile-web-app-title" content="SINOP">
 <meta name="description" content="SINOP — your personal money system for income, spending, savings, investments, goals, KKB, and financial tracking.">
@@ -5446,6 +5446,153 @@ body[data-theme="dark"] .barkada-group-btn,body[data-theme="dark"] .barkada-memb
   #bills .v128-recurring-summary{grid-template-columns:minmax(0,1fr) 88px 14px!important;gap:6px!important}
 }
 </style>
+
+<style id="sinop-v131-income-spending-mobile-redesign">
+/* ===== SINOP v131 · Income + Spending mobile redesign ===== */
+@media(max-width:760px){
+  /* Task-first ordering: core lists before secondary analytics. */
+  #spending.section.active{display:flex!important;flex-direction:column!important}
+  #spending>.page-head{order:0!important}
+  #spending>.list-toolbar{order:1!important}
+  #spending>.table-card{order:2!important}
+  #spending>#spendBreakdown{order:3!important}
+  #spending>.v125-disclosure-trigger{order:4!important}
+  #spending>.spending-budget-summary{order:5!important}
+
+  /* Keep descriptions useful but compact. */
+  #income>.page-head .subtle,#spending>.page-head .subtle{
+    display:-webkit-box!important;-webkit-box-orient:vertical!important;-webkit-line-clamp:2!important;
+    overflow:hidden!important;line-height:1.35!important
+  }
+
+  /* One compact mobile list language for both modules. */
+  #income .v131-mobile-summary,#spending .v131-mobile-summary{
+    appearance:none!important;-webkit-appearance:none!important;width:100%!important;min-height:60px!important;
+    padding:8px 9px!important;border:0!important;background:transparent!important;color:var(--text)!important;
+    display:grid!important;grid-template-columns:minmax(0,1fr) 96px 14px!important;align-items:center!important;gap:8px!important;
+    text-align:left!important;font:inherit!important
+  }
+  #income .v131-mobile-summary:active,#spending .v131-mobile-summary:active{background:var(--soft)!important}
+  .v131-mobile-main,.v131-mobile-side{min-width:0!important;display:grid!important;gap:3px!important}
+  .v131-mobile-main strong{
+    min-width:0!important;font-size:13px!important;line-height:1.18!important;font-weight:850!important;
+    white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important
+  }
+  .v131-mobile-main small{
+    min-width:0!important;font-size:10px!important;line-height:1.2!important;color:var(--muted)!important;
+    white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important
+  }
+  .v131-mobile-side{text-align:right!important;justify-items:end!important;width:96px!important;max-width:96px!important}
+  .v131-mobile-side strong{
+    width:100%!important;font-size:12.5px!important;line-height:1.18!important;font-weight:850!important;
+    white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;text-align:right!important
+  }
+  .v131-mobile-side small{
+    width:100%!important;font-size:9px!important;line-height:1.18!important;color:var(--muted)!important;
+    white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;text-align:right!important
+  }
+  .v131-mobile-summary>.v125-row-chevron{width:14px!important}
+  .v131-mobile-summary>.v125-row-chevron .hero-icon{width:14px!important;height:14px!important}
+  tr.v125-expanded .v131-mobile-summary>.v125-row-chevron .hero-icon{transform:rotate(180deg)!important}
+
+  /* Expanded editors become intentional two-column phone forms rather than desktop columns. */
+  #income table.v125-compact-list>tbody>tr.v125-expanded,
+  #spending table.v125-compact-list>tbody>tr.v125-expanded{
+    display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:6px!important;padding:0 7px 8px!important;overflow:hidden!important
+  }
+  #income table.v125-compact-list>tbody>tr.v125-expanded>.v125-summary-cell,
+  #spending table.v125-compact-list>tbody>tr.v125-expanded>.v125-summary-cell{
+    grid-column:1/-1!important;order:-1!important;width:auto!important;min-width:0!important;margin:0 -7px 1px!important
+  }
+  #income table.v125-compact-list>tbody>tr.v125-expanded>td:not(.v125-summary-cell),
+  #spending table.v125-compact-list>tbody>tr.v125-expanded>td:not(.v125-summary-cell){
+    display:grid!important;align-content:start!important;width:100%!important;min-width:0!important;max-width:100%!important;
+    min-height:64px!important;padding:7px!important;margin:0!important;border:1px solid var(--border)!important;
+    border-radius:9px!important;background:var(--panel)!important;overflow:hidden!important;box-sizing:border-box!important
+  }
+  #income table.v125-compact-list>tbody>tr.v125-expanded>td:not(.v125-summary-cell)::before,
+  #spending table.v125-compact-list>tbody>tr.v125-expanded>td:not(.v125-summary-cell)::before{
+    display:block!important;width:100%!important;margin:0 0 5px!important;font-size:8px!important;line-height:1.1!important;
+    color:var(--muted)!important;font-weight:850!important;text-transform:uppercase!important;letter-spacing:.045em!important;
+    white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important
+  }
+  #income table.v125-compact-list>tbody>tr.v125-expanded td *,
+  #spending table.v125-compact-list>tbody>tr.v125-expanded td *{min-width:0!important;max-width:100%!important;box-sizing:border-box!important}
+  #income table.v125-compact-list>tbody>tr.v125-expanded input,
+  #income table.v125-compact-list>tbody>tr.v125-expanded select,
+  #spending table.v125-compact-list>tbody>tr.v125-expanded input,
+  #spending table.v125-compact-list>tbody>tr.v125-expanded select{
+    width:100%!important;min-height:42px!important;font-size:16px!important;border-radius:8px!important
+  }
+
+  /* Income detail order: identity -> amounts -> payroll -> destination -> schedule -> receipts. */
+  #income table.v125-compact-list>tbody>tr.v125-expanded>td:nth-child(1){grid-column:1/-1!important;order:1!important}
+  #income table.v125-compact-list>tbody>tr.v125-expanded>td:nth-child(2){grid-column:1!important;order:2!important}
+  #income table.v125-compact-list>tbody>tr.v125-expanded>td:nth-child(4){grid-column:2!important;order:3!important}
+  #income table.v125-compact-list>tbody>tr.v125-expanded>td:nth-child(7){grid-column:1!important;order:4!important}
+  #income table.v125-compact-list>tbody>tr.v125-expanded>td:nth-child(9){grid-column:2!important;order:5!important}
+  #income table.v125-compact-list>tbody>tr.v125-expanded>td:nth-child(3){grid-column:1/-1!important;order:6!important;min-height:0!important}
+  #income table.v125-compact-list>tbody>tr.v125-expanded>td:nth-child(10){grid-column:1/-1!important;order:7!important;min-height:0!important}
+  #income table.v125-compact-list>tbody>tr.v125-expanded>td:nth-child(6){grid-column:1/-1!important;order:8!important;min-height:0!important}
+  #income table.v125-compact-list>tbody>tr.v125-expanded>td:nth-child(5){grid-column:1/-1!important;order:9!important;min-height:0!important}
+  #income table.v125-compact-list>tbody>tr.v125-expanded>td:nth-child(8){grid-column:1/-1!important;order:10!important;min-height:0!important}
+  #income table.v125-compact-list>tbody>tr.v125-expanded>td:nth-child(11){
+    grid-column:1/-1!important;order:11!important;min-height:44px!important;border:0!important;background:transparent!important;
+    padding:2px 0 0!important;justify-items:end!important;align-content:center!important
+  }
+  #income table.v125-compact-list>tbody>tr.v125-expanded>td:nth-child(11)::before{display:none!important}
+  #income table.v125-compact-list>tbody>tr.v125-expanded .i-monthly{font-size:16px!important;font-weight:850!important;align-content:center!important}
+  #income table.v125-compact-list>tbody>tr.v125-expanded .salary-treatment-note,
+  #income table.v125-compact-list>tbody>tr.v125-expanded .account-select-note,
+  #income table.v125-compact-list>tbody>tr.v125-expanded .payday-editor small,
+  #income table.v125-compact-list>tbody>tr.v125-expanded .salary-deduction-cell small{
+    margin-top:5px!important;font-size:9px!important;line-height:1.3!important;color:var(--muted)!important
+  }
+  #income table.v125-compact-list>tbody>tr.v125-expanded .income-receipt-cell,
+  #income table.v125-compact-list>tbody>tr.v125-expanded .income-receipt-editor,
+  #income table.v125-compact-list>tbody>tr.v125-expanded .payday-editor{width:100%!important;min-width:0!important}
+  #income table.v125-compact-list>tbody>tr.v125-expanded .i-del{width:44px!important;height:44px!important;min-width:44px!important}
+
+  /* Spending detail order: what -> when/status -> category/amount -> source -> notes. */
+  #spending table.v125-compact-list>tbody>tr.v125-expanded>td:nth-child(2){grid-column:1/-1!important;order:1!important}
+  #spending table.v125-compact-list>tbody>tr.v125-expanded>td:nth-child(1){grid-column:1!important;order:2!important}
+  #spending table.v125-compact-list>tbody>tr.v125-expanded>td:nth-child(4){grid-column:2!important;order:3!important}
+  #spending table.v125-compact-list>tbody>tr.v125-expanded>td:nth-child(3){grid-column:1!important;order:4!important}
+  #spending table.v125-compact-list>tbody>tr.v125-expanded>td:nth-child(7){grid-column:2!important;order:5!important}
+  #spending table.v125-compact-list>tbody>tr.v125-expanded>td:nth-child(5){grid-column:1/-1!important;order:6!important}
+  #spending table.v125-compact-list>tbody>tr.v125-expanded>td:nth-child(6){grid-column:1/-1!important;order:7!important}
+  #spending table.v125-compact-list>tbody>tr.v125-expanded>td:nth-child(8){
+    grid-column:1/-1!important;order:8!important;min-height:44px!important;border:0!important;background:transparent!important;
+    padding:2px 0 0!important;justify-items:end!important;align-content:center!important
+  }
+  #spending table.v125-compact-list>tbody>tr.v125-expanded>td:nth-child(8)::before{display:none!important}
+  #spending table.v125-compact-list>tbody>tr.v125-expanded .s-del{width:44px!important;height:44px!important;min-width:44px!important}
+
+  /* Totals remain compact and clearly separate from editable rows. */
+  #income .table-card,#spending .table-card{overflow:hidden!important}
+  #income table.v125-compact-list>tfoot,#spending table.v125-compact-list>tfoot{margin-top:7px!important;border-radius:10px!important}
+  #income .v125-table-more,#spending .v125-table-more{margin-top:6px!important}
+
+  /* Secondary spending analytics are visually subordinate. */
+  #spending>#spendBreakdown{margin-top:8px!important;margin-bottom:3px!important}
+  #spending>#spendBreakdown>.mini{flex-basis:150px!important;min-width:150px!important;padding:9px 10px!important}
+}
+
+@media(max-width:390px){
+  #income .v131-mobile-summary,#spending .v131-mobile-summary{
+    grid-template-columns:minmax(0,1fr) 92px 14px!important;gap:7px!important;padding:8px!important
+  }
+  .v131-mobile-side{width:92px!important;max-width:92px!important}
+  .v131-mobile-main strong{font-size:12.5px!important}
+  .v131-mobile-side strong{font-size:12px!important}
+  #income table.v125-compact-list>tbody>tr.v125-expanded,
+  #spending table.v125-compact-list>tbody>tr.v125-expanded{gap:5px!important;padding-left:6px!important;padding-right:6px!important}
+}
+  @media(max-width:760px){
+    .v131-list-help{margin:-1px 0 6px;padding:0 2px;color:var(--muted);font-size:9px;line-height:1.3}
+  }
+</style>
 </head>
 <body class="sinop-auth-locked">
 <div id="sinopLoginGate" class="sinop-login-gate" aria-hidden="false">
@@ -5537,7 +5684,7 @@ body[data-theme="dark"] .barkada-group-btn,body[data-theme="dark"] .barkada-memb
         <button class="nav-btn" data-target="user-manual"><span class="nav-icon"><span data-hero="question-mark-circle"></span></span><span class="nav-label">User manual</span></button>
       </div>
     </nav>
-    <div class="sinop-sidebar-footer"><small>Your personal money system · v128</small></div>
+    <div class="sinop-sidebar-footer"><small>Your personal money system · v131</small></div>
   </aside>
 
   <main class="main">
@@ -22363,6 +22510,133 @@ maybeStartFirstRunSetup();
   document.addEventListener('visibilitychange',()=>{if(!document.hidden){syncAppBadge();dispatchBrowserReminders();}});
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',wire,{once:true});else wire();
   syncAppBadge();
+})();
+</script>
+
+<script id="sinop-v131-income-spending-mobile-script">
+(() => {
+  const mq=window.matchMedia('(max-width:760px)');
+  const $=id=>document.getElementById(id);
+  const escHtml=value=>String(value??'').replace(/[&<>\"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":'&#39;'}[ch]));
+  const clean=value=>String(value||'').replace(/\\s+/g,' ').trim();
+  const moneyText=value=>{
+    const n=Number(value||0);
+    try{return new Intl.NumberFormat('en-PH',{style:'currency',currency:'PHP',minimumFractionDigits:2,maximumFractionDigits:2}).format(n).replace('PHP','₱')}catch(_){return `₱${n.toLocaleString('en-PH',{minimumFractionDigits:2,maximumFractionDigits:2})}`}
+  };
+  const shortDate=value=>{
+    if(!value)return 'No date';
+    const d=new Date(`${value}T00:00:00`);
+    if(Number.isNaN(d.getTime()))return value;
+    return d.toLocaleDateString('en-PH',{month:'short',day:'numeric'});
+  };
+  const LABELS={
+    income:['Source','Type','Employment / tax','Frequency','Received payments','Payday / date','Gross / payment','Deductions','Net / month','Deposited to','Actions'],
+    spending:['Date','Description','Category','Status','Pay from','Notes','Amount','Actions']
+  };
+
+  function ensureLabels(table,type){
+    const labels=LABELS[type];if(!table||!labels)return;
+    table.querySelectorAll('tbody>tr').forEach(row=>{
+      [...row.children].filter(td=>td.tagName==='TD'&&!td.classList.contains('v125-summary-cell')).forEach((td,i)=>{if(labels[i])td.dataset.label=labels[i]});
+    });
+  }
+
+  function incomeSummary(row){
+    const name=row.querySelector('.i-name')?.value?.trim()||'Income source';
+    const kind=row.querySelector('.i-kind')?.value||'Income';
+    const freq=row.querySelector('.i-frequency')?.selectedOptions?.[0]?.textContent?.trim()||'';
+    const value=clean(row.querySelector('.i-monthly')?.textContent)||'—';
+    const checks=[...row.querySelectorAll('.i-receipt')];
+    let status='Not received';
+    if(checks.length){
+      const got=checks.filter(x=>x.checked).length;
+      status=got===checks.length&&got>0?'Received':got>0?`${got}/${checks.length} received`:'Not received';
+    }else{
+      const raw=clean(row.querySelector('.income-receipt-summary')?.textContent);
+      if(/received/i.test(raw)&&!/0\\s*received/i.test(raw))status='Received';
+    }
+    return {name,meta:[kind,freq].filter(Boolean).join(' · '),value,status};
+  }
+  function spendingSummary(row){
+    const name=row.querySelector('.s-desc')?.value?.trim()||'Untitled expense';
+    const category=row.querySelector('.s-cat')?.value||'Uncategorized';
+    const date=shortDate(row.querySelector('.s-date')?.value||'');
+    const amount=moneyText(row.querySelector('.s-amount')?.value||0);
+    const actual=(row.querySelector('.s-status')?.value||'actual')==='actual';
+    return {name,meta:`${category} · ${date}`,value:amount,status:actual?'Actual':'Planned'};
+  }
+
+  function summaryMarkup(data,type,expanded){
+    return `<button class="v131-mobile-summary v131-${type}-summary" type="button" aria-expanded="${expanded?'true':'false'}">`+
+      `<span class="v131-mobile-main"><strong>${escHtml(data.name)}</strong><small>${escHtml(data.meta)}</small></span>`+
+      `<span class="v131-mobile-side"><strong>${escHtml(data.value)}</strong><small>${escHtml(data.status)}</small></span>`+
+      `<span class="v125-row-chevron" aria-hidden="true"><span data-hero="chevron-down"></span></span></button>`;
+  }
+
+  function hydrateIcons(root){
+    try{window.hydrateHeroIcons?.(root)}catch(_){}
+  }
+
+  function polishTable(selector,type){
+    const table=document.querySelector(selector);if(!table)return;
+    table.classList.add('v125-compact-list','v131-mobile-list');ensureLabels(table,type);
+    table.querySelectorAll('tbody>tr').forEach(row=>{
+      if(row.querySelector('.empty'))return;
+      let cell=row.querySelector(':scope>.v125-summary-cell');
+      if(!cell){
+        cell=document.createElement('td');cell.className='v125-summary-cell';
+        cell.colSpan=table.querySelectorAll('thead th').length||1;row.appendChild(cell);
+      }
+      const data=type==='income'?incomeSummary(row):spendingSummary(row);
+      const expanded=row.classList.contains('v125-expanded');
+      const sig=JSON.stringify([type,data.name,data.meta,data.value,data.status,expanded]);
+      const existing=cell.querySelector(`.v131-${type}-summary`);
+      if(!existing||cell.dataset.v131Sig!==sig){
+        cell.dataset.v131Sig=sig;cell.innerHTML=summaryMarkup(data,type,expanded);
+        const btn=cell.querySelector('.v131-mobile-summary');
+        btn.onclick=()=>{
+          table.querySelectorAll('tbody>tr.v125-expanded').forEach(other=>{
+            if(other!==row){other.classList.remove('v125-expanded');other.querySelector('.v131-mobile-summary')?.setAttribute('aria-expanded','false')}
+          });
+          row.classList.toggle('v125-expanded');
+          btn.setAttribute('aria-expanded',row.classList.contains('v125-expanded')?'true':'false');
+          schedule();
+        };
+        hydrateIcons(cell);
+      }
+      row.dataset.v131Mobile='1';
+      if(type==='spending')row.dataset.v131Status=(row.querySelector('.s-status')?.value||'actual');
+    });
+  }
+
+  function addListHelp(sectionId,tableSelector,text){
+    const section=$(sectionId),table=document.querySelector(tableSelector);if(!section||!table)return;
+    const card=table.closest('.table-card');if(!card||card.previousElementSibling?.classList?.contains('v131-list-help'))return;
+    const help=document.createElement('div');help.className='v131-list-help';help.textContent=text;
+    card.insertAdjacentElement('beforebegin',help);
+  }
+
+  function polish(){
+    if(!mq.matches)return;
+    polishTable('.income-table','income');
+    polishTable('.spending-table','spending');
+    addListHelp('income','.income-table','Tap an income source to view or edit its details.');
+    addListHelp('spending','.spending-table','Tap an expense to view or edit its details.');
+  }
+
+  let queued=false;
+  function schedule(){
+    if(queued)return;queued=true;
+    requestAnimationFrame(()=>requestAnimationFrame(()=>{queued=false;polish()}));
+  }
+  const main=document.querySelector('.main');
+  if(main)new MutationObserver(schedule).observe(main,{childList:true,subtree:true});
+  document.addEventListener('input',e=>{if(e.target.closest('#income,#spending'))schedule()},{passive:true});
+  document.addEventListener('change',e=>{if(e.target.closest('#income,#spending'))schedule()});
+  document.addEventListener('click',e=>{if(e.target.closest('[data-target],[data-jump],[data-v122-nav-target],[data-v124-more-target]'))schedule()});
+  mq.addEventListener?.('change',schedule);
+  window.addEventListener('resize',schedule,{passive:true});
+  schedule();
 })();
 </script>
 </body>
