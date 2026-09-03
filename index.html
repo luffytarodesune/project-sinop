@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0f766e">
-<title>SINOP v125 · Minimal Mobile UX</title>
+<title>SINOP v126 · Mobile Income Cleanup</title>
 <meta name="application-name" content="SINOP">
 <meta name="apple-mobile-web-app-title" content="SINOP">
 <meta name="description" content="SINOP — your personal money system for income, spending, savings, investments, goals, KKB, and financial tracking.">
@@ -5218,7 +5218,7 @@ body[data-theme="dark"] .barkada-group-btn,body[data-theme="dark"] .barkada-memb
         <button class="nav-btn" data-target="user-manual"><span class="nav-icon"><span data-hero="question-mark-circle"></span></span><span class="nav-label">User manual</span></button>
       </div>
     </nav>
-    <div class="sinop-sidebar-footer"><small>Your personal money system · v125</small></div>
+    <div class="sinop-sidebar-footer"><small>Your personal money system · v126</small></div>
   </aside>
 
   <main class="main">
@@ -21329,7 +21329,7 @@ maybeStartFirstRunSetup();
 
 
 <style id="sinop-v125-minimal-mobile-ux">
-/* ===== SINOP v125 · minimal, readable mobile UX ===== */
+/* ===== SINOP v126 · minimal, readable mobile UX ===== */
 
 /* Actual bank artwork is displayed as-is inside a neutral container. */
 .bank-brand-mark{
@@ -21413,7 +21413,10 @@ maybeStartFirstRunSetup();
   .info-grid>.mini strong{font-size:13px!important}
 
   /* Income mobile hierarchy: action -> KPIs -> search -> sources. Payroll explainer is redundant with the guide button. */
-  #income{display:flex!important;flex-direction:column!important}
+  /* Only the active Income section may participate in layout.
+     v125 forced #income visible on every mobile module. */
+  #income.section:not(.active){display:none!important}
+  #income.section.active{display:flex!important;flex-direction:column!important}
   #income>.page-head{order:0}
   #income>.income-payroll-summary{order:1}
   #income>.list-toolbar{order:2}
@@ -21546,6 +21549,43 @@ maybeStartFirstRunSetup();
   /* Reduce unnecessary vertical gaps between modules' major blocks. */
   .section>.card,.section>article.card{margin-bottom:9px!important}
   .section-head{margin-bottom:9px!important}
+
+  /* v126: one consistent collapsed Income-source component. */
+  #income .v126-income-source-summary{
+    min-height:88px!important;grid-template-columns:minmax(0,1fr) 18px!important;
+    align-items:center!important;gap:8px!important;padding:9px 10px!important
+  }
+  #income .v126-income-summary-body{min-width:0;display:grid;gap:7px}
+  #income .v126-income-summary-top{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:10px;min-width:0}
+  #income .v126-income-summary-source,#income .v126-income-summary-net{min-width:0;display:grid;gap:2px}
+  #income .v126-income-summary-net{text-align:right;justify-items:end}
+  #income .v126-income-summary-top small,#income .v126-income-meta-item small{
+    font-size:8.5px!important;line-height:1.15!important;color:var(--muted)!important;font-weight:750!important;
+    text-transform:uppercase;letter-spacing:.045em
+  }
+  #income .v126-income-summary-source strong{
+    min-width:0;font-size:13.5px!important;line-height:1.2!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis
+  }
+  #income .v126-income-summary-net strong{font-size:13.5px!important;line-height:1.2!important;white-space:nowrap}
+  #income .v126-income-meta-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;min-width:0}
+  #income .v126-income-meta-item{
+    min-width:0;min-height:38px;padding:6px 8px;border:1px solid var(--border);border-radius:9px;background:var(--soft);
+    display:grid;align-content:center;gap:2px
+  }
+  #income .v126-income-meta-item strong{
+    min-width:0;font-size:10.5px!important;line-height:1.2!important;font-weight:800!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis
+  }
+  #income .v126-income-receipt-status{
+    min-width:0;font-size:9.5px!important;line-height:1.25!important;color:var(--muted)!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis
+  }
+  #income .v126-income-source-summary>.v125-row-chevron{grid-column:2;grid-row:1;align-self:center}
+
+  /* Expanded Income fields use a predictable two-column grid. Source, Type and Frequency no longer inherit old desktop widths. */
+  #income table.v125-compact-list>tbody>tr.v125-expanded>td:nth-child(1),
+  #income table.v125-compact-list>tbody>tr.v125-expanded>td:nth-child(2),
+  #income table.v125-compact-list>tbody>tr.v125-expanded>td:nth-child(4){
+    min-width:0!important;width:auto!important;min-height:68px!important;align-content:start!important
+  }
 }
 
 @media(max-width:390px){
@@ -21651,7 +21691,7 @@ maybeStartFirstRunSetup();
       const freq=row.querySelector('.i-frequency')?.selectedOptions?.[0]?.textContent||'';
       const net=cleanText(row.querySelector('.i-monthly')?.textContent)||'—';
       const receipt=cleanText(row.querySelector('.income-receipt-summary')?.textContent)||'Not received';
-      return {name,meta:[kind,freq].filter(Boolean).join(' · '),value:net,status:receipt};
+      return {name,kind,freq,meta:[kind,freq].filter(Boolean).join(' · '),value:net,status:receipt};
     }
     if(type==='spending'){
       const name=row.querySelector('.s-desc')?.value||'Untitled expense';
@@ -21678,7 +21718,11 @@ maybeStartFirstRunSetup();
     const sig=JSON.stringify([s.name,s.meta,s.value,s.status,expanded]);
     if(cell.dataset.v125Sig===sig)return;
     cell.dataset.v125Sig=sig;
-    cell.innerHTML=`<button class="v125-row-summary" type="button" aria-expanded="${expanded?'true':'false'}"><span class="v125-row-main"><strong>${esc(s.name)}</strong><small>${esc(s.meta)}</small></span><span class="v125-row-value"><strong>${esc(s.value)}</strong><small>${esc(s.status)}</small></span><span class="v125-row-chevron"><span data-hero="chevron-down"></span></span></button>`;
+    if(type==='income'){
+      cell.innerHTML=`<button class="v125-row-summary v126-income-source-summary" type="button" aria-expanded="${expanded?'true':'false'}"><span class="v126-income-summary-body"><span class="v126-income-summary-top"><span class="v126-income-summary-source"><small>Source</small><strong>${esc(s.name)}</strong></span><span class="v126-income-summary-net"><small>Net / month</small><strong>${esc(s.value)}</strong></span></span><span class="v126-income-meta-grid"><span class="v126-income-meta-item"><small>Type</small><strong>${esc(s.kind||'—')}</strong></span><span class="v126-income-meta-item"><small>Frequency</small><strong>${esc(s.freq||'—')}</strong></span></span><span class="v126-income-receipt-status">${esc(s.status||'Not received')}</span></span><span class="v125-row-chevron"><span data-hero="chevron-down"></span></span></button>`;
+    }else{
+      cell.innerHTML=`<button class="v125-row-summary" type="button" aria-expanded="${expanded?'true':'false'}"><span class="v125-row-main"><strong>${esc(s.name)}</strong><small>${esc(s.meta)}</small></span><span class="v125-row-value"><strong>${esc(s.value)}</strong><small>${esc(s.status)}</small></span><span class="v125-row-chevron"><span data-hero="chevron-down"></span></span></button>`;
+    }
     const btn=cell.querySelector('.v125-row-summary');
     btn.addEventListener('click',()=>{
       const table=row.closest('table');
