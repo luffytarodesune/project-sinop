@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0f766e">
-<title>SINOP v121 · Personal finance</title>
+<title>SINOP v122 · Mobile app UX</title>
 <meta name="application-name" content="SINOP">
 <meta name="apple-mobile-web-app-title" content="SINOP">
 <meta name="description" content="SINOP — your personal money system for income, spending, savings, investments, goals, KKB, and financial tracking.">
@@ -4678,7 +4678,7 @@ body[data-theme="dark"] .barkada-group-btn,body[data-theme="dark"] .barkada-memb
         <button class="nav-btn" data-target="user-manual"><span class="nav-icon"><span data-hero="question-mark-circle"></span></span><span class="nav-label">User manual</span></button>
       </div>
     </nav>
-    <div class="sinop-sidebar-footer"><small>Your personal money system · v121</small></div>
+    <div class="sinop-sidebar-footer"><small>Your personal money system · v122</small></div>
   </aside>
 
   <main class="main">
@@ -13386,7 +13386,7 @@ function renderKkbExpenses(trip){
       <th class="kkb-action-col"></th>
     </tr></thead>
     <tbody>
-      ${rows||`<tr><td colspan="${5+trip.members.length}" class="kkb-matrix-empty"><strong>No rows yet</strong>Click Add row to start entering group expenses.</td></tr>`}
+      ${rows||`<tr><td colspan="${5+trip.members.length}" class="kkb-matrix-empty"><strong>No rows yet</strong>Tap Add row to create a complete group expense.</td></tr>`}
       ${trip.expenses.length?`<tr class="kkb-matrix-total-row">
         <td class="kkb-sticky-col kkb-matrix-total-label">Total</td>
         <td></td>
@@ -19061,7 +19061,417 @@ function statementPrintDocumentHtml(){
     .foot{display:flex;justify-content:space-between;margin-top:10px;color:#6b7671;font-size:7px}
   
 
-</style></head><body>
+</style>
+
+<style id="sinop-v122-mobile-app-ux">
+/* ===== SINOP v122 · mobile app UX refresh ===== */
+.bank-brand-mark{
+  --bank-color:var(--brand);
+  width:40px;height:40px;flex:0 0 40px;border-radius:12px;
+  display:grid;place-items:center;padding:4px;
+  background:var(--bank-color);color:#fff;
+  font-size:10px;line-height:1;font-weight:950;letter-spacing:-.035em;
+  text-align:center;box-shadow:inset 0 0 0 1px rgba(255,255,255,.18);
+}
+.bank-brand-mark[data-bank="bpi"]{font-family:Arial,sans-serif;letter-spacing:-.08em}
+.bank-brand-mark[data-bank="landbank"]{font-size:8px;letter-spacing:-.05em}
+.bank-brand-mark[data-bank="eastwest"]{font-size:8px}
+.bank-brand-mark[data-bank="maribank"]{font-size:8px}
+.bank-brand-mark[data-bank="securitybank"]{font-size:8px}
+.bank-brand-mark[data-bank="unionbank"]{font-size:8px}
+.bank-brand-mark[data-bank="chinabank"]{font-size:8px}
+.bank-brand-mark[data-bank="diskartech"]{font-size:7px}
+.bank-brand-mark.compact{width:30px;height:30px;flex-basis:30px;border-radius:9px;font-size:7px}
+.account-brand-preview{
+  grid-column:1/-1;display:none;align-items:center;gap:10px;
+  padding:10px 11px;border:1px solid var(--border);border-radius:12px;background:var(--soft)
+}
+.account-brand-preview.show{display:flex}
+.account-brand-preview strong{display:block;font-size:9px}
+.account-brand-preview small{display:block;margin-top:2px;color:var(--muted);font-size:7.5px;line-height:1.35}
+.account-mobile-toggle{display:none}
+.account-mobile-details{display:contents}
+.v122-list-toggle,.v122-account-rules-toggle{display:none}
+.v122-create-note{
+  margin:0 0 12px;padding:10px 11px;border:1px solid color-mix(in srgb,var(--brand) 24%,var(--border));
+  border-radius:12px;background:color-mix(in srgb,var(--brandsoft) 42%,var(--panel));
+  color:var(--muted);font-size:8.5px;line-height:1.45
+}
+.v122-create-note strong{color:var(--text)}
+.v122-form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+.v122-field{display:grid;gap:5px;min-width:0}
+.v122-field.full{grid-column:1/-1}
+.v122-field>span{color:var(--muted);font-size:8px;font-weight:800}
+.v122-field input,.v122-field select,.v122-field textarea{
+  width:100%;min-width:0;min-height:42px;border:1px solid var(--border);border-radius:11px;
+  background:var(--panel);color:var(--text);padding:9px 10px;font:inherit;font-size:10px;outline:0
+}
+.v122-field textarea{min-height:82px;resize:vertical}
+.v122-field input:focus,.v122-field select:focus,.v122-field textarea:focus{
+  border-color:color-mix(in srgb,var(--brand) 55%,var(--border));
+  box-shadow:0 0 0 3px color-mix(in srgb,var(--brand) 10%,transparent)
+}
+.v122-participant-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+.v122-participant{
+  display:flex;align-items:center;gap:8px;min-height:42px;padding:8px 9px;
+  border:1px solid var(--border);border-radius:10px;background:var(--panel);font-size:9px
+}
+.v122-participant input{width:17px;height:17px;accent-color:var(--brand)}
+.v122-inline-summary{
+  display:flex;align-items:center;gap:9px;padding:10px;border:1px solid var(--border);
+  border-radius:11px;background:var(--soft)
+}
+.v122-inline-summary .bank-brand-mark{width:34px;height:34px;flex-basis:34px}
+.v122-inline-summary strong{display:block;font-size:9px}
+.v122-inline-summary small{display:block;margin-top:2px;color:var(--muted);font-size:7.5px}
+.v122-create-modal{width:min(620px,100%)}
+.v122-create-modal .modal-foot .btn{min-width:110px}
+
+.mobile-bottom-nav{display:none}
+.v122-mobile-create-grid{display:none}
+.v122-mobile-list-hidden{display:initial}
+
+@media(max-width:760px){
+  html{
+    scroll-padding-bottom:calc(92px + env(safe-area-inset-bottom));
+    -webkit-text-size-adjust:100%;
+  }
+  body{padding-bottom:0}
+  button,a,[role="button"],input,select,textarea{touch-action:manipulation}
+  button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{
+    outline:2px solid color-mix(in srgb,var(--brand) 72%,white);
+    outline-offset:2px
+  }
+
+  /* Primary mobile shell: four destinations + prominent quick-access action. */
+  .main{
+    padding-bottom:calc(96px + env(safe-area-inset-bottom))!important;
+  }
+  .mobile-bottom-nav{
+    position:fixed;z-index:55;left:8px;right:8px;bottom:max(8px,env(safe-area-inset-bottom));
+    height:68px;padding:5px 7px;
+    display:grid;grid-template-columns:1fr 1fr 72px 1fr 1fr;align-items:end;
+    border:1px solid color-mix(in srgb,var(--border) 88%,transparent);
+    border-radius:22px;
+    background:color-mix(in srgb,var(--panel) 95%,transparent);
+    box-shadow:0 15px 40px rgba(24,33,30,.16);
+    backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px)
+  }
+  body[data-theme="dark"] .mobile-bottom-nav{background:color-mix(in srgb,var(--panel) 94%,transparent)}
+  .mobile-bottom-item{
+    min-width:0;height:56px;border:0;border-radius:15px;background:transparent;color:var(--muted);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
+    font-size:7.5px;font-weight:850;padding:0 3px
+  }
+  .mobile-bottom-item .hero-icon{width:20px;height:20px}
+  .mobile-bottom-item.active{color:var(--brand2);background:var(--brandsoft)}
+  .mobile-bottom-create{
+    align-self:start;justify-self:center;transform:translateY(-17px);
+    width:58px;height:58px;border:5px solid var(--bg);border-radius:50%;
+    display:grid;place-items:center;background:var(--brand);color:#fff;
+    box-shadow:0 10px 25px color-mix(in srgb,var(--brand) 30%,transparent);
+    padding:0
+  }
+  .mobile-bottom-create .hero-icon{width:25px;height:25px}
+  .mobile-bottom-create[aria-expanded="true"]{transform:translateY(-17px) rotate(45deg)}
+  .mobile-bottom-create-label{
+    position:absolute;bottom:4px;left:50%;transform:translateX(-50%);
+    color:var(--muted);font-size:7px;font-weight:850;white-space:nowrap
+  }
+
+  /* Convert v121's floating menu into a modern bottom quick-access sheet. */
+  .mobile-quick{
+    display:block!important;position:fixed!important;inset:0!important;z-index:54!important;
+    pointer-events:none!important
+  }
+  .mobile-quick.open{pointer-events:auto!important}
+  .mobile-quick::before{
+    content:"";position:absolute;inset:0;background:rgba(12,20,17,.32);
+    opacity:0;transition:opacity .18s ease;pointer-events:none
+  }
+  .mobile-quick.open::before{opacity:1;pointer-events:auto}
+  .mobile-quick-fab{display:none!important}
+  .mobile-quick-menu{
+    position:absolute!important;left:8px!important;right:8px!important;
+    bottom:calc(83px + max(8px,env(safe-area-inset-bottom)))!important;
+    width:auto!important;max-height:min(72dvh,650px)!important;
+    border-radius:24px!important;padding:14px!important;
+    transform:translateY(22px) scale(.985)!important;transform-origin:bottom center!important;
+    box-shadow:0 24px 70px rgba(13,22,18,.24)!important
+  }
+  .mobile-quick.open .mobile-quick-menu{transform:none!important}
+  .mobile-quick-head{padding:1px 1px 11px!important}
+  .mobile-quick-head span{font-size:8px!important}
+  .mobile-quick-head strong{font-size:15px!important}
+  .mobile-quick-close{width:44px!important;height:44px!important;border-radius:13px!important}
+  .v122-mobile-create-grid{
+    display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;
+    padding-bottom:12px;margin-bottom:12px;border-bottom:1px solid var(--border)
+  }
+  .v122-mobile-create-grid button{
+    min-width:0;min-height:58px;border:1px solid var(--border);border-radius:13px;background:var(--soft);
+    color:var(--text);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;
+    font-size:7.5px;font-weight:850;padding:6px
+  }
+  .v122-mobile-create-grid button .hero-icon{width:18px;height:18px;color:var(--brand2)}
+  .mobile-quick-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:7px!important}
+  .mobile-quick-grid button{
+    min-height:52px!important;padding:8px!important;display:flex!important;flex-direction:column!important;
+    justify-content:center!important;align-items:center!important;text-align:center!important;gap:5px!important
+  }
+  .mobile-quick-grid button .hero-icon{width:18px!important;height:18px!important}
+  .mobile-all-features{min-height:50px!important}
+  .mobile-quick-tools button{min-height:48px!important}
+
+  /* Header actions remain compact and discoverable. */
+  .page-head .action-row{
+    width:100%;display:flex;gap:7px;overflow-x:auto;overscroll-behavior-inline:contain;
+    scrollbar-width:none;padding:1px 1px 3px;flex-wrap:nowrap!important
+  }
+  .page-head .action-row::-webkit-scrollbar{display:none}
+  .page-head .action-row .btn{
+    min-height:42px;flex:0 0 auto;white-space:nowrap;border-radius:12px
+  }
+
+  /* Accounts: surface actual accounts before aggregate analytics and documentation. */
+  #accounts.section.active{
+    display:flex!important;flex-direction:column
+  }
+  #accounts>.page-head{order:0}
+  #accountGrid{order:1;margin:0 0 12px!important}
+  #accounts>.account-summary-grid{order:2}
+  #accounts>.double-count-warning{order:3}
+  #accounts>.v122-account-rules-toggle{order:3}
+  #accounts>article{order:4}
+
+  #accounts>.account-summary-grid{
+    display:flex!important;gap:8px;overflow-x:auto;scroll-snap-type:x proximity;
+    overscroll-behavior-inline:contain;scrollbar-width:none;margin-bottom:12px!important;
+    padding:1px 1px 4px
+  }
+  #accounts>.account-summary-grid::-webkit-scrollbar{display:none}
+  #accounts>.account-summary-grid>.account-summary-card{
+    flex:0 0 142px;scroll-snap-align:start;padding:11px 12px!important;border-radius:14px!important
+  }
+  #accounts>.account-summary-grid>.account-summary-card span{font-size:7.5px!important}
+  #accounts>.account-summary-grid>.account-summary-card strong{font-size:16px!important}
+
+  #accountGrid.account-grid{grid-template-columns:1fr!important;gap:10px!important}
+  #accountGrid .account-card{
+    padding:13px!important;border-radius:17px!important;overflow:hidden;
+    box-shadow:0 4px 14px rgba(24,33,30,.035)
+  }
+  #accountGrid .account-card:before{width:3px}
+  #accountGrid .account-card-head{align-items:center!important;gap:8px!important}
+  #accountGrid .account-card-title{min-width:0;gap:9px!important}
+  #accountGrid .account-card-title>div:last-child{min-width:0}
+  #accountGrid .account-card-title strong{
+    font-size:13px!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:62vw
+  }
+  #accountGrid .account-card-title small{font-size:8px!important}
+  #accountGrid .account-card-icon{
+    width:42px!important;height:42px!important;flex:0 0 42px!important;border-radius:13px!important;
+    background:transparent!important;padding:0!important
+  }
+  #accountGrid .account-card-icon>.hero-icon{width:21px;height:21px}
+  #accountGrid .account-balance{margin-top:12px!important}
+  #accountGrid .account-balance>span{font-size:7.5px!important}
+  #accountGrid .account-balance>strong{font-size:26px!important;letter-spacing:-.025em}
+  #accountGrid .account-balance>small{font-size:7px!important;line-height:1.35!important}
+  #accountGrid .account-mobile-toggle{
+    width:100%;min-height:42px;margin-top:10px;padding:0 10px;
+    border:1px solid var(--border);border-radius:11px;background:var(--soft);color:var(--text);
+    display:flex;align-items:center;justify-content:space-between;gap:8px;
+    font-size:8.5px;font-weight:850
+  }
+  #accountGrid .account-mobile-toggle .hero-icon{width:16px;height:16px;transition:transform .18s ease}
+  #accountGrid .account-card.account-mobile-expanded .account-mobile-toggle .hero-icon{transform:rotate(180deg)}
+  #accountGrid .account-mobile-details{display:none}
+  #accountGrid .account-card.account-mobile-expanded .account-mobile-details{display:block}
+  #accountGrid .account-card-head>.account-card-actions{display:none!important}
+  #accountGrid .account-mobile-details>.account-card-actions{
+    display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px!important;margin-top:10px
+  }
+  #accountGrid .account-mobile-details>.account-card-actions .btn{
+    min-height:40px;padding:7px 6px!important;white-space:normal;font-size:7.5px!important
+  }
+  #accountGrid .account-availability{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:7px!important;margin-top:10px!important}
+  #accountGrid .account-availability>div{padding:9px!important}
+  #accountGrid .account-flow-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:7px!important;margin-top:10px!important
+  }
+  #accountGrid .account-flow-grid>div{padding:8px!important}
+  #accountGrid .account-flow-grid span{font-size:7px!important}
+  #accountGrid .account-flow-grid strong{font-size:9px!important}
+  #accountGrid .account-goal-breakdown{margin-top:10px!important}
+  #accountGrid .account-card-foot{align-items:flex-start!important;flex-direction:column!important;gap:5px!important}
+  #accountGrid .account-card-foot small{font-size:7px!important;line-height:1.4}
+
+  #accounts>.double-count-warning{
+    position:relative;max-height:82px;overflow:hidden;margin-bottom:5px!important;
+    font-size:8px!important;line-height:1.5!important
+  }
+  #accounts>.double-count-warning:not(.v122-expanded)::after{
+    content:"";position:absolute;left:0;right:0;bottom:0;height:42px;
+    background:linear-gradient(transparent,var(--warnsoft));pointer-events:none
+  }
+  #accounts>.double-count-warning.v122-expanded{max-height:none}
+  #accounts>.double-count-warning.v122-expanded::after{display:none}
+  #accounts>.v122-account-rules-toggle{
+    display:flex;width:100%;min-height:40px;margin:0 0 12px;border:0;border-radius:11px;
+    background:var(--soft);color:var(--text);align-items:center;justify-content:center;gap:6px;
+    font-size:8.5px;font-weight:850
+  }
+  #accounts>.v122-account-rules-toggle .hero-icon{width:15px;height:15px}
+
+  /* General progressive disclosure for long dynamic lists. */
+  .v122-list-toggle{
+    display:flex;width:100%;grid-column:1/-1;min-height:42px;margin-top:7px;border:1px solid var(--border);
+    border-radius:11px;background:var(--soft);color:var(--text);
+    align-items:center;justify-content:center;gap:6px;font-size:8.5px;font-weight:850
+  }
+  .v122-mobile-list-hidden{display:none!important}
+
+  /* Standard tables become labeled record cards on phones. */
+  .table-card{border:0!important;background:transparent!important;overflow:visible!important}
+  .table-card>.table-wrap,
+  .inventory-table-wrap,
+  .statement-table-wrap{
+    overflow:visible!important;border:0!important;background:transparent!important
+  }
+  table.v122-card-table{
+    display:block!important;width:100%!important;min-width:0!important;border:0!important;background:transparent!important
+  }
+  table.v122-card-table>thead{display:none!important}
+  table.v122-card-table>tbody{
+    display:grid!important;gap:9px!important;width:100%!important
+  }
+  table.v122-card-table>tbody>tr{
+    display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:8px!important;padding:11px!important;border:1px solid var(--border)!important;
+    border-radius:15px!important;background:var(--panel)!important;
+    box-shadow:0 3px 12px rgba(24,33,30,.03)!important
+  }
+  table.v122-card-table>tbody>tr[hidden]{display:none!important}
+  table.v122-card-table>tbody>tr>td{
+    display:grid!important;align-content:start!important;gap:3px!important;
+    padding:0!important;border:0!important;background:transparent!important;
+    min-width:0!important;text-align:left!important;white-space:normal!important
+  }
+  table.v122-card-table>tbody>tr>td::before{
+    content:attr(data-label);display:block;color:var(--muted);font-size:6.7px;
+    font-weight:900;text-transform:uppercase;letter-spacing:.065em;line-height:1.2
+  }
+  table.v122-card-table>tbody>tr>td.v122-mobile-full{grid-column:1/-1!important}
+  table.v122-card-table>tbody>tr>td[colspan]{grid-column:1/-1!important}
+  table.v122-card-table>tbody>tr>td[colspan]::before,
+  table.v122-card-table>tbody>tr>td[data-label=""]::before{display:none!important}
+  table.v122-card-table input:not([type="checkbox"]),
+  table.v122-card-table select,
+  table.v122-card-table textarea{
+    width:100%!important;max-width:none!important;min-height:44px!important;
+    border-radius:10px!important;padding:9px 10px!important;
+    font-size:16px!important; /* prevents iOS focus zoom */
+  }
+  table.v122-card-table input[type="checkbox"]{width:20px!important;height:20px!important}
+  table.v122-card-table .icon-btn{width:44px!important;height:44px!important}
+  table.v122-card-table .btn{min-height:42px!important}
+  table.v122-card-table>tfoot{
+    display:block!important;margin-top:9px;padding:10px 11px;border:1px solid var(--border);
+    border-radius:13px;background:var(--soft)
+  }
+  table.v122-card-table>tfoot>tr{display:grid!important;grid-template-columns:1fr auto!important;gap:7px}
+  table.v122-card-table>tfoot td{
+    display:block!important;padding:0!important;border:0!important;background:transparent!important;
+    font-size:8px!important
+  }
+  table.v122-card-table>tfoot td[colspan]{grid-column:auto!important}
+  .data-table .salary-treatment-note,.data-table .account-select-note,.data-table .payday-editor small{font-size:7px!important}
+
+  /* Matrices retain their information architecture; make them explicitly swipeable. */
+  #dailyAllowanceMatrix,
+  .kkb-matrix{
+    min-width:760px!important
+  }
+  .daily-matrix-wrap,
+  #kkbMatrixWrap{
+    position:relative;overflow-x:auto!important;overscroll-behavior-inline:contain;
+    -webkit-overflow-scrolling:touch;scrollbar-width:thin
+  }
+  .daily-matrix th:first-child,.daily-matrix td:first-child,
+  .kkb-matrix .kkb-sticky-col{
+    position:sticky!important;left:0!important;z-index:4!important;
+    box-shadow:8px 0 14px rgba(24,33,30,.05)
+  }
+
+  /* Creation/edit modals: bottom sheets with sticky actions and thumb-friendly fields. */
+  .modal input,.modal select,.modal textarea{font-size:16px!important}
+  .v122-create-modal.modal{
+    align-self:flex-end!important;width:100vw!important;max-width:100vw!important;
+    height:auto!important;max-height:min(88dvh,780px)!important;
+    border-radius:24px 24px 0 0!important;border:0!important;
+    box-shadow:0 -16px 55px rgba(12,20,17,.2)!important
+  }
+  .modal-backdrop:has(.v122-create-modal){
+    align-items:flex-end!important;padding:0!important
+  }
+  .v122-create-modal .modal-head{
+    padding:16px 15px 11px!important;border-bottom:1px solid var(--border)!important
+  }
+  .v122-create-modal .modal-body{padding:13px 15px!important}
+  .v122-create-modal .modal-foot{
+    padding:10px 15px calc(12px + env(safe-area-inset-bottom))!important;
+    display:grid!important;grid-template-columns:1fr 1.25fr!important;gap:8px!important
+  }
+  .v122-create-modal .modal-foot .btn{
+    width:100%!important;min-height:46px!important;margin:0!important
+  }
+  .v122-form-grid{grid-template-columns:1fr!important;gap:10px!important}
+  .v122-field.full{grid-column:auto!important}
+  .v122-field>span{font-size:8px!important}
+  .v122-field input,.v122-field select,.v122-field textarea{min-height:46px!important;font-size:16px!important}
+  .v122-participant-grid{grid-template-columns:1fr 1fr!important}
+  .v122-participant{min-height:46px!important}
+  .v122-create-note{font-size:8px!important}
+
+  /* Inventory quick-add becomes one clear action on mobile; details live in a sheet. */
+  .inventory-quick-add .inventory-field{display:none!important}
+  .inventory-quick-add{
+    display:block!important;padding:10px!important
+  }
+  .inventory-quick-add .btn{
+    width:100%!important;min-height:46px!important
+  }
+
+  /* Avoid oversized long-form cards and improve scanning. */
+  .settings-card,.os-card,.card-pad{scroll-margin-top:72px}
+  .section-head h2{max-width:100%}
+  .subtle{overflow-wrap:anywhere}
+  .toast{
+    left:10px!important;right:10px!important;
+    bottom:calc(88px + max(10px,env(safe-area-inset-bottom)))!important;
+    z-index:60!important
+  }
+}
+
+@media(max-width:390px){
+  .mobile-bottom-nav{left:5px;right:5px;grid-template-columns:1fr 1fr 66px 1fr 1fr}
+  .mobile-bottom-create{width:54px;height:54px}
+  .mobile-quick-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .v122-mobile-create-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+  #accountGrid .account-card-title strong{max-width:57vw}
+  .v122-participant-grid{grid-template-columns:1fr!important}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .mobile-bottom-create,.mobile-quick-menu,.mobile-quick::before,
+  #accountGrid .account-mobile-toggle .hero-icon{
+    transition:none!important
+  }
+}
+</style>
+
+</head><body>
   <div class="statement">
     <div class="head">
       <div><div class="brand">SINOP · PERSONAL FINANCE</div><h1>${esc(title)}</h1><div class="period">${esc(period)}</div></div>
@@ -19922,7 +20332,7 @@ function osCommandDefaults(){return [
   {type:'Command',label:'Open grocery inventory',sub:'Check stock, run-out dates, and reorder alerts',icon:'archive-box',action:()=>{closeCommandPalette();document.querySelector('.nav-btn[data-target="grocery"]')?.click();showGroceryView("inventory")}},
   {type:'Command',label:'Build scarce grocery list',sub:'Add every inventory item inside its reorder window',icon:'shopping-cart',action:()=>{closeCommandPalette();document.querySelector('.nav-btn[data-target="grocery"]')?.click();showGroceryView("inventory");inventoryCreateGroceryList()}},
   {type:'Command',label:'New grocery trip',sub:'Build a list and track it against the recurring grocery budget',icon:'shopping-cart',action:()=>{closeCommandPalette();document.querySelector('.nav-btn[data-target="grocery"]')?.click();setTimeout(()=>openGroceryEventModal(),80)}},
-  {type:'Command',label:'Add spending',sub:'Open Spending and add a new row',icon:'wallet',action:()=>{closeCommandPalette();document.querySelector('.nav-btn[data-target="spending"]')?.click();$("addSpendBtn")?.click()}},
+  {type:'Command',label:'Add spending',sub:'Open Spending and create an expense',icon:'wallet',action:()=>{closeCommandPalette();document.querySelector('.nav-btn[data-target="spending"]')?.click();$("addSpendBtn")?.click()}},
   {type:'Command',label:'Capture to Money Inbox',sub:'Open Activity and focus Quick Capture',icon:'clock',action:()=>{closeCommandPalette();document.querySelector('.nav-btn[data-target="activity"]')?.click();setTimeout(()=>$("inboxDescription")?.focus(),80)}},
   {type:'Command',label:'Transfer money',sub:'Open the account transfer form',icon:'arrows-right-left',action:()=>{closeCommandPalette();document.querySelector('.nav-btn[data-target="accounts"]')?.click();openTransferModal()}},
   {type:'Command',label:'Open financial calendar',sub:'See due dates and activity by day',icon:'calendar-days',target:'calendar'},
@@ -20139,5 +20549,625 @@ if(sinopAuthGranted&&new URL(location.href).searchParams.get("barkada"))setTimeo
 refreshNeededFxRates({force:false,rerender:true});
 maybeStartFirstRunSetup();
 </script>
+
+
+<!-- ===== SINOP v122 · mobile bottom navigation ===== -->
+<nav class="mobile-bottom-nav" id="mobileBottomNav" aria-label="Primary navigation">
+  <button class="mobile-bottom-item" type="button" data-v122-nav-target="overview" aria-label="Overview">
+    <span data-hero="home"></span><span>Home</span>
+  </button>
+  <button class="mobile-bottom-item" type="button" data-v122-nav-target="activity" aria-label="Activity">
+    <span data-hero="clock"></span><span>Activity</span>
+  </button>
+  <div style="position:relative;height:62px;display:grid;place-items:start center">
+    <button class="mobile-bottom-create" id="mobileBottomCreateBtn" type="button" aria-label="Open quick access" aria-expanded="false">
+      <span data-hero="plus"></span>
+    </button>
+    <span class="mobile-bottom-create-label">Quick</span>
+  </div>
+  <button class="mobile-bottom-item" type="button" data-v122-nav-target="accounts" aria-label="Accounts">
+    <span data-hero="building-library"></span><span>Accounts</span>
+  </button>
+  <button class="mobile-bottom-item" id="mobileBottomMoreBtn" type="button" aria-label="More features">
+    <span data-hero="squares-2x2"></span><span>More</span>
+  </button>
+</nav>
+
+<!-- ===== SINOP v122 · deliberate record-creation sheets ===== -->
+<div id="incomeCreateModal" class="modal-backdrop" aria-hidden="true">
+  <div class="modal v122-create-modal" role="dialog" aria-modal="true" aria-labelledby="incomeCreateTitle">
+    <div class="modal-head">
+      <div><p class="eyebrow">Income</p><h2 id="incomeCreateTitle">Add an income source</h2><p>Create the source first. SINOP adds it to the Income list only after you save.</p></div>
+      <button class="icon-btn" type="button" data-v122-close="incomeCreateModal" aria-label="Close"><span data-hero="x-mark"></span></button>
+    </div>
+    <div class="modal-body">
+      <div class="v122-create-note"><strong>No blank row is created.</strong> Enter the details here, review them, then save the new income source.</div>
+      <div class="v122-form-grid">
+        <label class="v122-field full"><span>Source name</span><input id="v122IncomeName" type="text" placeholder="e.g. Salary, Consulting retainer"></label>
+        <label class="v122-field"><span>Income type</span><select id="v122IncomeKind">
+          <option>Salary</option><option>Consulting</option><option>Freelance</option><option>Business</option><option>Bonus</option><option>Allowance</option><option>Other</option>
+        </select></label>
+        <label class="v122-field"><span>Frequency</span><select id="v122IncomeFrequency">
+          <option value="monthly">Monthly</option><option value="twice_monthly">Twice monthly</option><option value="biweekly">Biweekly</option><option value="weekly">Weekly</option><option value="quarterly">Quarterly</option><option value="annual">Annual</option><option value="one_time">One-time</option>
+        </select></label>
+        <label class="v122-field full" id="v122IncomeTreatmentWrap"><span>Employment / tax treatment</span><select id="v122IncomeTreatment">
+          <option value="none">No payroll deductions</option>
+          <option value="government_permanent">Permanent — Government (GSIS)</option>
+          <option value="private_permanent">Permanent — Private (SSS)</option>
+          <option value="cos_jo">COS / JO — 5% excess over ₱250K</option>
+        </select></label>
+        <label class="v122-field"><span id="v122IncomeAmountLabel">Gross / payment</span><input id="v122IncomeAmount" type="number" min="0" step="1" inputmode="decimal" placeholder="0"></label>
+        <label class="v122-field" id="v122IncomePaydaysWrap"><span>Expected payday(s)</span><input id="v122IncomePaydays" type="text" inputmode="numeric" placeholder="e.g. 7, 22"></label>
+        <label class="v122-field" id="v122IncomeDateWrap" hidden><span>One-time date</span><input id="v122IncomeDate" type="date"></label>
+        <label class="v122-field full"><span>Deposited to</span><select id="v122IncomeAccount"></select></label>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-secondary" type="button" data-v122-close="incomeCreateModal">Cancel</button>
+      <button class="btn btn-primary" id="v122SaveIncomeBtn" type="button">Save income source</button>
+    </div>
+  </div>
+</div>
+
+<div id="spendCreateModal" class="modal-backdrop" aria-hidden="true">
+  <div class="modal v122-create-modal" role="dialog" aria-modal="true" aria-labelledby="spendCreateTitle">
+    <div class="modal-head">
+      <div><p class="eyebrow">Variable spending</p><h2 id="spendCreateTitle">Add an expense</h2><p>Capture the transaction in one sheet instead of creating an empty table row.</p></div>
+      <button class="icon-btn" type="button" data-v122-close="spendCreateModal" aria-label="Close"><span data-hero="x-mark"></span></button>
+    </div>
+    <div class="modal-body">
+      <div class="v122-form-grid">
+        <label class="v122-field"><span>Date</span><input id="v122SpendDate" type="date"></label>
+        <label class="v122-field"><span>Status</span><select id="v122SpendStatus"><option value="planned" selected>Planned</option><option value="actual">Spent / actual</option></select></label>
+        <label class="v122-field full"><span>Description</span><input id="v122SpendDescription" type="text" placeholder="e.g. Dinner, shoes, household supplies"></label>
+        <label class="v122-field"><span>Category</span><select id="v122SpendCategory"></select></label>
+        <label class="v122-field"><span>Amount</span><input id="v122SpendAmount" type="number" min="0" step="1" inputmode="decimal" placeholder="0"></label>
+        <label class="v122-field full"><span>Paid with</span><select id="v122SpendSource"></select></label>
+        <label class="v122-field full"><span>Notes (optional)</span><textarea id="v122SpendNotes" placeholder="Optional context"></textarea></label>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-secondary" type="button" data-v122-close="spendCreateModal">Cancel</button>
+      <button class="btn btn-primary" id="v122SaveSpendBtn" type="button">Save expense</button>
+    </div>
+  </div>
+</div>
+
+<div id="goalCreateModal" class="modal-backdrop" aria-hidden="true">
+  <div class="modal v122-create-modal" role="dialog" aria-modal="true" aria-labelledby="goalCreateTitle">
+    <div class="modal-head">
+      <div><p class="eyebrow">Goals</p><h2 id="goalCreateTitle">Create a goal</h2><p>Set the target and priority before the goal card appears.</p></div>
+      <button class="icon-btn" type="button" data-v122-close="goalCreateModal" aria-label="Close"><span data-hero="x-mark"></span></button>
+    </div>
+    <div class="modal-body">
+      <div class="v122-form-grid">
+        <label class="v122-field full"><span>Goal name</span><input id="v122GoalName" type="text" placeholder="e.g. Espresso machine, emergency fund"></label>
+        <label class="v122-field"><span>Target amount</span><input id="v122GoalTarget" type="number" min="0" step="1" inputmode="decimal" placeholder="0"></label>
+        <label class="v122-field"><span>Already saved</span><input id="v122GoalSaved" type="number" min="0" step="1" inputmode="decimal" placeholder="0"></label>
+        <label class="v122-field"><span>Monthly plan</span><input id="v122GoalMonthly" type="number" min="0" step="1" inputmode="decimal" placeholder="0"></label>
+        <label class="v122-field"><span>Priority</span><select id="v122GoalPriority"><option value="high">High</option><option value="medium" selected>Medium</option><option value="low">Low</option></select></label>
+        <label class="v122-field full"><span>Target date (optional)</span><input id="v122GoalDeadline" type="date"></label>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-secondary" type="button" data-v122-close="goalCreateModal">Cancel</button>
+      <button class="btn btn-primary" id="v122SaveGoalBtn" type="button">Create goal</button>
+    </div>
+  </div>
+</div>
+
+<div id="kkbRowCreateModal" class="modal-backdrop" aria-hidden="true">
+  <div class="modal v122-create-modal" role="dialog" aria-modal="true" aria-labelledby="kkbRowCreateTitle">
+    <div class="modal-head">
+      <div><p class="eyebrow">KKB row</p><h2 id="kkbRowCreateTitle">Add an item / service</h2><p>Date, amount, payer, and participants are captured before the row is created.</p></div>
+      <button class="icon-btn" type="button" data-v122-close="kkbRowCreateModal" aria-label="Close"><span data-hero="x-mark"></span></button>
+    </div>
+    <div class="modal-body">
+      <div class="v122-create-note"><strong>Complete row first.</strong> After saving, you can still use <em>Paid by</em> on the KKB sheet to split the upfront payment across multiple payers.</div>
+      <div class="v122-form-grid">
+        <label class="v122-field"><span>Date</span><input id="v122KkbRowDate" type="date"></label>
+        <label class="v122-field"><span>Amount</span><input id="v122KkbRowAmount" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0"></label>
+        <label class="v122-field full"><span>Item / service</span><input id="v122KkbRowDescription" type="text" placeholder="e.g. Dinner, toll, hotel"></label>
+        <label class="v122-field full"><span>Paid upfront by</span><select id="v122KkbRowPayer"></select></label>
+        <div class="v122-field full"><span>Who shared this item?</span><div id="v122KkbParticipants" class="v122-participant-grid"></div></div>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-secondary" type="button" data-v122-close="kkbRowCreateModal">Cancel</button>
+      <button class="btn btn-primary" id="v122SaveKkbRowBtn" type="button">Create KKB row</button>
+    </div>
+  </div>
+</div>
+
+<div id="inventoryCreateModal" class="modal-backdrop" aria-hidden="true">
+  <div class="modal v122-create-modal" role="dialog" aria-modal="true" aria-labelledby="inventoryCreateTitle">
+    <div class="modal-head">
+      <div><p class="eyebrow">Grocery inventory</p><h2 id="inventoryCreateTitle">Add inventory item</h2><p>On phones, inventory creation uses a focused sheet instead of a cramped inline row.</p></div>
+      <button class="icon-btn" type="button" data-v122-close="inventoryCreateModal" aria-label="Close"><span data-hero="x-mark"></span></button>
+    </div>
+    <div class="modal-body">
+      <div class="v122-form-grid">
+        <label class="v122-field full"><span>Item</span><input id="v122InventoryName" type="text" placeholder="e.g. Rice, detergent, coffee beans"></label>
+        <label class="v122-field"><span>On hand</span><input id="v122InventoryQty" type="number" min="0" step="0.1" inputmode="decimal" placeholder="0"></label>
+        <label class="v122-field"><span>Unit</span><select id="v122InventoryUnit">
+          <option>pc</option><option>pack</option><option>bag</option><option>pouch</option><option>bottle</option><option>can</option><option>box</option><option>tray</option><option>bunch</option><option>kg</option><option>g</option><option>L</option><option>mL</option><option>dozen</option>
+        </select></label>
+        <label class="v122-field"><span>Typical use / week</span><input id="v122InventoryUsage" type="number" min="0" step="0.1" inputmode="decimal" placeholder="0"></label>
+        <label class="v122-field"><span>Remind when ≤ days left</span><input id="v122InventoryReorderDays" type="number" min="0" step="1" inputmode="numeric" value="7"></label>
+        <label class="v122-field full"><span>Restock target</span><input id="v122InventoryTarget" type="number" min="0" step="0.1" inputmode="decimal" placeholder="Optional"></label>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-secondary" type="button" data-v122-close="inventoryCreateModal">Cancel</button>
+      <button class="btn btn-primary" id="v122SaveInventoryBtn" type="button">Add inventory item</button>
+    </div>
+  </div>
+</div>
+
+
+<script id="sinop-v122-mobile-app-ux-script">
+(() => {
+  const mobileMq=window.matchMedia("(max-width:760px)");
+  const V122_BANKS=[
+    {key:"bpi",label:"BPI",color:"#a6192e",kind:"bank",re:/\b(bpi|bank of the philippine islands)\b/i},
+    {key:"landbank",label:"LBP",color:"#087a4b",kind:"bank",re:/\b(land\s*bank|landbank|lbp)\b/i},
+    {key:"bdo",label:"BDO",color:"#075aa3",kind:"bank",re:/\b(bdo|banco de oro)\b/i},
+    {key:"eastwest",label:"EW",color:"#6d2b90",kind:"bank",re:/\b(east\s*west|eastwest)\b/i},
+    {key:"maribank",label:"MARI",color:"#f36b2c",kind:"bank",re:/\b(mari\s*bank|maribank)\b/i},
+    {key:"metrobank",label:"MB",color:"#0b65a7",kind:"bank",re:/\b(metrobank|metropolitan bank)\b/i},
+    {key:"unionbank",label:"UB",color:"#ed5a24",kind:"bank",re:/\b(union\s*bank|unionbank)\b/i},
+    {key:"securitybank",label:"SB",color:"#0868b2",kind:"bank",re:/\b(security\s*bank|securitybank|sbc)\b/i},
+    {key:"rcbc",label:"RCBC",color:"#1268a9",kind:"bank",re:/\b(rcbc|rizal commercial)\b/i},
+    {key:"chinabank",label:"CBC",color:"#c51f30",kind:"bank",re:/\b(china\s*bank|chinabank|cbc)\b/i},
+    {key:"pnb",label:"PNB",color:"#7b2542",kind:"bank",re:/\b(pnb|philippine national bank)\b/i},
+    {key:"psbank",label:"PSB",color:"#1267a2",kind:"bank",re:/\b(psbank|philippine savings bank)\b/i},
+    {key:"aub",label:"AUB",color:"#1666a7",kind:"bank",re:/\b(aub|asia united bank)\b/i},
+    {key:"cimb",label:"CIMB",color:"#c91d27",kind:"bank",re:/\bcimb\b/i},
+    {key:"seabank",label:"SEA",color:"#f26822",kind:"bank",re:/\b(sea\s*bank|seabank)\b/i},
+    {key:"gotyme",label:"GT",color:"#0c7b86",kind:"bank",re:/\b(go\s*tyme|gotyme)\b/i},
+    {key:"tonik",label:"TONIK",color:"#7c3f98",kind:"bank",re:/\btonik\b/i},
+    {key:"ownbank",label:"OWN",color:"#6651a3",kind:"bank",re:/\bown\s*bank\b|\bownbank\b/i},
+    {key:"komo",label:"KOMO",color:"#2c6fb5",kind:"bank",re:/\bkomo\b/i},
+    {key:"maya",label:"MAYA",color:"#1d9b55",kind:"ewallet",re:/\b(maya|paymaya)\b/i},
+    {key:"gcash",label:"G",color:"#1769e0",kind:"ewallet",re:/\bg\s*cash\b|\bgcash\b/i},
+    {key:"diskartech",label:"DT",color:"#b52b78",kind:"ewallet",re:/\bdiskar\s*tech\b|\bdiskartech\b/i},
+    {key:"shopeepay",label:"SP",color:"#ee5d2d",kind:"ewallet",re:/\bshopee\s*pay\b|\bshopeepay\b/i},
+    {key:"grabpay",label:"GP",color:"#148f49",kind:"ewallet",re:/\bgrab\s*pay\b|\bgrabpay\b/i}
+  ];
+
+  function v122BankBrand(name){
+    const value=String(name||"").trim();
+    return V122_BANKS.find(b=>b.re.test(value))||null;
+  }
+  function v122BankMark(brand,compact=false){
+    if(!brand)return "";
+    return `<span class="bank-brand-mark${compact?" compact":""}" data-bank="${brand.key}" style="--bank-color:${brand.color}" aria-label="${brand.label}">${brand.label}</span>`;
+  }
+  function v122OpenModal(id,focusId){
+    const modal=$(id);if(!modal)return;
+    modal.classList.add("open");modal.setAttribute("aria-hidden","false");
+    document.body.classList.add("v122-modal-open");
+    requestAnimationFrame(()=>{const el=focusId?$(focusId):modal.querySelector("input,select,textarea,button");el?.focus({preventScroll:true})});
+  }
+  function v122CloseModal(id){
+    const modal=$(id);if(!modal)return;
+    modal.classList.remove("open");modal.setAttribute("aria-hidden","true");
+    if(!document.querySelector(".modal-backdrop.open"))document.body.classList.remove("v122-modal-open");
+  }
+  document.querySelectorAll("[data-v122-close]").forEach(btn=>btn.addEventListener("click",()=>v122CloseModal(btn.dataset.v122Close)));
+  ["incomeCreateModal","spendCreateModal","goalCreateModal","kkbRowCreateModal","inventoryCreateModal"].forEach(id=>{
+    $(id)?.addEventListener("click",e=>{if(e.target===$(id))v122CloseModal(id)});
+  });
+  document.addEventListener("keydown",e=>{
+    if(e.key!=="Escape")return;
+    const open=[...document.querySelectorAll("#incomeCreateModal.open,#spendCreateModal.open,#goalCreateModal.open,#kkbRowCreateModal.open,#inventoryCreateModal.open")].pop();
+    if(open){e.preventDefault();v122CloseModal(open.id)}
+  });
+
+  function v122SyncBottomNav(target=currentSinopSectionId?.()||"overview"){
+    document.querySelectorAll("[data-v122-nav-target]").forEach(btn=>btn.classList.toggle("active",btn.dataset.v122NavTarget===target));
+    const more=$("mobileBottomMoreBtn");
+    if(more)more.classList.toggle("active",!["overview","activity","accounts"].includes(target));
+  }
+  document.querySelectorAll("[data-v122-nav-target]").forEach(btn=>btn.addEventListener("click",()=>openSinopTarget(btn.dataset.v122NavTarget)));
+  $("mobileBottomMoreBtn")?.addEventListener("click",()=>{
+    closeMobileQuickAccess();
+    document.body.classList.add("mobile-sidebar-open");
+    document.querySelector(".sidebar .nav-btn.active")?.scrollIntoView({block:"center"});
+  });
+  $("mobileBottomCreateBtn")?.addEventListener("click",()=>{
+    toggleMobileQuickAccess();
+  });
+
+  const quickShell=$("mobileQuickAccess");
+  if(quickShell){
+    new MutationObserver(()=>{$("mobileBottomCreateBtn")?.setAttribute("aria-expanded",quickShell.classList.contains("open")?"true":"false")})
+      .observe(quickShell,{attributes:true,attributeFilter:["class"]});
+    quickShell.addEventListener("click",e=>{if(e.target===quickShell)closeMobileQuickAccess()});
+  }
+
+  function v122QuickCreate(target,buttonId){
+    closeMobileQuickAccess();
+    openSinopTarget(target);
+    requestAnimationFrame(()=>requestAnimationFrame(()=>$(buttonId)?.click()));
+  }
+  const quickMenu=$("mobileQuickMenu");
+  if(quickMenu&&!quickMenu.querySelector(".v122-mobile-create-grid")){
+    const create=document.createElement("div");
+    create.className="v122-mobile-create-grid";
+    create.setAttribute("aria-label","Create quickly");
+    create.innerHTML=`
+      <button type="button" data-v122-quick="expense"><span data-hero="wallet"></span><span>Expense</span></button>
+      <button type="button" data-v122-quick="income"><span data-hero="banknotes"></span><span>Income</span></button>
+      <button type="button" data-v122-quick="bill"><span data-hero="arrow-path"></span><span>Recurring</span></button>
+      <button type="button" data-v122-quick="transfer"><span data-hero="arrows-right-left"></span><span>Transfer</span></button>
+      <button type="button" data-v122-quick="account"><span data-hero="building-library"></span><span>Account</span></button>
+      <button type="button" data-v122-quick="goal"><span data-hero="flag"></span><span>Goal</span></button>
+      <button type="button" data-v122-quick="kkb"><span data-hero="calculator"></span><span>KKB</span></button>
+      <button type="button" data-v122-quick="grocery"><span data-hero="shopping-cart"></span><span>Grocery</span></button>`;
+    quickMenu.querySelector(".mobile-quick-head")?.insertAdjacentElement("afterend",create);
+    hydrateHeroIcons(create);
+    create.querySelector('[data-v122-quick="expense"]').onclick=()=>v122QuickCreate("spending","addSpendBtn");
+    create.querySelector('[data-v122-quick="income"]').onclick=()=>v122QuickCreate("income","addIncomeBtn");
+    create.querySelector('[data-v122-quick="bill"]').onclick=()=>v122QuickCreate("bills","addBillBtn");
+    create.querySelector('[data-v122-quick="transfer"]').onclick=()=>v122QuickCreate("accounts","addTransferBtn");
+    create.querySelector('[data-v122-quick="account"]').onclick=()=>v122QuickCreate("accounts","addAccountBtn");
+    create.querySelector('[data-v122-quick="goal"]').onclick=()=>v122QuickCreate("goals","addGoalBtn");
+    create.querySelector('[data-v122-quick="kkb"]').onclick=()=>v122QuickCreate("kkb","addKkbTripBtn");
+    create.querySelector('[data-v122-quick="grocery"]').onclick=()=>v122QuickCreate("grocery","newGroceryEventBtn");
+  }
+
+  /* Bank recognition in Accounts. */
+  const accountGridForm=$("accountModal")?.querySelector(".account-modal-grid");
+  let accountBrandPreview=$("accountBrandPreview");
+  if(accountGridForm&&!accountBrandPreview){
+    accountBrandPreview=document.createElement("div");
+    accountBrandPreview.id="accountBrandPreview";
+    accountBrandPreview.className="account-brand-preview";
+    $("accountEditName")?.closest("label")?.insertAdjacentElement("afterend",accountBrandPreview);
+  }
+  function v122RefreshAccountBrandPreview(){
+    if(!accountBrandPreview||!$("accountEditName"))return;
+    const name=$("accountEditName").value||"";
+    const brand=v122BankBrand(name);
+    if(!brand){
+      accountBrandPreview.classList.remove("show");
+      accountBrandPreview.innerHTML="";
+      return;
+    }
+    const inferredType=brand.kind==="ewallet"?"E-wallet":/\bsav(ing|ings)\b/i.test(name)?"Savings account":"Bank account";
+    accountBrandPreview.innerHTML=`${v122BankMark(brand)}<div><strong>${brand.label} recognized automatically</strong><small>SINOP will use this bank icon on the account card · ${inferredType}.</small></div>`;
+    accountBrandPreview.classList.add("show");
+    if(!editingAccountId){
+      if($("accountEditType"))$("accountEditType").value=brand.kind==="ewallet"?"ewallet":(/\bsav(ing|ings)\b/i.test(name)?"savings":"bank");
+      if($("accountEditColor"))$("accountEditColor").value=brand.color;
+    }
+  }
+  $("accountEditName")?.addEventListener("input",v122RefreshAccountBrandPreview);
+  const v122OriginalOpenAccountEditor=openAccountEditor;
+  openAccountEditor=function(id=null){
+    const result=v122OriginalOpenAccountEditor(id);
+    requestAnimationFrame(v122RefreshAccountBrandPreview);
+    return result;
+  };
+
+  function v122EnhanceAccountCards(){
+    const grid=$("accountGrid");if(!grid)return;
+    const cards=[...grid.querySelectorAll(".account-card")];
+    cards.forEach((card,index)=>{
+      const account=state.accounts[index];if(!account)return;
+      const icon=card.querySelector(".account-card-icon");
+      const brand=v122BankBrand(account.name);
+      if(icon&&brand)icon.innerHTML=v122BankMark(brand);
+      if(card.dataset.v122AccountEnhanced==="1")return;
+      card.dataset.v122AccountEnhanced="1";
+      const head=card.querySelector(".account-card-head");
+      const balance=card.querySelector(".account-balance");
+      if(!head||!balance)return;
+      const details=document.createElement("div");
+      details.className="account-mobile-details";
+      const actions=head.querySelector(".account-card-actions");
+      if(actions){
+        const mobileActions=actions.cloneNode(true);
+        mobileActions.classList.add("v122-mobile-account-actions");
+        mobileActions.querySelectorAll("[data-account-edit]").forEach(btn=>btn.onclick=()=>openAccountEditor(btn.dataset.accountEdit));
+        mobileActions.querySelectorAll("[data-account-reconcile]").forEach(btn=>btn.onclick=()=>openReconcileAccount(btn.dataset.accountReconcile));
+        mobileActions.querySelectorAll("[data-account-contribution]").forEach(btn=>btn.onclick=()=>openAccountContributionModal(btn.dataset.accountContribution));
+        details.appendChild(mobileActions);
+      }
+      const children=[...card.children];
+      const balanceIndex=children.indexOf(balance);
+      children.slice(balanceIndex+1).forEach(child=>{
+        if(child!==details)details.appendChild(child);
+      });
+      const toggle=document.createElement("button");
+      toggle.type="button";toggle.className="account-mobile-toggle";
+      toggle.setAttribute("aria-expanded","false");
+      toggle.innerHTML=`<span>View details</span><span data-hero="chevron-down"></span>`;
+      toggle.addEventListener("click",()=>{
+        const expanded=card.classList.toggle("account-mobile-expanded");
+        toggle.setAttribute("aria-expanded",expanded?"true":"false");
+        toggle.querySelector("span:first-child").textContent=expanded?"Collapse":"View details";
+      });
+      balance.insertAdjacentElement("afterend",toggle);
+      toggle.insertAdjacentElement("afterend",details);
+      hydrateHeroIcons(toggle);
+    });
+  }
+
+  function v122SetupAccountRules(){
+    const warning=document.querySelector("#accounts>.double-count-warning");if(!warning)return;
+    let btn=document.querySelector("#accounts>.v122-account-rules-toggle");
+    if(!btn){
+      btn=document.createElement("button");btn.type="button";btn.className="v122-account-rules-toggle";
+      btn.innerHTML=`<span data-hero="information-circle"></span><span>View account rules</span>`;
+      warning.insertAdjacentElement("afterend",btn);hydrateHeroIcons(btn);
+      btn.addEventListener("click",()=>{
+        const expanded=warning.classList.toggle("v122-expanded");
+        btn.querySelector("span:last-child").textContent=expanded?"Collapse account rules":"View account rules";
+      });
+    }
+  }
+
+  /* Labeled mobile record cards for ordinary tables; matrices keep horizontal scroll. */
+  const V122_CARD_TABLES=[
+    ".data-table",".inventory-table",".kkb-balance-table",".bank-ledger",".manual-table",
+    ".loan-statement-table",".grocery-items-table",".receipt-review-table",".goal-projection-table"
+  ].join(",");
+  function v122LabelTables(root=document){
+    root.querySelectorAll(V122_CARD_TABLES).forEach(table=>{
+      table.classList.add("v122-card-table");
+      const headers=[...table.querySelectorAll("thead th")].map(th=>th.textContent.trim());
+      table.querySelectorAll("tbody tr").forEach(row=>{
+        [...row.children].forEach((cell,i)=>{
+          if(cell.tagName!=="TD")return;
+          const label=headers[i]||"";
+          cell.dataset.label=label;
+          cell.classList.toggle("v122-mobile-full",/source|commitment|description|item|activity|account|notes?|payment|received|payday|term|status|outlook|actions?|member/i.test(label));
+        });
+      });
+    });
+  }
+
+  const V122_LIMITS=[
+    ["fixedListDashboard",3],["fixedListOverview",3],["recommendations",3],["nextCycleReserveList",3],
+    ["groceryEventList",3],["directContributionList",3],["transferList",3],["kkbTripList",3],
+    ["barkadaGroupList",3],["loanList",3],["creditCardGrid",3],["goalList",3],
+    ["goalAllocationList",3],["goalTradeoffList",3],["moneyInboxList",3],["moneyJournalList",3],
+    ["moneyTimeline",4],["reminderList",4],["rewardBadgeGrid",4],["rewardLevelsGrid",4],
+    ["todayQuickSpendList",3],["overviewAccountGrid",4]
+  ];
+  function v122LimitList(container,limit){
+    if(!container)return;
+    let toggle=container.querySelector(":scope > .v122-list-toggle");
+    const items=[...container.children].filter(el=>!el.classList.contains("v122-list-toggle"));
+    if(items.length<=limit){
+      items.forEach(el=>el.classList.remove("v122-mobile-list-hidden"));
+      toggle?.remove();container.dataset.v122Expanded="0";return;
+    }
+    const expanded=container.dataset.v122Expanded==="1";
+    items.forEach((el,i)=>el.classList.toggle("v122-mobile-list-hidden",!expanded&&i>=limit));
+    if(!toggle){
+      toggle=document.createElement("button");toggle.type="button";toggle.className="v122-list-toggle";
+      container.appendChild(toggle);
+      toggle.addEventListener("click",()=>{
+        container.dataset.v122Expanded=container.dataset.v122Expanded==="1"?"0":"1";
+        v122LimitList(container,limit);
+      });
+    }
+    toggle.textContent=expanded?"Collapse":`View all (${items.length})`;
+  }
+  function v122ApplyListLimits(){V122_LIMITS.forEach(([id,limit])=>v122LimitList($(id),limit))}
+
+  /* Record creation: replace immediate blank-row creation with deliberate sheets. */
+  function v122ReplaceButton(id,handler){
+    const old=$(id);if(!old)return null;
+    const fresh=old.cloneNode(true);old.replaceWith(fresh);
+    fresh.addEventListener("click",handler);
+    return fresh;
+  }
+
+  function v122RefreshIncomeCreate(){
+    const salary=$("v122IncomeKind").value==="Salary";
+    const frequency=$("v122IncomeFrequency").value;
+    $("v122IncomeTreatmentWrap").hidden=!salary;
+    if(!salary)$("v122IncomeTreatment").value="none";
+    $("v122IncomeDateWrap").hidden=frequency!=="one_time";
+    $("v122IncomePaydaysWrap").hidden=!["monthly","twice_monthly"].includes(frequency);
+    $("v122IncomePaydays").placeholder=frequency==="twice_monthly"?"e.g. 7, 22":"e.g. 7";
+    $("v122IncomeAmountLabel").textContent=frequency==="one_time"?"Gross amount":"Gross / payment";
+  }
+  function v122OpenIncomeCreate(){
+    $("v122IncomeName").value="";
+    $("v122IncomeKind").value="Salary";
+    $("v122IncomeFrequency").value="monthly";
+    $("v122IncomeTreatment").value="none";
+    $("v122IncomeAmount").value="";
+    $("v122IncomePaydays").value="";
+    $("v122IncomeDate").value=localDateKey();
+    $("v122IncomeAccount").innerHTML=accountOptions("",true,true);
+    v122RefreshIncomeCreate();v122OpenModal("incomeCreateModal","v122IncomeName");
+  }
+  function v122SaveIncome(){
+    const name=$("v122IncomeName").value.trim();
+    const amount=Math.max(0,Number($("v122IncomeAmount").value||0));
+    const kind=$("v122IncomeKind").value,frequency=$("v122IncomeFrequency").value;
+    if(!name){toast("Enter an income source name.");$("v122IncomeName").focus();return}
+    if(amount<=0){toast("Enter the income amount.");$("v122IncomeAmount").focus();return}
+    const date=frequency==="one_time"?$("v122IncomeDate").value:"";
+    if(frequency==="one_time"&&!date){toast("Choose the one-time income date.");return}
+    const payDays=String($("v122IncomePaydays").value||"").split(/[,\s]+/).map(Number).filter(d=>Number.isFinite(d)&&d>=1&&d<=31).slice(0,frequency==="twice_monthly"?2:1);
+    state.incomes.push({
+      id:uid(),name,kind,frequency,amount,date,
+      employmentType:kind==="Salary"?$("v122IncomeTreatment").value:"none",
+      accountId:$("v122IncomeAccount").value||"",
+      payDays
+    });
+    v122CloseModal("incomeCreateModal");scheduleAutoSave();render();toast("Income source added.");
+  }
+  $("v122IncomeKind").addEventListener("change",v122RefreshIncomeCreate);
+  $("v122IncomeFrequency").addEventListener("change",v122RefreshIncomeCreate);
+  $("v122SaveIncomeBtn").addEventListener("click",v122SaveIncome);
+  v122ReplaceButton("addIncomeBtn",v122OpenIncomeCreate);
+
+  function v122SpendingSourceOptions(){
+    const a=budgetSourceAccounts();
+    const c=state.creditCards||[];
+    const methods=(state.settings.paymentMethods||[]).filter(v=>v!=="Credit card");
+    return `${a.length?`<optgroup label="Accounts & wallets">${a.map(x=>`<option value="account:${esc(x.id)}">${esc(x.name)} · ${esc(accountTypeLabel(x.type))}</option>`).join("")}</optgroup>`:""}<optgroup label="Other payment methods">${methods.map(v=>`<option value="method:${esc(v)}">${esc(v)}</option>`).join("")}</optgroup>${c.length?`<optgroup label="Credit cards">${c.map(x=>`<option value="card:${esc(x.id)}">${esc(cardLabel(x))}</option>`).join("")}</optgroup>`:""}`;
+  }
+  function v122OpenSpendCreate(){
+    $("v122SpendDate").value=localDateKey();
+    $("v122SpendStatus").value="planned";
+    $("v122SpendDescription").value="";
+    $("v122SpendCategory").innerHTML=state.categories.spending.map(v=>`<option>${esc(v)}</option>`).join("");
+    $("v122SpendAmount").value="";
+    $("v122SpendSource").innerHTML=v122SpendingSourceOptions();
+    const def=defaultSpendingAccount();if(def)$("v122SpendSource").value=`account:${def.id}`;
+    $("v122SpendNotes").value="";
+    v122OpenModal("spendCreateModal","v122SpendDescription");
+  }
+  function v122SaveSpend(){
+    const description=$("v122SpendDescription").value.trim();
+    const amount=Math.max(0,Number($("v122SpendAmount").value||0));
+    if(!description){toast("Enter an expense description.");$("v122SpendDescription").focus();return}
+    if(amount<=0){toast("Enter the expense amount.");$("v122SpendAmount").focus();return}
+    const source=$("v122SpendSource").value||"";
+    const item={
+      id:uid(),date:$("v122SpendDate").value||localDateKey(),description,
+      category:$("v122SpendCategory").value||state.categories.spending[0]||"Other",
+      status:$("v122SpendStatus").value||"actual",
+      paymentMethod:"Cash",creditCardId:"",accountId:"",
+      notes:$("v122SpendNotes").value.trim(),amount
+    };
+    if(source.startsWith("account:")){item.accountId=source.slice(8);item.paymentMethod="Account"}
+    else if(source.startsWith("card:")){item.creditCardId=source.slice(5);item.paymentMethod="Credit card"}
+    else item.paymentMethod=source.replace(/^method:/,"")||"Cash";
+    state.spending.push(item);
+    v122CloseModal("spendCreateModal");scheduleAutoSave();render();toast("Expense added.");
+  }
+  $("v122SaveSpendBtn").addEventListener("click",v122SaveSpend);
+  v122ReplaceButton("addSpendBtn",v122OpenSpendCreate);
+
+  function v122OpenGoalCreate(){
+    $("v122GoalName").value="";$("v122GoalTarget").value="";$("v122GoalSaved").value="";
+    $("v122GoalMonthly").value="";$("v122GoalPriority").value="medium";$("v122GoalDeadline").value="";
+    v122OpenModal("goalCreateModal","v122GoalName");
+  }
+  function v122SaveGoal(){
+    const name=$("v122GoalName").value.trim(),target=Math.max(0,Number($("v122GoalTarget").value||0));
+    if(!name){toast("Enter a goal name.");return}
+    if(target<=0){toast("Enter the target amount.");return}
+    state.goals.push({
+      id:uid(),name,target,
+      saved:Math.max(0,Number($("v122GoalSaved").value||0)),
+      monthly:Math.max(0,Number($("v122GoalMonthly").value||0)),
+      priority:$("v122GoalPriority").value||"medium",
+      deadline:$("v122GoalDeadline").value||""
+    });
+    v122CloseModal("goalCreateModal");scheduleAutoSave();render();toast("Goal created.");
+  }
+  $("v122SaveGoalBtn").addEventListener("click",v122SaveGoal);
+  v122ReplaceButton("addGoalBtn",v122OpenGoalCreate);
+
+  function v122OpenKkbRowCreate(){
+    const trip=activeKkbTrip();if(!trip)return;
+    if(!trip.members.length){toast("Add members to this KKB trip first.");return}
+    $("v122KkbRowDate").value=trip.date||localDateKey();
+    $("v122KkbRowDescription").value="";$("v122KkbRowAmount").value="";
+    $("v122KkbRowPayer").innerHTML=trip.members.map(m=>`<option value="${esc(m.id)}">${esc(m.name)}</option>`).join("");
+    $("v122KkbParticipants").innerHTML=trip.members.map(m=>`<label class="v122-participant"><input type="checkbox" value="${esc(m.id)}" checked><span>${esc(m.name)}</span></label>`).join("");
+    v122OpenModal("kkbRowCreateModal","v122KkbRowDescription");
+  }
+  function v122SaveKkbRow(){
+    const trip=activeKkbTrip();if(!trip)return v122CloseModal("kkbRowCreateModal");
+    const description=$("v122KkbRowDescription").value.trim();
+    const amount=Math.max(0,Number($("v122KkbRowAmount").value||0));
+    const payerId=$("v122KkbRowPayer").value;
+    const participantIds=[...$("v122KkbParticipants").querySelectorAll('input[type="checkbox"]:checked')].map(x=>x.value);
+    if(!description){toast("Enter the item or service.");return}
+    if(amount<=0){toast("Enter the row amount.");return}
+    if(!payerId){toast("Choose who paid upfront.");return}
+    if(!participantIds.length){toast("Choose at least one member who shared this item.");return}
+    const stamp=barkadaIsoNow();
+    const expense={
+      id:uid(),date:$("v122KkbRowDate").value||trip.date||localDateKey(),description,amount,
+      participantIds,payers:[{memberId:payerId,amount}],
+      updatedAt:stamp,fieldUpdatedAt:{description:stamp,date:stamp,amount:stamp,participantIds:stamp,payers:stamp}
+    };
+    trip.expenses.push(expense);
+    v122CloseModal("kkbRowCreateModal");
+    markKkbChanged(trip,expense,{immediate:true});
+    renderKkbExpenses(trip);refreshKkbDerivedViews(trip);
+    toast("KKB row created.");
+  }
+  $("v122SaveKkbRowBtn").addEventListener("click",v122SaveKkbRow);
+  v122ReplaceButton("addKkbExpenseBtn",v122OpenKkbRowCreate);
+  v122ReplaceButton("addKkbRowBtn",v122OpenKkbRowCreate);
+
+  function v122OpenInventoryCreate(){
+    $("v122InventoryName").value="";$("v122InventoryQty").value="";$("v122InventoryUnit").value="pc";
+    $("v122InventoryUsage").value="";$("v122InventoryReorderDays").value="7";$("v122InventoryTarget").value="";
+    v122OpenModal("inventoryCreateModal","v122InventoryName");
+  }
+  function v122SaveInventory(){
+    const name=$("v122InventoryName").value.trim();if(!name){toast("Enter the inventory item name.");return}
+    const qty=Math.max(0,Number($("v122InventoryQty").value||0));
+    const usage=Math.max(0,Number($("v122InventoryUsage").value||0));
+    const reorderDays=Math.max(0,Number($("v122InventoryReorderDays").value||7));
+    const target=Math.max(0,Number($("v122InventoryTarget").value||0));
+    const unit=$("v122InventoryUnit").value||"pc";
+    const existing=inventoryFindByNameUnit(name,unit);
+    if(existing){
+      inventoryResetSnapshot(existing,qty);existing.usagePerWeek=usage||existing.usagePerWeek;
+      existing.reorderDays=reorderDays;if(target>0)existing.targetQuantity=target;
+      toast(`${existing.name} inventory updated.`);
+    }else{
+      state.groceryInventory.push({
+        id:uid(),name,category:"Groceries",unit,quantity:qty,quantityAsOf:localDateKey(),countedAt:new Date().toISOString(),
+        usagePerWeek:usage,reorderDays,minQuantity:0,targetQuantity:target||Math.max(qty,usage*2,1),
+        preferredPrice:0,reminderEnabled:true,productCode:"",notes:"",createdAt:Date.now(),updatedAt:Date.now()
+      });
+      toast(`${name} added to inventory.`);
+    }
+    v122CloseModal("inventoryCreateModal");scheduleAutoSave();renderGroceryInventory();renderReminderCenter(false);
+  }
+  $("v122SaveInventoryBtn").addEventListener("click",v122SaveInventory);
+  $("inventoryAddBtn")?.addEventListener("click",e=>{
+    if(!mobileMq.matches)return;
+    e.preventDefault();e.stopImmediatePropagation();v122OpenInventoryCreate();
+  },true);
+
+  /* Keep the mobile DOM enhancements in sync with every module renderer. */
+  let enhanceQueued=false,enhancing=false;
+  function v122Enhance(){
+    if(enhancing)return;enhancing=true;
+    try{
+      v122SyncBottomNav();
+      v122EnhanceAccountCards();
+      v122SetupAccountRules();
+      v122LabelTables();
+      v122ApplyListLimits();
+    }finally{enhancing=false}
+  }
+  function v122QueueEnhance(){
+    if(enhanceQueued)return;enhanceQueued=true;
+    requestAnimationFrame(()=>{enhanceQueued=false;v122Enhance()});
+  }
+  const main=document.querySelector(".main");
+  if(main)new MutationObserver(v122QueueEnhance).observe(main,{childList:true,subtree:true});
+  document.addEventListener("click",e=>{
+    if(e.target.closest(".nav-btn,[data-jump],[data-mobile-target],[data-v122-nav-target]"))requestAnimationFrame(v122QueueEnhance);
+  });
+  mobileMq.addEventListener?.("change",()=>{closeMobileQuickAccess();v122QueueEnhance()});
+  window.addEventListener("resize",v122QueueEnhance,{passive:true});
+
+  /* Update user-facing text that still described blank-row creation. */
+  document.querySelectorAll(".command-result").forEach(()=>{});
+  hydrateHeroIcons(document);
+  v122Enhance();
+})();
+</script>
+
 </body>
 </html>
