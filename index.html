@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0f766e">
-<title>SINOP v123 · Tracked payment sources</title>
+<title>SINOP v125 · Minimal Mobile UX</title>
 <meta name="application-name" content="SINOP">
 <meta name="apple-mobile-web-app-title" content="SINOP">
 <meta name="description" content="SINOP — your personal money system for income, spending, savings, investments, goals, KKB, and financial tracking.">
@@ -5218,7 +5218,7 @@ body[data-theme="dark"] .barkada-group-btn,body[data-theme="dark"] .barkada-memb
         <button class="nav-btn" data-target="user-manual"><span class="nav-icon"><span data-hero="question-mark-circle"></span></span><span class="nav-label">User manual</span></button>
       </div>
     </nav>
-    <div class="sinop-sidebar-footer"><small>Your personal money system · v123</small></div>
+    <div class="sinop-sidebar-footer"><small>Your personal money system · v125</small></div>
   </aside>
 
   <main class="main">
@@ -20696,27 +20696,10 @@ maybeStartFirstRunSetup();
   <section class="mobile-action-sheet-panel" role="dialog" aria-modal="true" aria-labelledby="mobileMoreSheetTitle">
     <div class="mobile-sheet-handle" aria-hidden="true"></div>
     <div class="mobile-sheet-head">
-      <div class="mobile-sheet-head-copy"><span class="mobile-sheet-eyebrow">Quick access</span><h3 id="mobileMoreSheetTitle">More of SINOP</h3><p>Your less-frequent modules stay one tap away without crowding the tab bar.</p></div>
+      <div class="mobile-sheet-head-copy"><span class="mobile-sheet-eyebrow">Navigation</span><h3 id="mobileMoreSheetTitle">All SINOP modules</h3><p>Every destination from the desktop sidebar, in one compact mobile menu.</p></div>
       <button class="mobile-sheet-close" type="button" data-mobile-sheet-close="mobileMoreSheet" aria-label="Close more features"><span data-hero="x-mark"></span></button>
     </div>
-    <div class="mobile-more-grid" aria-label="SINOP destinations">
-      <button class="mobile-more-destination" type="button" data-v124-more-target="income"><span class="mobile-action-icon"><span data-hero="plus-circle"></span></span><span>Income</span></button>
-      <button class="mobile-more-destination" type="button" data-v124-more-target="bills"><span class="mobile-action-icon"><span data-hero="arrow-path"></span></span><span>Recurring</span></button>
-      <button class="mobile-more-destination" type="button" data-v124-more-target="daily-allowance"><span class="mobile-action-icon"><span data-hero="calendar-days"></span></span><span>Daily allowance</span></button>
-      <button class="mobile-more-destination" type="button" data-v124-more-target="goals"><span class="mobile-action-icon"><span data-hero="flag"></span></span><span>Goals</span></button>
-      <button class="mobile-more-destination" type="button" data-v124-more-target="kkb"><span class="mobile-action-icon"><span data-hero="calculator"></span></span><span>KKB</span></button>
-      <button class="mobile-more-destination" type="button" data-v124-more-target="barkada"><span class="mobile-action-icon"><span data-hero="user-group"></span></span><span>Barkada</span></button>
-      <button class="mobile-more-destination" type="button" data-v124-more-target="grocery"><span class="mobile-action-icon"><span data-hero="shopping-cart"></span></span><span>Grocery</span></button>
-      <button class="mobile-more-destination" type="button" data-v124-more-target="credit-cards"><span class="mobile-action-icon"><span data-hero="credit-card"></span></span><span>Credit cards</span></button>
-      <button class="mobile-more-destination" type="button" data-v124-more-target="loans"><span class="mobile-action-icon"><span data-hero="arrows-right-left"></span></span><span>Loans &amp; IOUs</span></button>
-      <button class="mobile-more-destination" type="button" data-v124-more-target="activity"><span class="mobile-action-icon"><span data-hero="clock"></span></span><span>Activity</span></button>
-      <button class="mobile-more-destination" type="button" data-v124-more-target="calendar"><span class="mobile-action-icon"><span data-hero="calendar-days"></span></span><span>Calendar</span></button>
-      <button class="mobile-more-destination" type="button" data-v124-more-target="forecast"><span class="mobile-action-icon"><span data-hero="chart-bar-square"></span></span><span>Forecast</span></button>
-      <button class="mobile-more-destination" type="button" data-v124-more-target="monthly-statement"><span class="mobile-action-icon"><span data-hero="banknotes"></span></span><span>Statements</span></button>
-      <button class="mobile-more-destination" type="button" data-v124-more-target="rewards"><span class="mobile-action-icon"><span data-hero="trophy"></span></span><span>Rewards</span></button>
-      <button class="mobile-more-destination" type="button" data-v124-more-target="settings"><span class="mobile-action-icon"><span data-hero="adjustments-horizontal"></span></span><span>Customize</span></button>
-      <button class="mobile-more-destination" type="button" data-v124-more-target="user-manual"><span class="mobile-action-icon"><span data-hero="question-mark-circle"></span></span><span>User manual</span></button>
-    </div>
+    <div class="mobile-more-grid" aria-label="SINOP destinations"><button class="mobile-more-destination" type="button" data-v124-more-target="overview" aria-label="Overview"><span class="mobile-action-icon"><span data-hero="home"></span></span><span>Overview</span></button><button class="mobile-more-destination" type="button" data-v124-more-target="dashboard" aria-label="Dashboard"><span class="mobile-action-icon"><span data-hero="squares-2x2"></span></span><span>Dashboard</span></button><button class="mobile-more-destination" type="button" data-v124-more-target="income" aria-label="Income"><span class="mobile-action-icon"><span data-hero="plus-circle"></span></span><span>Income</span></button><button class="mobile-more-destination" type="button" data-v124-more-target="bills" aria-label="Recurring"><span class="mobile-action-icon"><span data-hero="arrow-path"></span></span><span>Recurring</span></button><button class="mobile-more-destination" type="button" data-v124-more-target="spending" aria-label="Spending"><span class="mobile-action-icon"><span data-hero="wallet"></span></span><span>Spending</span></button><button class="mobile-more-destination" type="button" data-v124-more-target="daily-allowance" aria-label="Daily allowance"><span class="mobile-action-icon"><span data-hero="calendar-days"></span></span><span>Daily allowance</span></button><button class="mobile-more-destination" type="button" data-v124-more-target="grocery" aria-label="Grocery"><span class="mobile-action-icon"><span data-hero="shopping-cart"></span></span><span>Grocery</span></button><button class="mobile-more-destination" type="button" data-v124-more-target="accounts" aria-label="Accounts"><span class="mobile-action-icon"><span data-hero="building-library"></span></span><span>Accounts</span></button><button class="mobile-more-destination" type="button" data-v124-more-target="credit-cards" aria-label="Credit cards"><span class="mobile-action-icon"><span data-hero="credit-card"></span></span><span>Credit cards</span></button><button class="mobile-more-destination" type="button" data-v124-more-target="loans" aria-label="Loans &amp; IOUs"><span class="mobile-action-icon"><span data-hero="arrows-right-left"></span></span><span>Loans &amp; IOUs</span></button><button class="mobile-more-destination" type="button" data-v124-more-target="barkada" aria-label="Barkada"><span class="mobile-action-icon"><span data-hero="user-group"></span></span><span>Barkada</span></button><button class="mobile-more-destination" type="button" data-v124-more-target="kkb" aria-label="KKB"><span class="mobile-action-icon"><span data-hero="calculator"></span></span><span>KKB</span></button><button class="mobile-more-destination" type="button" data-v124-more-target="activity" aria-label="Activity"><span class="mobile-action-icon"><span data-hero="clock"></span></span><span>Activity</span></button><button class="mobile-more-destination" type="button" data-v124-more-target="calendar" aria-label="Calendar"><span class="mobile-action-icon"><span data-hero="calendar-days"></span></span><span>Calendar</span></button><button class="mobile-more-destination" type="button" data-v124-more-target="forecast" aria-label="Forecast"><span class="mobile-action-icon"><span data-hero="chart-bar-square"></span></span><span>Forecast</span></button><button class="mobile-more-destination" type="button" data-v124-more-target="decisions" aria-label="Decisions"><span class="mobile-action-icon"><span data-hero="calculator"></span></span><span>Decisions</span></button><button class="mobile-more-destination" type="button" data-v124-more-target="goals" aria-label="Goals"><span class="mobile-action-icon"><span data-hero="flag"></span></span><span>Goals</span></button><button class="mobile-more-destination" type="button" data-v124-more-target="rewards" aria-label="Rewards"><span class="mobile-action-icon"><span data-hero="trophy"></span></span><span>Rewards</span></button><button class="mobile-more-destination" type="button" data-v124-more-target="monthly-statement" aria-label="Statements"><span class="mobile-action-icon"><span data-hero="banknotes"></span></span><span>Statements</span></button><button class="mobile-more-destination" type="button" data-v124-more-target="wrapped" aria-label="Wrapped"><span class="mobile-action-icon"><span data-hero="sparkles"></span></span><span>Wrapped</span></button><button class="mobile-more-destination" type="button" data-v124-more-target="settings" aria-label="Customize"><span class="mobile-action-icon"><span data-hero="adjustments-horizontal"></span></span><span>Customize</span></button><button class="mobile-more-destination" type="button" data-v124-more-target="user-manual" aria-label="User manual"><span class="mobile-action-icon"><span data-hero="question-mark-circle"></span></span><span>User manual</span></button></div>
     <div class="mobile-sheet-section-title">Tools</div>
     <div class="mobile-tools-row">
       <button class="mobile-tool-action" id="v124MobileSearchBtn" type="button"><span data-hero="magnifying-glass"></span><span>Search</span></button>
@@ -20893,9 +20876,14 @@ maybeStartFirstRunSetup();
     const value=String(name||"").trim();
     return V122_BANKS.find(b=>b.re.test(value))||null;
   }
+  const V122_BANK_LOGOS={bpi:{logo:'https://commons.wikimedia.org/wiki/Special:Redirect/file/Official_BPI_Logo.svg',domain:'bpi.com.ph'},landbank:{logo:'https://commons.wikimedia.org/wiki/Special:Redirect/file/Landbank.svg',domain:'landbank.com'},bdo:{logo:'https://commons.wikimedia.org/wiki/Special:Redirect/file/BDO_Unibank_%28logo%29.svg',domain:'bdo.com.ph'},eastwest:{logo:'https://commons.wikimedia.org/wiki/Special:Redirect/file/EastWest_Bank_2011_h-pos_logo.svg',domain:'eastwestbanker.com'},maribank:{logo:'',domain:'maribank.ph'},metrobank:{logo:'',domain:'metrobank.com.ph'},unionbank:{logo:'',domain:'unionbankph.com'},securitybank:{logo:'',domain:'securitybank.com'},rcbc:{logo:'',domain:'rcbc.com'},chinabank:{logo:'',domain:'chinabank.ph'},pnb:{logo:'https://commons.wikimedia.org/wiki/Special:Redirect/file/Philippine-National-Bank-logo.svg',domain:'pnb.com.ph'},psbank:{logo:'',domain:'psbank.com.ph'},aub:{logo:'',domain:'aub.com.ph'},cimb:{logo:'',domain:'cimbbank.com.ph'},seabank:{logo:'',domain:'seabank.ph'},gotyme:{logo:'',domain:'gotyme.com.ph'},tonik:{logo:'',domain:'tonikbank.com'},ownbank:{logo:'',domain:'ownbank.com.ph'},komo:{logo:'',domain:'komo.ph'},maya:{logo:'',domain:'maya.ph'},gcash:{logo:'',domain:'gcash.com'},diskartech:{logo:'',domain:'diskartech.ph'},shopeepay:{logo:'',domain:'shopee.ph'},grabpay:{logo:'',domain:'grab.com'}};
   function v122BankMark(brand,compact=false){
     if(!brand)return "";
-    return `<span class="bank-brand-mark${compact?" compact":""}" data-bank="${brand.key}" style="--bank-color:${brand.color}" aria-label="${brand.label}">${brand.label}</span>`;
+    const meta=V122_BANK_LOGOS[brand.key]||{};
+    const favicon=meta.domain?`https://www.google.com/s2/favicons?domain=${encodeURIComponent(meta.domain)}&sz=128`:"";
+    const primary=meta.logo||favicon;
+    const fallback=meta.logo&&favicon?` data-fallback="${favicon.replace(/&/g,"&amp;")}"`:"";
+    return `<span class="bank-brand-mark${compact?" compact":""}" data-bank="${brand.key}" data-v125-logo="1" aria-label="${brand.label} logo"><img src="${primary}" alt="${brand.label} logo" loading="lazy" decoding="async" referrerpolicy="no-referrer"${fallback}></span>`;
   }
   function v122OpenModal(id,focusId){
     const modal=$(id);if(!modal)return;
@@ -21014,7 +21002,7 @@ maybeStartFirstRunSetup();
       const account=state.accounts[index];if(!account)return;
       const icon=card.querySelector(".account-card-icon");
       const brand=v122BankBrand(account.name);
-      if(icon&&brand)icon.innerHTML=v122BankMark(brand);
+      if(icon&&brand&&!icon.querySelector(`.bank-brand-mark[data-bank="${brand.key}"]`))icon.innerHTML=v122BankMark(brand);
       if(card.dataset.v122AccountEnhanced==="1")return;
       card.dataset.v122AccountEnhanced="1";
       const head=card.querySelector(".account-card-head");
@@ -21336,6 +21324,460 @@ maybeStartFirstRunSetup();
   document.querySelectorAll(".command-result").forEach(()=>{});
   hydrateHeroIcons(document);
   v122Enhance();
+})();
+</script>
+
+
+<style id="sinop-v125-minimal-mobile-ux">
+/* ===== SINOP v125 · minimal, readable mobile UX ===== */
+
+/* Actual bank artwork is displayed as-is inside a neutral container. */
+.bank-brand-mark{
+  background:#fff!important;color:inherit!important;border:1px solid var(--border)!important;
+  padding:5px!important;overflow:hidden!important;box-shadow:none!important
+}
+.bank-brand-mark img{
+  display:block;width:100%;height:100%;object-fit:contain;object-position:center;
+  border:0!important;border-radius:0!important;filter:none!important;transform:none!important
+}
+.bank-brand-mark.compact{padding:4px!important}
+
+.v125-disclosure-trigger,.v125-info-toggle,.v125-table-more{display:none}
+.v125-summary-cell{display:none!important}
+
+@media(max-width:760px){
+  /* Minimal means less content at once, not tiny text. */
+  body{font-size:14px}
+  .main{padding-left:10px!important;padding-right:10px!important}
+  .section,.section.active{min-width:0!important;max-width:100%!important}
+  .section>*{min-width:0!important;max-width:100%}
+  .section-head,.page-head{min-width:0!important;max-width:100%!important}
+  .section-head>*,.page-head>*{min-width:0!important}
+  .page-head{margin:2px 0 12px!important;gap:8px!important}
+  .page-head h2,.section-head h2{font-size:19px!important;line-height:1.2!important;overflow-wrap:anywhere}
+  .page-head .eyebrow{font-size:9px!important}
+  .page-head .subtle{
+    display:-webkit-box!important;-webkit-box-orient:vertical;-webkit-line-clamp:2;
+    overflow:hidden!important;font-size:12px!important;line-height:1.45!important;overflow-wrap:anywhere
+  }
+  .section-head .subtle,.card p,.card small,.mini small,.table-hint,.double-count-warning,
+  .barkada-privacy-note,.kkb-note,.account-select-note,.salary-treatment-note{
+    overflow-wrap:anywhere!important;word-break:normal!important
+  }
+
+  /* Header actions stay compact and tappable. */
+  .page-head>.action-row{width:100%!important;display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:7px!important}
+  .page-head>.action-row .btn{min-height:42px!important;padding:8px 9px!important;font-size:11px!important;white-space:normal!important;line-height:1.2!important}
+  .page-head>.badge{font-size:11px!important}
+
+  /* Horizontal KPI strips replace tall stacks throughout the app. */
+  .summary-grid,.analytics-grid,.income-payroll-summary,.bill-payment-summary,.commitment-breakdown-grid,
+  .daily-summary-grid,.account-summary-grid,.barkada-summary-grid,.loan-summary-grid,.credit-summary-grid,
+  .os-kpi-grid,.preview-grid{
+    display:flex!important;grid-template-columns:none!important;gap:8px!important;overflow-x:auto!important;
+    overflow-y:hidden!important;max-width:100%!important;padding:1px 1px 5px!important;margin-bottom:10px!important;
+    scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch;scrollbar-width:none
+  }
+  .summary-grid::-webkit-scrollbar,.analytics-grid::-webkit-scrollbar,.income-payroll-summary::-webkit-scrollbar,
+  .bill-payment-summary::-webkit-scrollbar,.commitment-breakdown-grid::-webkit-scrollbar,.daily-summary-grid::-webkit-scrollbar,
+  .account-summary-grid::-webkit-scrollbar,.barkada-summary-grid::-webkit-scrollbar,.loan-summary-grid::-webkit-scrollbar,
+  .credit-summary-grid::-webkit-scrollbar,.os-kpi-grid::-webkit-scrollbar,.preview-grid::-webkit-scrollbar{display:none}
+  .summary-grid>* ,.analytics-grid>* ,.income-payroll-summary>* ,.bill-payment-summary>* ,.commitment-breakdown-grid>* ,
+  .daily-summary-grid>* ,.account-summary-grid>* ,.barkada-summary-grid>* ,.loan-summary-grid>* ,.credit-summary-grid>* ,
+  .os-kpi-grid>* ,.preview-grid>*{
+    flex:0 0 min(42vw,158px)!important;width:min(42vw,158px)!important;min-width:min(42vw,158px)!important;
+    scroll-snap-align:start!important;padding:10px 11px!important;border-radius:13px!important;box-sizing:border-box!important
+  }
+  .metric span,.analytics-card span,.income-payroll-card span,.bill-payment-card span,.commitment-breakdown-card span,
+  .daily-summary-card span,.account-summary-card span,.barkada-summary-card span,.loan-summary-card span,.credit-summary-card span{
+    font-size:10px!important;line-height:1.25!important
+  }
+  .metric strong,.analytics-card strong,.income-payroll-card strong,.bill-payment-card strong,.commitment-breakdown-card strong,
+  .daily-summary-card strong,.account-summary-card strong,.barkada-summary-card strong,.loan-summary-card strong,.credit-summary-card strong{
+    font-size:17px!important;line-height:1.2!important;margin-top:4px!important
+  }
+
+  /* Goal summary keeps its card, but its three metrics scroll instead of stacking. */
+  #goals>.goal-summary{display:flex!important;overflow-x:auto!important;gap:0!important;padding:10px!important;margin-bottom:10px!important;scrollbar-width:none}
+  #goals>.goal-summary::-webkit-scrollbar{display:none}
+  #goals>.goal-summary>div{flex:0 0 44vw!important;min-width:140px!important;padding:6px 10px!important;border-left:0!important}
+  #goals>.goal-summary>div+div{border-left:1px solid var(--border)!important}
+  #goals>.goal-summary span{font-size:10px!important}
+  #goals>.goal-summary strong{font-size:18px!important}
+
+  /* Small informational grids scroll sideways instead of producing several tall cards. */
+  .info-grid{display:flex!important;overflow-x:auto!important;gap:8px!important;scrollbar-width:none;margin-top:10px!important}
+  .info-grid::-webkit-scrollbar{display:none}
+  .info-grid>.mini{flex:0 0 min(72vw,250px)!important;padding:11px 12px!important}
+  .info-grid>.mini span,.info-grid>.mini small{font-size:10px!important}
+  .info-grid>.mini strong{font-size:13px!important}
+
+  /* Income mobile hierarchy: action -> KPIs -> search -> sources. Payroll explainer is redundant with the guide button. */
+  #income{display:flex!important;flex-direction:column!important}
+  #income>.page-head{order:0}
+  #income>.income-payroll-summary{order:1}
+  #income>.list-toolbar{order:2}
+  #income>.table-card{order:3}
+  #income>.info-grid{order:4;display:none!important}
+
+  /* Search/filter bars use screen width efficiently. */
+  .list-toolbar{display:grid!important;grid-template-columns:1fr!important;gap:6px!important;margin:7px 0 9px!important}
+  .toolbar-left{display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;gap:7px!important;width:100%!important;min-width:0!important}
+  .toolbar-left>.search-box{min-width:0!important;width:100%!important}
+  .toolbar-left>.search-box input{font-size:16px!important;min-height:42px!important}
+  .toolbar-select{min-height:42px!important;max-width:145px!important;font-size:12px!important}
+  .toolbar-right{display:none!important}
+  #income .toolbar-left{grid-template-columns:1fr!important}
+
+  /* ===== Dense transaction/commitment lists =====
+     The row is a compact summary. Tap it to disclose the existing full editor.
+     This replaces the previous 'every row is a giant card' behavior. */
+  table.v125-compact-list>tbody{display:grid!important;gap:6px!important}
+  table.v125-compact-list>tbody>tr{
+    display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:7px!important;
+    padding:0!important;border:1px solid var(--border)!important;border-radius:13px!important;
+    background:var(--panel)!important;box-shadow:none!important;overflow:hidden!important;min-width:0!important
+  }
+  table.v125-compact-list>tbody>tr>.v125-summary-cell{
+    display:block!important;grid-column:1/-1!important;order:-1!important;padding:0!important;border:0!important;background:transparent!important
+  }
+  table.v125-compact-list>tbody>tr>.v125-summary-cell::before{display:none!important}
+  table.v125-compact-list>tbody>tr:not(.v125-expanded)>td:not(.v125-summary-cell){display:none!important}
+  table.v125-compact-list>tbody>tr.v125-expanded{padding:0 10px 10px!important}
+  table.v125-compact-list>tbody>tr.v125-expanded>.v125-summary-cell{margin:0 -10px 2px!important}
+  table.v125-compact-list>tbody>tr.v125-expanded>td:not(.v125-summary-cell){
+    display:grid!important;min-width:0!important;padding:8px!important;border:1px solid var(--border)!important;
+    border-radius:10px!important;background:var(--soft)!important
+  }
+  table.v125-compact-list>tbody>tr.v125-expanded>td.v122-mobile-full,
+  table.v125-compact-list>tbody>tr.v125-expanded>td[colspan]{grid-column:1/-1!important}
+  table.v125-compact-list>tbody>tr.v125-expanded>td::before{font-size:9px!important;letter-spacing:.04em!important}
+  .v125-row-summary{
+    appearance:none;-webkit-appearance:none;width:100%;min-height:62px;padding:9px 10px;border:0;background:transparent;color:var(--text);
+    display:grid;grid-template-columns:minmax(0,1fr) auto 18px;align-items:center;gap:9px;text-align:left;font:inherit
+  }
+  .v125-row-summary:active{background:var(--soft)}
+  .v125-row-main{min-width:0;display:grid;gap:3px}
+  .v125-row-main strong{font-size:13px!important;line-height:1.2!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .v125-row-main small{font-size:10px!important;line-height:1.3!important;color:var(--muted)!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .v125-row-value{min-width:0;display:grid;gap:3px;text-align:right;justify-items:end}
+  .v125-row-value strong{font-size:13px!important;line-height:1.2!important;white-space:nowrap}
+  .v125-row-value small{max-width:112px;font-size:9.5px!important;line-height:1.2!important;color:var(--muted)!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .v125-row-chevron{display:grid;place-items:center;color:var(--muted)}
+  .v125-row-chevron .hero-icon{width:15px!important;height:15px!important;transition:transform .16s ease}
+  tr.v125-expanded .v125-row-chevron .hero-icon{transform:rotate(180deg)}
+  .v125-table-row-hidden{display:none!important}
+  .v125-table-more{
+    display:flex!important;width:100%;min-height:42px;margin:7px 0 0;border:1px solid var(--border);border-radius:11px;
+    background:var(--soft);color:var(--text);align-items:center;justify-content:center;gap:6px;font-size:11px;font-weight:800
+  }
+
+  /* Recurring gets the densest pattern because users may have dozens of commitments. */
+  #bills .next-cycle-reserve{padding:11px!important;margin-bottom:9px!important;border-radius:13px!important}
+  #bills .next-cycle-reserve-head{gap:8px!important;align-items:center!important}
+  #bills .next-cycle-reserve-head h3{font-size:13px!important;margin:0!important}
+  #bills #nextCycleReserveCopy{display:none!important}
+  #bills .next-cycle-reserve-total span{font-size:9px!important}
+  #bills .next-cycle-reserve-total strong{font-size:15px!important}
+  #bills .commitment-breakdown-grid>*{flex-basis:128px!important;width:128px!important;min-width:128px!important}
+  #bills .table-hint{margin-top:8px!important}
+  #bills .bill-occurrence-line{min-height:44px!important}
+  #bills .bill-actions{display:grid!important;grid-template-columns:1fr auto!important;gap:7px!important}
+
+  /* Accounts: KPIs no longer block access to the actual accounts. */
+  #accounts>.account-summary-grid{order:0}
+  #accountGrid .account-card{padding:11px!important;border-radius:14px!important}
+  #accountGrid .account-balance>strong{font-size:23px!important}
+  #accountGrid .account-mobile-toggle{margin-top:8px!important;min-height:39px!important;font-size:11px!important}
+  #accountGrid .account-card-title strong{font-size:13px!important}
+  #accountGrid .account-card-title small{font-size:10px!important}
+  #accountGrid .account-balance>span,#accountGrid .account-balance>small{font-size:10px!important}
+
+  /* More contains every sidebar destination in a compact 3-column grid. */
+  #mobileMoreSheet .mobile-action-sheet-panel{max-height:min(84dvh,720px)!important}
+  #mobileMoreSheet .mobile-sheet-head{padding-bottom:8px!important}
+  #mobileMoreSheet .mobile-sheet-head-copy p{display:none!important}
+  #mobileMoreSheet .mobile-more-grid{
+    display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:6px!important;padding-top:2px!important
+  }
+  #mobileMoreSheet .mobile-more-destination{
+    min-height:64px!important;padding:7px 4px!important;border-radius:12px!important;display:flex!important;
+    flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:5px!important;text-align:center!important
+  }
+  #mobileMoreSheet .mobile-more-destination>.mobile-action-icon{width:28px!important;height:28px!important;border-radius:9px!important}
+  #mobileMoreSheet .mobile-more-destination>.mobile-action-icon .hero-icon{width:16px!important;height:16px!important}
+  #mobileMoreSheet .mobile-more-destination>span:last-child{
+    width:100%!important;min-width:0!important;font-size:10px!important;line-height:1.15!important;font-weight:750!important;
+    white-space:normal!important;overflow-wrap:anywhere!important
+  }
+
+  /* Progressive disclosure for secondary/verbose cards. */
+  .v125-disclosure-trigger{
+    display:flex!important;width:100%;min-height:43px;margin:7px 0;padding:8px 10px;border:1px solid var(--border);border-radius:12px;
+    background:var(--panel);color:var(--text);align-items:center;justify-content:space-between;gap:10px;text-align:left;font:inherit;font-weight:800;font-size:11px
+  }
+  .v125-disclosure-trigger .v125-disclosure-copy{display:flex;align-items:center;gap:8px;min-width:0}
+  .v125-disclosure-trigger .hero-icon{width:17px!important;height:17px!important;color:var(--brand)}
+  .v125-disclosure-trigger .v125-disclosure-chevron .hero-icon{color:var(--muted);transition:transform .16s ease}
+  .v125-disclosure-trigger[aria-expanded="true"] .v125-disclosure-chevron .hero-icon{transform:rotate(180deg)}
+  .v125-collapsible-card:not(.v125-open){display:none!important}
+
+  /* Long explanatory blocks show only a compact preview until requested. */
+  .v125-info-collapsible{position:relative!important;max-height:48px!important;overflow:hidden!important;padding-bottom:8px!important}
+  .v125-info-collapsible:not(.v125-info-expanded)::after{
+    content:"";position:absolute;left:0;right:0;bottom:0;height:24px;background:linear-gradient(transparent,var(--panel));pointer-events:none
+  }
+  .v125-info-collapsible.v125-info-expanded{max-height:none!important}
+  .v125-info-collapsible.v125-info-expanded::after{display:none!important}
+  .v125-info-toggle{
+    display:flex!important;min-height:36px;margin:4px 0 8px;padding:0 8px;border:0;border-radius:9px;background:var(--soft);color:var(--brand2);
+    align-items:center;gap:5px;font-size:10px;font-weight:800
+  }
+
+  /* Cards and chips must never allow text to paint outside their bounds. */
+  .card,.metric,.analytics-card,.mini,.account-card,.goal-card,.credit-card-card,.loan-card,.barkada-summary-card,
+  .daily-summary-card,.bill-payment-card,.commitment-breakdown-card{min-width:0!important;max-width:100%!important}
+  .card *,.metric *,.analytics-card *,.mini *,.account-card *,.goal-card *,.credit-card-card *,.loan-card *{min-width:0}
+  .btn,.text-btn,.badge,.summary-pill,.commitment-type-pill,.account-type-pill{
+    max-width:100%!important;white-space:normal!important;overflow-wrap:anywhere!important
+  }
+  .summary-pill,.commitment-type-pill,.badge{line-height:1.2!important}
+
+  /* Reduce unnecessary vertical gaps between modules' major blocks. */
+  .section>.card,.section>article.card{margin-bottom:9px!important}
+  .section-head{margin-bottom:9px!important}
+}
+
+@media(max-width:390px){
+  #mobileMoreSheet .mobile-more-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+  .v125-row-summary{grid-template-columns:minmax(0,1fr) auto 16px;padding-left:9px;padding-right:8px}
+  .v125-row-main strong{font-size:12.5px!important}
+  .v125-row-value strong{font-size:12.5px!important}
+}
+</style>
+
+<script id="sinop-v125-minimal-mobile-ux-script">
+(() => {
+  const mq=window.matchMedia('(max-width:760px)');
+
+  /* Real, unmodified brand artwork. Major banks use their published vector logos;
+     the remainder use the favicon supplied by the bank's official website. */
+  const V125_BANKS=[
+    {key:'bpi',label:'BPI',re:/\b(bpi|bank of the philippine islands)\b/i,logo:'https://commons.wikimedia.org/wiki/Special:Redirect/file/Official_BPI_Logo.svg',domain:'bpi.com.ph'},
+    {key:'landbank',label:'LANDBANK',re:/\b(land\s*bank|landbank|lbp)\b/i,logo:'https://commons.wikimedia.org/wiki/Special:Redirect/file/Landbank.svg',domain:'landbank.com'},
+    {key:'bdo',label:'BDO',re:/\b(bdo|banco de oro)\b/i,logo:'https://commons.wikimedia.org/wiki/Special:Redirect/file/BDO_Unibank_%28logo%29.svg',domain:'bdo.com.ph'},
+    {key:'eastwest',label:'EastWest Bank',re:/\b(east\s*west|eastwest)\b/i,logo:'https://commons.wikimedia.org/wiki/Special:Redirect/file/EastWest_Bank_2011_h-pos_logo.svg',domain:'eastwestbanker.com'},
+    {key:'maribank',label:'MariBank',re:/\b(mari\s*bank|maribank)\b/i,domain:'maribank.ph'},
+    {key:'seabank',label:'SeaBank',re:/\b(sea\s*bank|seabank)\b/i,domain:'seabank.ph'},
+    {key:'metrobank',label:'Metrobank',re:/\b(metrobank|metropolitan bank)\b/i,domain:'metrobank.com.ph'},
+    {key:'unionbank',label:'UnionBank',re:/\b(union\s*bank|unionbank)\b/i,domain:'unionbankph.com'},
+    {key:'securitybank',label:'Security Bank',re:/\b(security\s*bank|securitybank|sbc)\b/i,domain:'securitybank.com'},
+    {key:'rcbc',label:'RCBC',re:/\b(rcbc|rizal commercial)\b/i,domain:'rcbc.com'},
+    {key:'chinabank',label:'China Bank',re:/\b(china\s*bank|chinabank|cbc)\b/i,domain:'chinabank.ph'},
+    {key:'pnb',label:'PNB',re:/\b(pnb|philippine national bank)\b/i,logo:'https://commons.wikimedia.org/wiki/Special:Redirect/file/Philippine-National-Bank-logo.svg',domain:'pnb.com.ph'},
+    {key:'psbank',label:'PSBank',re:/\b(psbank|philippine savings bank)\b/i,domain:'psbank.com.ph'},
+    {key:'aub',label:'AUB',re:/\b(aub|asia united bank)\b/i,domain:'aub.com.ph'},
+    {key:'cimb',label:'CIMB',re:/\bcimb\b/i,domain:'cimbbank.com.ph'},
+    {key:'gotyme',label:'GoTyme Bank',re:/\b(go\s*tyme|gotyme)\b/i,domain:'gotyme.com.ph'},
+    {key:'tonik',label:'Tonik',re:/\btonik\b/i,domain:'tonikbank.com'},
+    {key:'ownbank',label:'OwnBank',re:/\bown\s*bank\b|\bownbank\b/i,domain:'ownbank.com.ph'},
+    {key:'komo',label:'Komo',re:/\bkomo\b/i,domain:'komo.ph'},
+    {key:'bankcom',label:'Bank of Commerce',re:/\b(bank of commerce|bankcom)\b/i,domain:'bankcom.com.ph'},
+    {key:'dbp',label:'DBP',re:/\b(dbp|development bank of the philippines)\b/i,domain:'dbp.ph'},
+    {key:'maybank',label:'Maybank',re:/\bmaybank\b/i,domain:'maybank.com.ph'},
+    {key:'pbcom',label:'PBCOM',re:/\b(pbcom|philippine bank of communications)\b/i,domain:'pbcom.com.ph'},
+    {key:'maya',label:'Maya',re:/\b(maya|paymaya)\b/i,domain:'maya.ph'},
+    {key:'gcash',label:'GCash',re:/\bg\s*cash\b|\bgcash\b/i,domain:'gcash.com'},
+    {key:'diskartech',label:'DiskarTech',re:/\bdiskar\s*tech\b|\bdiskartech\b/i,domain:'diskartech.ph'},
+    {key:'shopeepay',label:'ShopeePay',re:/\bshopee\s*pay\b|\bshopeepay\b/i,domain:'shopee.ph'},
+    {key:'grabpay',label:'GrabPay',re:/\bgrab\s*pay\b|\bgrabpay\b/i,domain:'grab.com'}
+  ];
+  const byKey=Object.fromEntries(V125_BANKS.map(x=>[x.key,x]));
+  const brandForName=name=>V125_BANKS.find(x=>x.re.test(String(name||'')))||null;
+  const favicon=domain=>`https://www.google.com/s2/favicons?domain=${encodeURIComponent(domain)}&sz=128`;
+  function logoMarkup(brand,compact=false){
+    if(!brand)return '';
+    const primary=brand.logo||favicon(brand.domain);
+    const fallback=brand.logo&&brand.domain?favicon(brand.domain):'';
+    const fallbackAttr=fallback?` data-fallback="${fallback.replace(/&/g,'&amp;')}"`:'';
+    return `<span class="bank-brand-mark${compact?' compact':''}" data-bank="${brand.key}" data-v125-logo="1" aria-label="${brand.label} logo"><img src="${primary}" alt="${brand.label} logo" loading="lazy" decoding="async" referrerpolicy="no-referrer"${fallbackAttr}></span>`;
+  }
+  function armLogoFallback(root=document){
+    root.querySelectorAll('.bank-brand-mark img[data-fallback]').forEach(img=>{
+      if(img.dataset.v125FallbackArmed==='1')return;img.dataset.v125FallbackArmed='1';
+      img.addEventListener('error',()=>{const next=img.dataset.fallback;if(next&&img.src!==next){img.removeAttribute('data-fallback');img.src=next}});
+    });
+  }
+  function applyBankLogos(){
+    /* Replace old synthetic letter marks already produced by v122. */
+    document.querySelectorAll('.bank-brand-mark[data-bank]').forEach(mark=>{
+      const brand=byKey[mark.dataset.bank];if(!brand)return;
+      if(mark.dataset.v125Logo==='1')return;
+      const shell=document.createElement('div');shell.innerHTML=logoMarkup(brand,mark.classList.contains('compact'));
+      mark.replaceWith(shell.firstElementChild);
+    });
+    /* Also recognize banks that were not in the old v122 mapping. */
+    const grid=$('accountGrid');
+    if(grid){
+      [...grid.querySelectorAll('.account-card')].forEach((card,index)=>{
+        const account=state.accounts?.[index];if(!account)return;
+        const brand=brandForName(account.name);if(!brand)return;
+        const icon=card.querySelector('.account-card-icon');if(icon&&!icon.querySelector('.bank-brand-mark[data-v125-logo="1"]'))icon.innerHTML=logoMarkup(brand);
+      });
+    }
+    armLogoFallback();
+  }
+
+  /* Account editor preview uses the same real brand artwork. */
+  function refreshActualLogoPreview(){
+    const input=$('accountEditName'),preview=$('accountBrandPreview');if(!input||!preview)return;
+    const brand=brandForName(input.value);if(!brand)return;
+    if(preview.dataset.v125BrandKey===brand.key&&preview.querySelector('.bank-brand-mark[data-v125-logo="1"]'))return;
+    preview.dataset.v125BrandKey=brand.key;
+    preview.innerHTML=`${logoMarkup(brand)}<div><strong>${brand.label} recognized</strong><small>Official bank artwork will be shown automatically on this account.</small></div>`;
+    preview.classList.add('show');armLogoFallback(preview);
+    if(!editingAccountId&&$('accountEditType'))$('accountEditType').value=/\b(maya|gcash|diskar|shopee|grab)\b/i.test(input.value)?'ewallet':'bank';
+  }
+  $('accountEditName')?.addEventListener('input',()=>requestAnimationFrame(refreshActualLogoPreview));
+
+  function cleanText(value){return String(value||'').replace(/\s+/g,' ').trim()}
+  function safeMoney(v){try{return money(Number(v||0))}catch{return `₱${Number(v||0).toLocaleString('en-PH',{minimumFractionDigits:2,maximumFractionDigits:2})}`}}
+
+  function compactSummary(row,type){
+    const cells=[...row.children].filter(c=>c.tagName==='TD'&&!c.classList.contains('v125-summary-cell'));
+    if(type==='income'){
+      const name=row.querySelector('.i-name')?.value||cleanText(cells[0]?.textContent)||'Income';
+      const kind=row.querySelector('.i-kind')?.value||'';
+      const freq=row.querySelector('.i-frequency')?.selectedOptions?.[0]?.textContent||'';
+      const net=cleanText(row.querySelector('.i-monthly')?.textContent)||'—';
+      const receipt=cleanText(row.querySelector('.income-receipt-summary')?.textContent)||'Not received';
+      return {name,meta:[kind,freq].filter(Boolean).join(' · '),value:net,status:receipt};
+    }
+    if(type==='spending'){
+      const name=row.querySelector('.s-desc')?.value||'Untitled expense';
+      const date=row.querySelector('.s-date')?.value||'No date';
+      const cat=row.querySelector('.s-cat')?.value||'Uncategorized';
+      const amount=safeMoney(row.querySelector('.s-amount')?.value||0);
+      const status=row.querySelector('.s-status')?.value==='planned'?'Planned':'Actual';
+      return {name,meta:`${date} · ${cat}`,value:amount,status};
+    }
+    if(type==='bills'){
+      const name=cleanText(cells[0]?.querySelector('strong')?.textContent)||'Commitment';
+      const typeLabel=cleanText(cells[1]?.textContent)||'Recurring';
+      const planned=cleanText(cells[3]?.textContent)||'—';
+      const due=cleanText(cells[6]?.querySelector('strong')?.textContent)||cleanText(cells[6]?.textContent)||'No due date';
+      const status=cleanText(cells[5]?.querySelector('.summary-pill')?.textContent)||cleanText(cells[5]?.textContent)||'Pending';
+      return {name,meta:`${typeLabel} · ${due}`,value:planned,status};
+    }
+    return {name:'Record',meta:'Tap for details',value:'',status:''};
+  }
+  function refreshRowSummary(row,type){
+    const cell=row.querySelector(':scope > .v125-summary-cell');if(!cell)return;
+    const s=compactSummary(row,type);
+    const expanded=row.classList.contains('v125-expanded');
+    const sig=JSON.stringify([s.name,s.meta,s.value,s.status,expanded]);
+    if(cell.dataset.v125Sig===sig)return;
+    cell.dataset.v125Sig=sig;
+    cell.innerHTML=`<button class="v125-row-summary" type="button" aria-expanded="${expanded?'true':'false'}"><span class="v125-row-main"><strong>${esc(s.name)}</strong><small>${esc(s.meta)}</small></span><span class="v125-row-value"><strong>${esc(s.value)}</strong><small>${esc(s.status)}</small></span><span class="v125-row-chevron"><span data-hero="chevron-down"></span></span></button>`;
+    const btn=cell.querySelector('.v125-row-summary');
+    btn.addEventListener('click',()=>{
+      const table=row.closest('table');
+      table?.querySelectorAll('tbody>tr.v125-expanded').forEach(other=>{if(other!==row){other.classList.remove('v125-expanded');refreshRowSummary(other,type)}});
+      row.classList.toggle('v125-expanded');refreshRowSummary(row,type);
+    });
+    hydrateHeroIcons(cell);
+  }
+  function enhanceCompactTable(selector,type){
+    const table=document.querySelector(selector);if(!table)return;
+    table.classList.add('v125-compact-list');
+    table.querySelectorAll('tbody>tr').forEach(row=>{
+      if(row.querySelector('.empty'))return;
+      let cell=row.querySelector(':scope > .v125-summary-cell');
+      if(!cell){
+        cell=document.createElement('td');cell.className='v125-summary-cell';cell.colSpan=Math.max(1,table.querySelectorAll('thead th').length);row.appendChild(cell);
+        row.addEventListener('input',()=>refreshRowSummary(row,type));
+        row.addEventListener('change',()=>requestAnimationFrame(()=>refreshRowSummary(row,type)));
+      }
+      refreshRowSummary(row,type);
+    });
+  }
+
+  function tableIsFiltered(type){
+    if(type==='income')return !!$('incomeSearch')?.value.trim();
+    if(type==='spending')return !!$('spendSearch')?.value.trim()||($('spendStatusFilter')?.value||'all')!=='all';
+    if(type==='bills')return !!$('billSearch')?.value.trim()||($('billStatusFilter')?.value||'all')!=='all';
+    return false;
+  }
+  function limitCompactRows(selector,type,limit){
+    const table=document.querySelector(selector);if(!table||!mq.matches)return;
+    const card=table.closest('.table-card')||table.parentElement;
+    let toggle=card.querySelector(':scope > .v125-table-more');
+    const rows=[...table.querySelectorAll('tbody>tr')].filter(r=>!r.querySelector('.empty')&&!r.hidden);
+    if(tableIsFiltered(type)||rows.length<=limit){
+      rows.forEach(r=>r.classList.remove('v125-table-row-hidden'));toggle?.remove();return;
+    }
+    const expanded=card.dataset.v125TableExpanded==='1';
+    rows.forEach((r,i)=>r.classList.toggle('v125-table-row-hidden',!expanded&&i>=limit));
+    if(!toggle){toggle=document.createElement('button');toggle.type='button';toggle.className='v125-table-more';card.appendChild(toggle);toggle.addEventListener('click',()=>{card.dataset.v125TableExpanded=card.dataset.v125TableExpanded==='1'?'0':'1';queueEnhance()})}
+    toggle.textContent=expanded?'Show less':`View all (${rows.length})`;
+  }
+
+  function makeDisclosure(selector,label,icon='adjustments-horizontal'){
+    const card=document.querySelector(selector);if(!card||card.dataset.v125Disclosure==='1')return;
+    card.dataset.v125Disclosure='1';card.classList.add('v125-collapsible-card');
+    const btn=document.createElement('button');btn.type='button';btn.className='v125-disclosure-trigger';btn.setAttribute('aria-expanded','false');
+    btn.innerHTML=`<span class="v125-disclosure-copy"><span data-hero="${icon}"></span><span>${esc(label)}</span></span><span class="v125-disclosure-chevron"><span data-hero="chevron-down"></span></span>`;
+    card.insertAdjacentElement('beforebegin',btn);hydrateHeroIcons(btn);
+    btn.addEventListener('click',()=>{const open=!card.classList.contains('v125-open');card.classList.toggle('v125-open',open);btn.setAttribute('aria-expanded',open?'true':'false')});
+  }
+
+  function makeInfoToggle(selector,label='More details'){
+    const el=document.querySelector(selector);if(!el||el.dataset.v125Info==='1')return;
+    el.dataset.v125Info='1';el.classList.add('v125-info-collapsible');
+    const btn=document.createElement('button');btn.type='button';btn.className='v125-info-toggle';btn.textContent=label;el.insertAdjacentElement('afterend',btn);
+    btn.addEventListener('click',()=>{const open=el.classList.toggle('v125-info-expanded');btn.textContent=open?'Show less':label});
+  }
+
+  function setupDisclosures(){
+    makeDisclosure('#spending>.spending-budget-summary','Category budgets','chart-bar');
+    makeDisclosure('#daily-allowance>.daily-setup','Regular schedule setup','calendar-days');
+    makeDisclosure('#goals>.goal-dss','Goal recommendations','sparkles');
+    makeDisclosure('#dashboard>#widgetFixed','Installment schedule','calendar-days');
+    makeDisclosure('#dashboard>#widgetDecision','Decision support','light-bulb');
+    const accountCards=[...document.querySelectorAll('#accounts>article.card.card-pad')];
+    if(accountCards[0])makeDisclosure('#accounts>article.card.card-pad:nth-of-type(1)','Savings & investment additions','arrow-trending-up');
+    if(accountCards[1])makeDisclosure('#accounts>article.card.card-pad:nth-of-type(2)','Transfers','arrows-right-left');
+    makeInfoToggle('#bills>.table-hint','Payment rules');
+    makeInfoToggle('#loans>.double-count-warning','Accounting rule');
+    makeInfoToggle('#barkada>.barkada-privacy-note','Privacy details');
+    makeInfoToggle('#kkb>.kkb-note','How KKB affects your budget');
+    if(document.querySelector('#creditDoubleCountWarning'))makeInfoToggle('#creditDoubleCountWarning','Card accounting details');
+  }
+
+  function activeSection(){return document.querySelector('.section.active')?.id||'overview'}
+  function syncMoreActive(){document.querySelectorAll('#mobileMoreSheet [data-v124-more-target]').forEach(btn=>btn.classList.toggle('active',btn.dataset.v124MoreTarget===activeSection()))}
+
+  let queued=false,working=false;
+  function enhance(){
+    if(working)return;working=true;
+    try{
+      applyBankLogos();refreshActualLogoPreview();setupDisclosures();syncMoreActive();
+      enhanceCompactTable('.income-table','income');
+      enhanceCompactTable('.spending-table','spending');
+      enhanceCompactTable('.bills-table','bills');
+      limitCompactRows('.income-table','income',6);
+      limitCompactRows('.spending-table','spending',8);
+      limitCompactRows('.bills-table','bills',8);
+    }finally{working=false}
+  }
+  function queueEnhance(){if(queued)return;queued=true;requestAnimationFrame(()=>{queued=false;enhance()})}
+
+  const main=document.querySelector('.main');if(main)new MutationObserver(queueEnhance).observe(main,{childList:true,subtree:true});
+  document.addEventListener('input',e=>{if(e.target.closest('#income,#spending,#bills'))queueEnhance()},{passive:true});
+  document.addEventListener('change',e=>{if(e.target.closest('#income,#spending,#bills'))queueEnhance()});
+  document.addEventListener('click',e=>{if(e.target.closest('.nav-btn,[data-jump],[data-v122-nav-target],[data-v124-more-target]'))requestAnimationFrame(queueEnhance)});
+  mq.addEventListener?.('change',queueEnhance);window.addEventListener('resize',queueEnhance,{passive:true});
+  hydrateHeroIcons(document);enhance();
 })();
 </script>
 
