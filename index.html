@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0f766e">
-<title>SINOP v122 · Mobile app UX</title>
+<title>SINOP v123 · Tracked payment sources</title>
 <meta name="application-name" content="SINOP">
 <meta name="apple-mobile-web-app-title" content="SINOP">
 <meta name="description" content="SINOP — your personal money system for income, spending, savings, investments, goals, KKB, and financial tracking.">
@@ -4587,6 +4587,546 @@ body[data-theme="dark"] .barkada-group-btn,body[data-theme="dark"] .barkada-memb
 <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <script src="https://apis.google.com/js/api.js" async defer></script>
+
+<style id="sinop-v124-mobile-app-ux">
+/* ===== SINOP v122 · mobile app UX refresh ===== */
+.bank-brand-mark{
+  --bank-color:var(--brand);
+  width:40px;height:40px;flex:0 0 40px;border-radius:12px;
+  display:grid;place-items:center;padding:4px;
+  background:var(--bank-color);color:#fff;
+  font-size:10px;line-height:1;font-weight:950;letter-spacing:-.035em;
+  text-align:center;box-shadow:inset 0 0 0 1px rgba(255,255,255,.18);
+}
+.bank-brand-mark[data-bank="bpi"]{font-family:Arial,sans-serif;letter-spacing:-.08em}
+.bank-brand-mark[data-bank="landbank"]{font-size:8px;letter-spacing:-.05em}
+.bank-brand-mark[data-bank="eastwest"]{font-size:8px}
+.bank-brand-mark[data-bank="maribank"]{font-size:8px}
+.bank-brand-mark[data-bank="securitybank"]{font-size:8px}
+.bank-brand-mark[data-bank="unionbank"]{font-size:8px}
+.bank-brand-mark[data-bank="chinabank"]{font-size:8px}
+.bank-brand-mark[data-bank="diskartech"]{font-size:7px}
+.bank-brand-mark.compact{width:30px;height:30px;flex-basis:30px;border-radius:9px;font-size:7px}
+.account-brand-preview{
+  grid-column:1/-1;display:none;align-items:center;gap:10px;
+  padding:10px 11px;border:1px solid var(--border);border-radius:12px;background:var(--soft)
+}
+.account-brand-preview.show{display:flex}
+.account-brand-preview strong{display:block;font-size:9px}
+.account-brand-preview small{display:block;margin-top:2px;color:var(--muted);font-size:7.5px;line-height:1.35}
+.account-mobile-toggle{display:none}
+.account-mobile-details{display:contents}
+.v122-list-toggle,.v122-account-rules-toggle{display:none}
+.v122-create-note{
+  margin:0 0 12px;padding:10px 11px;border:1px solid color-mix(in srgb,var(--brand) 24%,var(--border));
+  border-radius:12px;background:color-mix(in srgb,var(--brandsoft) 42%,var(--panel));
+  color:var(--muted);font-size:8.5px;line-height:1.45
+}
+.v122-create-note strong{color:var(--text)}
+.v122-form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+.v122-field{display:grid;gap:5px;min-width:0}
+.v122-field.full{grid-column:1/-1}
+.v122-field>span{color:var(--muted);font-size:8px;font-weight:800}
+.v122-field input,.v122-field select,.v122-field textarea{
+  width:100%;min-width:0;min-height:42px;border:1px solid var(--border);border-radius:11px;
+  background:var(--panel);color:var(--text);padding:9px 10px;font:inherit;font-size:10px;outline:0
+}
+.v122-field textarea{min-height:82px;resize:vertical}
+.v122-field input:focus,.v122-field select:focus,.v122-field textarea:focus{
+  border-color:color-mix(in srgb,var(--brand) 55%,var(--border));
+  box-shadow:0 0 0 3px color-mix(in srgb,var(--brand) 10%,transparent)
+}
+.v122-participant-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+.v122-participant{
+  display:flex;align-items:center;gap:8px;min-height:42px;padding:8px 9px;
+  border:1px solid var(--border);border-radius:10px;background:var(--panel);font-size:9px
+}
+.v122-participant input{width:17px;height:17px;accent-color:var(--brand)}
+.v122-inline-summary{
+  display:flex;align-items:center;gap:9px;padding:10px;border:1px solid var(--border);
+  border-radius:11px;background:var(--soft)
+}
+.v122-inline-summary .bank-brand-mark{width:34px;height:34px;flex-basis:34px}
+.v122-inline-summary strong{display:block;font-size:9px}
+.v122-inline-summary small{display:block;margin-top:2px;color:var(--muted);font-size:7.5px}
+.v122-create-modal{width:min(620px,100%)}
+.v122-create-modal .modal-foot .btn{min-width:110px}
+
+.mobile-bottom-nav{display:none}
+.v122-mobile-create-grid{display:none}
+.v122-mobile-list-hidden{display:initial}
+
+@media(max-width:760px){
+  html{
+    scroll-padding-bottom:calc(92px + env(safe-area-inset-bottom));
+    -webkit-text-size-adjust:100%;
+  }
+  body{padding-bottom:0}
+  button,a,[role="button"],input,select,textarea{touch-action:manipulation}
+  button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{
+    outline:2px solid color-mix(in srgb,var(--brand) 72%,white);
+    outline-offset:2px
+  }
+
+  /* Primary mobile shell: four destinations + prominent quick-access action. */
+  .main{
+    padding-bottom:calc(96px + env(safe-area-inset-bottom))!important;
+  }
+  .mobile-bottom-nav{
+    position:fixed;z-index:55;left:8px;right:8px;bottom:max(8px,env(safe-area-inset-bottom));
+    height:68px;padding:5px 7px;
+    display:grid;grid-template-columns:1fr 1fr 72px 1fr 1fr;align-items:end;
+    border:1px solid color-mix(in srgb,var(--border) 88%,transparent);
+    border-radius:22px;
+    background:color-mix(in srgb,var(--panel) 95%,transparent);
+    box-shadow:0 15px 40px rgba(24,33,30,.16);
+    backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px)
+  }
+  body[data-theme="dark"] .mobile-bottom-nav{background:color-mix(in srgb,var(--panel) 94%,transparent)}
+  .mobile-bottom-item{
+    min-width:0;height:56px;border:0;border-radius:15px;background:transparent;color:var(--muted);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
+    font-size:7.5px;font-weight:850;padding:0 3px
+  }
+  .mobile-bottom-item .hero-icon{width:20px;height:20px}
+  .mobile-bottom-item.active{color:var(--brand2);background:var(--brandsoft)}
+  .mobile-bottom-create{
+    align-self:start;justify-self:center;transform:translateY(-17px);
+    width:58px;height:58px;border:5px solid var(--bg);border-radius:50%;
+    display:grid;place-items:center;background:var(--brand);color:#fff;
+    box-shadow:0 10px 25px color-mix(in srgb,var(--brand) 30%,transparent);
+    padding:0
+  }
+  .mobile-bottom-create .hero-icon{width:25px;height:25px}
+  .mobile-bottom-create[aria-expanded="true"]{transform:translateY(-17px) rotate(45deg)}
+  .mobile-bottom-create-label{
+    position:absolute;bottom:4px;left:50%;transform:translateX(-50%);
+    color:var(--muted);font-size:7px;font-weight:850;white-space:nowrap
+  }
+
+  /* Convert v121's floating menu into a modern bottom quick-access sheet. */
+  .mobile-quick{
+    display:block!important;position:fixed!important;inset:0!important;z-index:54!important;
+    pointer-events:none!important
+  }
+  .mobile-quick.open{pointer-events:auto!important}
+  .mobile-quick::before{
+    content:"";position:absolute;inset:0;background:rgba(12,20,17,.32);
+    opacity:0;transition:opacity .18s ease;pointer-events:none
+  }
+  .mobile-quick.open::before{opacity:1;pointer-events:auto}
+  .mobile-quick-fab{display:none!important}
+  .mobile-quick-menu{
+    position:absolute!important;left:8px!important;right:8px!important;
+    bottom:calc(83px + max(8px,env(safe-area-inset-bottom)))!important;
+    width:auto!important;max-height:min(72dvh,650px)!important;
+    border-radius:24px!important;padding:14px!important;
+    transform:translateY(22px) scale(.985)!important;transform-origin:bottom center!important;
+    box-shadow:0 24px 70px rgba(13,22,18,.24)!important
+  }
+  .mobile-quick.open .mobile-quick-menu{transform:none!important}
+  .mobile-quick-head{padding:1px 1px 11px!important}
+  .mobile-quick-head span{font-size:8px!important}
+  .mobile-quick-head strong{font-size:15px!important}
+  .mobile-quick-close{width:44px!important;height:44px!important;border-radius:13px!important}
+  .v122-mobile-create-grid{
+    display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;
+    padding-bottom:12px;margin-bottom:12px;border-bottom:1px solid var(--border)
+  }
+  .v122-mobile-create-grid button{
+    min-width:0;min-height:58px;border:1px solid var(--border);border-radius:13px;background:var(--soft);
+    color:var(--text);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;
+    font-size:7.5px;font-weight:850;padding:6px
+  }
+  .v122-mobile-create-grid button .hero-icon{width:18px;height:18px;color:var(--brand2)}
+  .mobile-quick-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:7px!important}
+  .mobile-quick-grid button{
+    min-height:52px!important;padding:8px!important;display:flex!important;flex-direction:column!important;
+    justify-content:center!important;align-items:center!important;text-align:center!important;gap:5px!important
+  }
+  .mobile-quick-grid button .hero-icon{width:18px!important;height:18px!important}
+  .mobile-all-features{min-height:50px!important}
+  .mobile-quick-tools button{min-height:48px!important}
+
+  /* Header actions remain compact and discoverable. */
+  .page-head .action-row{
+    width:100%;display:flex;gap:7px;overflow-x:auto;overscroll-behavior-inline:contain;
+    scrollbar-width:none;padding:1px 1px 3px;flex-wrap:nowrap!important
+  }
+  .page-head .action-row::-webkit-scrollbar{display:none}
+  .page-head .action-row .btn{
+    min-height:42px;flex:0 0 auto;white-space:nowrap;border-radius:12px
+  }
+
+  /* Accounts: surface actual accounts before aggregate analytics and documentation. */
+  #accounts.section.active{
+    display:flex!important;flex-direction:column
+  }
+  #accounts>.page-head{order:0}
+  #accountGrid{order:1;margin:0 0 12px!important}
+  #accounts>.account-summary-grid{order:2}
+  #accounts>.double-count-warning{order:3}
+  #accounts>.v122-account-rules-toggle{order:3}
+  #accounts>article{order:4}
+
+  #accounts>.account-summary-grid{
+    display:flex!important;gap:8px;overflow-x:auto;scroll-snap-type:x proximity;
+    overscroll-behavior-inline:contain;scrollbar-width:none;margin-bottom:12px!important;
+    padding:1px 1px 4px
+  }
+  #accounts>.account-summary-grid::-webkit-scrollbar{display:none}
+  #accounts>.account-summary-grid>.account-summary-card{
+    flex:0 0 142px;scroll-snap-align:start;padding:11px 12px!important;border-radius:14px!important
+  }
+  #accounts>.account-summary-grid>.account-summary-card span{font-size:7.5px!important}
+  #accounts>.account-summary-grid>.account-summary-card strong{font-size:16px!important}
+
+  #accountGrid.account-grid{grid-template-columns:1fr!important;gap:10px!important}
+  #accountGrid .account-card{
+    padding:13px!important;border-radius:17px!important;overflow:hidden;
+    box-shadow:0 4px 14px rgba(24,33,30,.035)
+  }
+  #accountGrid .account-card:before{width:3px}
+  #accountGrid .account-card-head{align-items:center!important;gap:8px!important}
+  #accountGrid .account-card-title{min-width:0;gap:9px!important}
+  #accountGrid .account-card-title>div:last-child{min-width:0}
+  #accountGrid .account-card-title strong{
+    font-size:13px!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:62vw
+  }
+  #accountGrid .account-card-title small{font-size:8px!important}
+  #accountGrid .account-card-icon{
+    width:42px!important;height:42px!important;flex:0 0 42px!important;border-radius:13px!important;
+    background:transparent!important;padding:0!important
+  }
+  #accountGrid .account-card-icon>.hero-icon{width:21px;height:21px}
+  #accountGrid .account-balance{margin-top:12px!important}
+  #accountGrid .account-balance>span{font-size:7.5px!important}
+  #accountGrid .account-balance>strong{font-size:26px!important;letter-spacing:-.025em}
+  #accountGrid .account-balance>small{font-size:7px!important;line-height:1.35!important}
+  #accountGrid .account-mobile-toggle{
+    width:100%;min-height:42px;margin-top:10px;padding:0 10px;
+    border:1px solid var(--border);border-radius:11px;background:var(--soft);color:var(--text);
+    display:flex;align-items:center;justify-content:space-between;gap:8px;
+    font-size:8.5px;font-weight:850
+  }
+  #accountGrid .account-mobile-toggle .hero-icon{width:16px;height:16px;transition:transform .18s ease}
+  #accountGrid .account-card.account-mobile-expanded .account-mobile-toggle .hero-icon{transform:rotate(180deg)}
+  #accountGrid .account-mobile-details{display:none}
+  #accountGrid .account-card.account-mobile-expanded .account-mobile-details{display:block}
+  #accountGrid .account-card-head>.account-card-actions{display:none!important}
+  #accountGrid .account-mobile-details>.account-card-actions{
+    display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px!important;margin-top:10px
+  }
+  #accountGrid .account-mobile-details>.account-card-actions .btn{
+    min-height:40px;padding:7px 6px!important;white-space:normal;font-size:7.5px!important
+  }
+  #accountGrid .account-availability{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:7px!important;margin-top:10px!important}
+  #accountGrid .account-availability>div{padding:9px!important}
+  #accountGrid .account-flow-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:7px!important;margin-top:10px!important
+  }
+  #accountGrid .account-flow-grid>div{padding:8px!important}
+  #accountGrid .account-flow-grid span{font-size:7px!important}
+  #accountGrid .account-flow-grid strong{font-size:9px!important}
+  #accountGrid .account-goal-breakdown{margin-top:10px!important}
+  #accountGrid .account-card-foot{align-items:flex-start!important;flex-direction:column!important;gap:5px!important}
+  #accountGrid .account-card-foot small{font-size:7px!important;line-height:1.4}
+
+  #accounts>.double-count-warning{
+    position:relative;max-height:82px;overflow:hidden;margin-bottom:5px!important;
+    font-size:8px!important;line-height:1.5!important
+  }
+  #accounts>.double-count-warning:not(.v122-expanded)::after{
+    content:"";position:absolute;left:0;right:0;bottom:0;height:42px;
+    background:linear-gradient(transparent,var(--warnsoft));pointer-events:none
+  }
+  #accounts>.double-count-warning.v122-expanded{max-height:none}
+  #accounts>.double-count-warning.v122-expanded::after{display:none}
+  #accounts>.v122-account-rules-toggle{
+    display:flex;width:100%;min-height:40px;margin:0 0 12px;border:0;border-radius:11px;
+    background:var(--soft);color:var(--text);align-items:center;justify-content:center;gap:6px;
+    font-size:8.5px;font-weight:850
+  }
+  #accounts>.v122-account-rules-toggle .hero-icon{width:15px;height:15px}
+
+  /* General progressive disclosure for long dynamic lists. */
+  .v122-list-toggle{
+    display:flex;width:100%;grid-column:1/-1;min-height:42px;margin-top:7px;border:1px solid var(--border);
+    border-radius:11px;background:var(--soft);color:var(--text);
+    align-items:center;justify-content:center;gap:6px;font-size:8.5px;font-weight:850
+  }
+  .v122-mobile-list-hidden{display:none!important}
+
+  /* Standard tables become labeled record cards on phones. */
+  .table-card{border:0!important;background:transparent!important;overflow:visible!important}
+  .table-card>.table-wrap,
+  .inventory-table-wrap,
+  .statement-table-wrap{
+    overflow:visible!important;border:0!important;background:transparent!important
+  }
+  table.v122-card-table{
+    display:block!important;width:100%!important;min-width:0!important;border:0!important;background:transparent!important
+  }
+  table.v122-card-table>thead{display:none!important}
+  table.v122-card-table>tbody{
+    display:grid!important;gap:9px!important;width:100%!important
+  }
+  table.v122-card-table>tbody>tr{
+    display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:8px!important;padding:11px!important;border:1px solid var(--border)!important;
+    border-radius:15px!important;background:var(--panel)!important;
+    box-shadow:0 3px 12px rgba(24,33,30,.03)!important
+  }
+  table.v122-card-table>tbody>tr[hidden]{display:none!important}
+  table.v122-card-table>tbody>tr>td{
+    display:grid!important;align-content:start!important;gap:3px!important;
+    padding:0!important;border:0!important;background:transparent!important;
+    min-width:0!important;text-align:left!important;white-space:normal!important
+  }
+  table.v122-card-table>tbody>tr>td::before{
+    content:attr(data-label);display:block;color:var(--muted);font-size:6.7px;
+    font-weight:900;text-transform:uppercase;letter-spacing:.065em;line-height:1.2
+  }
+  table.v122-card-table>tbody>tr>td.v122-mobile-full{grid-column:1/-1!important}
+  table.v122-card-table>tbody>tr>td[colspan]{grid-column:1/-1!important}
+  table.v122-card-table>tbody>tr>td[colspan]::before,
+  table.v122-card-table>tbody>tr>td[data-label=""]::before{display:none!important}
+  table.v122-card-table input:not([type="checkbox"]),
+  table.v122-card-table select,
+  table.v122-card-table textarea{
+    width:100%!important;max-width:none!important;min-height:44px!important;
+    border-radius:10px!important;padding:9px 10px!important;
+    font-size:16px!important; /* prevents iOS focus zoom */
+  }
+  table.v122-card-table input[type="checkbox"]{width:20px!important;height:20px!important}
+  table.v122-card-table .icon-btn{width:44px!important;height:44px!important}
+  table.v122-card-table .btn{min-height:42px!important}
+  table.v122-card-table>tfoot{
+    display:block!important;margin-top:9px;padding:10px 11px;border:1px solid var(--border);
+    border-radius:13px;background:var(--soft)
+  }
+  table.v122-card-table>tfoot>tr{display:grid!important;grid-template-columns:1fr auto!important;gap:7px}
+  table.v122-card-table>tfoot td{
+    display:block!important;padding:0!important;border:0!important;background:transparent!important;
+    font-size:8px!important
+  }
+  table.v122-card-table>tfoot td[colspan]{grid-column:auto!important}
+  .data-table .salary-treatment-note,.data-table .account-select-note,.data-table .payday-editor small{font-size:7px!important}
+
+  /* Matrices retain their information architecture; make them explicitly swipeable. */
+  #dailyAllowanceMatrix,
+  .kkb-matrix{
+    min-width:760px!important
+  }
+  .daily-matrix-wrap,
+  #kkbMatrixWrap{
+    position:relative;overflow-x:auto!important;overscroll-behavior-inline:contain;
+    -webkit-overflow-scrolling:touch;scrollbar-width:thin
+  }
+  .daily-matrix th:first-child,.daily-matrix td:first-child,
+  .kkb-matrix .kkb-sticky-col{
+    position:sticky!important;left:0!important;z-index:4!important;
+    box-shadow:8px 0 14px rgba(24,33,30,.05)
+  }
+
+  /* Creation/edit modals: bottom sheets with sticky actions and thumb-friendly fields. */
+  .modal input,.modal select,.modal textarea{font-size:16px!important}
+  .v122-create-modal.modal{
+    align-self:flex-end!important;width:100vw!important;max-width:100vw!important;
+    height:auto!important;max-height:min(88dvh,780px)!important;
+    border-radius:24px 24px 0 0!important;border:0!important;
+    box-shadow:0 -16px 55px rgba(12,20,17,.2)!important
+  }
+  .modal-backdrop:has(.v122-create-modal){
+    align-items:flex-end!important;padding:0!important
+  }
+  .v122-create-modal .modal-head{
+    padding:16px 15px 11px!important;border-bottom:1px solid var(--border)!important
+  }
+  .v122-create-modal .modal-body{padding:13px 15px!important}
+  .v122-create-modal .modal-foot{
+    padding:10px 15px calc(12px + env(safe-area-inset-bottom))!important;
+    display:grid!important;grid-template-columns:1fr 1.25fr!important;gap:8px!important
+  }
+  .v122-create-modal .modal-foot .btn{
+    width:100%!important;min-height:46px!important;margin:0!important
+  }
+  .v122-form-grid{grid-template-columns:1fr!important;gap:10px!important}
+  .v122-field.full{grid-column:auto!important}
+  .v122-field>span{font-size:8px!important}
+  .v122-field input,.v122-field select,.v122-field textarea{min-height:46px!important;font-size:16px!important}
+  .v122-participant-grid{grid-template-columns:1fr 1fr!important}
+  .v122-participant{min-height:46px!important}
+  .v122-create-note{font-size:8px!important}
+
+  /* Inventory quick-add becomes one clear action on mobile; details live in a sheet. */
+  .inventory-quick-add .inventory-field{display:none!important}
+  .inventory-quick-add{
+    display:block!important;padding:10px!important
+  }
+  .inventory-quick-add .btn{
+    width:100%!important;min-height:46px!important
+  }
+
+  /* Avoid oversized long-form cards and improve scanning. */
+  .settings-card,.os-card,.card-pad{scroll-margin-top:72px}
+  .section-head h2{max-width:100%}
+  .subtle{overflow-wrap:anywhere}
+  .toast{
+    left:10px!important;right:10px!important;
+    bottom:calc(88px + max(10px,env(safe-area-inset-bottom)))!important;
+    z-index:60!important
+  }
+}
+
+@media(max-width:390px){
+  .mobile-bottom-nav{left:5px;right:5px;grid-template-columns:1fr 1fr 66px 1fr 1fr}
+  .mobile-bottom-create{width:54px;height:54px}
+  .mobile-quick-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .v122-mobile-create-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+  #accountGrid .account-card-title strong{max-width:57vw}
+  .v122-participant-grid{grid-template-columns:1fr!important}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .mobile-bottom-create,.mobile-quick-menu,.mobile-quick::before,
+  #accountGrid .account-mobile-toggle .hero-icon{
+    transition:none!important
+  }
+}
+
+/* ===== SINOP v124 · corrected mobile navigation ===== */
+.mobile-action-sheet{display:none}
+@media(max-width:760px){
+  :root{--mobile-tabbar-h:78px}
+  html{scroll-padding-bottom:calc(var(--mobile-tabbar-h) + 28px + env(safe-area-inset-bottom))!important}
+  .main{padding-bottom:calc(var(--mobile-tabbar-h) + 28px + env(safe-area-inset-bottom))!important}
+
+  /* One navigation system only. */
+  .mobile-bottom-nav{
+    position:fixed!important;z-index:90!important;
+    left:10px!important;right:10px!important;bottom:calc(8px + env(safe-area-inset-bottom))!important;
+    height:70px!important;padding:7px 7px 6px!important;
+    display:grid!important;grid-template-columns:1fr 1fr 70px 1fr 1fr!important;align-items:end!important;
+    border:1px solid color-mix(in srgb,var(--border) 90%,transparent)!important;
+    border-radius:22px!important;
+    background:color-mix(in srgb,var(--panel) 96%,transparent)!important;
+    box-shadow:0 14px 36px rgba(17,31,25,.16)!important;
+    backdrop-filter:blur(24px)!important;-webkit-backdrop-filter:blur(24px)!important;
+    isolation:isolate
+  }
+  body[data-theme="dark"] .mobile-bottom-nav{
+    background:color-mix(in srgb,var(--panel) 95%,transparent)!important;
+    box-shadow:0 15px 38px rgba(0,0,0,.32)!important
+  }
+  .mobile-bottom-item{
+    appearance:none!important;-webkit-appearance:none!important;
+    min-width:0!important;height:55px!important;padding:5px 2px 4px!important;
+    border:0!important;border-radius:15px!important;background:transparent!important;color:var(--muted)!important;
+    display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:3px!important;
+    font:inherit!important;font-size:8.5px!important;line-height:1!important;font-weight:800!important;
+    transition:background .16s ease,color .16s ease,transform .16s ease!important
+  }
+  .mobile-bottom-item .hero-icon{width:21px!important;height:21px!important;stroke-width:1.9!important}
+  .mobile-bottom-item:active{transform:scale(.96)!important}
+  .mobile-bottom-item.active{
+    color:var(--brand2)!important;
+    background:color-mix(in srgb,var(--brandsoft) 78%,transparent)!important
+  }
+  .mobile-bottom-item.active .hero-icon{stroke-width:2.35!important}
+  .mobile-bottom-center{position:relative;height:62px;display:grid;place-items:start center}
+  .mobile-bottom-create{
+    appearance:none!important;-webkit-appearance:none!important;
+    width:58px!important;height:58px!important;min-width:58px!important;min-height:58px!important;
+    padding:0!important;border:5px solid var(--bg)!important;border-radius:50%!important;
+    display:grid!important;place-items:center!important;
+    background:var(--brand)!important;color:#fff!important;
+    box-shadow:0 11px 24px color-mix(in srgb,var(--brand) 31%,transparent)!important;
+    transform:translateY(-18px)!important;transition:transform .16s ease,box-shadow .16s ease!important
+  }
+  .mobile-bottom-create:active{transform:translateY(-16px) scale(.94)!important}
+  .mobile-bottom-create .hero-icon{width:27px!important;height:27px!important;stroke-width:2.25!important}
+  .mobile-bottom-create-label{
+    position:absolute!important;left:50%!important;bottom:3px!important;transform:translateX(-50%)!important;
+    color:var(--muted)!important;font-size:8px!important;font-weight:850!important;line-height:1!important;white-space:nowrap!important
+  }
+
+  /* Bottom sheets for Create and More. */
+  .mobile-action-sheet{
+    display:block;position:fixed;inset:0;z-index:100;pointer-events:none;visibility:hidden
+  }
+  .mobile-action-sheet.open{pointer-events:auto;visibility:visible}
+  .mobile-action-sheet-backdrop{
+    position:absolute;inset:0;background:rgba(10,18,15,.40);opacity:0;transition:opacity .18s ease
+  }
+  .mobile-action-sheet.open .mobile-action-sheet-backdrop{opacity:1}
+  .mobile-action-sheet-panel{
+    position:absolute;left:8px;right:8px;bottom:calc(8px + env(safe-area-inset-bottom));
+    max-height:min(78dvh,700px);overflow:auto;overscroll-behavior:contain;
+    padding:8px 14px 16px;border:1px solid var(--border);border-radius:25px;
+    background:var(--panel);box-shadow:0 24px 70px rgba(13,22,18,.26);
+    transform:translateY(calc(100% + 30px));transition:transform .22s cubic-bezier(.22,.8,.24,1)
+  }
+  .mobile-action-sheet.open .mobile-action-sheet-panel{transform:none}
+  .mobile-sheet-handle{width:38px;height:4px;margin:1px auto 10px;border-radius:999px;background:color-mix(in srgb,var(--muted) 30%,transparent)}
+  .mobile-sheet-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:13px}
+  .mobile-sheet-head-copy{min-width:0}
+  .mobile-sheet-eyebrow{display:block;margin-bottom:3px;color:var(--muted);font-size:8px;font-weight:850;text-transform:uppercase;letter-spacing:.09em}
+  .mobile-sheet-head h3{margin:0;font-size:18px;line-height:1.2}
+  .mobile-sheet-head p{margin:4px 0 0;color:var(--muted);font-size:10px;line-height:1.45}
+  .mobile-sheet-close{
+    width:42px;height:42px;flex:0 0 42px;border:0;border-radius:13px;background:var(--soft);color:var(--text);display:grid;place-items:center
+  }
+  .mobile-sheet-close .hero-icon{width:20px;height:20px}
+  .mobile-sheet-section-title{margin:14px 1px 7px;color:var(--muted);font-size:8px;font-weight:850;text-transform:uppercase;letter-spacing:.08em}
+
+  .mobile-create-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+  .mobile-create-action{
+    min-width:0;min-height:68px;padding:10px;border:1px solid var(--border);border-radius:16px;
+    background:var(--soft);color:var(--text);display:grid;grid-template-columns:38px minmax(0,1fr);align-items:center;gap:9px;text-align:left
+  }
+  .mobile-create-action:active{background:var(--brandsoft)}
+  .mobile-create-action .mobile-action-icon{
+    width:38px;height:38px;border-radius:12px;background:var(--panel);color:var(--brand2);display:grid;place-items:center;border:1px solid color-mix(in srgb,var(--border) 88%,transparent)
+  }
+  .mobile-create-action .hero-icon{width:19px;height:19px}
+  .mobile-create-action strong{display:block;font-size:10px;line-height:1.2}
+  .mobile-create-action small{display:block;margin-top:2px;color:var(--muted);font-size:7.5px;line-height:1.25}
+
+  .mobile-more-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+  .mobile-more-destination{
+    min-width:0;min-height:52px;padding:9px 10px;border:1px solid var(--border);border-radius:14px;background:var(--panel);color:var(--text);
+    display:flex;align-items:center;gap:9px;text-align:left;font-size:9.5px;font-weight:800
+  }
+  .mobile-more-destination .mobile-action-icon{
+    width:34px;height:34px;flex:0 0 34px;border-radius:11px;background:var(--soft);color:var(--brand2);display:grid;place-items:center
+  }
+  .mobile-more-destination .hero-icon{width:18px;height:18px}
+  .mobile-more-destination.active{border-color:color-mix(in srgb,var(--brand) 38%,var(--border));background:var(--brandsoft);color:var(--brand2)}
+  .mobile-tools-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;margin-top:7px}
+  .mobile-tool-action{
+    min-height:51px;padding:7px 3px;border:1px solid var(--border);border-radius:13px;background:var(--soft);color:var(--muted);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:7.5px;font-weight:800
+  }
+  .mobile-tool-action .hero-icon{width:18px;height:18px;color:var(--brand2)}
+
+  body.mobile-sheet-open{overflow:hidden!important}
+  .toast{bottom:calc(92px + env(safe-area-inset-bottom))!important}
+}
+@media(max-width:390px){
+  .mobile-bottom-nav{left:6px!important;right:6px!important;grid-template-columns:1fr 1fr 66px 1fr 1fr!important}
+  .mobile-bottom-item{font-size:8px!important}
+  .mobile-bottom-create{width:55px!important;height:55px!important;min-width:55px!important;min-height:55px!important}
+  .mobile-create-grid,.mobile-more-grid{gap:6px}
+  .mobile-create-action{padding:8px;grid-template-columns:34px minmax(0,1fr)}
+  .mobile-create-action .mobile-action-icon{width:34px;height:34px}
+}
+@media(prefers-reduced-motion:reduce){
+  .mobile-action-sheet-backdrop,.mobile-action-sheet-panel,.mobile-bottom-item,.mobile-bottom-create{transition:none!important}
+}
+
+</style>
+
 </head>
 <body class="sinop-auth-locked">
 <div id="sinopLoginGate" class="sinop-login-gate" aria-hidden="false">
@@ -4678,7 +5218,7 @@ body[data-theme="dark"] .barkada-group-btn,body[data-theme="dark"] .barkada-memb
         <button class="nav-btn" data-target="user-manual"><span class="nav-icon"><span data-hero="question-mark-circle"></span></span><span class="nav-label">User manual</span></button>
       </div>
     </nav>
-    <div class="sinop-sidebar-footer"><small>Your personal money system · v122</small></div>
+    <div class="sinop-sidebar-footer"><small>Your personal money system · v123</small></div>
   </aside>
 
   <main class="main">
@@ -5064,7 +5604,7 @@ body[data-theme="dark"] .barkada-group-btn,body[data-theme="dark"] .barkada-memb
       </div>
       <div class="card table-card"><div class="table-wrap">
         <table class="data-table spending-table">
-          <thead><tr><th>Date</th><th>Description</th><th>Category</th><th>Status</th><th>Payment method</th><th>Notes</th><th class="num">Amount</th><th></th></tr></thead>
+          <thead><tr><th>Date</th><th>Description</th><th>Category</th><th>Status</th><th>Pay from</th><th>Notes</th><th class="num">Amount</th><th></th></tr></thead>
           <tbody id="spendBody"></tbody>
           <tfoot><tr><td colspan="6">Variable spending for selected month</td><td class="num" id="spendTotal">₱0.00</td><td></td></tr></tfoot>
         </table>
@@ -6272,7 +6812,7 @@ body[data-theme="dark"] .barkada-group-btn,body[data-theme="dark"] .barkada-memb
         <div class="manual-feature"><div class="manual-feature-head"><div class="manual-feature-icon"><span data-hero="banknotes"></span></div><div><strong>Statements</strong><small>Generate a monthly or annual ledger view from recorded activity.</small></div></div><ul><li>Review debit and credit entries. Debits show money coming in; credits show money going out.</li><li>Use monthly mode for a selected budget month.</li><li>Use annual mode for a year-level review.</li><li>Account and transaction data determine the ledger rows.</li></ul><button class="btn btn-secondary btn-sm" data-jump="monthly-statement">Open Statements</button></div>
         <div class="manual-feature"><div class="manual-feature-head"><div class="manual-feature-icon"><span data-hero="shield-check"></span></div><div><strong>Backup and restore</strong><small>Use a full JSON backup before major changes or moving browsers/computers.</small></div></div><ul><li>Export full backup (.json) to preserve your data.</li><li>Import a backup to restore that saved state.</li><li>Export the selected month to CSV for tabular analysis.</li><li>Without Google Drive sync, data stays local to this browser. With Drive sync enabled, SINOP keeps a private app-data copy while local saving remains active.</li></ul><button class="btn btn-secondary btn-sm" data-jump="settings">Open Customize</button></div>
         <div class="manual-feature"><div class="manual-feature-head"><div class="manual-feature-icon"><span data-hero="sparkles"></span></div><div><strong>Wrapped</strong><small>Your visual monthly or yearly money story.</small></div></div><p class="subtle" style="font-size:10px;line-height:1.55">Wrapped opens as a full-screen animated money story. Scroll or use Next/Previous to move through scenes with changing backgrounds, animated figures, spending highlights, no-spend days, Daily allowance behavior, recurring commitments, wealth streaks, goals, accounts, rewards, IOUs, and KKB activity. Use Replay to watch the story again.</p></div>
-        <div class="manual-feature"><div class="manual-feature-head"><div class="manual-feature-icon"><span data-hero="adjustments-horizontal"></span></div><div><strong>Customize</strong><small>Control design and defaults without rewriting your financial history.</small></div></div><ul><li>Theme, colors, compact layout, and dashboard visibility.</li><li>Financial rules, category budgets, payment methods, and reminder settings.</li><li>Default spending account for new payment-source dropdowns.</li><li>Design reset does not erase financial records.</li></ul><button class="btn btn-secondary btn-sm" data-jump="settings">Open Customize</button></div>
+        <div class="manual-feature"><div class="manual-feature-head"><div class="manual-feature-icon"><span data-hero="adjustments-horizontal"></span></div><div><strong>Customize</strong><small>Control design and defaults without rewriting your financial history.</small></div></div><ul><li>Theme, colors, compact layout, and dashboard visibility.</li><li>Financial rules, category budgets, default payment account, and reminder settings.</li><li>Default spending account for new payment-source dropdowns.</li><li>Design reset does not erase financial records.</li></ul><button class="btn btn-secondary btn-sm" data-jump="settings">Open Customize</button></div>
       </div>
     </article>
 
@@ -6316,7 +6856,7 @@ body[data-theme="dark"] .barkada-group-btn,body[data-theme="dark"] .barkada-memb
         <div>
           <p class="eyebrow">Customize</p>
           <h2>Make it yours</h2>
-          <p class="subtle">Appearance, dashboard, financial rules, category budgets, default spending account, payment methods, and backup tools are all configurable.</p>
+          <p class="subtle">Appearance, dashboard, financial rules, category budgets, default spending account, and backup tools are all configurable.</p>
         </div>
         <button class="btn btn-secondary icon-leading" id="restoreCustomizationDefaultsBtn" type="button">
           <span data-hero="arrow-path"></span>Restore design defaults
@@ -6373,17 +6913,12 @@ body[data-theme="dark"] .barkada-group-btn,body[data-theme="dark"] .barkada-memb
         </article>
 
         <article class="card settings-card">
-          <div class="section-head"><div><p class="eyebrow">Payment defaults</p><h2>Spending account & methods</h2></div></div>
+          <div class="section-head"><div><p class="eyebrow">Payment defaults</p><h2>Default spending account</h2></div></div>
           <label class="settings-control" style="display:block;margin-bottom:14px">
             <span>Default spending account</span>
             <select id="settingDefaultSpendingAccount"></select>
-            <small class="subtle" style="display:block;margin-top:6px;line-height:1.45">Automatically preselected for new spending-related account fields instead of Untracked. You can still override the account on any individual transaction.</small>
+            <small class="subtle" style="display:block;margin-top:6px;line-height:1.45">Automatically preselected for new spending entries. Spending now uses only tracked accounts/wallets or credit cards, so physical cash should be represented by a Cold Cash account.</small>
           </label>
-          <div class="category-add">
-            <input id="newPaymentMethod" type="text" placeholder="Example: BPI credit card">
-            <button class="btn btn-primary" id="addPaymentMethodBtn">Add</button>
-          </div>
-          <div id="paymentMethodList" class="custom-method-list"></div>
         </article>
 
         <article class="card settings-card full">
@@ -6504,14 +7039,14 @@ body[data-theme="dark"] .barkada-group-btn,body[data-theme="dark"] .barkada-memb
             <div>
               <p class="eyebrow">Defaults</p>
               <h2>Restore design defaults</h2>
-              <p class="subtle">Return only the planner's visual design to its original look. Financial settings, categories, payment methods, rules, reminders, and category budgets stay exactly as they are.</p>
+              <p class="subtle">Return only the planner's visual design to its original look. Financial settings, categories, rules, reminders, and category budgets stay exactly as they are.</p>
             </div>
             <button class="btn btn-secondary icon-leading" id="restoreCustomizationDefaultsCardBtn" type="button">
               <span data-hero="arrow-path"></span>Restore design defaults
             </button>
           </div>
           <div class="reminder-setting-note">
-            <strong>Design-only reset:</strong> Theme, accent and sidebar colors, compact layout, dashboard widget visibility, cents display, and sidebar collapsed state are restored. Categories, category limits, payment methods, currency, decision rules, reminders, financial data, and transaction history are untouched.
+            <strong>Design-only reset:</strong> Theme, accent and sidebar colors, compact layout, dashboard widget visibility, cents display, and sidebar collapsed state are restored. Categories, category limits, currency, decision rules, reminders, financial data, and transaction history are untouched.
           </div>
         </article>
 
@@ -6560,39 +7095,6 @@ body[data-theme="dark"] .barkada-group-btn,body[data-theme="dark"] .barkada-memb
   </main>
 </div>
 
-
-<div class="mobile-quick" id="mobileQuickAccess">
-  <div class="mobile-quick-menu" id="mobileQuickMenu" aria-hidden="true">
-    <div class="mobile-quick-head">
-      <div><span>Quick access</span><strong>Jump anywhere in SINOP</strong></div>
-      <button class="mobile-quick-close" id="mobileQuickCloseBtn" type="button" aria-label="Close quick access"><span data-hero="x-mark"></span></button>
-    </div>
-    <div class="mobile-quick-grid" aria-label="Quick destinations">
-      <button type="button" data-mobile-target="overview"><span data-hero="home"></span><span>Overview</span></button>
-      <button type="button" data-mobile-target="income"><span data-hero="plus-circle"></span><span>Income</span></button>
-      <button type="button" data-mobile-target="spending"><span data-hero="wallet"></span><span>Spending</span></button>
-      <button type="button" data-mobile-target="bills"><span data-hero="arrow-path"></span><span>Recurring</span></button>
-      <button type="button" data-mobile-target="daily-allowance"><span data-hero="calendar-days"></span><span>Daily</span></button>
-      <button type="button" data-mobile-target="accounts"><span data-hero="building-library"></span><span>Accounts</span></button>
-      <button type="button" data-mobile-target="goals"><span data-hero="flag"></span><span>Goals</span></button>
-      <button type="button" data-mobile-target="kkb"><span data-hero="calculator"></span><span>KKB</span></button>
-      <button type="button" data-mobile-target="barkada"><span data-hero="user-group"></span><span>Barkada</span></button>
-      <button type="button" data-mobile-target="grocery"><span data-hero="shopping-cart"></span><span>Grocery</span></button>
-    </div>
-    <button class="mobile-all-features" id="mobileAllFeaturesBtn" type="button"><span data-hero="squares-2x2"></span><span><strong>All features</strong><small>Open the complete SINOP menu</small></span><span data-hero="arrow-right"></span></button>
-    <div class="mobile-quick-tools">
-      <button id="mobileSearchBtn" type="button" aria-label="Search"><span data-hero="magnifying-glass"></span><span>Search</span></button>
-      <button id="mobileLevelBtn" type="button" aria-label="Rewards and levels"><span data-hero="trophy"></span><span>Level</span></button>
-      <button id="mobileSaveBtn" type="button" aria-label="Save now"><span data-hero="check-circle"></span><span>Save</span></button>
-      <button id="mobileCloudBtn" type="button" aria-label="Google Drive sync"><span data-hero="building-library"></span><span>Drive</span></button>
-      <button id="mobileLogoutBtn" type="button" aria-label="Log out" hidden><span data-hero="arrow-right"></span><span>Logout</span></button>
-    </div>
-  </div>
-  <button class="mobile-quick-fab" id="mobileQuickFab" type="button" aria-expanded="false" aria-controls="mobileQuickMenu" aria-label="Open SINOP quick access">
-    <span class="mobile-quick-fab-open" data-hero="squares-2x2"></span>
-    <span class="mobile-quick-fab-close" data-hero="x-mark"></span>
-  </button>
-</div>
 
 <button id="sidebarToggle" class="sidebar-toggle" aria-label="Toggle sidebar" title="Toggle sidebar"><span data-hero="chevron-left"></span></button>
 <div id="mobileOverlay" class="mobile-overlay"></div>
@@ -7645,7 +8147,7 @@ body[data-theme="dark"] .barkada-group-btn,body[data-theme="dark"] .barkada-memb
         </div>
 
         <div class="bill-edit-helper">
-          <span>Estimated amount for <strong id="editBillMonthLabel"></strong> using the selected scenario. <span id="editBillHelperCopy">For expenses, a default credit card only pre-fills the likely payment method. Other commitment types create transfers, deposits, or debt repayments when completed.</span></span>
+          <span>Estimated amount for <strong id="editBillMonthLabel"></strong> using the selected scenario. <span id="editBillHelperCopy">For expenses, a default credit card only pre-fills the likely payment source. Other commitment types create transfers, deposits, or debt repayments when completed.</span></span>
           <strong id="editBillEstimate">₱0.00</strong>
         </div>
       </div>
@@ -17549,7 +18051,7 @@ function renderSpending(){
       <td><select class="cell-select spending-status s-status"><option value="planned" ${x.status==="planned"?"selected":""}>Planned</option><option value="actual" ${(x.status||"actual")==="actual"?"selected":""}>Spent / actual</option></select></td>
       <td><select class="cell-select payment-method s-method">
         ${budgetSourceAccounts().length?`<optgroup label="Accounts & wallets">${budgetSourceAccounts().map(a=>`<option value="account:${a.id}" ${sameId(x.accountId,a.id)?"selected":""}>${esc(a.name)} · ${esc(accountTypeLabel(a.type))}</option>`).join("")}</optgroup>`:""}
-        <optgroup label="Other payment methods">${state.settings.paymentMethods.filter(v=>v!=="Credit card").map(v=>`<option value="method:${esc(v)}" ${!x.accountId&&!x.creditCardId&&v===x.paymentMethod?"selected":""}>${esc(v)}</option>`).join("")}</optgroup>
+        ${!x.accountId&&!x.creditCardId?`<option value="" selected disabled>Choose tracked account or credit card</option>`:""}
         ${state.creditCards.length?`<optgroup label="Credit cards">${state.creditCards.map(c=>`<option value="card:${c.id}" ${x.creditCardId===c.id?"selected":""}>${esc(cardLabel(c))}</option>`).join("")}</optgroup>`:""}
       </select></td>
       <td><input class="cell-input notes s-notes" value="${esc(x.notes||"")}" placeholder="Optional"></td>
@@ -17567,7 +18069,7 @@ function renderSpending(){
         if(!isSpendableAccount(account)){toast("Time deposit and Pag-IBIG MP2 accounts cannot be used for spending.");renderSpending();return}
         x.accountId=account.id;x.creditCardId="";x.paymentMethod="Account";
       }else if(value.startsWith("card:")){x.creditCardId=value.slice(5);x.accountId="";x.paymentMethod="Credit card";
-      }else{x.accountId="";x.creditCardId="";x.paymentMethod=value.replace(/^method:/,"");}
+      }else{toast("Choose a tracked account, wallet, or credit card.");renderSpending();return}
       tr.dataset.search=`${x.description||""} ${x.category||""} ${x.notes||""} ${x.accountId?(accountById(x.accountId)?.name||"Account"):x.creditCardId?cardLabel(cardById(x.creditCardId)||{name:"Credit card"}):x.paymentMethod||""}`.toLowerCase();
       update();renderCreditCards();
     };
@@ -18506,7 +19008,7 @@ $("incomeCoverageModal").addEventListener("click",e=>{if(e.target===$("incomeCov
 
 $("addIncomeBtn").onclick=()=>{state.incomes.push({id:uid(),name:"New income",kind:"Salary",frequency:"monthly",amount:0,date:"",employmentType:"none",accountId:""});scheduleAutoSave();renderIncome();renderOverview();renderDashboard();renderFixedTermSummary()};
 $("addBillBtn").onclick=()=>openBillEditor();
-$("addSpendBtn").onclick=()=>{const a=defaultSpendingAccount();state.spending.push({id:uid(),date:localDateKey(),description:"",category:state.categories.spending[0]||"Other",status:"planned",paymentMethod:a?"Account":(state.settings.paymentMethods.filter(v=>v!=="Credit card")[0]||"Cash"),creditCardId:"",accountId:a?a.id:"",notes:"",amount:0});scheduleAutoSave();renderSpending();renderOverview();renderDashboard();renderFixedTermSummary()};
+$("addSpendBtn").onclick=()=>{const a=defaultSpendingAccount();state.spending.push({id:uid(),date:localDateKey(),description:"",category:state.categories.spending[0]||"Other",status:"planned",paymentMethod:a?"Account":"",creditCardId:"",accountId:a?a.id:"",notes:"",amount:0});scheduleAutoSave();renderSpending();renderOverview();renderDashboard();renderFixedTermSummary()};
 $("addGoalBtn").onclick=()=>{state.goals.push({id:uid(),name:"New goal",target:0,saved:0,monthly:0,priority:"medium",deadline:""});scheduleAutoSave();renderGoals();renderOverview();renderDashboard();renderFixedTermSummary()};
 
 $("goalStrategy").onchange=e=>{state.goalPlanner.strategy=e.target.value;renderGoals();renderDashboard()};
@@ -18651,12 +19153,14 @@ $("ruleDiscPct").oninput=e=>{state.settings.rules.discretionaryCapPct=Number(e.t
 $("ruleDebtPct").oninput=e=>{state.settings.rules.debtCapPct=Number(e.target.value||0);renderDashboard()};
 $("ruleEmergencyMonths").oninput=e=>{state.settings.rules.emergencyMonths=Number(e.target.value||0);renderDashboard()};
 
-$("addPaymentMethodBtn").onclick=()=>{
-  const input=$("newPaymentMethod"),value=input.value.trim();if(!value)return;
-  if(state.settings.paymentMethods.some(x=>x.toLowerCase()===value.toLowerCase())){toast("That payment method already exists.");return}
-  state.settings.paymentMethods.push(value);input.value="";renderPaymentMethods();renderSpending();
-};
-$("newPaymentMethod").addEventListener("keydown",e=>{if(e.key==="Enter")$("addPaymentMethodBtn").click()});
+if($("addPaymentMethodBtn")&&$("newPaymentMethod")){
+  $("addPaymentMethodBtn").onclick=()=>{
+    const input=$("newPaymentMethod"),value=input.value.trim();if(!value)return;
+    if(state.settings.paymentMethods.some(x=>x.toLowerCase()===value.toLowerCase())){toast("That payment method already exists.");return}
+    state.settings.paymentMethods.push(value);input.value="";renderPaymentMethods();renderSpending();
+  };
+  $("newPaymentMethod").addEventListener("keydown",e=>{if(e.key==="Enter")$("addPaymentMethodBtn").click()});
+}
 
 $("exportJsonBtn").onclick=()=>downloadText(`SINOP-backup-${new Date().toISOString().slice(0,10)}.json`,JSON.stringify(state,null,2),"application/json");
 $("importJsonBtn").onclick=()=>$("importJsonFile").click();
@@ -19063,413 +19567,6 @@ function statementPrintDocumentHtml(){
 
 </style>
 
-<style id="sinop-v122-mobile-app-ux">
-/* ===== SINOP v122 · mobile app UX refresh ===== */
-.bank-brand-mark{
-  --bank-color:var(--brand);
-  width:40px;height:40px;flex:0 0 40px;border-radius:12px;
-  display:grid;place-items:center;padding:4px;
-  background:var(--bank-color);color:#fff;
-  font-size:10px;line-height:1;font-weight:950;letter-spacing:-.035em;
-  text-align:center;box-shadow:inset 0 0 0 1px rgba(255,255,255,.18);
-}
-.bank-brand-mark[data-bank="bpi"]{font-family:Arial,sans-serif;letter-spacing:-.08em}
-.bank-brand-mark[data-bank="landbank"]{font-size:8px;letter-spacing:-.05em}
-.bank-brand-mark[data-bank="eastwest"]{font-size:8px}
-.bank-brand-mark[data-bank="maribank"]{font-size:8px}
-.bank-brand-mark[data-bank="securitybank"]{font-size:8px}
-.bank-brand-mark[data-bank="unionbank"]{font-size:8px}
-.bank-brand-mark[data-bank="chinabank"]{font-size:8px}
-.bank-brand-mark[data-bank="diskartech"]{font-size:7px}
-.bank-brand-mark.compact{width:30px;height:30px;flex-basis:30px;border-radius:9px;font-size:7px}
-.account-brand-preview{
-  grid-column:1/-1;display:none;align-items:center;gap:10px;
-  padding:10px 11px;border:1px solid var(--border);border-radius:12px;background:var(--soft)
-}
-.account-brand-preview.show{display:flex}
-.account-brand-preview strong{display:block;font-size:9px}
-.account-brand-preview small{display:block;margin-top:2px;color:var(--muted);font-size:7.5px;line-height:1.35}
-.account-mobile-toggle{display:none}
-.account-mobile-details{display:contents}
-.v122-list-toggle,.v122-account-rules-toggle{display:none}
-.v122-create-note{
-  margin:0 0 12px;padding:10px 11px;border:1px solid color-mix(in srgb,var(--brand) 24%,var(--border));
-  border-radius:12px;background:color-mix(in srgb,var(--brandsoft) 42%,var(--panel));
-  color:var(--muted);font-size:8.5px;line-height:1.45
-}
-.v122-create-note strong{color:var(--text)}
-.v122-form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
-.v122-field{display:grid;gap:5px;min-width:0}
-.v122-field.full{grid-column:1/-1}
-.v122-field>span{color:var(--muted);font-size:8px;font-weight:800}
-.v122-field input,.v122-field select,.v122-field textarea{
-  width:100%;min-width:0;min-height:42px;border:1px solid var(--border);border-radius:11px;
-  background:var(--panel);color:var(--text);padding:9px 10px;font:inherit;font-size:10px;outline:0
-}
-.v122-field textarea{min-height:82px;resize:vertical}
-.v122-field input:focus,.v122-field select:focus,.v122-field textarea:focus{
-  border-color:color-mix(in srgb,var(--brand) 55%,var(--border));
-  box-shadow:0 0 0 3px color-mix(in srgb,var(--brand) 10%,transparent)
-}
-.v122-participant-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
-.v122-participant{
-  display:flex;align-items:center;gap:8px;min-height:42px;padding:8px 9px;
-  border:1px solid var(--border);border-radius:10px;background:var(--panel);font-size:9px
-}
-.v122-participant input{width:17px;height:17px;accent-color:var(--brand)}
-.v122-inline-summary{
-  display:flex;align-items:center;gap:9px;padding:10px;border:1px solid var(--border);
-  border-radius:11px;background:var(--soft)
-}
-.v122-inline-summary .bank-brand-mark{width:34px;height:34px;flex-basis:34px}
-.v122-inline-summary strong{display:block;font-size:9px}
-.v122-inline-summary small{display:block;margin-top:2px;color:var(--muted);font-size:7.5px}
-.v122-create-modal{width:min(620px,100%)}
-.v122-create-modal .modal-foot .btn{min-width:110px}
-
-.mobile-bottom-nav{display:none}
-.v122-mobile-create-grid{display:none}
-.v122-mobile-list-hidden{display:initial}
-
-@media(max-width:760px){
-  html{
-    scroll-padding-bottom:calc(92px + env(safe-area-inset-bottom));
-    -webkit-text-size-adjust:100%;
-  }
-  body{padding-bottom:0}
-  button,a,[role="button"],input,select,textarea{touch-action:manipulation}
-  button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{
-    outline:2px solid color-mix(in srgb,var(--brand) 72%,white);
-    outline-offset:2px
-  }
-
-  /* Primary mobile shell: four destinations + prominent quick-access action. */
-  .main{
-    padding-bottom:calc(96px + env(safe-area-inset-bottom))!important;
-  }
-  .mobile-bottom-nav{
-    position:fixed;z-index:55;left:8px;right:8px;bottom:max(8px,env(safe-area-inset-bottom));
-    height:68px;padding:5px 7px;
-    display:grid;grid-template-columns:1fr 1fr 72px 1fr 1fr;align-items:end;
-    border:1px solid color-mix(in srgb,var(--border) 88%,transparent);
-    border-radius:22px;
-    background:color-mix(in srgb,var(--panel) 95%,transparent);
-    box-shadow:0 15px 40px rgba(24,33,30,.16);
-    backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px)
-  }
-  body[data-theme="dark"] .mobile-bottom-nav{background:color-mix(in srgb,var(--panel) 94%,transparent)}
-  .mobile-bottom-item{
-    min-width:0;height:56px;border:0;border-radius:15px;background:transparent;color:var(--muted);
-    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
-    font-size:7.5px;font-weight:850;padding:0 3px
-  }
-  .mobile-bottom-item .hero-icon{width:20px;height:20px}
-  .mobile-bottom-item.active{color:var(--brand2);background:var(--brandsoft)}
-  .mobile-bottom-create{
-    align-self:start;justify-self:center;transform:translateY(-17px);
-    width:58px;height:58px;border:5px solid var(--bg);border-radius:50%;
-    display:grid;place-items:center;background:var(--brand);color:#fff;
-    box-shadow:0 10px 25px color-mix(in srgb,var(--brand) 30%,transparent);
-    padding:0
-  }
-  .mobile-bottom-create .hero-icon{width:25px;height:25px}
-  .mobile-bottom-create[aria-expanded="true"]{transform:translateY(-17px) rotate(45deg)}
-  .mobile-bottom-create-label{
-    position:absolute;bottom:4px;left:50%;transform:translateX(-50%);
-    color:var(--muted);font-size:7px;font-weight:850;white-space:nowrap
-  }
-
-  /* Convert v121's floating menu into a modern bottom quick-access sheet. */
-  .mobile-quick{
-    display:block!important;position:fixed!important;inset:0!important;z-index:54!important;
-    pointer-events:none!important
-  }
-  .mobile-quick.open{pointer-events:auto!important}
-  .mobile-quick::before{
-    content:"";position:absolute;inset:0;background:rgba(12,20,17,.32);
-    opacity:0;transition:opacity .18s ease;pointer-events:none
-  }
-  .mobile-quick.open::before{opacity:1;pointer-events:auto}
-  .mobile-quick-fab{display:none!important}
-  .mobile-quick-menu{
-    position:absolute!important;left:8px!important;right:8px!important;
-    bottom:calc(83px + max(8px,env(safe-area-inset-bottom)))!important;
-    width:auto!important;max-height:min(72dvh,650px)!important;
-    border-radius:24px!important;padding:14px!important;
-    transform:translateY(22px) scale(.985)!important;transform-origin:bottom center!important;
-    box-shadow:0 24px 70px rgba(13,22,18,.24)!important
-  }
-  .mobile-quick.open .mobile-quick-menu{transform:none!important}
-  .mobile-quick-head{padding:1px 1px 11px!important}
-  .mobile-quick-head span{font-size:8px!important}
-  .mobile-quick-head strong{font-size:15px!important}
-  .mobile-quick-close{width:44px!important;height:44px!important;border-radius:13px!important}
-  .v122-mobile-create-grid{
-    display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;
-    padding-bottom:12px;margin-bottom:12px;border-bottom:1px solid var(--border)
-  }
-  .v122-mobile-create-grid button{
-    min-width:0;min-height:58px;border:1px solid var(--border);border-radius:13px;background:var(--soft);
-    color:var(--text);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;
-    font-size:7.5px;font-weight:850;padding:6px
-  }
-  .v122-mobile-create-grid button .hero-icon{width:18px;height:18px;color:var(--brand2)}
-  .mobile-quick-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:7px!important}
-  .mobile-quick-grid button{
-    min-height:52px!important;padding:8px!important;display:flex!important;flex-direction:column!important;
-    justify-content:center!important;align-items:center!important;text-align:center!important;gap:5px!important
-  }
-  .mobile-quick-grid button .hero-icon{width:18px!important;height:18px!important}
-  .mobile-all-features{min-height:50px!important}
-  .mobile-quick-tools button{min-height:48px!important}
-
-  /* Header actions remain compact and discoverable. */
-  .page-head .action-row{
-    width:100%;display:flex;gap:7px;overflow-x:auto;overscroll-behavior-inline:contain;
-    scrollbar-width:none;padding:1px 1px 3px;flex-wrap:nowrap!important
-  }
-  .page-head .action-row::-webkit-scrollbar{display:none}
-  .page-head .action-row .btn{
-    min-height:42px;flex:0 0 auto;white-space:nowrap;border-radius:12px
-  }
-
-  /* Accounts: surface actual accounts before aggregate analytics and documentation. */
-  #accounts.section.active{
-    display:flex!important;flex-direction:column
-  }
-  #accounts>.page-head{order:0}
-  #accountGrid{order:1;margin:0 0 12px!important}
-  #accounts>.account-summary-grid{order:2}
-  #accounts>.double-count-warning{order:3}
-  #accounts>.v122-account-rules-toggle{order:3}
-  #accounts>article{order:4}
-
-  #accounts>.account-summary-grid{
-    display:flex!important;gap:8px;overflow-x:auto;scroll-snap-type:x proximity;
-    overscroll-behavior-inline:contain;scrollbar-width:none;margin-bottom:12px!important;
-    padding:1px 1px 4px
-  }
-  #accounts>.account-summary-grid::-webkit-scrollbar{display:none}
-  #accounts>.account-summary-grid>.account-summary-card{
-    flex:0 0 142px;scroll-snap-align:start;padding:11px 12px!important;border-radius:14px!important
-  }
-  #accounts>.account-summary-grid>.account-summary-card span{font-size:7.5px!important}
-  #accounts>.account-summary-grid>.account-summary-card strong{font-size:16px!important}
-
-  #accountGrid.account-grid{grid-template-columns:1fr!important;gap:10px!important}
-  #accountGrid .account-card{
-    padding:13px!important;border-radius:17px!important;overflow:hidden;
-    box-shadow:0 4px 14px rgba(24,33,30,.035)
-  }
-  #accountGrid .account-card:before{width:3px}
-  #accountGrid .account-card-head{align-items:center!important;gap:8px!important}
-  #accountGrid .account-card-title{min-width:0;gap:9px!important}
-  #accountGrid .account-card-title>div:last-child{min-width:0}
-  #accountGrid .account-card-title strong{
-    font-size:13px!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:62vw
-  }
-  #accountGrid .account-card-title small{font-size:8px!important}
-  #accountGrid .account-card-icon{
-    width:42px!important;height:42px!important;flex:0 0 42px!important;border-radius:13px!important;
-    background:transparent!important;padding:0!important
-  }
-  #accountGrid .account-card-icon>.hero-icon{width:21px;height:21px}
-  #accountGrid .account-balance{margin-top:12px!important}
-  #accountGrid .account-balance>span{font-size:7.5px!important}
-  #accountGrid .account-balance>strong{font-size:26px!important;letter-spacing:-.025em}
-  #accountGrid .account-balance>small{font-size:7px!important;line-height:1.35!important}
-  #accountGrid .account-mobile-toggle{
-    width:100%;min-height:42px;margin-top:10px;padding:0 10px;
-    border:1px solid var(--border);border-radius:11px;background:var(--soft);color:var(--text);
-    display:flex;align-items:center;justify-content:space-between;gap:8px;
-    font-size:8.5px;font-weight:850
-  }
-  #accountGrid .account-mobile-toggle .hero-icon{width:16px;height:16px;transition:transform .18s ease}
-  #accountGrid .account-card.account-mobile-expanded .account-mobile-toggle .hero-icon{transform:rotate(180deg)}
-  #accountGrid .account-mobile-details{display:none}
-  #accountGrid .account-card.account-mobile-expanded .account-mobile-details{display:block}
-  #accountGrid .account-card-head>.account-card-actions{display:none!important}
-  #accountGrid .account-mobile-details>.account-card-actions{
-    display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px!important;margin-top:10px
-  }
-  #accountGrid .account-mobile-details>.account-card-actions .btn{
-    min-height:40px;padding:7px 6px!important;white-space:normal;font-size:7.5px!important
-  }
-  #accountGrid .account-availability{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:7px!important;margin-top:10px!important}
-  #accountGrid .account-availability>div{padding:9px!important}
-  #accountGrid .account-flow-grid{
-    grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:7px!important;margin-top:10px!important
-  }
-  #accountGrid .account-flow-grid>div{padding:8px!important}
-  #accountGrid .account-flow-grid span{font-size:7px!important}
-  #accountGrid .account-flow-grid strong{font-size:9px!important}
-  #accountGrid .account-goal-breakdown{margin-top:10px!important}
-  #accountGrid .account-card-foot{align-items:flex-start!important;flex-direction:column!important;gap:5px!important}
-  #accountGrid .account-card-foot small{font-size:7px!important;line-height:1.4}
-
-  #accounts>.double-count-warning{
-    position:relative;max-height:82px;overflow:hidden;margin-bottom:5px!important;
-    font-size:8px!important;line-height:1.5!important
-  }
-  #accounts>.double-count-warning:not(.v122-expanded)::after{
-    content:"";position:absolute;left:0;right:0;bottom:0;height:42px;
-    background:linear-gradient(transparent,var(--warnsoft));pointer-events:none
-  }
-  #accounts>.double-count-warning.v122-expanded{max-height:none}
-  #accounts>.double-count-warning.v122-expanded::after{display:none}
-  #accounts>.v122-account-rules-toggle{
-    display:flex;width:100%;min-height:40px;margin:0 0 12px;border:0;border-radius:11px;
-    background:var(--soft);color:var(--text);align-items:center;justify-content:center;gap:6px;
-    font-size:8.5px;font-weight:850
-  }
-  #accounts>.v122-account-rules-toggle .hero-icon{width:15px;height:15px}
-
-  /* General progressive disclosure for long dynamic lists. */
-  .v122-list-toggle{
-    display:flex;width:100%;grid-column:1/-1;min-height:42px;margin-top:7px;border:1px solid var(--border);
-    border-radius:11px;background:var(--soft);color:var(--text);
-    align-items:center;justify-content:center;gap:6px;font-size:8.5px;font-weight:850
-  }
-  .v122-mobile-list-hidden{display:none!important}
-
-  /* Standard tables become labeled record cards on phones. */
-  .table-card{border:0!important;background:transparent!important;overflow:visible!important}
-  .table-card>.table-wrap,
-  .inventory-table-wrap,
-  .statement-table-wrap{
-    overflow:visible!important;border:0!important;background:transparent!important
-  }
-  table.v122-card-table{
-    display:block!important;width:100%!important;min-width:0!important;border:0!important;background:transparent!important
-  }
-  table.v122-card-table>thead{display:none!important}
-  table.v122-card-table>tbody{
-    display:grid!important;gap:9px!important;width:100%!important
-  }
-  table.v122-card-table>tbody>tr{
-    display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;
-    gap:8px!important;padding:11px!important;border:1px solid var(--border)!important;
-    border-radius:15px!important;background:var(--panel)!important;
-    box-shadow:0 3px 12px rgba(24,33,30,.03)!important
-  }
-  table.v122-card-table>tbody>tr[hidden]{display:none!important}
-  table.v122-card-table>tbody>tr>td{
-    display:grid!important;align-content:start!important;gap:3px!important;
-    padding:0!important;border:0!important;background:transparent!important;
-    min-width:0!important;text-align:left!important;white-space:normal!important
-  }
-  table.v122-card-table>tbody>tr>td::before{
-    content:attr(data-label);display:block;color:var(--muted);font-size:6.7px;
-    font-weight:900;text-transform:uppercase;letter-spacing:.065em;line-height:1.2
-  }
-  table.v122-card-table>tbody>tr>td.v122-mobile-full{grid-column:1/-1!important}
-  table.v122-card-table>tbody>tr>td[colspan]{grid-column:1/-1!important}
-  table.v122-card-table>tbody>tr>td[colspan]::before,
-  table.v122-card-table>tbody>tr>td[data-label=""]::before{display:none!important}
-  table.v122-card-table input:not([type="checkbox"]),
-  table.v122-card-table select,
-  table.v122-card-table textarea{
-    width:100%!important;max-width:none!important;min-height:44px!important;
-    border-radius:10px!important;padding:9px 10px!important;
-    font-size:16px!important; /* prevents iOS focus zoom */
-  }
-  table.v122-card-table input[type="checkbox"]{width:20px!important;height:20px!important}
-  table.v122-card-table .icon-btn{width:44px!important;height:44px!important}
-  table.v122-card-table .btn{min-height:42px!important}
-  table.v122-card-table>tfoot{
-    display:block!important;margin-top:9px;padding:10px 11px;border:1px solid var(--border);
-    border-radius:13px;background:var(--soft)
-  }
-  table.v122-card-table>tfoot>tr{display:grid!important;grid-template-columns:1fr auto!important;gap:7px}
-  table.v122-card-table>tfoot td{
-    display:block!important;padding:0!important;border:0!important;background:transparent!important;
-    font-size:8px!important
-  }
-  table.v122-card-table>tfoot td[colspan]{grid-column:auto!important}
-  .data-table .salary-treatment-note,.data-table .account-select-note,.data-table .payday-editor small{font-size:7px!important}
-
-  /* Matrices retain their information architecture; make them explicitly swipeable. */
-  #dailyAllowanceMatrix,
-  .kkb-matrix{
-    min-width:760px!important
-  }
-  .daily-matrix-wrap,
-  #kkbMatrixWrap{
-    position:relative;overflow-x:auto!important;overscroll-behavior-inline:contain;
-    -webkit-overflow-scrolling:touch;scrollbar-width:thin
-  }
-  .daily-matrix th:first-child,.daily-matrix td:first-child,
-  .kkb-matrix .kkb-sticky-col{
-    position:sticky!important;left:0!important;z-index:4!important;
-    box-shadow:8px 0 14px rgba(24,33,30,.05)
-  }
-
-  /* Creation/edit modals: bottom sheets with sticky actions and thumb-friendly fields. */
-  .modal input,.modal select,.modal textarea{font-size:16px!important}
-  .v122-create-modal.modal{
-    align-self:flex-end!important;width:100vw!important;max-width:100vw!important;
-    height:auto!important;max-height:min(88dvh,780px)!important;
-    border-radius:24px 24px 0 0!important;border:0!important;
-    box-shadow:0 -16px 55px rgba(12,20,17,.2)!important
-  }
-  .modal-backdrop:has(.v122-create-modal){
-    align-items:flex-end!important;padding:0!important
-  }
-  .v122-create-modal .modal-head{
-    padding:16px 15px 11px!important;border-bottom:1px solid var(--border)!important
-  }
-  .v122-create-modal .modal-body{padding:13px 15px!important}
-  .v122-create-modal .modal-foot{
-    padding:10px 15px calc(12px + env(safe-area-inset-bottom))!important;
-    display:grid!important;grid-template-columns:1fr 1.25fr!important;gap:8px!important
-  }
-  .v122-create-modal .modal-foot .btn{
-    width:100%!important;min-height:46px!important;margin:0!important
-  }
-  .v122-form-grid{grid-template-columns:1fr!important;gap:10px!important}
-  .v122-field.full{grid-column:auto!important}
-  .v122-field>span{font-size:8px!important}
-  .v122-field input,.v122-field select,.v122-field textarea{min-height:46px!important;font-size:16px!important}
-  .v122-participant-grid{grid-template-columns:1fr 1fr!important}
-  .v122-participant{min-height:46px!important}
-  .v122-create-note{font-size:8px!important}
-
-  /* Inventory quick-add becomes one clear action on mobile; details live in a sheet. */
-  .inventory-quick-add .inventory-field{display:none!important}
-  .inventory-quick-add{
-    display:block!important;padding:10px!important
-  }
-  .inventory-quick-add .btn{
-    width:100%!important;min-height:46px!important
-  }
-
-  /* Avoid oversized long-form cards and improve scanning. */
-  .settings-card,.os-card,.card-pad{scroll-margin-top:72px}
-  .section-head h2{max-width:100%}
-  .subtle{overflow-wrap:anywhere}
-  .toast{
-    left:10px!important;right:10px!important;
-    bottom:calc(88px + max(10px,env(safe-area-inset-bottom)))!important;
-    z-index:60!important
-  }
-}
-
-@media(max-width:390px){
-  .mobile-bottom-nav{left:5px;right:5px;grid-template-columns:1fr 1fr 66px 1fr 1fr}
-  .mobile-bottom-create{width:54px;height:54px}
-  .mobile-quick-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
-  .v122-mobile-create-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
-  #accountGrid .account-card-title strong{max-width:57vw}
-  .v122-participant-grid{grid-template-columns:1fr!important}
-}
-
-@media(prefers-reduced-motion:reduce){
-  .mobile-bottom-create,.mobile-quick-menu,.mobile-quick::before,
-  #accountGrid .account-mobile-toggle .hero-icon{
-    transition:none!important
-  }
-}
-</style>
 
 </head><body>
   <div class="statement">
@@ -19539,7 +19636,7 @@ function confirmRestoreCustomizationDefaults(){
     title:"Restore design defaults",
     heading:"Restore the original design?",
     message:"Theme, accent and sidebar colors, compact layout, dashboard widget visibility, cents display, and sidebar state will return to their original design defaults.",
-    warning:"Categories, category budgets, payment methods, currency, decision rules, reminders, income, bills, spending, accounts, goals, KKB, rewards, and all other financial data will stay unchanged.",
+    warning:"Categories, category budgets, currency, decision rules, reminders, income, bills, spending, accounts, goals, KKB, rewards, and all other financial data will stay unchanged.",
     confirmLabel:"Restore design",
     danger:false,
     onConfirm:restoreCustomizationDefaults
@@ -19768,7 +19865,7 @@ function downloadText(filename,text,type="text/plain"){
 }
 function csvCell(v){const s=String(v??"");return `"${s.replaceAll('"','""')}"`}
 function exportSelectedMonthCsv(){
-  const rows=[["Type","Date/Month","Name","Category","Status/Frequency","Payment method","Amount"]];
+  const rows=[["Type","Date/Month","Name","Category","Status/Frequency","Payment source","Amount"]];
   state.incomes.forEach(x=>rows.push(["Income",x.frequency==="one_time"?(x.date||""):state.month,x.name,x.kind,x.frequency,"",incomeMonthly(x,state.month)]));
   activeBills(state.month).forEach(b=>rows.push(["Recurring commitment",state.month,b.name,commitmentTypeLabel(commitmentType(b)),isBillPaid(b.id,state.month)?"Completed":isBillPartiallyPaid(b.id,state.month)?"Partially completed":"Pending",commitmentMovementLabel(b)||b.category||"",billValue(b,state.scenario,state.month)]));
   variableEntries(state.month).forEach(x=>rows.push(["Variable spending",x.date,x.description,x.category,x.status,x.paymentMethod,x.amount]));
@@ -20551,27 +20648,84 @@ maybeStartFirstRunSetup();
 </script>
 
 
-<!-- ===== SINOP v122 · mobile bottom navigation ===== -->
-<nav class="mobile-bottom-nav" id="mobileBottomNav" aria-label="Primary navigation">
+<!-- ===== SINOP v124 · mobile bottom navigation ===== -->
+<nav class="mobile-bottom-nav" id="mobileBottomNav" aria-label="Quick access">
   <button class="mobile-bottom-item" type="button" data-v122-nav-target="overview" aria-label="Overview">
-    <span data-hero="home"></span><span>Home</span>
+    <span data-hero="home"></span><span>Overview</span>
   </button>
-  <button class="mobile-bottom-item" type="button" data-v122-nav-target="activity" aria-label="Activity">
-    <span data-hero="clock"></span><span>Activity</span>
+  <button class="mobile-bottom-item" type="button" data-v122-nav-target="spending" aria-label="Spending">
+    <span data-hero="wallet"></span><span>Spending</span>
   </button>
-  <div style="position:relative;height:62px;display:grid;place-items:start center">
-    <button class="mobile-bottom-create" id="mobileBottomCreateBtn" type="button" aria-label="Open quick access" aria-expanded="false">
+  <div class="mobile-bottom-center">
+    <button class="mobile-bottom-create" id="mobileBottomCreateBtn" type="button" aria-label="Quick add" aria-expanded="false" aria-controls="mobileCreateSheet">
       <span data-hero="plus"></span>
     </button>
-    <span class="mobile-bottom-create-label">Quick</span>
+    <span class="mobile-bottom-create-label">Add</span>
   </div>
   <button class="mobile-bottom-item" type="button" data-v122-nav-target="accounts" aria-label="Accounts">
     <span data-hero="building-library"></span><span>Accounts</span>
   </button>
-  <button class="mobile-bottom-item" id="mobileBottomMoreBtn" type="button" aria-label="More features">
+  <button class="mobile-bottom-item" id="mobileBottomMoreBtn" type="button" aria-label="More SINOP features" aria-expanded="false" aria-controls="mobileMoreSheet">
     <span data-hero="squares-2x2"></span><span>More</span>
   </button>
 </nav>
+
+<div class="mobile-action-sheet" id="mobileCreateSheet" aria-hidden="true">
+  <div class="mobile-action-sheet-backdrop" data-mobile-sheet-close="mobileCreateSheet"></div>
+  <section class="mobile-action-sheet-panel" role="dialog" aria-modal="true" aria-labelledby="mobileCreateSheetTitle">
+    <div class="mobile-sheet-handle" aria-hidden="true"></div>
+    <div class="mobile-sheet-head">
+      <div class="mobile-sheet-head-copy"><span class="mobile-sheet-eyebrow">Quick add</span><h3 id="mobileCreateSheetTitle">What do you want to add?</h3><p>Create something without hunting through a module first.</p></div>
+      <button class="mobile-sheet-close" type="button" data-mobile-sheet-close="mobileCreateSheet" aria-label="Close quick add"><span data-hero="x-mark"></span></button>
+    </div>
+    <div class="mobile-create-grid">
+      <button class="mobile-create-action" type="button" data-v124-create="expense"><span class="mobile-action-icon"><span data-hero="wallet"></span></span><span><strong>Expense</strong><small>Record spending</small></span></button>
+      <button class="mobile-create-action" type="button" data-v124-create="income"><span class="mobile-action-icon"><span data-hero="banknotes"></span></span><span><strong>Income</strong><small>Add money coming in</small></span></button>
+      <button class="mobile-create-action" type="button" data-v124-create="bill"><span class="mobile-action-icon"><span data-hero="arrow-path"></span></span><span><strong>Recurring</strong><small>Add a commitment</small></span></button>
+      <button class="mobile-create-action" type="button" data-v124-create="transfer"><span class="mobile-action-icon"><span data-hero="arrows-right-left"></span></span><span><strong>Transfer</strong><small>Move between accounts</small></span></button>
+      <button class="mobile-create-action" type="button" data-v124-create="account"><span class="mobile-action-icon"><span data-hero="building-library"></span></span><span><strong>Account</strong><small>Add a bank or wallet</small></span></button>
+      <button class="mobile-create-action" type="button" data-v124-create="goal"><span class="mobile-action-icon"><span data-hero="flag"></span></span><span><strong>Goal</strong><small>Start saving for something</small></span></button>
+      <button class="mobile-create-action" type="button" data-v124-create="kkb"><span class="mobile-action-icon"><span data-hero="calculator"></span></span><span><strong>KKB</strong><small>Start a split</small></span></button>
+      <button class="mobile-create-action" type="button" data-v124-create="grocery"><span class="mobile-action-icon"><span data-hero="shopping-cart"></span></span><span><strong>Grocery</strong><small>Start a grocery event</small></span></button>
+    </div>
+  </section>
+</div>
+
+<div class="mobile-action-sheet" id="mobileMoreSheet" aria-hidden="true">
+  <div class="mobile-action-sheet-backdrop" data-mobile-sheet-close="mobileMoreSheet"></div>
+  <section class="mobile-action-sheet-panel" role="dialog" aria-modal="true" aria-labelledby="mobileMoreSheetTitle">
+    <div class="mobile-sheet-handle" aria-hidden="true"></div>
+    <div class="mobile-sheet-head">
+      <div class="mobile-sheet-head-copy"><span class="mobile-sheet-eyebrow">Quick access</span><h3 id="mobileMoreSheetTitle">More of SINOP</h3><p>Your less-frequent modules stay one tap away without crowding the tab bar.</p></div>
+      <button class="mobile-sheet-close" type="button" data-mobile-sheet-close="mobileMoreSheet" aria-label="Close more features"><span data-hero="x-mark"></span></button>
+    </div>
+    <div class="mobile-more-grid" aria-label="SINOP destinations">
+      <button class="mobile-more-destination" type="button" data-v124-more-target="income"><span class="mobile-action-icon"><span data-hero="plus-circle"></span></span><span>Income</span></button>
+      <button class="mobile-more-destination" type="button" data-v124-more-target="bills"><span class="mobile-action-icon"><span data-hero="arrow-path"></span></span><span>Recurring</span></button>
+      <button class="mobile-more-destination" type="button" data-v124-more-target="daily-allowance"><span class="mobile-action-icon"><span data-hero="calendar-days"></span></span><span>Daily allowance</span></button>
+      <button class="mobile-more-destination" type="button" data-v124-more-target="goals"><span class="mobile-action-icon"><span data-hero="flag"></span></span><span>Goals</span></button>
+      <button class="mobile-more-destination" type="button" data-v124-more-target="kkb"><span class="mobile-action-icon"><span data-hero="calculator"></span></span><span>KKB</span></button>
+      <button class="mobile-more-destination" type="button" data-v124-more-target="barkada"><span class="mobile-action-icon"><span data-hero="user-group"></span></span><span>Barkada</span></button>
+      <button class="mobile-more-destination" type="button" data-v124-more-target="grocery"><span class="mobile-action-icon"><span data-hero="shopping-cart"></span></span><span>Grocery</span></button>
+      <button class="mobile-more-destination" type="button" data-v124-more-target="credit-cards"><span class="mobile-action-icon"><span data-hero="credit-card"></span></span><span>Credit cards</span></button>
+      <button class="mobile-more-destination" type="button" data-v124-more-target="loans"><span class="mobile-action-icon"><span data-hero="arrows-right-left"></span></span><span>Loans &amp; IOUs</span></button>
+      <button class="mobile-more-destination" type="button" data-v124-more-target="activity"><span class="mobile-action-icon"><span data-hero="clock"></span></span><span>Activity</span></button>
+      <button class="mobile-more-destination" type="button" data-v124-more-target="calendar"><span class="mobile-action-icon"><span data-hero="calendar-days"></span></span><span>Calendar</span></button>
+      <button class="mobile-more-destination" type="button" data-v124-more-target="forecast"><span class="mobile-action-icon"><span data-hero="chart-bar-square"></span></span><span>Forecast</span></button>
+      <button class="mobile-more-destination" type="button" data-v124-more-target="monthly-statement"><span class="mobile-action-icon"><span data-hero="banknotes"></span></span><span>Statements</span></button>
+      <button class="mobile-more-destination" type="button" data-v124-more-target="rewards"><span class="mobile-action-icon"><span data-hero="trophy"></span></span><span>Rewards</span></button>
+      <button class="mobile-more-destination" type="button" data-v124-more-target="settings"><span class="mobile-action-icon"><span data-hero="adjustments-horizontal"></span></span><span>Customize</span></button>
+      <button class="mobile-more-destination" type="button" data-v124-more-target="user-manual"><span class="mobile-action-icon"><span data-hero="question-mark-circle"></span></span><span>User manual</span></button>
+    </div>
+    <div class="mobile-sheet-section-title">Tools</div>
+    <div class="mobile-tools-row">
+      <button class="mobile-tool-action" id="v124MobileSearchBtn" type="button"><span data-hero="magnifying-glass"></span><span>Search</span></button>
+      <button class="mobile-tool-action" id="v124MobileSaveBtn" type="button"><span data-hero="check-circle"></span><span>Save</span></button>
+      <button class="mobile-tool-action" id="v124MobileCloudBtn" type="button"><span data-hero="cloud-arrow-up"></span><span>Drive</span></button>
+      <button class="mobile-tool-action" id="v124MobileLevelBtn" type="button"><span data-hero="trophy"></span><span>Level</span></button>
+    </div>
+  </section>
+</div>
 
 <!-- ===== SINOP v122 · deliberate record-creation sheets ===== -->
 <div id="incomeCreateModal" class="modal-backdrop" aria-hidden="true">
@@ -20622,7 +20776,7 @@ maybeStartFirstRunSetup();
         <label class="v122-field full"><span>Description</span><input id="v122SpendDescription" type="text" placeholder="e.g. Dinner, shoes, household supplies"></label>
         <label class="v122-field"><span>Category</span><select id="v122SpendCategory"></select></label>
         <label class="v122-field"><span>Amount</span><input id="v122SpendAmount" type="number" min="0" step="1" inputmode="decimal" placeholder="0"></label>
-        <label class="v122-field full"><span>Paid with</span><select id="v122SpendSource"></select></label>
+        <label class="v122-field full"><span>Pay from</span><select id="v122SpendSource"></select><small>Use a tracked account/wallet or credit card. Physical cash belongs in a Cold Cash account.</small></label>
         <label class="v122-field full"><span>Notes (optional)</span><textarea id="v122SpendNotes" placeholder="Optional context"></textarea></label>
       </div>
     </div>
@@ -20766,56 +20920,58 @@ maybeStartFirstRunSetup();
 
   function v122SyncBottomNav(target=currentSinopSectionId?.()||"overview"){
     document.querySelectorAll("[data-v122-nav-target]").forEach(btn=>btn.classList.toggle("active",btn.dataset.v122NavTarget===target));
+    document.querySelectorAll("[data-v124-more-target]").forEach(btn=>btn.classList.toggle("active",btn.dataset.v124MoreTarget===target));
     const more=$("mobileBottomMoreBtn");
-    if(more)more.classList.toggle("active",!["overview","activity","accounts"].includes(target));
+    if(more)more.classList.toggle("active",!["overview","spending","accounts"].includes(target));
   }
-  document.querySelectorAll("[data-v122-nav-target]").forEach(btn=>btn.addEventListener("click",()=>openSinopTarget(btn.dataset.v122NavTarget)));
-  $("mobileBottomMoreBtn")?.addEventListener("click",()=>{
-    closeMobileQuickAccess();
-    document.body.classList.add("mobile-sidebar-open");
-    document.querySelector(".sidebar .nav-btn.active")?.scrollIntoView({block:"center"});
-  });
-  $("mobileBottomCreateBtn")?.addEventListener("click",()=>{
-    toggleMobileQuickAccess();
-  });
 
-  const quickShell=$("mobileQuickAccess");
-  if(quickShell){
-    new MutationObserver(()=>{$("mobileBottomCreateBtn")?.setAttribute("aria-expanded",quickShell.classList.contains("open")?"true":"false")})
-      .observe(quickShell,{attributes:true,attributeFilter:["class"]});
-    quickShell.addEventListener("click",e=>{if(e.target===quickShell)closeMobileQuickAccess()});
+  function v124OpenSheet(id){
+    ["mobileCreateSheet","mobileMoreSheet"].forEach(other=>{if(other!==id)v124CloseSheet(other)});
+    const sheet=$(id);if(!sheet)return;
+    sheet.classList.add("open");sheet.setAttribute("aria-hidden","false");
+    document.body.classList.add("mobile-sheet-open");
+    if(id==="mobileCreateSheet")$("mobileBottomCreateBtn")?.setAttribute("aria-expanded","true");
+    if(id==="mobileMoreSheet")$("mobileBottomMoreBtn")?.setAttribute("aria-expanded","true");
+    closeMobileSidebar();
+    requestAnimationFrame(()=>sheet.querySelector("button")?.focus({preventScroll:true}));
   }
+  function v124CloseSheet(id){
+    const sheet=$(id);if(!sheet)return;
+    sheet.classList.remove("open");sheet.setAttribute("aria-hidden","true");
+    if(id==="mobileCreateSheet")$("mobileBottomCreateBtn")?.setAttribute("aria-expanded","false");
+    if(id==="mobileMoreSheet")$("mobileBottomMoreBtn")?.setAttribute("aria-expanded","false");
+    if(!document.querySelector(".mobile-action-sheet.open"))document.body.classList.remove("mobile-sheet-open");
+  }
+  function v124CloseMobileSheets(){v124CloseSheet("mobileCreateSheet");v124CloseSheet("mobileMoreSheet")}
+
+  document.querySelectorAll("[data-v122-nav-target]").forEach(btn=>btn.addEventListener("click",()=>{
+    v124CloseMobileSheets();openSinopTarget(btn.dataset.v122NavTarget);
+  }));
+  $("mobileBottomCreateBtn")?.addEventListener("click",()=>v124OpenSheet("mobileCreateSheet"));
+  $("mobileBottomMoreBtn")?.addEventListener("click",()=>v124OpenSheet("mobileMoreSheet"));
+  document.querySelectorAll("[data-mobile-sheet-close]").forEach(el=>el.addEventListener("click",()=>v124CloseSheet(el.dataset.mobileSheetClose)));
+  document.querySelectorAll("[data-v124-more-target]").forEach(btn=>btn.addEventListener("click",()=>{
+    const target=btn.dataset.v124MoreTarget;v124CloseMobileSheets();openSinopTarget(target);
+  }));
+  document.addEventListener("keydown",e=>{if(e.key==="Escape")v124CloseMobileSheets()});
 
   function v122QuickCreate(target,buttonId){
-    closeMobileQuickAccess();
+    v124CloseMobileSheets();
     openSinopTarget(target);
     requestAnimationFrame(()=>requestAnimationFrame(()=>$(buttonId)?.click()));
   }
-  const quickMenu=$("mobileQuickMenu");
-  if(quickMenu&&!quickMenu.querySelector(".v122-mobile-create-grid")){
-    const create=document.createElement("div");
-    create.className="v122-mobile-create-grid";
-    create.setAttribute("aria-label","Create quickly");
-    create.innerHTML=`
-      <button type="button" data-v122-quick="expense"><span data-hero="wallet"></span><span>Expense</span></button>
-      <button type="button" data-v122-quick="income"><span data-hero="banknotes"></span><span>Income</span></button>
-      <button type="button" data-v122-quick="bill"><span data-hero="arrow-path"></span><span>Recurring</span></button>
-      <button type="button" data-v122-quick="transfer"><span data-hero="arrows-right-left"></span><span>Transfer</span></button>
-      <button type="button" data-v122-quick="account"><span data-hero="building-library"></span><span>Account</span></button>
-      <button type="button" data-v122-quick="goal"><span data-hero="flag"></span><span>Goal</span></button>
-      <button type="button" data-v122-quick="kkb"><span data-hero="calculator"></span><span>KKB</span></button>
-      <button type="button" data-v122-quick="grocery"><span data-hero="shopping-cart"></span><span>Grocery</span></button>`;
-    quickMenu.querySelector(".mobile-quick-head")?.insertAdjacentElement("afterend",create);
-    hydrateHeroIcons(create);
-    create.querySelector('[data-v122-quick="expense"]').onclick=()=>v122QuickCreate("spending","addSpendBtn");
-    create.querySelector('[data-v122-quick="income"]').onclick=()=>v122QuickCreate("income","addIncomeBtn");
-    create.querySelector('[data-v122-quick="bill"]').onclick=()=>v122QuickCreate("bills","addBillBtn");
-    create.querySelector('[data-v122-quick="transfer"]').onclick=()=>v122QuickCreate("accounts","addTransferBtn");
-    create.querySelector('[data-v122-quick="account"]').onclick=()=>v122QuickCreate("accounts","addAccountBtn");
-    create.querySelector('[data-v122-quick="goal"]').onclick=()=>v122QuickCreate("goals","addGoalBtn");
-    create.querySelector('[data-v122-quick="kkb"]').onclick=()=>v122QuickCreate("kkb","addKkbTripBtn");
-    create.querySelector('[data-v122-quick="grocery"]').onclick=()=>v122QuickCreate("grocery","newGroceryEventBtn");
-  }
+  const v124CreateMap={
+    expense:["spending","addSpendBtn"],income:["income","addIncomeBtn"],bill:["bills","addBillBtn"],
+    transfer:["accounts","addTransferBtn"],account:["accounts","addAccountBtn"],goal:["goals","addGoalBtn"],
+    kkb:["kkb","addKkbTripBtn"],grocery:["grocery","newGroceryEventBtn"]
+  };
+  document.querySelectorAll("[data-v124-create]").forEach(btn=>btn.addEventListener("click",()=>{
+    const config=v124CreateMap[btn.dataset.v124Create];if(config)v122QuickCreate(config[0],config[1]);
+  }));
+  $("v124MobileSearchBtn")?.addEventListener("click",()=>{v124CloseMobileSheets();$("commandPaletteBtn")?.click()});
+  $("v124MobileSaveBtn")?.addEventListener("click",()=>{v124CloseMobileSheets();$("saveBtn")?.click()});
+  $("v124MobileCloudBtn")?.addEventListener("click",()=>{v124CloseMobileSheets();$("cloudTopBtn")?.click()});
+  $("v124MobileLevelBtn")?.addEventListener("click",()=>{v124CloseMobileSheets();$("topRewardLevelBtn")?.click()});
 
   /* Bank recognition in Accounts. */
   const accountGridForm=$("accountModal")?.querySelector(".account-modal-grid");
@@ -21013,8 +21169,7 @@ maybeStartFirstRunSetup();
   function v122SpendingSourceOptions(){
     const a=budgetSourceAccounts();
     const c=state.creditCards||[];
-    const methods=(state.settings.paymentMethods||[]).filter(v=>v!=="Credit card");
-    return `${a.length?`<optgroup label="Accounts & wallets">${a.map(x=>`<option value="account:${esc(x.id)}">${esc(x.name)} · ${esc(accountTypeLabel(x.type))}</option>`).join("")}</optgroup>`:""}<optgroup label="Other payment methods">${methods.map(v=>`<option value="method:${esc(v)}">${esc(v)}</option>`).join("")}</optgroup>${c.length?`<optgroup label="Credit cards">${c.map(x=>`<option value="card:${esc(x.id)}">${esc(cardLabel(x))}</option>`).join("")}</optgroup>`:""}`;
+    return `<option value="">Choose account or credit card</option>${a.length?`<optgroup label="Accounts & wallets">${a.map(x=>`<option value="account:${esc(x.id)}">${esc(x.name)} · ${esc(accountTypeLabel(x.type))}</option>`).join("")}</optgroup>`:""}${c.length?`<optgroup label="Credit cards">${c.map(x=>`<option value="card:${esc(x.id)}">${esc(cardLabel(x))}</option>`).join("")}</optgroup>`:""}`;
   }
   function v122OpenSpendCreate(){
     $("v122SpendDate").value=localDateKey();
@@ -21033,16 +21188,17 @@ maybeStartFirstRunSetup();
     if(!description){toast("Enter an expense description.");$("v122SpendDescription").focus();return}
     if(amount<=0){toast("Enter the expense amount.");$("v122SpendAmount").focus();return}
     const source=$("v122SpendSource").value||"";
+    const status=$("v122SpendStatus").value||"actual";
+    if(status==="actual"&&!source){toast("Choose the account, wallet, or credit card used for this expense.");$("v122SpendSource").focus();return}
     const item={
       id:uid(),date:$("v122SpendDate").value||localDateKey(),description,
       category:$("v122SpendCategory").value||state.categories.spending[0]||"Other",
-      status:$("v122SpendStatus").value||"actual",
-      paymentMethod:"Cash",creditCardId:"",accountId:"",
+      status,
+      paymentMethod:"",creditCardId:"",accountId:"",
       notes:$("v122SpendNotes").value.trim(),amount
     };
     if(source.startsWith("account:")){item.accountId=source.slice(8);item.paymentMethod="Account"}
     else if(source.startsWith("card:")){item.creditCardId=source.slice(5);item.paymentMethod="Credit card"}
-    else item.paymentMethod=source.replace(/^method:/,"")||"Cash";
     state.spending.push(item);
     v122CloseModal("spendCreateModal");scheduleAutoSave();render();toast("Expense added.");
   }
@@ -21140,6 +21296,20 @@ maybeStartFirstRunSetup();
 
   /* Keep the mobile DOM enhancements in sync with every module renderer. */
   let enhanceQueued=false,enhancing=false;
+  /* v123: remove ambiguous standalone cash/payment-method sources from Spending. */
+  function v123MigrateLegacySpendingCash(){
+    const cold=(state.accounts||[]).filter(a=>a.type==="cash");
+    if(cold.length!==1)return;
+    let changed=false;
+    (state.spending||[]).forEach(x=>{
+      if(!x.accountId&&!x.creditCardId&&String(x.paymentMethod||"").trim().toLowerCase()==="cash"){
+        x.accountId=cold[0].id;x.paymentMethod="Account";changed=true;
+      }
+    });
+    if(changed)scheduleAutoSave();
+  }
+  v123MigrateLegacySpendingCash();
+
   function v122Enhance(){
     if(enhancing)return;enhancing=true;
     try{
@@ -21157,9 +21327,9 @@ maybeStartFirstRunSetup();
   const main=document.querySelector(".main");
   if(main)new MutationObserver(v122QueueEnhance).observe(main,{childList:true,subtree:true});
   document.addEventListener("click",e=>{
-    if(e.target.closest(".nav-btn,[data-jump],[data-mobile-target],[data-v122-nav-target]"))requestAnimationFrame(v122QueueEnhance);
+    if(e.target.closest(".nav-btn,[data-jump],[data-mobile-target],[data-v122-nav-target],[data-v124-more-target]"))requestAnimationFrame(v122QueueEnhance);
   });
-  mobileMq.addEventListener?.("change",()=>{closeMobileQuickAccess();v122QueueEnhance()});
+  mobileMq.addEventListener?.("change",()=>{closeMobileQuickAccess();v124CloseMobileSheets();v122QueueEnhance()});
   window.addEventListener("resize",v122QueueEnhance,{passive:true});
 
   /* Update user-facing text that still described blank-row creation. */
