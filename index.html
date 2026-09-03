@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0f766e">
-<title>SINOP v134 · Barkada Social</title>
+<title>SINOP v137 · Barkada Leaderboard & Version Log</title>
 <meta name="application-name" content="SINOP">
 <meta name="apple-mobile-web-app-title" content="SINOP">
 <meta name="description" content="SINOP — your personal money system for income, spending, savings, investments, goals, KKB, and financial tracking.">
@@ -5593,6 +5593,49 @@ body[data-theme="dark"] .barkada-group-btn,body[data-theme="dark"] .barkada-memb
     .v131-list-help{margin:-1px 0 6px;padding:0 2px;color:var(--muted);font-size:9px;line-height:1.3}
   }
 </style>
+
+<style id="sinop-v136-profile-style">
+/* ===== SINOP v136 · Profile, Financial Score & rankings ===== */
+.profile-page-head{margin-bottom:12px}.profile-identity-card{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:18px;border:1px solid var(--border);border-radius:18px;background:linear-gradient(135deg,color-mix(in srgb,var(--brandsoft) 52%,var(--panel)),var(--panel));margin-bottom:12px}
+.profile-identity-main{display:flex;align-items:center;gap:13px;min-width:0}.profile-avatar{width:58px;height:58px;flex:0 0 58px;border-radius:18px;background:var(--brand);color:#fff;display:grid;place-items:center;font-size:20px;font-weight:900;overflow:hidden}.profile-avatar img{width:100%;height:100%;object-fit:cover}.profile-identity-copy{min-width:0}.profile-identity-copy>span{font-size:10px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.05em}.profile-identity-copy h3{margin:3px 0 2px;font-size:22px}.profile-identity-copy p{margin:0;color:var(--muted);font-size:12px}.profile-identity-stats{display:grid;grid-template-columns:repeat(3,minmax(90px,1fr));gap:8px}.profile-identity-stats>div{padding:10px 12px;border:1px solid var(--border);border-radius:13px;background:var(--panel)}.profile-identity-stats span,.profile-rank-stat span{display:block;color:var(--muted);font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.045em}.profile-identity-stats strong{display:block;margin-top:3px;font-size:17px}
+.profile-score-grid{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(280px,.75fr);gap:12px;margin-bottom:12px}.profile-financial-card,.profile-ranking-summary-card{padding:16px;border:1px solid var(--border);border-radius:18px;background:var(--panel)}.profile-card-head{display:flex;justify-content:space-between;align-items:center;gap:14px}.profile-card-head.compact{margin-bottom:8px}.profile-card-head h3{margin:2px 0 3px;font-size:27px}.profile-card-head p{margin:0;color:var(--muted);font-size:11px}.profile-score-ring{--score-pct:0%;width:92px;height:92px;flex:0 0 92px;border-radius:50%;display:grid;place-items:center;align-content:center;background:radial-gradient(circle at center,var(--panel) 57%,transparent 59%),conic-gradient(var(--brand) var(--score-pct),var(--soft) 0);border:1px solid var(--border)}.profile-score-ring span{font-size:22px;font-weight:950;line-height:1}.profile-score-ring small{font-size:9px;color:var(--muted);margin-top:2px}.profile-score-components{display:grid;gap:8px;margin-top:14px}.profile-score-component{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:5px 10px;align-items:center}.profile-score-component>span{font-size:11px;font-weight:800}.profile-score-component>strong{font-size:11px}.profile-score-track{grid-column:1/-1;height:7px;border-radius:999px;background:var(--soft);overflow:hidden}.profile-score-fill{height:100%;border-radius:inherit;background:var(--brand)}.profile-score-component small{grid-column:1/-1;color:var(--muted);font-size:10px;line-height:1.3}.profile-score-note{margin-top:12px;padding:9px 10px;border-radius:11px;background:var(--soft);font-size:10.5px;color:var(--muted);line-height:1.45}.profile-score-note strong{color:var(--text)}
+.profile-rank-stat{padding:11px 0;border-bottom:1px solid color-mix(in srgb,var(--border) 86%,var(--text) 14%)}.profile-rank-stat strong{display:block;margin:3px 0 1px;font-size:22px}.profile-rank-stat small{color:var(--muted);font-size:10px}.profile-rank-mode{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:12px;padding:4px;border-radius:12px;background:var(--soft)}.profile-rank-mode button{min-height:38px;border:0;border-radius:9px;background:transparent;color:var(--muted);font-size:10px;font-weight:850}.profile-rank-mode button.active{background:var(--panel);color:var(--brand2);box-shadow:0 1px 3px rgba(0,0,0,.07)}
+.profile-badge-card{margin-bottom:12px}.profile-badge-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:8px}.profile-earned-badge{min-width:0;padding:10px;border:1px solid var(--border);border-radius:13px;background:var(--soft);display:grid;grid-template-columns:34px minmax(0,1fr);gap:8px;align-items:center}.profile-earned-badge>span{width:34px;height:34px;border-radius:10px;background:var(--panel);color:var(--brand2);display:grid;place-items:center}.profile-earned-badge .hero-icon{width:18px;height:18px}.profile-earned-badge strong{font-size:11px;line-height:1.25}.profile-empty{padding:18px;border:1px dashed var(--border);border-radius:13px;color:var(--muted);font-size:11px;text-align:center}
+.profile-ranking-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.profile-leaderboard{display:grid;gap:6px}.profile-leader-row{min-width:0;min-height:56px;padding:8px 9px;border:1px solid var(--border);border-radius:12px;display:grid;grid-template-columns:30px 34px minmax(0,1fr) auto;gap:8px;align-items:center;background:var(--panel)}.profile-leader-row.is-you{border-color:color-mix(in srgb,var(--brand) 50%,var(--border));background:color-mix(in srgb,var(--brandsoft) 35%,var(--panel))}.profile-leader-rank{text-align:center;font-weight:950;font-size:12px}.profile-leader-avatar{width:34px;height:34px;border-radius:10px;background:var(--soft);color:var(--brand2);display:grid;place-items:center;font-size:10px;font-weight:900}.profile-leader-copy{min-width:0}.profile-leader-copy strong{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:11.5px}.profile-leader-copy small{display:block;margin-top:2px;color:var(--muted);font-size:9.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.profile-leader-metric{text-align:right}.profile-leader-metric strong{display:block;font-size:11.5px}.profile-leader-metric small{display:block;color:var(--muted);font-size:9px;margin-top:2px}.profile-public-controls{margin-top:12px;padding-top:12px;border-top:1px solid var(--border);display:grid;gap:10px}.profile-public-controls>label:first-child{display:grid;gap:5px}.profile-public-controls>label:first-child>span{font-size:10px;font-weight:800;color:var(--muted)}.profile-public-controls input[type=text]{width:100%;min-height:42px;border:1px solid var(--border);border-radius:10px;padding:9px 10px;background:var(--panel);color:var(--text)}.profile-optin-row{display:grid;grid-template-columns:20px minmax(0,1fr);gap:8px;align-items:start}.profile-optin-row input{margin-top:3px}.profile-optin-row strong,.profile-optin-row small{display:block}.profile-optin-row strong{font-size:10.5px}.profile-optin-row small{margin-top:2px;color:var(--muted);font-size:9.5px;line-height:1.35}
+@media(max-width:950px){.profile-score-grid,.profile-ranking-grid{grid-template-columns:1fr}.profile-identity-card{align-items:flex-start;flex-direction:column}.profile-identity-stats{width:100%}}
+@media(max-width:760px){#profile{min-width:0}.profile-identity-card{padding:12px;border-radius:15px;gap:12px}.profile-avatar{width:48px;height:48px;flex-basis:48px;border-radius:14px}.profile-identity-copy h3{font-size:18px}.profile-identity-copy p{font-size:11px}.profile-identity-stats{display:flex;overflow-x:auto;scrollbar-width:none;gap:6px}.profile-identity-stats::-webkit-scrollbar{display:none}.profile-identity-stats>div{min-width:100px;padding:8px 9px}.profile-score-grid{gap:9px}.profile-financial-card,.profile-ranking-summary-card{padding:12px;border-radius:15px}.profile-card-head{align-items:flex-start}.profile-card-head h3{font-size:24px}.profile-score-ring{width:78px;height:78px;flex-basis:78px}.profile-score-ring span{font-size:19px}.profile-score-component>span,.profile-score-component>strong{font-size:11px}.profile-score-component small{font-size:10px}.profile-badge-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}.profile-earned-badge{padding:8px;grid-template-columns:30px minmax(0,1fr)}.profile-earned-badge>span{width:30px;height:30px}.profile-ranking-grid{gap:9px}.profile-leader-row{grid-template-columns:26px 32px minmax(0,1fr) auto;gap:6px;padding:8px 7px}.profile-leader-avatar{width:32px;height:32px}.profile-public-controls input[type=text]{font-size:16px;min-height:46px}}
+@media(max-width:360px){.profile-badge-grid{grid-template-columns:1fr}.profile-leader-row{grid-template-columns:24px 30px minmax(0,1fr)}.profile-leader-metric{grid-column:3;justify-self:start;text-align:left;display:flex;gap:6px;align-items:center}.profile-leader-metric small{margin:0}.profile-score-ring{width:70px;height:70px;flex-basis:70px}}
+</style>
+
+
+<style id="sinop-v137-barkada-version-style">
+/* ===== SINOP v137 · designed Barkada ranking + version log ===== */
+.barkada-v137-group-hero{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding:2px 2px 13px;border-bottom:1px solid var(--border)}
+.barkada-v137-group-copy{min-width:0}.barkada-v137-group-copy h2{margin:2px 0 7px;font-size:24px;line-height:1.08}.barkada-v137-group-copy .eyebrow{margin:0}
+.barkada-v137-leaderboard{margin-top:14px;padding:16px;border:1px solid color-mix(in srgb,var(--border) 85%,var(--brand) 15%);border-radius:18px;background:var(--panel);box-shadow:0 10px 28px rgba(24,33,30,.05)}
+.barkada-v137-leader-head{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;margin-bottom:12px}.barkada-v137-leader-head h3{margin:2px 0 3px;font-size:20px}.barkada-v137-leader-head p{margin:0;color:var(--muted);font-size:12px;line-height:1.45}
+.barkada-v137-metric-toggle{display:inline-grid;grid-template-columns:1fr 1fr;padding:3px;border:1px solid var(--border);border-radius:12px;background:var(--soft);flex:0 0 auto}.barkada-v137-metric-toggle button{min-height:36px;padding:0 11px;border:0;border-radius:9px;background:transparent;color:var(--muted);font-size:11px;font-weight:850}.barkada-v137-metric-toggle button.active{background:var(--panel);color:var(--brand2);box-shadow:0 2px 8px rgba(24,33,30,.08)}
+.barkada-v137-summary-strip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:12px}.barkada-v137-summary-strip>div{min-width:0;padding:10px 11px;border:1px solid var(--border);border-radius:12px;background:var(--soft);display:grid;gap:2px}.barkada-v137-summary-strip span{font-size:10px;color:var(--muted);font-weight:800}.barkada-v137-summary-strip strong{font-size:15px;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.barkada-v137-summary-strip small{font-size:10px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.barkada-v137-podium{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;align-items:stretch;margin:4px 0 14px}.barkada-podium-card{position:relative;min-width:0;min-height:196px;padding:17px 12px 12px;border:1px solid var(--border);border-radius:16px;background:linear-gradient(180deg,color-mix(in srgb,var(--panel) 92%,var(--soft)),var(--panel));display:flex;flex-direction:column;align-items:center;text-align:center;overflow:hidden}.barkada-podium-card.rank-1{border-color:#e6c95b;background:linear-gradient(180deg,#fff9df,var(--panel));transform:translateY(-4px)}.barkada-podium-card.rank-2{border-color:#cdd3d7}.barkada-podium-card.rank-3{border-color:#d7aa80}.barkada-podium-card.is-you{box-shadow:inset 0 0 0 2px color-mix(in srgb,var(--brand) 65%,transparent)}
+.barkada-podium-rank{position:absolute;top:8px;left:8px;min-width:29px;height:29px;padding:0 7px;border-radius:10px;display:grid;place-items:center;background:var(--soft);color:var(--text);font-size:11px;font-weight:950}.barkada-podium-rank.gold{background:#fff0a8;color:#755900}.barkada-podium-rank.silver{background:#edf1f3;color:#5d6870}.barkada-podium-rank.bronze{background:#f5dfca;color:#8a542d}
+.barkada-podium-avatar,.barkada-v137-avatar{display:grid;place-items:center;border-radius:50%;background:var(--brandsoft);color:var(--brand2);font-weight:950}.barkada-podium-avatar{width:54px;height:54px;margin:9px 0 8px;font-size:16px;box-shadow:0 0 0 4px var(--panel),0 0 0 5px color-mix(in srgb,var(--brand) 22%,var(--border))}.barkada-podium-name{min-width:0;max-width:100%;font-size:13px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.barkada-you-tag{display:inline-flex;margin-left:5px;padding:2px 5px;border-radius:999px;background:var(--brandsoft);color:var(--brand2);font-size:8px;font-weight:900;vertical-align:middle}.barkada-level-chip{max-width:100%;margin-top:5px;padding:4px 7px;border-radius:999px;background:var(--soft);color:var(--muted);font-size:9px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.barkada-podium-score{margin-top:10px;font-size:18px;line-height:1;color:var(--text)}.barkada-podium-card>small{margin-top:4px;font-size:9.5px;color:var(--muted)}
+.barkada-podium-badges{min-height:25px;margin-top:auto;padding-top:9px;display:flex;justify-content:center;gap:4px}.barkada-v137-badge-icon{width:25px;height:25px;border-radius:8px;background:var(--soft);color:var(--brand2);display:grid;place-items:center;border:1px solid var(--border)}.barkada-v137-badge-icon .hero-icon{width:14px;height:14px}.barkada-no-badge-mini{font-size:9px;color:var(--muted)}
+.barkada-v137-all-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:4px 2px 7px}.barkada-v137-all-head>span{font-size:11px;font-weight:900}.barkada-v137-all-head small{font-size:10px;color:var(--muted)}.barkada-v137-rank-list{display:grid;gap:6px}.barkada-v137-rank-row{border:1px solid var(--border);border-radius:13px;background:var(--panel);overflow:hidden}.barkada-v137-rank-row.is-you{border-color:color-mix(in srgb,var(--brand) 55%,var(--border));background:color-mix(in srgb,var(--brandsoft) 24%,var(--panel))}.barkada-v137-rank-row>summary{list-style:none;min-height:58px;padding:8px 9px;display:grid;grid-template-columns:34px 38px minmax(0,1fr) auto auto 18px;gap:8px;align-items:center;cursor:pointer}.barkada-v137-rank-row>summary::-webkit-details-marker{display:none}.barkada-v137-rank-number{font-size:12px;font-weight:950;text-align:center;color:var(--muted)}.barkada-v137-avatar{width:38px;height:38px;font-size:11px}.barkada-v137-avatar.muted{background:var(--soft);color:var(--muted)}.barkada-v137-person{min-width:0}.barkada-v137-person strong{display:block;font-size:12px;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.barkada-v137-person small{display:block;margin-top:2px;color:var(--muted);font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.barkada-v137-score{text-align:right;min-width:78px}.barkada-v137-score strong{display:block;font-size:12px;white-space:nowrap}.barkada-v137-score small{display:block;margin-top:2px;font-size:9px;color:var(--muted);white-space:nowrap}.barkada-v137-preview{display:flex;gap:3px}.barkada-v137-preview .barkada-v137-badge-icon{width:22px;height:22px}.barkada-v137-chevron{color:var(--muted);display:grid;place-items:center;transition:transform .16s}.barkada-v137-chevron .hero-icon{width:15px;height:15px}.barkada-v137-rank-row[open] .barkada-v137-chevron{transform:rotate(180deg)}
+.barkada-v137-badge-panel{padding:8px 10px 10px 88px;border-top:1px solid var(--border);display:flex;flex-wrap:wrap;gap:5px;background:var(--soft)}.barkada-v137-badge{display:inline-flex;align-items:center;gap:5px;padding:5px 7px;border:1px solid var(--border);border-radius:9px;background:var(--panel)}.barkada-v137-badge>span{display:grid;place-items:center;color:var(--brand2)}.barkada-v137-badge .hero-icon{width:13px;height:13px}.barkada-v137-badge strong{font-size:9.5px}.barkada-v137-pending{margin-top:10px;border-top:1px solid var(--border)}.barkada-v137-pending>summary{padding:10px 2px 3px;cursor:pointer;color:var(--muted);font-size:10px;font-weight:850}.barkada-v137-pending>summary span{display:inline-grid;place-items:center;margin-left:4px;min-width:20px;height:20px;border-radius:999px;background:var(--soft);color:var(--text)}.barkada-v137-pending-list{display:grid;gap:5px;padding-top:7px}.barkada-v137-pending-row{min-width:0;padding:8px 9px;border:1px solid var(--border);border-radius:12px;background:var(--soft);display:grid;grid-template-columns:38px minmax(0,1fr) auto;gap:8px;align-items:center}.barkada-v137-pending-row>span:nth-child(2){min-width:0}.barkada-v137-pending-row strong{display:block;font-size:11px}.barkada-v137-pending-row small{display:block;margin-top:2px;color:var(--muted);font-size:9.5px;line-height:1.3}.barkada-v137-empty{padding:18px;border:1px dashed var(--border);border-radius:14px;background:var(--soft);text-align:center}.barkada-v137-empty strong,.barkada-v137-empty span{display:block}.barkada-v137-empty strong{font-size:13px}.barkada-v137-empty span{margin-top:4px;color:var(--muted);font-size:10px}
+
+.version-log-page-head{align-items:flex-end}.version-latest-card{display:grid;grid-template-columns:110px minmax(0,1fr);gap:18px;padding:20px;border:1px solid color-mix(in srgb,var(--brand) 30%,var(--border));border-radius:20px;background:linear-gradient(135deg,color-mix(in srgb,var(--brandsoft) 54%,var(--panel)),var(--panel));margin-bottom:14px}.version-latest-badge{width:100px;height:100px;border-radius:24px;background:var(--brand);color:#fff;display:grid;place-items:center;align-content:center;gap:2px;box-shadow:0 12px 28px color-mix(in srgb,var(--brand) 23%,transparent)}.version-latest-badge span{font-size:9px;font-weight:850;text-transform:uppercase;letter-spacing:.08em}.version-latest-badge strong{font-size:28px;line-height:1}.version-latest-copy{min-width:0;align-self:center}.version-latest-copy>span{font-size:10px;color:var(--muted);font-weight:800}.version-latest-copy h3{margin:4px 0 6px;font-size:22px}.version-latest-copy p{margin:0;color:var(--muted);font-size:12px;line-height:1.55}
+.version-timeline{position:relative;display:grid;gap:9px;padding-left:24px}.version-timeline::before{content:"";position:absolute;left:8px;top:8px;bottom:8px;width:2px;background:var(--border);border-radius:2px}.version-entry{position:relative}.version-node{position:absolute;left:-24px;top:18px;width:18px;height:18px;border-radius:50%;background:var(--bg);display:grid;place-items:center}.version-node span{width:8px;height:8px;border-radius:50%;background:var(--muted)}.version-entry.is-latest .version-node span{background:var(--brand);box-shadow:0 0 0 4px var(--brandsoft)}.version-entry-card{padding:14px 15px;border:1px solid var(--border);border-radius:15px;background:var(--panel)}.version-entry.is-latest .version-entry-card{border-color:color-mix(in srgb,var(--brand) 36%,var(--border))}.version-entry-card header{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}.version-entry-card header>div{min-width:0}.version-entry-card header span{display:inline-flex;padding:3px 7px;border-radius:999px;background:var(--soft);color:var(--brand2);font-size:9px;font-weight:900}.version-entry-card h3{margin:5px 0 0;font-size:15px}.version-entry-card time{flex:0 0 auto;color:var(--muted);font-size:9.5px;font-weight:750}.version-entry-card ul{margin:10px 0 0;padding-left:18px;color:var(--muted);font-size:11px;line-height:1.5}.version-entry-card li+li{margin-top:3px}.version-log-footnote{margin-top:10px;padding:10px 12px;border-radius:12px;background:var(--soft);color:var(--muted);font-size:10px;line-height:1.45}
+
+@media(max-width:760px){
+  .barkada-v137-group-hero{display:grid;gap:10px}.barkada-v137-group-copy h2{font-size:20px}.barkada-v137-group-hero .barkada-workspace-actions{display:flex;overflow-x:auto;padding-bottom:2px;scrollbar-width:none}.barkada-v137-group-hero .barkada-workspace-actions::-webkit-scrollbar{display:none}.barkada-v137-group-hero .btn{min-height:42px;white-space:nowrap}
+  .barkada-v137-leaderboard{padding:12px;border-radius:16px;box-shadow:none}.barkada-v137-leader-head{display:grid;gap:9px;align-items:start}.barkada-v137-leader-head h3{font-size:18px}.barkada-v137-leader-head p{font-size:11px}.barkada-v137-metric-toggle{width:100%;grid-template-columns:1fr 1fr}.barkada-v137-metric-toggle button{min-height:42px;font-size:11px}
+  .barkada-v137-summary-strip{display:flex;overflow-x:auto;gap:7px;margin-left:-1px;margin-right:-1px;padding:1px 1px 4px;scroll-snap-type:x proximity;scrollbar-width:none}.barkada-v137-summary-strip::-webkit-scrollbar{display:none}.barkada-v137-summary-strip>div{flex:0 0 142px;scroll-snap-align:start;padding:9px 10px}.barkada-v137-summary-strip strong{font-size:14px}
+  .barkada-v137-podium{grid-template-columns:repeat(3,minmax(112px,1fr));overflow-x:auto;align-items:stretch;padding:5px 1px 6px;scroll-snap-type:x mandatory;scrollbar-width:none}.barkada-v137-podium::-webkit-scrollbar{display:none}.barkada-podium-card{scroll-snap-align:start;min-height:175px;padding:14px 8px 10px}.barkada-podium-card.rank-1{transform:none}.barkada-podium-avatar{width:46px;height:46px;margin-top:11px}.barkada-podium-name{font-size:11.5px}.barkada-level-chip{font-size:8.5px}.barkada-podium-score{font-size:16px}.barkada-podium-card>small{font-size:8.5px}
+  .barkada-v137-rank-row>summary{min-height:64px;grid-template-columns:30px 38px minmax(0,1fr) auto 16px;gap:7px;padding:8px 7px}.barkada-v137-preview{display:none}.barkada-v137-rank-number{font-size:11px}.barkada-v137-person strong{font-size:11.5px}.barkada-v137-person small{font-size:9.5px}.barkada-v137-score{min-width:73px}.barkada-v137-score strong{font-size:11.5px}.barkada-v137-score small{font-size:8.5px}.barkada-v137-badge-panel{padding:8px 8px 9px 76px}.barkada-v137-pending-row{grid-template-columns:36px minmax(0,1fr) auto}.barkada-v137-avatar{width:36px;height:36px}
+  .version-log-page-head .action-row{width:100%;display:grid;grid-template-columns:1fr 1fr}.version-log-page-head .btn{width:100%;min-height:44px}.version-latest-card{grid-template-columns:70px minmax(0,1fr);gap:12px;padding:14px;border-radius:16px}.version-latest-badge{width:68px;height:68px;border-radius:18px}.version-latest-badge strong{font-size:20px}.version-latest-copy h3{font-size:17px}.version-latest-copy p{font-size:10.5px}.version-timeline{padding-left:20px}.version-timeline::before{left:6px}.version-node{left:-20px;width:14px;height:14px}.version-node span{width:7px;height:7px}.version-entry-card{padding:12px}.version-entry-card header{display:grid;gap:4px}.version-entry-card h3{font-size:13.5px}.version-entry-card time{font-size:9px}.version-entry-card ul{font-size:10.5px;line-height:1.45}
+}
+@media(max-width:390px){.barkada-v137-rank-row>summary{grid-template-columns:28px 34px minmax(0,1fr) 66px 14px;gap:6px}.barkada-v137-avatar{width:34px;height:34px}.barkada-v137-score{min-width:66px}.barkada-v137-badge-panel{padding-left:70px}.version-log-page-head .action-row{grid-template-columns:1fr}.version-latest-card{grid-template-columns:58px minmax(0,1fr)}.version-latest-badge{width:56px;height:56px;border-radius:15px}.version-latest-badge strong{font-size:17px}.version-latest-copy h3{font-size:15px}}
+</style>
 </head>
 <body class="sinop-auth-locked">
 <div id="sinopLoginGate" class="sinop-login-gate" aria-hidden="false">
@@ -5669,6 +5712,7 @@ body[data-theme="dark"] .barkada-group-btn,body[data-theme="dark"] .barkada-memb
       <div class="nav-group">
         <div class="nav-group-label">Planning &amp; reports</div>
         <button class="nav-btn" data-target="goals"><span class="nav-icon"><span data-hero="flag"></span></span><span class="nav-label">Goals</span></button>
+        <button class="nav-btn" data-target="profile"><span class="nav-icon"><span data-hero="user-circle"></span></span><span class="nav-label">Profile</span></button>
         <button class="nav-btn" data-target="rewards"><span class="nav-icon"><span data-hero="trophy"></span></span><span class="nav-label">Rewards</span></button>
         <button class="nav-btn" data-target="monthly-statement"><span class="nav-icon"><span data-hero="banknotes"></span></span><span class="nav-label">Statements</span></button>
         <button class="nav-btn" id="openWrappedPageBtn" data-target="wrapped" type="button"><span class="nav-icon"><span data-hero="sparkles"></span></span><span class="nav-label">Wrapped</span></button>
@@ -5681,10 +5725,11 @@ body[data-theme="dark"] .barkada-group-btn,body[data-theme="dark"] .barkada-memb
 
       <div class="nav-group nav-group-last">
         <div class="nav-group-label">Help</div>
+        <button class="nav-btn" data-target="version-log"><span class="nav-icon"><span data-hero="clock"></span></span><span class="nav-label">Version log</span></button>
         <button class="nav-btn" data-target="user-manual"><span class="nav-icon"><span data-hero="question-mark-circle"></span></span><span class="nav-label">User manual</span></button>
       </div>
     </nav>
-    <div class="sinop-sidebar-footer"><small>Your personal money system · v134</small></div>
+    <div class="sinop-sidebar-footer"><small>Your personal money system · v137</small></div>
   </aside>
 
   <main class="main">
@@ -6843,6 +6888,77 @@ body[data-theme="dark"] .barkada-group-btn,body[data-theme="dark"] .barkada-memb
       </div>
     </section>
 
+
+    <section id="profile" class="section">
+      <div class="section-head page-head profile-page-head">
+        <div>
+          <p class="eyebrow">Your SINOP profile</p>
+          <h2>Progress, score & rankings</h2>
+          <p class="subtle">See your level, earned badges, SINOP Financial Score, peer standing, and opt-in community ranking in one place.</p>
+        </div>
+      </div>
+
+      <article class="profile-identity-card">
+        <div class="profile-identity-main">
+          <div id="profileAvatar" class="profile-avatar" aria-hidden="true">S</div>
+          <div class="profile-identity-copy">
+            <span>Signed-in profile</span>
+            <h3 id="profileName">SINOP user</h3>
+            <p id="profileLevelLine">Level 1 · First Step</p>
+          </div>
+        </div>
+        <div class="profile-identity-stats">
+          <div><span>Level</span><strong id="profileLevel">1</strong></div>
+          <div><span>Total XP</span><strong id="profileXp">0</strong></div>
+          <div><span>Badges</span><strong id="profileBadgeCount">0</strong></div>
+        </div>
+      </article>
+
+      <div class="profile-score-grid">
+        <article class="profile-financial-card">
+          <div class="profile-card-head">
+            <div><p class="eyebrow">SINOP Financial Score</p><h3 id="profileFinancialScore">—</h3><p id="profileFinancialBand">Calculating from your current data</p></div>
+            <div class="profile-score-ring" id="profileScoreRing" aria-label="Financial score"><span id="profileScoreRingValue">—</span><small>/1000</small></div>
+          </div>
+          <div id="profileScoreComponents" class="profile-score-components"></div>
+          <div class="profile-score-note"><strong>Not a credit score.</strong> This is SINOP's internal wellness score based only on the financial data you record in the app. It does not come from a bank, bureau, or lender.</div>
+        </article>
+
+        <article class="profile-ranking-summary-card">
+          <div class="profile-card-head compact">
+            <div><p class="eyebrow">Your standing</p><h3>Rankings</h3></div>
+          </div>
+          <div class="profile-rank-stat"><span>Barkada / network rank</span><strong id="profileNetworkRank">—</strong><small id="profileNetworkRankMeta">Sync Barkada friends to compare</small></div>
+          <div class="profile-rank-stat"><span>Global rank</span><strong id="profileGlobalRank">—</strong><small id="profileGlobalRankMeta">Not published</small></div>
+          <div class="profile-rank-mode" role="group" aria-label="Ranking metric">
+            <button type="button" class="active" data-profile-rank-mode="xp">Level / XP</button>
+            <button type="button" data-profile-rank-mode="score">Financial Score</button>
+          </div>
+        </article>
+      </div>
+
+      <article class="card card-pad profile-badge-card">
+        <div class="section-head"><div><p class="eyebrow">Achievement shelf</p><h2>Badges earned</h2><p class="subtle">Only badges supported by your current saved data appear here.</p></div><span id="profileBadgePill" class="badge">0 earned</span></div>
+        <div id="profileBadgeGrid" class="profile-badge-grid"></div>
+      </article>
+
+      <div class="profile-ranking-grid">
+        <article class="card card-pad">
+          <div class="section-head"><div><p class="eyebrow">People you know</p><h2>SINOP network ranking</h2><p class="subtle">Unique active friends seen across your Barkada groups. Financial amounts are never shown.</p></div><span id="profileNetworkCount" class="badge">0 people</span></div>
+          <div id="profileNetworkLeaderboard" class="profile-leaderboard"></div>
+        </article>
+
+        <article class="card card-pad">
+          <div class="section-head"><div><p class="eyebrow">SINOP community</p><h2>Global ranking</h2><p class="subtle">Opt-in only. A public profile contains a display name, level, XP, badge count, and Financial Score—never email, balances, salary, accounts, or transactions.</p></div><span id="profileGlobalStatus" class="badge">Not connected</span></div>
+          <div id="profileGlobalLeaderboard" class="profile-leaderboard"></div>
+          <div class="profile-public-controls">
+            <label><span>Public display name</span><input id="profilePublicName" type="text" maxlength="40" placeholder="Name shown on the leaderboard"></label>
+            <label class="profile-optin-row"><input id="profileGlobalOptIn" type="checkbox"><span><strong>Publish my sanitized profile</strong><small id="profileGlobalOptInHelp">Requires a configured SINOP global leaderboard service.</small></span></label>
+          </div>
+        </article>
+      </div>
+    </section>
+
     <section id="rewards" class="section">
       <div class="section-head page-head">
         <div>
@@ -7078,6 +7194,39 @@ body[data-theme="dark"] .barkada-group-btn,body[data-theme="dark"] .barkada-memb
       </div>
     </section>
 
+
+    <section id="version-log" class="section">
+      <div class="section-head page-head version-log-page-head">
+        <div><p class="eyebrow">SINOP releases</p><h2>Version log</h2><p class="subtle">A shareable record of the product changes, fixes, and new features added to SINOP.</p></div>
+        <div class="action-row"><button class="btn btn-secondary icon-leading" id="shareLatestVersionBtn" type="button"><span data-hero="document-text"></span>Share latest</button><button class="btn btn-primary icon-leading" id="copyVersionLogBtn" type="button"><span data-hero="clock"></span>Copy changelog</button></div>
+      </div>
+
+      <article class="version-latest-card">
+        <div class="version-latest-badge"><span>Latest</span><strong>v137</strong></div>
+        <div class="version-latest-copy"><span>September 3, 2026</span><h3>Barkada Leaderboard & Version Log</h3><p>Barkada now has a designed peer-ranking experience with podium standings, score/level views, badge previews, and compact mobile ranking rows. SINOP also gains this permanent in-app release history.</p></div>
+      </article>
+
+      <div class="version-timeline" id="versionTimeline">
+        <article class="version-entry is-latest" data-version="v137" data-date="September 3, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v137</span><h3>Barkada Leaderboard & Version Log</h3></div><time>Sep 3, 2026</time></header><ul><li>Redesigned Barkada peer ranking with Top 3 podium cards and compact ranked-friend rows.</li><li>Added switchable Level / XP and Financial Score ranking views.</li><li>Added richer level, score, rank, badge, invited, and syncing states.</li><li>Added Version Log to desktop navigation and mobile More.</li><li>Added share/copy release-note controls.</li></ul></div></article>
+        <article class="version-entry" data-version="v136" data-date="September 3, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v136</span><h3>Profile, Financial Score & Rankings</h3></div><time>Sep 3, 2026</time></header><ul><li>Added the Profile page with level, XP, earned badges, and ranking summary.</li><li>Introduced the transparent 0–1000 SINOP Financial Score and component breakdown.</li><li>Added network ranking and global-ranking publishing architecture without fabricating unavailable global positions.</li></ul></div></article>
+        <article class="version-entry" data-version="v135" data-date="September 3, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v135</span><h3>Mobile Income — Browser Tested</h3></div><time>Sep 3, 2026</time></header><ul><li>Removed desktop table geometry from Income on phones.</li><li>Converted expanded sources into full-width mobile fields with one label per field.</li><li>Verified Income at 320px, 390px, and 430px widths with no horizontal row overflow.</li></ul></div></article>
+        <article class="version-entry" data-version="v134" data-date="September 3, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v134</span><h3>Barkada Social Progress</h3></div><time>Sep 3, 2026</time></header><ul><li>Changed Barkada from primarily a KKB roster into a social progress layer.</li><li>Added peer XP, levels, badge visibility, and Barkada ranking while keeping financial amounts private.</li><li>Shared only derived gamification profile data through Barkada files.</li></ul></div></article>
+        <article class="version-entry" data-version="v133" data-date="September 3, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v133</span><h3>Mobile Readability</h3></div><time>Sep 3, 2026</time></header><ul><li>Consolidated Income to one label system.</li><li>Raised mobile typography/control-size floors and strengthened separators.</li><li>Changed narrow Income layouts to single-column fields instead of compressed desktop density.</li></ul></div></article>
+        <article class="version-entry" data-version="v132" data-date="September 3, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v132</span><h3>Conditional Income Labels</h3></div><time>Sep 3, 2026</time></header><ul><li>Made Income field labels conditional to source type and payment frequency.</li><li>Stabilized payday/date, deductions, and deposited-to labeling across rerenders.</li></ul></div></article>
+        <article class="version-entry" data-version="v131" data-date="September 3, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v131</span><h3>Income & Spending Mobile Redesign</h3></div><time>Sep 3, 2026</time></header><ul><li>Reworked high-density Income and Spending tables into tap-to-expand mobile records.</li><li>Added compact summaries while preserving full edit controls when expanded.</li></ul></div></article>
+        <article class="version-entry" data-version="v130" data-date="September 3, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v130</span><h3>iPhone UX & PWA Polish</h3></div><time>Sep 3, 2026</time></header><ul><li>Improved iPhone-sized layouts and safe-area behavior.</li><li>Extended installable/PWA-oriented mobile presentation and app-shell polish.</li></ul></div></article>
+        <article class="version-entry" data-version="v128" data-date="September 3, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v128</span><h3>iPhone 14 Mobile Fixes</h3></div><time>Sep 3, 2026</time></header><ul><li>Tuned layouts against iPhone 14-class viewport dimensions.</li><li>Adjusted mobile sheets, navigation density, spacing, and narrow-screen controls.</li></ul></div></article>
+        <article class="version-entry" data-version="v127" data-date="September 3, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v127</span><h3>Module Isolation & SINOP Identity</h3></div><time>Sep 3, 2026</time></header><ul><li>Enforced one active module on mobile so Income could not leak into Spending or Accounts.</li><li>Simplified collapsed Income rows.</li><li>Added a consistent SINOP app mark to the header, sidebar, login, and favicon.</li></ul></div></article>
+        <article class="version-entry" data-version="v126" data-date="September 3, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v126</span><h3>Mobile Income Cleanup</h3></div><time>Sep 3, 2026</time></header><ul><li>Standardized the collapsed Income-source layout.</li><li>Fixed mobile section leakage that could make Income appear while viewing Spending or Accounts.</li></ul></div></article>
+        <article class="version-entry" data-version="v125" data-date="September 3, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v125</span><h3>Minimal Mobile UX</h3></div><time>Sep 3, 2026</time></header><ul><li>Reworked Income, Recurring, Spending, and other high-volume modules around compact mobile lists.</li><li>Expanded More to cover the complete SINOP module set.</li><li>Introduced web-sourced bank branding rather than made-up letter icons.</li></ul></div></article>
+        <article class="version-entry" data-version="v124" data-date="September 3, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v124</span><h3>Mobile Bottom Navigation</h3></div><time>Sep 3, 2026</time></header><ul><li>Replaced the old floating quick-access circle with a persistent mobile bottom navigation.</li><li>Added the raised center Add action and designed More / Quick Add sheets.</li><li>Removed competing legacy mobile navigation behavior.</li></ul></div></article>
+        <article class="version-entry" data-version="v123" data-date="September 3, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v123</span><h3>Tracked Payment Sources</h3></div><time>Sep 3, 2026</time></header><ul><li>Removed the ambiguous standalone Cash payment method from Spending.</li><li>Physical money is represented by the user's Cold Cash account.</li><li>Spending now uses tracked accounts/wallets or credit cards as actual payment sources.</li></ul></div></article>
+        <article class="version-entry" data-version="v122" data-date="September 2, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v122</span><h3>Mobile App UX Foundation</h3></div><time>Sep 2, 2026</time></header><ul><li>Introduced compact mobile Accounts, progressive disclosure, create modals, and mobile-friendly record layouts.</li><li>Added automatic bank-name recognition and a mobile quick-access navigation foundation.</li><li>Converted row-creation actions to deliberate create flows rather than blank inline rows.</li></ul></div></article>
+        <article class="version-entry" data-version="v121" data-date="September 2, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v121</span><h3>Mobile UX Baseline</h3></div><time>Sep 2, 2026</time></header><ul><li>Introduced the compact mobile app bar, notification placement, mobile month control, and initial quick-access behavior.</li><li>Started the broader mobile-first redesign that subsequent releases refined.</li></ul></div></article>
+      </div>
+      <div class="version-log-footnote">This log summarizes user-facing SINOP releases created during the current redesign cycle. Internal test builds and patches may be omitted.</div>
+    </section>
+
 <section id="user-manual" class="section">
   <div class="manual-shell" id="manualTop">
     <article class="manual-hero">
@@ -7241,7 +7390,7 @@ body[data-theme="dark"] .barkada-group-btn,body[data-theme="dark"] .barkada-memb
       <div class="manual-card-grid">
         <div class="manual-feature"><div class="manual-feature-head"><div class="manual-feature-icon"><span data-hero="wallet"></span></div><div><strong>Variable spending</strong><small>Shopping, dining, household, entertainment, and other non-recurring items.</small></div></div><ol><li>Add the date, description, category, and amount.</li><li>Use Planned while it is only an intention.</li><li>Switch to Actual when you really spend it.</li><li>Select the payment account or card so the ledger can move correctly.</li></ol><button class="btn btn-secondary btn-sm" data-jump="spending">Open Spending</button></div>
         <div class="manual-feature"><div class="manual-feature-head"><div class="manual-feature-icon"><span data-hero="arrow-path"></span></div><div><strong>Recurring commitments</strong><small>Classify repeating cash movements before you complete them.</small></div></div><ol><li><strong>Expense</strong> — rent, utilities, subscriptions and other consumption.</li><li><strong>Savings</strong> — moves money into Savings or Time Deposit without counting as an expense.</li><li><strong>Investment</strong> — moves money into MP2 or an Investment account and counts toward wealth-building.</li><li><strong>Debt repayment</strong> — creates a real repayment against a linked IOU.</li><li><strong>Transfer</strong> — moves money between your own accounts without changing total cash.</li></ol><div class="manual-callout"><strong>MP2 example:</strong> create “MP2 contribution” as <strong>Investment</strong>, choose your MP2 account as the destination, and set the monthly amount. When you complete it, the funding account decreases and MP2 increases automatically.</div><div class="manual-callout"><strong>Do not double-enter:</strong> when you complete a Savings, Investment, or Transfer commitment, the planner creates the account movement automatically. Do not also add the same transfer under Accounts.</div><button class="btn btn-secondary btn-sm" data-jump="bills">Open Recurring</button></div>
-        <div class="manual-feature"><div class="manual-feature-head"><div class="manual-feature-icon"><span data-hero="calculator"></span></div><div><strong>KKB / group expenses</strong><small>Split shared trips, meals, or gala expenses fairly.</small></div></div><ol><li>Create a KKB trip and add the members.</li><li>Enter each shared item as a row.</li><li>Tick the members who shared that item.</li><li>Choose who paid upfront.</li><li>Use the settlement plan to see who should reimburse whom, then record payments as they happen.</li></ol><button class="btn btn-secondary btn-sm" data-jump="kkb">Open KKB</button></div><div class="manual-feature"><div class="manual-feature-head"><div class="manual-feature-icon"><span data-hero="user-group"></span></div><div><strong>Barkada</strong><small>See friends’ SINOP levels, XP scores, badges, and peer rank without exposing personal finances.</small></div></div><ol><li>Create a Barkada and add friends using their Google email.</li><li>Each active friend shares only their SINOP XP score, level, and earned badges to the Barkada leaderboard.</li><li>SINOP ranks active friends by XP, using badge count to break ties.</li><li>SINOP creates a separate shared Drive file for the group roster.</li><li>The invited person signs in with that Google account and joins through the invite link.</li><li>Start a shared KKB from the Barkada; rows, payers and reimbursements are written to the same shared group file.</li><li>While SINOP is open and Drive is connected, it checks joined Barkada files approximately every 2 seconds for new KKB trips and member changes.</li><li>Creating a shared KKB adds a Barkada notification event so every active member sees it in the notification bell and, if enabled, as a browser notification.</li></ol><div class="manual-callout"><strong>Privacy boundary:</strong> Barkada members can access the shared group roster and Barkada-linked KKB sheets, not your accounts, salary, spending, goals, or private SINOP cloud file.</div><button class="btn btn-secondary btn-sm" data-jump="barkada">Open Barkada</button></div>
+        <div class="manual-feature"><div class="manual-feature-head"><div class="manual-feature-icon"><span data-hero="calculator"></span></div><div><strong>KKB / group expenses</strong><small>Split shared trips, meals, or gala expenses fairly.</small></div></div><ol><li>Create a KKB trip and add the members.</li><li>Enter each shared item as a row.</li><li>Tick the members who shared that item.</li><li>Choose who paid upfront.</li><li>Use the settlement plan to see who should reimburse whom, then record payments as they happen.</li></ol><button class="btn btn-secondary btn-sm" data-jump="kkb">Open KKB</button></div><div class="manual-feature"><div class="manual-feature-head"><div class="manual-feature-icon"><span data-hero="user-group"></span></div><div><strong>Barkada</strong><small>See friends’ SINOP levels, XP scores, Financial Scores, badges, and peer rank without exposing personal financial amounts.</small></div></div><ol><li>Create a Barkada and add friends using their Google email.</li><li>Each active friend shares only their SINOP XP score, level, Financial Score, and earned badges to the Barkada leaderboard.</li><li>SINOP ranks active friends by XP, using badge count to break ties.</li><li>SINOP creates a separate shared Drive file for the group roster.</li><li>The invited person signs in with that Google account and joins through the invite link.</li><li>Start a shared KKB from the Barkada; rows, payers and reimbursements are written to the same shared group file.</li><li>While SINOP is open and Drive is connected, it checks joined Barkada files approximately every 2 seconds for new KKB trips and member changes.</li><li>Creating a shared KKB adds a Barkada notification event so every active member sees it in the notification bell and, if enabled, as a browser notification.</li></ol><div class="manual-callout"><strong>Privacy boundary:</strong> Barkada members can access the shared group roster and Barkada-linked KKB sheets, not your accounts, salary, spending, goals, or private SINOP cloud file.</div><button class="btn btn-secondary btn-sm" data-jump="barkada">Open Barkada</button></div>
         <div class="manual-feature"><div class="manual-feature-head"><div class="manual-feature-icon"><span data-hero="squares-2x2"></span></div><div><strong>Overview vs. Dashboard</strong><small>Use Overview for today's operational picture; use Dashboard for patterns and decisions.</small></div></div><ul><li><strong>Overview:</strong> received income, current balances, daily budget, quick spend, IOUs, cards, and immediate status.</li><li><strong>Dashboard:</strong> trends, category analysis, fixed-term outlooks, and planning guidance.</li></ul><button class="btn btn-secondary btn-sm" data-jump="dashboard">Open Dashboard</button></div>
       </div>
       <div class="manual-callout" style="margin-top:12px"><strong>Daily budget rule:</strong> unpaid recurring bills are not reserved inside the Daily budget card because that feature treats your recurring-bill money as separately funded. Planned Spending items and future daily envelopes still affect the day-to-day planning calculation.</div>
@@ -8999,6 +9148,7 @@ const HEROICON_PATHS={
   "calculator":`<rect x="4" y="2.75" width="16" height="18.5" rx="2"/><path d="M7 6.25h10v3H7v-3ZM7.5 13h.01m4.49 0h.01m4.49 0h.01M7.5 17h.01m4.49 0h.01m4.49 0h.01"/>`,
   "building-library":`<path d="M3 9.25h18M5 9.25v8.5m4-8.5v8.5m6-8.5v8.5m4-8.5v8.5M3 18h18M2.5 21h19M12 3l9 4H3l9-4Z"/>`,
   "user-group":`<path d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72M15 19.128v-.003c0-1.64-.862-3.087-2.152-3.916a5.25 5.25 0 0 0-5.696 0A4.635 4.635 0 0 0 5 19.125v.003M12.75 7.875a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm6.75 2.625a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z"/>`,
+  "user-circle":`<circle cx="12" cy="12" r="9"/><circle cx="12" cy="9" r="3"/><path d="M6.75 18a6.3 6.3 0 0 1 10.5 0"/>`,
   "arrows-right-left":`<path d="M7.5 7.5h11m0 0-3-3m3 3-3 3M16.5 16.5h-11m0 0 3 3m-3-3 3-3"/>`,
   "arrow-left":`<path d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"/>`,
   "printer":`<path d="M6.75 8.25V3.75h10.5v4.5M6.75 16.5v3.75h10.5V16.5"/><path d="M5.25 8.25h13.5A2.25 2.25 0 0 1 21 10.5v4.5h-3.75v-2.25H6.75V15H3v-4.5a2.25 2.25 0 0 1 2.25-2.25Z"/><path d="M17.25 11.25h.008v.008h-.008v-.008Z"/>`,
@@ -9114,6 +9264,8 @@ const defaults={
     currency:"PHP",
     showCents:true,
     compact:false,
+    publicProfileName:"",
+    globalLeaderboardOptIn:false,
     dashboard:{metrics:true,category:true,monthly:true,fixed:true,decision:true},
     rules:{savingsTargetPct:10,discretionaryCapPct:15,debtCapPct:30,emergencyMonths:3},
     categoryBudgets:{},
@@ -13824,6 +13976,7 @@ function normalizeBarkadaDoc(doc,fileId=""){
         xp:Math.max(0,Math.round(Number(p.xp||0))),
         level:Math.max(1,Math.round(Number(p.level||1))),
         badgeIds:Array.isArray(p.badgeIds)?[...new Set(p.badgeIds.map(String).filter(Boolean))].slice(0,50):[],
+        financialScore:Math.max(0,Math.min(1000,Math.round(Number(p.financialScore||0)))),
         updatedAt:String(p.updatedAt||"")
       };
     }else m.sinopProfile=null;
@@ -14051,11 +14204,12 @@ function barkadaLocalSocialProfile(){
   const xp=Math.max(0,Math.round(Number(rewardXp()||0)));
   const levelInfo=rewardLevel(xp)?.current||REWARD_LEVELS[0];
   const badgeIds=earnedRewardBadges().map(b=>String(b.id)).filter(Boolean).sort();
-  return {xp,level:Number(levelInfo?.level||1),badgeIds,updatedAt:barkadaIsoNow()};
+  const financialScore=typeof financialScoreSnapshot==="function"?financialScoreSnapshot(state.month).score:0;
+  return {xp,level:Number(levelInfo?.level||1),badgeIds,financialScore,updatedAt:barkadaIsoNow()};
 }
 function barkadaProfileComparable(profile){
   const p=profile&&typeof profile==="object"?profile:{};
-  return JSON.stringify({xp:Math.max(0,Math.round(Number(p.xp||0))),level:Math.max(1,Math.round(Number(p.level||1))),badgeIds:[...new Set(Array.isArray(p.badgeIds)?p.badgeIds.map(String):[])].filter(Boolean).sort()});
+  return JSON.stringify({xp:Math.max(0,Math.round(Number(p.xp||0))),level:Math.max(1,Math.round(Number(p.level||1))),badgeIds:[...new Set(Array.isArray(p.badgeIds)?p.badgeIds.map(String):[])].filter(Boolean).sort(),financialScore:Math.max(0,Math.min(1000,Math.round(Number(p.financialScore||0))))});
 }
 function barkadaProfileNeedsSync(member,next){return barkadaProfileComparable(member?.sinopProfile)!==barkadaProfileComparable(next)}
 function barkadaBadgeCatalog(){
@@ -14136,24 +14290,91 @@ function renderBarkada(){
 async function refreshActiveBarkada(force=true){const ref=activeBarkadaRef();if(!ref)return;if(!cloudTokenValid()){connectGoogleDrive('sync');return}try{const doc=await loadBarkadaGroup(ref,{force});if(doc){renderBarkada();renderBarkadaWorkspace(doc,ref)}}catch(e){console.error(e);$('barkadaWorkspace').innerHTML=`<div class="barkada-error"><strong>Could not load this Barkada.</strong><br>${esc(e.message||'Google Drive access failed.')}</div>`}}
 function renderBarkadaWorkspace(doc,ref){
   const me=barkadaDocMember(doc),isOwner=(me?.role==='owner'||String(doc.ownerEmail||'').toLowerCase()===barkadaCurrentEmail()),members=doc.members||[],localTrips=(state.kkbTrips||[]).filter(t=>t.barkadaGroupId===doc.groupId);
-  const ranked=barkadaRankedMembers(members),rankMap=new Map(ranked.map(x=>[String(x.member.email||'').toLowerCase(),x.rank]));
-  const badgeCatalog=barkadaBadgeCatalog(),meRank=barkadaPeerRankText(doc);
-  $('barkadaPeopleCount').textContent=barkadaUniquePeople();$('barkadaPeerRank').textContent=meRank;
-  const peerRows=[...members].sort((a,b)=>{
-    const ar=rankMap.get(String(a.email||'').toLowerCase())||9999,br=rankMap.get(String(b.email||'').toLowerCase())||9999;
-    return ar-br||String(a.name||a.email||'').localeCompare(String(b.name||b.email||''));
-  }).map(member=>{
-    const email=String(member.email||'').toLowerCase(),profile=member.sinopProfile,rank=rankMap.get(email),isMe=email===barkadaCurrentEmail();
-    if(member.status!=='active'||!profile){
-      return `<div class="barkada-peer-row barkada-peer-pending"><span class="barkada-peer-rank">—</span><span class="barkada-member-avatar">${esc(barkadaInitials(member.name||member.email))}</span><span class="barkada-peer-copy"><strong>${esc(member.name||member.email||'Member')}${isMe?' · You':''}</strong><small>${member.status==='active'?'Progress will appear after this member syncs SINOP.':'Invited · joins leaderboard after accepting'}</small></span><span class="barkada-status-pill ${member.status==='active'?'active':'invited'}">${member.status==='active'?'Syncing':'Invited'}</span></div>`;
-    }
-    const level=barkadaLevelInfo(profile),ids=(profile.badgeIds||[]).filter(id=>badgeCatalog.has(String(id))),badges=ids.map(id=>badgeCatalog.get(String(id)));
-    const preview=badges.slice(0,3).map(b=>`<span class="barkada-badge-dot" title="${esc(b.title)}">${heroSvg(b.icon)}</span>`).join('');
-    const badgePanel=badges.length?`<div class="barkada-peer-badges">${badges.map(b=>`<span class="barkada-peer-badge"><span>${heroSvg(b.icon)}</span><strong>${esc(b.title)}</strong></span>`).join('')}</div>`:`<div class="barkada-peer-no-badges">No earned badges yet.</div>`;
-    return `<details class="barkada-peer-row ${isMe?'is-you':''}"><summary><span class="barkada-peer-rank">#${rank}</span><span class="barkada-member-avatar">${esc(barkadaInitials(member.name||member.email))}</span><span class="barkada-peer-copy"><strong>${esc(member.name||member.email||'Member')}${isMe?' · You':''}</strong><small>Level ${Number(profile.level||1)} · ${esc(level?.title||'SINOP member')}</small></span><span class="barkada-peer-score"><strong>${Number(profile.xp||0).toLocaleString()} XP</strong><small>${badges.length} badge${badges.length===1?'':'s'}</small><span class="barkada-badge-preview">${preview}</span></span><span class="barkada-peer-chevron">${heroSvg('chevron-down')}</span></summary>${badgePanel}</details>`;
+  const badgeCatalog=barkadaBadgeCatalog(),metric=window.__sinopBarkadaRankMetric==='financial'?'financial':'xp';
+  const active=members.filter(m=>m.status==='active'&&m.sinopProfile).map(member=>({member,profile:member.sinopProfile}));
+  active.sort((a,b)=>{
+    const av=metric==='financial'?Number(a.profile.financialScore||0):Number(a.profile.xp||0),bv=metric==='financial'?Number(b.profile.financialScore||0):Number(b.profile.xp||0);
+    const at=metric==='financial'?Number(a.profile.xp||0):Number(a.profile.financialScore||0),bt=metric==='financial'?Number(b.profile.xp||0):Number(b.profile.financialScore||0);
+    const ab=(a.profile.badgeIds||[]).length,bb=(b.profile.badgeIds||[]).length;
+    return bv-av||bt-at||bb-ab||String(a.member.name||a.member.email||'').localeCompare(String(b.member.name||b.member.email||''));
+  });
+  active.forEach((entry,i)=>entry.rank=i+1);
+  const rankMap=new Map(active.map(x=>[String(x.member.email||'').toLowerCase(),x.rank]));
+  const meRank=rankMap.get(barkadaCurrentEmail())||null;
+  $('barkadaPeopleCount').textContent=barkadaUniquePeople();$('barkadaPeerRank').textContent=meRank?`#${meRank}`:'—';
+
+  const profileBadges=profile=>((profile?.badgeIds||[]).filter(id=>badgeCatalog.has(String(id))).map(id=>badgeCatalog.get(String(id))));
+  const rankClass=rank=>rank===1?'gold':rank===2?'silver':rank===3?'bronze':'';
+  const scoreText=profile=>metric==='financial'?`${Number(profile.financialScore||0)||'—'} FS`:`${Number(profile.xp||0).toLocaleString()} XP`;
+  const secondaryText=profile=>metric==='financial'?`${Number(profile.xp||0).toLocaleString()} XP`:`FS ${Number(profile.financialScore||0)||'—'}`;
+  const badgePreview=(profile,limit=3)=>profileBadges(profile).slice(0,limit).map(b=>`<span class="barkada-v137-badge-icon" title="${esc(b.title)}">${heroSvg(b.icon)}</span>`).join('');
+  const memberLabel=(member,isMe)=>`${esc(member.name||member.email||'Member')}${isMe?'<span class="barkada-you-tag">You</span>':''}`;
+
+  const podium=active.slice(0,3).map(({member,profile,rank})=>{
+    const email=String(member.email||'').toLowerCase(),isMe=email===barkadaCurrentEmail(),level=barkadaLevelInfo(profile),badges=profileBadges(profile);
+    return `<article class="barkada-podium-card rank-${rank} ${isMe?'is-you':''}">
+      <div class="barkada-podium-rank ${rankClass(rank)}"><span>${rank===1?'★':`#${rank}`}</span></div>
+      <div class="barkada-podium-avatar">${esc(barkadaInitials(member.name||member.email))}</div>
+      <div class="barkada-podium-name">${memberLabel(member,isMe)}</div>
+      <span class="barkada-level-chip">L${Number(profile.level||1)} · ${esc(level?.title||'SINOP member')}</span>
+      <strong class="barkada-podium-score">${scoreText(profile)}</strong>
+      <small>${secondaryText(profile)} · ${badges.length} badge${badges.length===1?'':'s'}</small>
+      <div class="barkada-podium-badges">${badgePreview(profile,3)||'<span class="barkada-no-badge-mini">No badges yet</span>'}</div>
+    </article>`;
   }).join('');
-  $('barkadaWorkspace').innerHTML=`<div class="barkada-workspace-head"><div><p class="eyebrow">Shared group</p><h2>${esc(doc.name||'Barkada')}</h2><div class="barkada-sync-meta"><span>${members.length} member${members.length===1?'':'s'}</span><span>${ranked.length} ranked</span><span>Updated ${esc(cloudFmtTime(doc.updatedAt))}</span><span class="barkada-live-pill ${cloudTokenValid()?'':'paused'}"><span class="barkada-live-dot"></span>${cloudTokenValid()?'Live · ~2s':'Live paused · reconnect'}</span></div></div><div class="barkada-workspace-actions"><button class="btn btn-secondary btn-sm" id="copyBarkadaInviteBtn" type="button">Invite</button><button class="btn btn-secondary btn-sm" id="refreshBarkadaBtn" type="button">Refresh</button>${isOwner?'<button class="btn btn-primary btn-sm" id="addBarkadaMemberBtn" type="button">Add friend</button>':''}</div></div><section class="barkada-social-section"><div class="barkada-social-head"><div><p class="eyebrow">Peer ranking</p><h3>Leaderboard</h3><p>Ranked by SINOP XP. Earned badges break XP ties.</p></div>${meRank!=='—'?`<span class="barkada-your-rank">You · ${esc(meRank)}</span>`:''}</div><div class="barkada-peer-list">${peerRows||'<div class="barkada-list-empty">Invite friends to start your peer leaderboard.</div>'}</div></section><div class="barkada-kkb-panel"><div class="barkada-kkb-panel-head"><div><p class="eyebrow">Shared expenses</p><h3>KKB with this Barkada</h3><p class="subtle">Start or open a shared KKB only when you need to split a trip, meal, or other group expense.</p></div><button class="btn btn-primary btn-sm" id="startBarkadaKkbBtn" type="button">${localTrips.length?'Open / new KKB':'Start KKB'}</button></div><div class="barkada-local-trips">${localTrips.length?localTrips.map(t=>`<div class="barkada-local-trip"><div><strong>${esc(t.title)}</strong><small>${esc(t.date||'')} · ${t.expenses?.length||0} rows</small></div><button class="text-btn" data-open-barkada-kkb="${esc(t.id)}" type="button">Open</button></div>`).join(''):'<div class="barkada-list-empty">No shared KKB yet.</div>'}</div></div>`;
-  $('copyBarkadaInviteBtn')?.addEventListener('click',()=>copyBarkadaInvite(ref.fileId));$('refreshBarkadaBtn')?.addEventListener('click',()=>refreshActiveBarkada(true));$('addBarkadaMemberBtn')?.addEventListener('click',openAddBarkadaMemberModal);$('startBarkadaKkbBtn')?.addEventListener('click',()=>startKkbFromBarkada(doc,ref));$('barkadaWorkspace').querySelectorAll('[data-open-barkada-kkb]').forEach(btn=>btn.onclick=()=>openBarkadaKkb(btn.dataset.openBarkadaKkb));
+
+  const rankedRows=active.slice(3).map(({member,profile,rank})=>{
+    const email=String(member.email||'').toLowerCase(),isMe=email===barkadaCurrentEmail(),level=barkadaLevelInfo(profile),badges=profileBadges(profile);
+    const badgePanel=badges.length?`<div class="barkada-v137-badge-panel">${badges.map(b=>`<span class="barkada-v137-badge"><span>${heroSvg(b.icon)}</span><strong>${esc(b.title)}</strong></span>`).join('')}</div>`:`<div class="barkada-peer-no-badges">No earned badges yet.</div>`;
+    return `<details class="barkada-v137-rank-row ${isMe?'is-you':''}">
+      <summary>
+        <span class="barkada-v137-rank-number">#${rank}</span>
+        <span class="barkada-v137-avatar">${esc(barkadaInitials(member.name||member.email))}</span>
+        <span class="barkada-v137-person"><strong>${memberLabel(member,isMe)}</strong><small>Level ${Number(profile.level||1)} · ${esc(level?.title||'SINOP member')}</small></span>
+        <span class="barkada-v137-score"><strong>${scoreText(profile)}</strong><small>${secondaryText(profile)} · ${badges.length} badge${badges.length===1?'':'s'}</small></span>
+        <span class="barkada-v137-preview">${badgePreview(profile,2)}</span>
+        <span class="barkada-v137-chevron">${heroSvg('chevron-down')}</span>
+      </summary>${badgePanel}
+    </details>`;
+  }).join('');
+
+  const pending=members.filter(m=>m.status!=='active'||!m.sinopProfile).map(member=>{
+    const isMe=String(member.email||'').toLowerCase()===barkadaCurrentEmail();
+    return `<div class="barkada-v137-pending-row"><span class="barkada-v137-avatar muted">${esc(barkadaInitials(member.name||member.email))}</span><span><strong>${memberLabel(member,isMe)}</strong><small>${member.status==='active'?'Waiting for this friend to sync their SINOP profile.':'Invite pending · joins the ranking after accepting.'}</small></span><span class="barkada-status-pill ${member.status==='active'?'active':'invited'}">${member.status==='active'?'Syncing':'Invited'}</span></div>`;
+  }).join('');
+
+  const myEntry=active.find(x=>String(x.member.email||'').toLowerCase()===barkadaCurrentEmail());
+  const myScore=myEntry?scoreText(myEntry.profile):'Not ranked';
+  const topName=active[0]?.member?.name||active[0]?.member?.email||'—';
+  const metricLabel=metric==='financial'?'Financial Score':'Level / XP';
+
+  $('barkadaWorkspace').innerHTML=`
+    <div class="barkada-v137-group-hero">
+      <div class="barkada-v137-group-copy"><p class="eyebrow">Barkada</p><h2>${esc(doc.name||'Barkada')}</h2><div class="barkada-sync-meta"><span>${members.length} friend${members.length===1?'':'s'}</span><span>${active.length} ranked</span><span>Updated ${esc(cloudFmtTime(doc.updatedAt))}</span><span class="barkada-live-pill ${cloudTokenValid()?'':'paused'}"><span class="barkada-live-dot"></span>${cloudTokenValid()?'Live · ~2s':'Reconnect Drive'}</span></div></div>
+      <div class="barkada-workspace-actions"><button class="btn btn-secondary btn-sm" id="copyBarkadaInviteBtn" type="button">Invite</button><button class="btn btn-secondary btn-sm" id="refreshBarkadaBtn" type="button">Refresh</button>${isOwner?'<button class="btn btn-primary btn-sm" id="addBarkadaMemberBtn" type="button">Add friend</button>':''}</div>
+    </div>
+    <section class="barkada-v137-leaderboard">
+      <div class="barkada-v137-leader-head">
+        <div><p class="eyebrow">Peer ranking</p><h3>Leaderboard</h3><p>Compare progress without sharing account balances or transaction amounts.</p></div>
+        <div class="barkada-v137-metric-toggle" role="group" aria-label="Rank Barkada by"><button type="button" data-barkada-rank-metric="xp" class="${metric==='xp'?'active':''}">Level / XP</button><button type="button" data-barkada-rank-metric="financial" class="${metric==='financial'?'active':''}">Financial Score</button></div>
+      </div>
+      <div class="barkada-v137-summary-strip">
+        <div><span>Your rank</span><strong>${meRank?`#${meRank}`:'—'}</strong><small>${myScore}</small></div>
+        <div><span>Ranking by</span><strong>${metricLabel}</strong><small>${metric==='xp'?'Badges break ties':'XP breaks ties'}</small></div>
+        <div><span>Current leader</span><strong>${esc(topName)}</strong><small>${active[0]?scoreText(active[0].profile):'No ranked friends yet'}</small></div>
+      </div>
+      ${podium?`<div class="barkada-v137-podium" data-count="${Math.min(3,active.length)}">${podium}</div>`:'<div class="barkada-v137-empty"><strong>No ranked friends yet.</strong><span>Invite friends or refresh after they sync their SINOP profile.</span></div>'}
+      ${rankedRows?`<div class="barkada-v137-all-head"><span>More friends</span><small>${Math.max(0,active.length-3)} ranked below the podium</small></div><div class="barkada-v137-rank-list">${rankedRows}</div>`:''}
+      ${pending?`<details class="barkada-v137-pending"><summary>Invited / syncing <span>${members.length-active.length}</span></summary><div class="barkada-v137-pending-list">${pending}</div></details>`:''}
+    </section>
+    <div class="barkada-kkb-panel"><div class="barkada-kkb-panel-head"><div><p class="eyebrow">Shared expenses</p><h3>KKB with this Barkada</h3><p class="subtle">Start or open a shared KKB only when you need to split a trip, meal, or other group expense.</p></div><button class="btn btn-primary btn-sm" id="startBarkadaKkbBtn" type="button">${localTrips.length?'Open / new KKB':'Start KKB'}</button></div><div class="barkada-local-trips">${localTrips.length?localTrips.map(t=>`<div class="barkada-local-trip"><div><strong>${esc(t.title)}</strong><small>${esc(t.date||'')} · ${t.expenses?.length||0} rows</small></div><button class="text-btn" data-open-barkada-kkb="${esc(t.id)}" type="button">Open</button></div>`).join(''):'<div class="barkada-list-empty">No shared KKB yet.</div>'}</div></div>`;
+
+  $('copyBarkadaInviteBtn')?.addEventListener('click',()=>copyBarkadaInvite(ref.fileId));
+  $('refreshBarkadaBtn')?.addEventListener('click',()=>refreshActiveBarkada(true));
+  $('addBarkadaMemberBtn')?.addEventListener('click',openAddBarkadaMemberModal);
+  $('startBarkadaKkbBtn')?.addEventListener('click',()=>startKkbFromBarkada(doc,ref));
+  $('barkadaWorkspace').querySelectorAll('[data-open-barkada-kkb]').forEach(btn=>btn.onclick=()=>openBarkadaKkb(btn.dataset.openBarkadaKkb));
+  $('barkadaWorkspace').querySelectorAll('[data-barkada-rank-metric]').forEach(btn=>btn.onclick=()=>{window.__sinopBarkadaRankMetric=btn.dataset.barkadaRankMetric;renderBarkadaWorkspace(doc,ref)});
 }
 function openCreateBarkadaModal(){if(!cloudTokenValid()){toast('Reconnect Google before creating a Barkada.');connectGoogleDrive('sync');return}$('barkadaNameInput').value='';$('barkadaInitialEmails').value='';$('createBarkadaModal').classList.add('open');$('createBarkadaModal').setAttribute('aria-hidden','false');setTimeout(()=>$('barkadaNameInput').focus(),40)}
 function closeCreateBarkadaModal(){$('createBarkadaModal').classList.remove('open');$('createBarkadaModal').setAttribute('aria-hidden','true')}
@@ -16919,7 +17140,7 @@ function render(){
   $("bufferTargetInput").value=state.planner.bufferTarget;
   renderIncome();renderBills();renderSpending();renderDailyAllowance();renderGrocery();renderAccounts();renderBarkada();renderKkb();renderLoans();renderCreditCards();renderGoals();renderOverview();renderDashboard();renderFixedTermSummary();renderRewards();renderMonthlyStatement();renderWrapped();
   renderSinopMoneyOS();
-  renderSettings();applyDashboardVisibility();applyListFilters();renderReminderCenter(true);hydrateHeroIcons(document);
+  renderSettings();if(typeof renderProfile==="function")renderProfile();applyDashboardVisibility();applyListFilters();renderReminderCenter(true);hydrateHeroIcons(document);
 }
 
 function renderOverview(){
@@ -21352,6 +21573,7 @@ maybeStartFirstRunSetup();
         <h4 id="mobileGroupReports">Goals & reports</h4>
         <div class="mobile-more-grid">
           <button class="mobile-more-destination" type="button" data-v124-more-target="goals" aria-label="Goals"><span class="mobile-action-icon"><span data-hero="flag"></span></span><span>Goals</span></button>
+          <button class="mobile-more-destination" type="button" data-v124-more-target="profile" aria-label="Profile"><span class="mobile-action-icon"><span data-hero="user-circle"></span></span><span>Profile</span></button>
           <button class="mobile-more-destination" type="button" data-v124-more-target="rewards" aria-label="Rewards"><span class="mobile-action-icon"><span data-hero="trophy"></span></span><span>Rewards</span></button>
           <button class="mobile-more-destination" type="button" data-v124-more-target="monthly-statement" aria-label="Statements"><span class="mobile-action-icon"><span data-hero="banknotes"></span></span><span>Statements</span></button>
           <button class="mobile-more-destination" type="button" data-v124-more-target="wrapped" aria-label="Wrapped"><span class="mobile-action-icon"><span data-hero="sparkles"></span></span><span>Wrapped</span></button>
@@ -21362,6 +21584,7 @@ maybeStartFirstRunSetup();
         <h4 id="mobileGroupSettings">Settings & help</h4>
         <div class="mobile-more-grid">
           <button class="mobile-more-destination" type="button" data-v124-more-target="settings" aria-label="Customize"><span class="mobile-action-icon"><span data-hero="adjustments-horizontal"></span></span><span>Customize</span></button>
+          <button class="mobile-more-destination" type="button" data-v124-more-target="version-log" aria-label="Version log"><span class="mobile-action-icon"><span data-hero="clock"></span></span><span>Version log</span></button>
           <button class="mobile-more-destination" type="button" data-v124-more-target="user-manual" aria-label="User manual"><span class="mobile-action-icon"><span data-hero="question-mark-circle"></span></span><span>User manual</span></button>
         </div>
       </section>
@@ -23033,6 +23256,249 @@ maybeStartFirstRunSetup();
     if(!nav)return;
     clearTimeout(timer);timer=setTimeout(()=>{if(typeof refreshActiveBarkada==='function'&&activeBarkadaRef())refreshActiveBarkada(true)},180);
   });
+})();
+</script>
+
+<style id="sinop-v135-tested-income-mobile">
+/* ===== SINOP v135 · rendered/tested at 320 / 390 / 430 px ===== */
+@media(max-width:760px){
+  :root{--income-mobile-border:color-mix(in srgb,var(--text) 24%,var(--border))}
+  #income .table-card{width:100%!important;max-width:100%!important;min-width:0!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;overflow:visible!important}
+  #income table.income-table{display:block!important;width:100%!important;max-width:100%!important;min-width:0!important;table-layout:auto!important;border:0!important;background:transparent!important}
+  #income table.income-table thead,#income table.income-table tfoot{display:none!important;visibility:hidden!important;height:0!important}
+  #income table.income-table tbody,#income table.income-table #incomeBody{display:grid!important;width:100%!important;max-width:100%!important;min-width:0!important;grid-template-columns:minmax(0,1fr)!important;gap:8px!important}
+  #income table.income-table tbody>tr{display:block!important;width:100%!important;max-width:100%!important;min-width:0!important;margin:0!important;padding:0!important;border:1px solid var(--income-mobile-border)!important;border-radius:14px!important;background:var(--panel)!important;box-shadow:none!important;overflow:hidden!important}
+
+  #income table.income-table tbody>tr:not(.v125-expanded)>td:not(.v125-summary-cell){display:none!important}
+  #income table.income-table tbody>tr:not(.v125-expanded)>.v125-summary-cell{display:block!important;width:100%!important;max-width:100%!important;padding:0!important;margin:0!important;border:0!important;background:transparent!important}
+  #income .v131-mobile-summary{width:100%!important;max-width:100%!important;min-width:0!important;min-height:70px!important;padding:11px 12px!important;border:0!important;border-radius:0!important;grid-template-columns:minmax(0,1fr) minmax(92px,34%) 20px!important;gap:9px!important}
+  #income .v131-mobile-main,#income .v131-mobile-side{min-width:0!important}
+  #income .v131-mobile-main strong{font-size:15px!important;line-height:1.25!important;white-space:normal!important;overflow-wrap:anywhere!important}
+  #income .v131-mobile-main small,#income .v131-mobile-side small{font-size:11.5px!important;line-height:1.35!important}
+  #income .v131-mobile-side strong{font-size:14px!important;line-height:1.25!important;white-space:nowrap!important}
+
+  /* Stable DOM order; visual ordering is flex so nth-child label mapping never shifts. */
+  #income table.income-table tbody>tr.v125-expanded{display:flex!important;flex-direction:column!important;width:100%!important;max-width:100%!important;min-width:0!important;padding:0 10px 10px!important;background:var(--soft)!important}
+  #income table.income-table tbody>tr.v125-expanded>.v125-summary-cell{display:block!important;order:-1!important;width:auto!important;max-width:none!important;margin:0 -10px 9px!important;padding:0!important;border:0!important;border-bottom:1px solid var(--income-mobile-border)!important;background:var(--panel)!important}
+  #income table.income-table tbody>tr.v125-expanded>td:not(.v125-summary-cell){display:grid!important;width:100%!important;max-width:100%!important;min-width:0!important;min-height:0!important;margin:0 0 9px!important;padding:11px!important;border:1px solid var(--income-mobile-border)!important;border-radius:12px!important;background:var(--panel)!important;overflow:hidden!important;align-content:start!important}
+  #income table.income-table tbody>tr.v125-expanded>td:not(.v125-summary-cell)::before{display:block!important;content:attr(data-label)!important;width:100%!important;margin:0 0 7px!important;padding:0!important;color:var(--muted)!important;font-size:11px!important;line-height:1.3!important;font-weight:800!important;letter-spacing:.01em!important;text-transform:none!important;white-space:normal!important;overflow-wrap:anywhere!important}
+  #income table.income-table tbody>tr.v125-expanded>td:nth-child(11)::before{display:none!important;content:none!important}
+  #income .v132-income-field-label{display:none!important}
+
+  #income table.income-table tbody>tr.v125-expanded input:not([type="checkbox"]),#income table.income-table tbody>tr.v125-expanded select{width:100%!important;max-width:100%!important;min-width:0!important;min-height:46px!important;font-size:16px!important;line-height:1.3!important}
+  #income table.income-table tbody>tr.v125-expanded small,#income table.income-table tbody>tr.v125-expanded .salary-treatment-note,#income table.income-table tbody>tr.v125-expanded .account-select-note,#income table.income-table tbody>tr.v125-expanded .payday-editor small,#income table.income-table tbody>tr.v125-expanded .salary-deduction-cell small,#income table.income-table tbody>tr.v125-expanded .income-receipt-help{font-size:11.5px!important;line-height:1.45!important;white-space:normal!important;overflow-wrap:anywhere!important}
+  #income table.income-table tbody>tr.v125-expanded .income-receipt-cell,#income table.income-table tbody>tr.v125-expanded .income-receipt-editor,#income table.income-table tbody>tr.v125-expanded .income-receipt-checks,#income table.income-table tbody>tr.v125-expanded .payday-editor{width:100%!important;max-width:100%!important;min-width:0!important}
+  #income table.income-table tbody>tr.v125-expanded .income-receipt-occurrence{width:100%!important;max-width:100%!important;min-width:0!important;grid-template-columns:minmax(105px,auto) minmax(0,1fr)!important;gap:8px!important}
+  #income table.income-table tbody>tr.v125-expanded .income-receipt-check{min-width:0!important;max-width:100%!important;min-height:40px!important;padding:7px 8px!important;font-size:11.5px!important}
+  #income table.income-table tbody>tr.v125-expanded .income-receipt-date{width:100%!important;max-width:100%!important;min-width:0!important}
+  #income table.income-table tbody>tr.v125-expanded td.num{text-align:left!important;justify-items:stretch!important}
+  #income table.income-table tbody>tr.v125-expanded .i-monthly{font-size:17px!important;font-weight:850!important;color:var(--brand2)!important}
+  #income table.income-table tbody>tr.v125-expanded .i-del{width:100%!important;min-width:0!important;min-height:44px!important;border:1px solid color-mix(in srgb,var(--danger) 40%,var(--border))!important;border-radius:10px!important;color:var(--danger)!important}
+  #income{overflow-x:hidden!important}#income,#income>*{max-width:100%!important;min-width:0!important}
+}
+@media(max-width:380px){
+  #income .v131-mobile-summary{grid-template-columns:minmax(0,1fr) 20px!important;min-height:80px!important}
+  #income .v131-mobile-main{grid-column:1!important;grid-row:1!important}
+  #income .v131-mobile-side{grid-column:1!important;grid-row:2!important;display:flex!important;align-items:center!important;justify-content:flex-start!important;gap:8px!important;max-width:none!important;text-align:left!important}
+  #income .v131-mobile-side strong,#income .v131-mobile-side small{width:auto!important;text-align:left!important}
+  #income .v131-mobile-summary>.v125-row-chevron{grid-column:2!important;grid-row:1/3!important;align-self:center!important}
+}
+</style>
+
+
+<script id="sinop-v136-profile-script">
+(() => {
+  let profileRankMode='xp';
+  let globalEntries=[];
+  let globalBusy=false;
+  const $p=id=>document.getElementById(id);
+  const clamp=(n,min,max)=>Math.max(min,Math.min(max,Number(n||0)));
+
+  function previousMonths(month,count=3){const out=[];for(let i=0;i<count;i++)out.push(shiftMonth(month,-i));return out}
+  function scoreBand(score){
+    if(score>=900)return {label:'Excellent',detail:'Highly resilient and consistent'};
+    if(score>=800)return {label:'Strong',detail:'Healthy position with good control'};
+    if(score>=700)return {label:'Stable',detail:'Solid base with room to strengthen'};
+    if(score>=600)return {label:'Building',detail:'Progress is visible; focus on weak components'};
+    return {label:'Needs attention',detail:'Prioritize the lowest-scoring components first'};
+  }
+
+  window.financialScoreSnapshot=function(month=state.month){
+    const components=[];
+    const push=(key,label,weight,ratio,detail,hasData=true)=>{
+      ratio=clamp(ratio,0,1);components.push({key,label,weight,ratio,points:Math.round(weight*ratio),detail,hasData});
+    };
+
+    const bills=activeBills(month);
+    let totalOcc=0,paidOcc=0;
+    bills.forEach(b=>{
+      const sched=billOccurrenceSchedule(b,month,state.scenario)||[];
+      if(sched.length){
+        totalOcc+=sched.length;
+        if(billOccurrenceRecordExists(b.id,month))paidOcc+=billOccurrenceFlags(b.id,month,false).filter(Boolean).length;
+        else if(isBillPaid(b.id,month))paidOcc+=sched.length;
+      }else{totalOcc++;if(isBillPaid(b.id,month))paidOcc++}
+    });
+    const billRatio=totalOcc?paidOcc/totalOcc:.70;
+    push('commitments','Commitment reliability',250,billRatio,totalOcc?`${paidOcc} of ${totalOcc} scheduled payments marked complete`:'Add recurring commitments to improve confidence',!!totalOcc);
+
+    const income=Math.max(0,totalIncome(month));
+    const wealthPct=Math.max(0,wealthRate(month));
+    const wealthTarget=Math.max(10,Number(state.settings?.rules?.savingsTargetPct||10));
+    push('wealth','Savings & investing',200,income>0?wealthPct/wealthTarget:.50,income>0?`${wealthPct.toFixed(1)}% of income directed to wealth building · target ${wealthTarget.toFixed(0)}%`:'Add income to measure your wealth-building rate',income>0);
+
+    const liquid=Math.max(0,totalUsableMoney(month));
+    const recent=previousMonths(month,3);
+    const avgVariable=recent.reduce((sum,m)=>sum+Math.max(0,actualVariableTotal(m)),0)/recent.length;
+    const committed=Math.max(0,billPaymentSummary(month).total);
+    const monthlyNeed=committed+avgVariable;
+    const targetMonths=Math.max(1,Number(state.settings?.rules?.emergencyMonths||3));
+    const runway=monthlyNeed>0?liquid/monthlyNeed:0;
+    push('liquidity','Liquidity cushion',200,monthlyNeed>0?runway/targetMonths:.60,monthlyNeed>0?`${runway.toFixed(1)} months of tracked bills + recent variable spending · target ${targetMonths} months`:'Track spending and commitments to estimate your runway',monthlyNeed>0);
+
+    const caps=Object.entries(state.settings?.categoryBudgets||{}).filter(([,cap])=>Number(cap)>0);
+    let spendingRatio=.70,spendingDetail='Set category limits to measure spending control more precisely',spendingData=false;
+    if(caps.length){
+      const ratios=caps.map(([cat,cap])=>{const used=variableEntries(month).filter(x=>x.category===cat&&(x.status||'actual')==='actual').reduce((sum,x)=>sum+Number(x.amount||0),0);return used<=0?1:Math.min(1,Number(cap)/used)});
+      spendingRatio=ratios.reduce((a,b)=>a+b,0)/ratios.length;spendingDetail=`${caps.length} category limit${caps.length===1?'':'s'} assessed`;spendingData=true;
+    }
+    push('spending','Spending control',175,spendingRatio,spendingDetail,spendingData);
+
+    const cards=state.creditCards||[];
+    let debtRatio=.72,debtDetail='No active card data; component held at a neutral baseline',debtData=false;
+    if(cards.length){
+      const util=clamp(allCardUtilization(month),0,150);
+      const utilRatio=util<=30?1:util>=100?0:(100-util)/70;
+      const statementRatios=cards.map(card=>{const amount=Math.max(0,cardStatementAmount(card,month));if(amount<=0)return 1;const remaining=Math.max(0,cardStatementRemaining(card,month));return clamp(1-(remaining/amount),0,1)});
+      const payRatio=statementRatios.reduce((a,b)=>a+b,0)/Math.max(1,statementRatios.length);
+      const borrowed=(state.loans||[]).filter(l=>l.direction==='borrowed').reduce((sum,l)=>sum+Math.max(0,loanRemainingAsOfMonth(l,month)),0);
+      const debtPenalty=income>0?clamp(1-(borrowed/(income*6)),.55,1):1;
+      debtRatio=(utilRatio*.55+payRatio*.45)*debtPenalty;
+      debtDetail=`${util.toFixed(1)}% card utilization · ${Math.round(payRatio*100)}% of tracked statement balances paid${borrowed>0?' · outstanding IOUs considered':''}`;debtData=true;
+    }
+    push('debt','Debt & card management',175,debtRatio,debtDetail,debtData);
+
+    const score=clamp(components.reduce((sum,c)=>sum+c.points,0),0,1000);
+    const confidence=components.filter(c=>c.hasData).length;
+    return {score:Math.round(score),band:scoreBand(score),components,confidence,month};
+  };
+
+  function profileLevelData(){const xp=rewardXp(),level=rewardLevel(xp),badges=earnedRewardBadges();return {xp,level,badges,score:financialScoreSnapshot(state.month)}}
+  function initials(name){return String(name||'S').trim().split(/\s+/).slice(0,2).map(x=>x[0]?.toUpperCase()||'').join('')||'S'}
+  function publicName(){return String(state.settings?.publicProfileName||cloudMeta.accountName||'SINOP user').trim()||'SINOP user'}
+  function globalEndpoint(){return String(window.SINOP_GLOBAL_LEADERBOARD_ENDPOINT||'').trim()}
+
+  function uniqueNetworkProfiles(){
+    const map=new Map();
+    const add=(member,source='Barkada')=>{
+      if(!member?.sinopProfile)return;const key=String(member.email||member.id||member.name||'').toLowerCase();if(!key)return;
+      const p=member.sinopProfile,old=map.get(key);const stamp=Date.parse(p.updatedAt||'')||0;
+      if(!old||stamp>=old.stamp)map.set(key,{id:key,name:member.name||String(member.email||'').split('@')[0]||'SINOP user',xp:Number(p.xp||0),level:Number(p.level||1),badgeCount:(p.badgeIds||[]).length,financialScore:Number(p.financialScore||0),email:String(member.email||'').toLowerCase(),stamp,source});
+    };
+    barkadaCache.forEach(doc=>(doc?.members||[]).forEach(m=>add(m,doc.name||'Barkada')));
+    const me=profileLevelData();const email=String(cloudMeta.accountEmail||'local:self').toLowerCase();
+    map.set(email,{id:email,name:cloudMeta.accountName||'You',xp:me.xp,level:me.level.current.level,badgeCount:me.badges.length,financialScore:me.score.score,email,stamp:Date.now(),source:'You'});
+    return [...map.values()];
+  }
+  function rankEntries(entries){
+    return [...entries].sort((a,b)=>{
+      if(profileRankMode==='score'){
+        const d=Number(b.financialScore||0)-Number(a.financialScore||0);if(d)return d;
+        const x=Number(b.xp||0)-Number(a.xp||0);if(x)return x;
+      }else{
+        const x=Number(b.xp||0)-Number(a.xp||0);if(x)return x;
+        const d=Number(b.financialScore||0)-Number(a.financialScore||0);if(d)return d;
+      }
+      return String(a.name||'').localeCompare(String(b.name||''));
+    });
+  }
+  function leaderboardHtml(entries,{global=false}={}){
+    const ranked=rankEntries(entries);
+    if(!ranked.length)return `<div class="profile-empty">${global?'No global profiles are available yet.':'Open Barkada and sync friends to build your network ranking.'}</div>`;
+    const myEmail=String(cloudMeta.accountEmail||'').toLowerCase();
+    return ranked.slice(0,50).map((e,i)=>{
+      const isYou=(!global&&e.email===myEmail)||(global&&e.isYou);
+      const metric=profileRankMode==='score'?`FS ${Number(e.financialScore||0)||'—'}`:`${Number(e.xp||0).toLocaleString()} XP`;
+      const secondary=profileRankMode==='score'?`Level ${Number(e.level||1)} · ${Number(e.xp||0).toLocaleString()} XP`:`FS ${Number(e.financialScore||0)||'—'} · ${Number(e.badgeCount||0)} badges`;
+      return `<div class="profile-leader-row ${isYou?'is-you':''}"><span class="profile-leader-rank">#${i+1}</span><span class="profile-leader-avatar">${esc(initials(e.name))}</span><span class="profile-leader-copy"><strong>${esc(e.name||'SINOP user')}${isYou?' · You':''}</strong><small>Level ${Number(e.level||1)}${e.source&&!global?` · ${esc(e.source)}`:''}</small></span><span class="profile-leader-metric"><strong>${esc(metric)}</strong><small>${esc(secondary)}</small></span></div>`;
+    }).join('');
+  }
+
+  async function stablePublicId(){
+    const raw=String(cloudMeta.accountSub||cloudMeta.accountEmail||cloudMeta.deviceId||'').trim();if(!raw)return '';
+    try{const buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(`sinop-global:${raw}`));return [...new Uint8Array(buf)].map(b=>b.toString(16).padStart(2,'0')).join('').slice(0,32)}catch(_){return raw.replace(/[^a-z0-9]/gi,'').slice(0,32)}
+  }
+  async function globalProfilePayload(){const d=profileLevelData();return {id:await stablePublicId(),name:publicName(),xp:d.xp,level:d.level.current.level,badgeCount:d.badges.length,financialScore:d.score.score,updatedAt:new Date().toISOString()}}
+  async function refreshGlobalLeaderboard({publish=false}={}){
+    const endpoint=globalEndpoint();if(!endpoint||globalBusy)return;globalBusy=true;
+    try{
+      if(publish&&state.settings.globalLeaderboardOptIn){const payload=await globalProfilePayload();await fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});}
+      const r=await fetch(endpoint,{headers:{'Accept':'application/json'}});if(!r.ok)throw new Error(`Leaderboard ${r.status}`);const data=await r.json();const rows=Array.isArray(data)?data:Array.isArray(data.entries)?data.entries:[];const myId=await stablePublicId();globalEntries=rows.map(x=>({id:String(x.id||''),name:String(x.name||'SINOP user'),xp:Math.max(0,Number(x.xp||0)),level:Math.max(1,Number(x.level||1)),badgeCount:Math.max(0,Number(x.badgeCount||0)),financialScore:clamp(x.financialScore,0,1000),isYou:String(x.id||'')===myId}));
+    }catch(e){console.warn('Global leaderboard unavailable',e);globalEntries=[]}finally{globalBusy=false;renderProfile()}
+  }
+
+  window.renderProfile=function(){
+    const root=$p('profile');if(!root)return;
+    const d=profileLevelData(),score=d.score,band=score.band;
+    const name=cloudMeta.accountName||state.settings.publicProfileName||'SINOP user';
+    const avatar=$p('profileAvatar');if(avatar){avatar.innerHTML=cloudMeta.accountPicture?`<img src="${esc(cloudMeta.accountPicture)}" alt="">`:esc(initials(name))}
+    if($p('profileName'))$p('profileName').textContent=name;
+    if($p('profileLevelLine'))$p('profileLevelLine').textContent=`Level ${d.level.current.level} · ${d.level.current.title}`;
+    if($p('profileLevel'))$p('profileLevel').textContent=String(d.level.current.level);
+    if($p('profileXp'))$p('profileXp').textContent=d.xp.toLocaleString();
+    if($p('profileBadgeCount'))$p('profileBadgeCount').textContent=String(d.badges.length);
+    if($p('profileFinancialScore'))$p('profileFinancialScore').textContent=String(score.score);
+    if($p('profileFinancialBand'))$p('profileFinancialBand').textContent=`${band.label} · ${band.detail} · ${score.confidence}/5 components personalized`;
+    if($p('profileScoreRingValue'))$p('profileScoreRingValue').textContent=String(score.score);
+    if($p('profileScoreRing'))$p('profileScoreRing').style.setProperty('--score-pct',`${score.score/10}%`);
+    if($p('profileScoreComponents'))$p('profileScoreComponents').innerHTML=score.components.map(c=>`<div class="profile-score-component"><span>${esc(c.label)}</span><strong>${c.points}/${c.weight}</strong><div class="profile-score-track"><div class="profile-score-fill" style="width:${Math.round(c.ratio*100)}%"></div></div><small>${esc(c.detail)}</small></div>`).join('');
+
+    const earned=d.badges;
+    if($p('profileBadgePill'))$p('profileBadgePill').textContent=`${earned.length} earned`;
+    if($p('profileBadgeGrid'))$p('profileBadgeGrid').innerHTML=earned.length?earned.map(b=>`<div class="profile-earned-badge"><span>${heroSvg(b.icon||'trophy')}</span><strong>${esc(b.title)}</strong></div>`).join(''):`<div class="profile-empty">Your first badge is waiting. Healthy actions in SINOP unlock achievements automatically.</div>`;
+
+    const network=uniqueNetworkProfiles(),ranked=rankEntries(network),myEmail=String(cloudMeta.accountEmail||'local:self').toLowerCase(),mine=ranked.findIndex(x=>x.email===myEmail||x.id===myEmail);
+    if($p('profileNetworkCount'))$p('profileNetworkCount').textContent=`${network.length} ${network.length===1?'person':'people'}`;
+    if($p('profileNetworkLeaderboard'))$p('profileNetworkLeaderboard').innerHTML=leaderboardHtml(network);
+    if($p('profileNetworkRank'))$p('profileNetworkRank').textContent=mine>=0?`#${mine+1}`:'—';
+    if($p('profileNetworkRankMeta'))$p('profileNetworkRankMeta').textContent=mine>=0?`of ${ranked.length} synced profile${ranked.length===1?'':'s'} · ${profileRankMode==='xp'?'Level / XP':'Financial Score'}`:'Sync Barkada friends to compare';
+
+    const endpoint=globalEndpoint(),globalRanked=rankEntries(globalEntries),gMine=globalRanked.findIndex(x=>x.isYou);
+    if($p('profileGlobalLeaderboard'))$p('profileGlobalLeaderboard').innerHTML=endpoint?leaderboardHtml(globalEntries,{global:true}):`<div class="profile-empty"><strong>Global leaderboard service is not connected.</strong><br>SINOP will not invent a global rank. The hosted deployment needs one opt-in leaderboard endpoint before community rankings can be real.</div>`;
+    if($p('profileGlobalStatus'))$p('profileGlobalStatus').textContent=endpoint?(globalBusy?'Syncing…':`${globalEntries.length} ranked`):'Not connected';
+    if($p('profileGlobalRank'))$p('profileGlobalRank').textContent=gMine>=0?`#${gMine+1}`:'—';
+    if($p('profileGlobalRankMeta'))$p('profileGlobalRankMeta').textContent=!endpoint?'Leaderboard backend required':state.settings.globalLeaderboardOptIn?(gMine>=0?`of ${globalRanked.length} opted-in users`:'Publishing profile…'):'Opt in to publish';
+    if($p('profilePublicName'))$p('profilePublicName').value=state.settings.publicProfileName||cloudMeta.accountName||'';
+    if($p('profileGlobalOptIn')){$p('profileGlobalOptIn').checked=!!state.settings.globalLeaderboardOptIn;$p('profileGlobalOptIn').disabled=!endpoint}
+    if($p('profileGlobalOptInHelp'))$p('profileGlobalOptInHelp').textContent=endpoint?'Only display name, level, XP, badge count, and Financial Score are published.':'Requires a configured SINOP global leaderboard service.';
+    document.querySelectorAll('[data-profile-rank-mode]').forEach(btn=>btn.classList.toggle('active',btn.dataset.profileRankMode===profileRankMode));
+    hydrateHeroIcons(root);
+  };
+
+  async function loadNetworkProfiles(){if(!cloudTokenValid())return;for(const ref of (state.barkadaGroups||[])){try{await loadBarkadaGroup(ref,{force:false})}catch(_){}}renderProfile()}
+
+  document.addEventListener('click',e=>{
+    const mode=e.target.closest('[data-profile-rank-mode]');if(mode){profileRankMode=mode.dataset.profileRankMode==='score'?'score':'xp';renderProfile();return}
+    const nav=e.target.closest('[data-target="profile"],[data-jump="profile"],[data-v124-more-target="profile"]');if(nav){setTimeout(()=>{renderProfile();loadNetworkProfiles();if(globalEndpoint())refreshGlobalLeaderboard({publish:false})},80)}
+  });
+  $p('profilePublicName')?.addEventListener('change',e=>{state.settings.publicProfileName=String(e.target.value||'').trim().slice(0,40);scheduleAutoSave();renderProfile();if(state.settings.globalLeaderboardOptIn&&globalEndpoint())refreshGlobalLeaderboard({publish:true})});
+  $p('profileGlobalOptIn')?.addEventListener('change',e=>{if(!globalEndpoint()){e.target.checked=false;toast('Global leaderboard service is not connected in this deployment.');return}state.settings.globalLeaderboardOptIn=!!e.target.checked;scheduleAutoSave();renderProfile();if(e.target.checked)refreshGlobalLeaderboard({publish:true})});
+  window.addEventListener('sinop:profile-refresh',()=>renderProfile());
+  renderProfile();
+})();
+</script>
+
+
+<script id="sinop-v137-version-log-script">
+(()=>{
+  const latestText=`SINOP v137 — Barkada Leaderboard & Version Log\nSeptember 3, 2026\n\n• Redesigned Barkada peer ranking with a Top 3 podium and compact ranked-friend rows.\n• Added Level / XP and Financial Score ranking views.\n• Added richer badge, level, rank, invited, and syncing states.\n• Added an in-app Version Log with shareable release notes.`;
+  const collectLog=()=>{
+    const rows=[...document.querySelectorAll('#versionTimeline .version-entry')];
+    return ['SINOP Version Log',...rows.map(row=>{const version=row.dataset.version||'',date=row.dataset.date||'',title=row.querySelector('h3')?.textContent?.trim()||'',items=[...row.querySelectorAll('li')].map(li=>`• ${li.textContent.trim()}`).join('\n');return `${version} — ${title}\n${date}\n${items}`})].join('\n\n');
+  };
+  async function copyText(text,message){try{await navigator.clipboard.writeText(text);toast(message)}catch(_){const ta=document.createElement('textarea');ta.value=text;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();toast(message)}}
+  document.getElementById('shareLatestVersionBtn')?.addEventListener('click',async()=>{if(navigator.share){try{await navigator.share({title:'SINOP v137 update',text:latestText});return}catch(e){if(e?.name==='AbortError')return}}copyText(latestText,'Latest SINOP update copied')});
+  document.getElementById('copyVersionLogBtn')?.addEventListener('click',()=>copyText(collectLog(),'SINOP version log copied'));
 })();
 </script>
 </body>
