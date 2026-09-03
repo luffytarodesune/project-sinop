@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0f766e">
-<title>SINOP v126 · Mobile Income Cleanup</title>
+<title>SINOP v127 · Mobile Module Isolation</title>
 <meta name="application-name" content="SINOP">
 <meta name="apple-mobile-web-app-title" content="SINOP">
 <meta name="description" content="SINOP — your personal money system for income, spending, savings, investments, goals, KKB, and financial tracking.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2718%27 fill=%27%230f766e%27/%3E%3Ctext x=%2732%27 y=%2743%27 text-anchor=%27middle%27 font-family=%27Arial,sans-serif%27 font-size=%2738%27 font-weight=%27900%27 fill=%27white%27%3ES%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20viewBox%3D%270%200%2064%2064%27%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20aria-hidden%3D%27true%27%3E%3Crect%20x%3D%272%27%20y%3D%272%27%20width%3D%2760%27%20height%3D%2760%27%20rx%3D%2718%27%20fill%3D%27%230f766e%27%2F%3E%3Cpath%20d%3D%27M45%2018H27c-7%200-12%204-12%2010s5%2010%2012%2010h10c7%200%2012%204%2012%2010S44%2058%2037%2058H19%27%20fill%3D%27none%27%20stroke%3D%27white%27%20stroke-width%3D%277%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%2F%3E%3Cpath%20d%3D%27M46%2018h4M14%2058h4%27%20stroke%3D%27%239ee3d4%27%20stroke-width%3D%274%27%20stroke-linecap%3D%27round%27%2F%3E%3C%2Fsvg%3E">
 <style>
 :root{
   --bg:#f5f8f7;--panel:#fff;--soft:#eef6f3;--text:#18211e;--muted:#6e7d78;
@@ -5127,12 +5127,72 @@ body[data-theme="dark"] .barkada-group-btn,body[data-theme="dark"] .barkada-memb
 
 </style>
 
+
+<style id="sinop-v127-mobile-isolation">
+/* ===== SINOP v127 · hard module isolation + compact income rows ===== */
+.sinop-logo-mark{overflow:hidden}
+.sinop-logo-mark svg,.sinop-sidebar-symbol svg{display:block;width:100%;height:100%}
+.sinop-login-logo.sinop-logo-mark{padding:0;background:transparent;border:0;box-shadow:none}
+.sinop-sidebar-symbol{width:31px;height:31px;flex:0 0 31px;display:grid;place-items:center}
+.sinop-wordmark{justify-content:flex-start;gap:9px;padding:0 9px;text-indent:0;letter-spacing:0}
+.sinop-wordmark::after{display:none!important}
+.sinop-wordmark-full{letter-spacing:.15em;text-indent:.15em;font-size:18px}
+.app.sidebar-collapsed .sinop-wordmark{padding:0;justify-content:center}
+.app.sidebar-collapsed .sinop-sidebar-symbol{width:32px;height:32px}
+.mobile-app-mark.sinop-logo-mark{padding:0!important;background:transparent!important;box-shadow:none!important}
+
+@media(max-width:760px){
+  /* Non-negotiable mobile invariant: exactly the active module can participate in layout. */
+  .main>.section:not(.active){display:none!important;visibility:hidden!important;pointer-events:none!important}
+  .main>.section.active{visibility:visible!important;pointer-events:auto!important}
+
+  /* Do not let old generic table-card rules visually leak hidden module content. */
+  .main>.section:not(.active) .table-card,
+  .main>.section:not(.active) table,
+  .main>.section:not(.active) .v125-summary-cell{display:none!important}
+
+  /* Income is compact by default. Metadata is text, not nested cards. */
+  #income .v127-income-source-summary{
+    width:100%!important;min-height:64px!important;padding:9px 10px!important;
+    display:grid!important;grid-template-columns:minmax(0,1fr) auto 16px!important;
+    align-items:center!important;gap:9px!important;text-align:left!important
+  }
+  #income .v127-income-main,#income .v127-income-side{min-width:0!important;display:grid!important;gap:3px!important}
+  #income .v127-income-main strong{
+    min-width:0!important;font-size:13px!important;line-height:1.2!important;font-weight:850!important;
+    white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important
+  }
+  #income .v127-income-main small{
+    min-width:0!important;font-size:10px!important;line-height:1.2!important;color:var(--muted)!important;
+    white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important
+  }
+  #income .v127-income-side{text-align:right!important;justify-items:end!important;max-width:42vw!important}
+  #income .v127-income-side strong{font-size:13px!important;line-height:1.2!important;white-space:nowrap!important}
+  #income .v127-income-side small{
+    max-width:100%!important;font-size:9px!important;line-height:1.2!important;color:var(--muted)!important;
+    white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important
+  }
+  #income .v127-income-source-summary>.v125-row-chevron{grid-column:3!important;grid-row:1!important}
+
+  /* Retire the previous nested Source/Type/Frequency visual component if any stale node survives a render cycle. */
+  #income .v126-income-summary-body,#income .v126-income-meta-grid,#income .v126-income-meta-item{display:contents!important}
+  #income .v126-income-summary-top{display:contents!important}
+
+  /* Make the actual app identity visible, not a generic letter tile. */
+  .mobile-app-mark.sinop-logo-mark{width:34px!important;height:34px!important;flex:0 0 34px!important;border-radius:11px!important}
+}
+@media(max-width:390px){
+  #income .v127-income-source-summary{grid-template-columns:minmax(0,1fr) minmax(88px,36%) 14px!important;gap:7px!important;padding:8px 9px!important}
+  #income .v127-income-main strong,#income .v127-income-side strong{font-size:12.5px!important}
+}
+</style>
+
 </head>
 <body class="sinop-auth-locked">
 <div id="sinopLoginGate" class="sinop-login-gate" aria-hidden="false">
   <div class="sinop-login-shell" role="dialog" aria-modal="true" aria-labelledby="sinopLoginTitle">
     <section class="sinop-login-brand-panel" aria-hidden="true">
-      <div class="sinop-login-wordmark"><div class="sinop-login-logo">S</div><h2>SINOP</h2><p>Your money, in order.</p></div>
+      <div class="sinop-login-wordmark"><div class="sinop-login-logo sinop-logo-mark"><svg viewBox='0 0 64 64' xmlns='http://www.w3.org/2000/svg' aria-hidden='true'><rect x='2' y='2' width='60' height='60' rx='18' fill='#0f766e'/><path d='M45 18H27c-7 0-12 4-12 10s5 10 12 10h10c7 0 12 4 12 10S44 58 37 58H19' fill='none' stroke='white' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'/><path d='M46 18h4M14 58h4' stroke='#9ee3d4' stroke-width='4' stroke-linecap='round'/></svg></div><h2>SINOP</h2><p>Your money, in order.</p></div>
       <div class="sinop-login-brand-copy"><strong>One private workspace for the money you actually manage.</strong><p>Keep income, commitments, accounts, daily spending, goals, KKB, groceries and reports together—then carry the same SINOP data between your devices.</p></div>
     </section>
     <section class="sinop-login-panel">
@@ -5161,8 +5221,8 @@ body[data-theme="dark"] .barkada-group-btn,body[data-theme="dark"] .barkada-memb
     <div class="brand brand-sinop">
       <div class="sinop-sidebar-lockup">
         <div class="sinop-wordmark" aria-label="SINOP">
+          <span class="sinop-sidebar-symbol" aria-hidden="true"><svg viewBox='0 0 64 64' xmlns='http://www.w3.org/2000/svg' aria-hidden='true'><rect x='2' y='2' width='60' height='60' rx='18' fill='#0f766e'/><path d='M45 18H27c-7 0-12 4-12 10s5 10 12 10h10c7 0 12 4 12 10S44 58 37 58H19' fill='none' stroke='white' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'/><path d='M46 18h4M14 58h4' stroke='#9ee3d4' stroke-width='4' stroke-linecap='round'/></svg></span>
           <span class="sinop-wordmark-full" id="sidebarPlannerName">SINOP</span>
-          <span class="sinop-wordmark-mini" aria-hidden="true">S</span>
         </div>
         <small>Your money, in order.</small>
       </div>
@@ -5224,7 +5284,7 @@ body[data-theme="dark"] .barkada-group-btn,body[data-theme="dark"] .barkada-memb
   <main class="main">
     <header class="topbar">
       <div class="mobile-appbar" aria-label="SINOP mobile navigation">
-        <span class="mobile-app-mark" aria-hidden="true">S</span>
+        <span class="mobile-app-mark sinop-logo-mark" aria-hidden="true"><svg viewBox='0 0 64 64' xmlns='http://www.w3.org/2000/svg' aria-hidden='true'><rect x='2' y='2' width='60' height='60' rx='18' fill='#0f766e'/><path d='M45 18H27c-7 0-12 4-12 10s5 10 12 10h10c7 0 12 4 12 10S44 58 37 58H19' fill='none' stroke='white' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'/><path d='M46 18h4M14 58h4' stroke='#9ee3d4' stroke-width='4' stroke-linecap='round'/></svg></span>
         <div class="mobile-app-copy">
           <span>SINOP</span>
           <strong id="mobileSectionTitle">Overview</strong>
@@ -14505,7 +14565,10 @@ function printLoanStatement(){
   const loan=loanById(statementLoanId);if(!loan)return;
   const styles=[...document.querySelectorAll("style")].map(s=>s.innerHTML).join("\n"),win=window.open("","_blank","width=980,height=850");
   if(!win){toast("Please allow pop-ups to print the IOU statement.");return}
-  win.document.write(`<!doctype html><html><head><meta charset="utf-8"><title>${esc(loan.person)} IOU Statement</title><style>${styles} body{padding:28px;background:#fff;color:#17202a}.loan-print-sheet{max-width:850px;margin:auto}.loan-statement-top>div,.loan-editor-preview{background:#f7f9f8;border-color:#dce4e0}.loan-statement-table th{background:#f2f5f4}</style></head><body><h1 style="margin:0 0 6px;font-size:24px">${esc(loan.person)} · IOU Statement</h1><p style="margin:0 0 20px;color:#5f6f68">${esc(loanCounterpartyText(loan))}</p>${loanStatementHtml(loan,{print:true})}</body></html>`);
+  win.document.write(`<!doctype html><html><head><meta charset="utf-8"><title>${esc(loan.person)} IOU Statement</title><style>${styles} body{padding:28px;background:#fff;color:#17202a}.loan-print-sheet{max-width:850px;margin:auto}.loan-statement-top>div,.loan-editor-preview{background:#f7f9f8;border-color:#dce4e0}.loan-statement-table th{background:#f2f5f4}</style></head><body><h1 style="margin:0 0 6px;font-size:24px">${esc(loan.person)} · IOU Statement</h1><p style="margin:0 0 20px;color:#5f6f68">${esc(loanCounterpartyText(loan))}</p>${loanStatementHtml(loan,{print:true})}
+
+
+</body></html>`);
   win.document.close();setTimeout(()=>{win.focus();win.print()},250);
 }
 
@@ -21719,7 +21782,7 @@ maybeStartFirstRunSetup();
     if(cell.dataset.v125Sig===sig)return;
     cell.dataset.v125Sig=sig;
     if(type==='income'){
-      cell.innerHTML=`<button class="v125-row-summary v126-income-source-summary" type="button" aria-expanded="${expanded?'true':'false'}"><span class="v126-income-summary-body"><span class="v126-income-summary-top"><span class="v126-income-summary-source"><small>Source</small><strong>${esc(s.name)}</strong></span><span class="v126-income-summary-net"><small>Net / month</small><strong>${esc(s.value)}</strong></span></span><span class="v126-income-meta-grid"><span class="v126-income-meta-item"><small>Type</small><strong>${esc(s.kind||'—')}</strong></span><span class="v126-income-meta-item"><small>Frequency</small><strong>${esc(s.freq||'—')}</strong></span></span><span class="v126-income-receipt-status">${esc(s.status||'Not received')}</span></span><span class="v125-row-chevron"><span data-hero="chevron-down"></span></span></button>`;
+      cell.innerHTML=`<button class="v125-row-summary v127-income-source-summary" type="button" aria-expanded="${expanded?'true':'false'}"><span class="v127-income-main"><strong>${esc(s.name)}</strong><small>${esc([s.kind,s.freq].filter(Boolean).join(' · ')||'Income')}</small></span><span class="v127-income-side"><strong>${esc(s.value)}</strong><small>${esc(s.status||'Not received')}</small></span><span class="v125-row-chevron"><span data-hero="chevron-down"></span></span></button>`;
     }else{
       cell.innerHTML=`<button class="v125-row-summary" type="button" aria-expanded="${expanded?'true':'false'}"><span class="v125-row-main"><strong>${esc(s.name)}</strong><small>${esc(s.meta)}</small></span><span class="v125-row-value"><strong>${esc(s.value)}</strong><small>${esc(s.status)}</small></span><span class="v125-row-chevron"><span data-hero="chevron-down"></span></span></button>`;
     }
@@ -21825,5 +21888,30 @@ maybeStartFirstRunSetup();
 })();
 </script>
 
+<script id="sinop-v127-module-isolation-script">
+(() => {
+  const sectionSelector='.main > .section';
+  function enforce(target){
+    const sections=[...document.querySelectorAll(sectionSelector)];
+    if(!sections.length)return;
+    let keep=target?document.getElementById(target):sections.find(s=>s.classList.contains('active'));
+    if(!keep||!keep.matches(sectionSelector))keep=sections[0];
+    sections.forEach(s=>s.classList.toggle('active',s===keep));
+    /* Income-source UI is owned by Income only. Delete any accidental clone introduced by legacy mobile transforms. */
+    document.querySelectorAll('.income-table,.v126-income-source-summary,.v127-income-source-summary').forEach(node=>{
+      if(!node.closest('#income')) node.remove();
+    });
+  }
+  document.addEventListener('click',e=>{
+    const control=e.target.closest('[data-target],[data-jump],[data-v122-nav-target],[data-v124-more-target]');
+    if(!control)return;
+    const target=control.dataset.target||control.dataset.jump||control.dataset.v122NavTarget||control.dataset.v124MoreTarget;
+    if(target)requestAnimationFrame(()=>enforce(target));
+  });
+  const main=document.querySelector('.main');
+  if(main)new MutationObserver(()=>enforce()).observe(main,{attributes:true,subtree:true,attributeFilter:['class']});
+  enforce();
+})();
+</script>
 </body>
 </html>
