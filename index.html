@@ -4,11 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0f766e">
-<title>SINOP v138 · Google Global Ranking</title>
+<title>SINOP v141 · Income Labels & Time Deposit Fix</title>
 <meta name="application-name" content="SINOP">
 <meta name="apple-mobile-web-app-title" content="SINOP">
 <meta name="description" content="SINOP — your personal money system for income, spending, savings, investments, goals, KKB, and financial tracking.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20viewBox%3D%270%200%2064%2064%27%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20aria-hidden%3D%27true%27%3E%3Crect%20x%3D%272%27%20y%3D%272%27%20width%3D%2760%27%20height%3D%2760%27%20rx%3D%2718%27%20fill%3D%27%230f766e%27%2F%3E%3Cpath%20d%3D%27M45%2018H27c-7%200-12%204-12%2010s5%2010%2012%2010h10c7%200%2012%204%2012%2010S44%2058%2037%2058H19%27%20fill%3D%27none%27%20stroke%3D%27white%27%20stroke-width%3D%277%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%2F%3E%3Cpath%20d%3D%27M46%2018h4M14%2058h4%27%20stroke%3D%27%239ee3d4%27%20stroke-width%3D%274%27%20stroke-linecap%3D%27round%27%2F%3E%3C%2Fsvg%3E">
+<script id="sinop-production-config">window.SINOP_GLOBAL_LEADERBOARD_ENDPOINT='https://script.google.com/macros/s/AKfycbxQNRdFckCfhRfel9hmHBXJI-4S8Qi5JS0RVXfhFCxwk3CdsLBMm_K2Y79orCWVT8VoaA/exec';</script>
 <style>
 :root{
   --bg:#f5f8f7;--panel:#fff;--soft:#eef6f3;--text:#18211e;--muted:#6e7d78;
@@ -5636,6 +5637,15 @@ body[data-theme="dark"] .barkada-group-btn,body[data-theme="dark"] .barkada-memb
 }
 @media(max-width:390px){.barkada-v137-rank-row>summary{grid-template-columns:28px 34px minmax(0,1fr) 66px 14px;gap:6px}.barkada-v137-avatar{width:34px;height:34px}.barkada-v137-score{min-width:66px}.barkada-v137-badge-panel{padding-left:70px}.version-log-page-head .action-row{grid-template-columns:1fr}.version-latest-card{grid-template-columns:58px minmax(0,1fr)}.version-latest-badge{width:56px;height:56px;border-radius:15px}.version-latest-badge strong{font-size:17px}.version-latest-copy h3{font-size:15px}}
 </style>
+
+<style id="sinop-v139-global-connected-style">
+.profile-global-connection.is-connected{border-color:color-mix(in srgb,var(--brand) 42%,var(--border));background:color-mix(in srgb,var(--brandsoft) 34%,var(--panel))}
+.profile-global-connection-head strong{font-size:13px}
+.profile-global-endpoint-actions .btn{display:inline-flex;align-items:center;gap:6px}
+.profile-global-endpoint-actions .hero-icon{width:16px;height:16px}
+@media(max-width:760px){.profile-global-connection{padding:12px!important}.profile-global-connection-head small{font-size:11px!important;line-height:1.4!important}.profile-global-endpoint-actions .btn{width:100%;min-height:44px;justify-content:center}}
+</style>
+
 </head>
 <body class="sinop-auth-locked">
 <div id="sinopLoginGate" class="sinop-login-gate" aria-hidden="false">
@@ -5729,7 +5739,7 @@ body[data-theme="dark"] .barkada-group-btn,body[data-theme="dark"] .barkada-memb
         <button class="nav-btn" data-target="user-manual"><span class="nav-icon"><span data-hero="question-mark-circle"></span></span><span class="nav-label">User manual</span></button>
       </div>
     </nav>
-    <div class="sinop-sidebar-footer"><small>Your personal money system · v138</small></div>
+    <div class="sinop-sidebar-footer"><small>Your personal money system · v141</small></div>
   </aside>
 
   <main class="main">
@@ -6952,11 +6962,10 @@ body[data-theme="dark"] .barkada-group-btn,body[data-theme="dark"] .barkada-memb
           <div class="section-head"><div><p class="eyebrow">SINOP community</p><h2>Global ranking</h2><p class="subtle">Opt-in only. A public profile contains a display name, level, XP, badge count, and Financial Score—never email, balances, salary, accounts, or transactions.</p></div><span id="profileGlobalStatus" class="badge">Not connected</span></div>
           <div id="profileGlobalLeaderboard" class="profile-leaderboard"></div>
           <div class="profile-public-controls">
-            <div class="profile-global-connection">
-              <div class="profile-global-connection-head"><span class="mobile-action-icon"><span data-hero="globe-alt"></span></span><span><strong>Google global leaderboard</strong><small id="profileGlobalConnectionStatus">Paste the Apps Script Web App URL once to connect this SINOP deployment.</small></span></div>
-              <label class="profile-global-endpoint-label"><span>Apps Script Web App URL</span><input id="profileGlobalEndpoint" type="url" inputmode="url" autocomplete="off" placeholder="https://script.google.com/macros/s/.../exec"></label>
-              <div class="profile-global-endpoint-actions"><button class="btn btn-secondary btn-sm" id="profileGlobalConnectBtn" type="button">Save & test</button><button class="text-btn" id="profileGlobalClearBtn" type="button">Clear</button></div>
-              <small class="profile-global-setup-note">The leaderboard backend keeps its Google Sheet private. Public reads expose only display name, level, XP, badge count, and Financial Score.</small>
+            <div class="profile-global-connection is-connected">
+              <div class="profile-global-connection-head"><span class="mobile-action-icon"><span data-hero="globe-alt"></span></span><span><strong>SINOP Global Ranking</strong><small id="profileGlobalConnectionStatus">Built in · Google Apps Script leaderboard connected automatically.</small></span></div>
+              <div class="profile-global-endpoint-actions"><button class="btn btn-secondary btn-sm" id="profileGlobalConnectBtn" type="button"><span data-hero="arrow-path"></span> Check connection</button></div>
+              <small class="profile-global-setup-note">The leaderboard service is configured by SINOP. Its Google Sheet remains private; public reads expose only display name, level, XP, badge count, and Financial Score.</small>
             </div>
             <label><span>Public display name</span><input id="profilePublicName" type="text" maxlength="40" placeholder="Name shown on the leaderboard"></label>
             <label class="profile-optin-row"><input id="profileGlobalOptIn" type="checkbox"><span><strong>Publish my sanitized profile</strong><small id="profileGlobalOptInHelp">Connect the Google Apps Script leaderboard first.</small></span></label>
@@ -7208,12 +7217,15 @@ body[data-theme="dark"] .barkada-group-btn,body[data-theme="dark"] .barkada-memb
       </div>
 
       <article class="version-latest-card">
-        <div class="version-latest-badge"><span>Latest</span><strong>v138</strong></div>
-        <div class="version-latest-copy"><span>September 3, 2026</span><h3>Google Global Ranking</h3><p>Global ranking is now wired for a Google-only backend using Apps Script and a private owner-controlled Google Sheet, with authenticated opt-in publishing and mobile-safe public leaderboard reads.</p></div>
+        <div class="version-latest-badge"><span>Latest</span><strong>v141</strong></div>
+        <div class="version-latest-copy"><span>September 3, 2026</span><h3>Income Label Reset & Time Deposit Fix</h3><p>Income now uses one real mobile label per expanded field with all legacy pseudo-label layers disabled. The corrected Time Deposit ledger behavior from v140 is retained.</p></div>
       </article>
 
       <div class="version-timeline" id="versionTimeline">
-        <article class="version-entry is-latest" data-version="v138" data-date="September 3, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v138</span><h3>Google Global Ranking</h3></div><time>Sep 3, 2026</time></header><ul><li>Implemented a Google Apps Script global leaderboard backend with an automatically created private Google Sheet.</li><li>Added authenticated opt-in publishing tied to the signed-in Google account without exposing email or financial amounts.</li><li>Added real global Level / XP and Financial Score rankings with exact personal rank and total opted-in users.</li><li>Used mobile-safe JSONP reads and no-CORS authenticated writes for reliable static-site deployment.</li><li>Added in-app Apps Script endpoint setup, connection testing, publish, and unpublish controls.</li></ul></div></article>
+        <article class="version-entry is-latest" data-version="v141" data-date="September 3, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v141</span><h3>Income Label Reset & Time Deposit Fix</h3></div><time>Sep 3, 2026</time></header><ul><li>Removed all pseudo-element and legacy injected label rendering from mobile Income.</li><li>Added one real DOM label per expanded Income field so labels cannot overlay each other.</li><li>Kept collapsed Income rows label-free and compact.</li><li>Retained v140 Time Deposit ledger posting so deposits debit the source and credit the destination exactly once, including same-day post-snapshot deposits.</li><li>Preserved the snapshot anti-double-counting rule for historical activity.</li></ul></div></article>
+        <article class="version-entry" data-version="v140" data-date="September 3, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v140</span><h3>Time Deposit Ledger Fix</h3></div><time>Sep 3, 2026</time></header><ul><li>Fixed same-day Time Deposit deposits that debited the source account but failed to increase the destination balance.</li><li>Added explicit post-snapshot ledger markers for direct savings/investment contributions.</li><li>Applied the same fix to Recurring Savings and Investment commitments.</li><li>Migrated prior same-day wealth placements into the corrected ledger behavior.</li><li>Kept ordinary snapshot-date activity excluded by default to prevent double-counting.</li></ul></div></article>
+        <article class="version-entry" data-version="v139" data-date="September 3, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v139</span><h3>Global Ranking Connected</h3></div><time>Sep 3, 2026</time></header><ul><li>Embedded the production Google Apps Script leaderboard endpoint directly into SINOP.</li><li>Removed user-facing endpoint paste, save, and clear setup from Profile.</li><li>Global leaderboard reads now work automatically for every v139 deployment using the shared production service.</li><li>Kept global profile publishing opt-in; private financial amounts remain excluded.</li><li>Added a one-tap connection check for diagnostics without exposing backend configuration.</li></ul></div></article>
+        <article class="version-entry" data-version="v138" data-date="September 3, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v138</span><h3>Google Global Ranking</h3></div><time>Sep 3, 2026</time></header><ul><li>Implemented a Google Apps Script global leaderboard backend with an automatically created private Google Sheet.</li><li>Added authenticated opt-in publishing tied to the signed-in Google account without exposing email or financial amounts.</li><li>Added real global Level / XP and Financial Score rankings with exact personal rank and total opted-in users.</li><li>Used mobile-safe JSONP reads and no-CORS authenticated writes for reliable static-site deployment.</li><li>Added in-app Apps Script endpoint setup, connection testing, publish, and unpublish controls.</li></ul></div></article>
         <article class="version-entry" data-version="v137" data-date="September 3, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v137</span><h3>Barkada Leaderboard & Version Log</h3></div><time>Sep 3, 2026</time></header><ul><li>Redesigned Barkada peer ranking with Top 3 podium cards and compact ranked-friend rows.</li><li>Added switchable Level / XP and Financial Score ranking views.</li><li>Added richer level, score, rank, badge, invited, and syncing states.</li><li>Added Version Log to desktop navigation and mobile More.</li><li>Added share/copy release-note controls.</li></ul></div></article>
         <article class="version-entry" data-version="v136" data-date="September 3, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v136</span><h3>Profile, Financial Score & Rankings</h3></div><time>Sep 3, 2026</time></header><ul><li>Added the Profile page with level, XP, earned badges, and ranking summary.</li><li>Introduced the transparent 0–1000 SINOP Financial Score and component breakdown.</li><li>Added network ranking and global-ranking publishing architecture without fabricating unavailable global positions.</li></ul></div></article>
         <article class="version-entry" data-version="v135" data-date="September 3, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v135</span><h3>Mobile Income — Browser Tested</h3></div><time>Sep 3, 2026</time></header><ul><li>Removed desktop table geometry from Income on phones.</li><li>Converted expanded sources into full-width mobile fields with one label per field.</li><li>Verified Income at 320px, 390px, and 430px widths with no horizontal row overflow.</li></ul></div></article>
@@ -9525,7 +9537,21 @@ function normalizeState(s){
     const validDefault=s.accounts.find(a=>String(a.id)===String(requestedDefault)&&!["time_deposit","mp2"].includes(a.type)&&String(a.currency||s.settings.currency||"PHP").toUpperCase()===String(s.settings.currency||"PHP").toUpperCase());
     s.settings.defaultSpendingAccountId=validDefault?validDefault.id:"";
   }
-  s.accountTransfers=(s.accountTransfers||[]).map(t=>({...t,amount:Number(t.amount||0)}));
+  s.accountTransfers=(s.accountTransfers||[]).map(t=>{
+    const normalized={...t,amount:Number(t.amount||0),postSnapshot:t.postSnapshot===true,origin:t.origin||""};
+    /* v140 migration: wealth placements recorded by SINOP on the destination account's
+       snapshot date were previously debited from the source but ignored by the
+       destination because balance snapshots are date-only. Treat these explicit
+       recorded placements as occurring after that snapshot. */
+    if(t.postSnapshot===undefined){
+      const dest=s.accounts.find(a=>String(a.id)===String(t.toId||""));
+      if(dest&&["savings","time_deposit","mp2","investment"].includes(dest.type)&&String(t.date||"")===String(dest.balanceAsOf||"")){
+        normalized.postSnapshot=true;
+        normalized.origin=normalized.origin||"migrated_wealth_placement";
+      }
+    }
+    return normalized;
+  });
   s.accountTransactions=(s.accountTransactions||[]).map(t=>({
     ...t,
     amount:Number(t.amount||0),
@@ -9534,7 +9560,9 @@ function normalizeState(s){
     accountId:t.accountId||"",
     type:t.type||"manual",
     referenceId:t.referenceId||"",
-    budgetMonth:t.budgetMonth||""
+    budgetMonth:t.budgetMonth||"",
+    postSnapshot:t.postSnapshot===true||(t.postSnapshot===undefined&&t.type==="wealth_contribution"),
+    origin:t.origin||""
   }));
   s.loans=(s.loans||[]).map(l=>({
     ...l,
@@ -13252,10 +13280,14 @@ function accountTrackingStartDate(account){return `${accountTrackingStartMonth(a
 function accountIsTrackedInMonth(account,month=state.month){
   return !!account && month>=accountTrackingStartMonth(account);
 }
-function accountEventIncluded(account,date,month,throughDate=""){
+function accountEventIncluded(account,date,month,throughDate="",postSnapshot=false){
   if(!account||!date||!monthMatches(date,month))return false;
   const baseline=accountBaselineDate(account);
-  if(baseline&&date<=baseline)return false;
+  /* Balance snapshots remain inclusive by default. The exception is an explicit
+     ledger event that SINOP knows was recorded after the snapshot. This resolves
+     same-day Time Deposit/MP2 placements without making ordinary historical
+     transactions on the snapshot date double-count. */
+  if(baseline&&(date<baseline||(date===baseline&&!postSnapshot)))return false;
   if(throughDate&&date>throughDate)return false;
   return true;
 }
@@ -13275,7 +13307,7 @@ function accountMonthFlow(accountOrId,month,throughDate=""){
     if(accountEventIncluded(account,x.date,month,throughDate))spending+=Number(x.amount||0);
   });
   state.accountTransactions.forEach(tx=>{
-    if(!sameId(tx.accountId,accountId)||!accountEventIncluded(account,tx.date,month,throughDate))return;
+    if(!sameId(tx.accountId,accountId)||!accountEventIncluded(account,tx.date,month,throughDate,tx.postSnapshot===true))return;
     const amount=Math.max(0,Number(tx.amount||0));
     if(tx.type==="bill_payment" && tx.direction==="debit")bills+=amount;
     else if(tx.type==="wealth_contribution" && tx.direction==="credit")wealthCredits+=amount;
@@ -13289,7 +13321,7 @@ function accountMonthFlow(accountOrId,month,throughDate=""){
     });
   });
   state.accountTransfers.forEach(t=>{
-    if(!accountEventIncluded(account,t.date,month,throughDate))return;
+    if(!accountEventIncluded(account,t.date,month,throughDate,t.postSnapshot===true))return;
     if(sameId(t.toId,accountId))transferIn+=Number(t.toAmount??t.amount??0);
     if(sameId(t.fromId,accountId))transferOut+=Number(t.fromAmount??t.amount??0);
   });
@@ -15283,6 +15315,7 @@ function printLoanStatement(){
 
 
 
+
 </body></html>`);
   win.document.close();setTimeout(()=>{win.focus();win.print()},250);
 }
@@ -15343,12 +15376,12 @@ function saveAccountContribution(){
   const note=$("accountContributionNote").value.trim();
   if(amount<=0){toast("Enter a contribution amount.");return}
   if(sourceValue==="external"){
-    state.accountTransactions.push({id:uid(),referenceId:"",type:"wealth_contribution",direction:"credit",accountId:target.id,amount,currency:accountCurrency(target),date,budgetMonth:date.slice(0,7),note});
+    state.accountTransactions.push({id:uid(),referenceId:"",type:"wealth_contribution",direction:"credit",accountId:target.id,amount,currency:accountCurrency(target),date,budgetMonth:date.slice(0,7),note,postSnapshot:true,origin:"account_contribution"});
   }else{
     const source=accountById(sourceValue);if(!source){toast("Choose a valid source account.");return}
     const fromCur=accountCurrency(source),toCur=accountCurrency(target);let fromAmount=amount,toAmount=amount,rate=1;
     if(fromCur!==toCur){rate=fxRate(toCur,fromCur,target);if(!(rate>0)){toast(`No ${toCur}/${fromCur} exchange rate is available yet. Refresh the FX rate first.`);return}fromAmount=amount*rate}
-    state.accountTransfers.push({id:uid(),fromId:source.id,toId:target.id,amount:fromAmount,fromAmount,toAmount,fromCurrency:fromCur,toCurrency:toCur,fxRate:fromCur!==toCur?(toAmount/fromAmount):1,date,note:note||`${target.type==="time_deposit"||target.type==="savings"?"Deposit":"Contribution"} to ${target.name}`});
+    state.accountTransfers.push({id:uid(),fromId:source.id,toId:target.id,amount:fromAmount,fromAmount,toAmount,fromCurrency:fromCur,toCurrency:toCur,fxRate:fromCur!==toCur?(toAmount/fromAmount):1,date,note:note||`${target.type==="time_deposit"||target.type==="savings"?"Deposit":"Contribution"} to ${target.name}`,postSnapshot:true,origin:"account_contribution"});
   }
   closeAccountContributionModal();
   scheduleAutoSave();
@@ -15696,11 +15729,11 @@ function saveBillPayment(){
     if(detail.sourceType==="account"){
       if(sameId(detail.accountId,dest.id)){toast("Source and destination cannot be the same account.");return}
       const sourceAccount=accountById(detail.accountId),fromCur=accountCurrency(sourceAccount),toCur=accountCurrency(dest);let toAmount=amountPaid,rate=1;if(fromCur!==toCur){rate=fxRate(fromCur,toCur,sourceAccount);if(!(rate>0)){toast(`No ${fromCur}/${toCur} FX rate is available. Refresh the destination account rate first.`);return}toAmount=amountPaid*rate}
-      state.accountTransfers.push({id:uid(),referenceId:commitRef,fromId:detail.accountId,toId:dest.id,amount:amountPaid,fromAmount:amountPaid,toAmount,fromCurrency:fromCur,toCurrency:toCur,fxRate:rate,fxDate:fxRecord(fromCur,toCur)?.date||"",date:paidDate,note:detail.note||b.name,budgetMonth:month,billId,occurrenceIndex,commitmentType:type});
+      state.accountTransfers.push({id:uid(),referenceId:commitRef,fromId:detail.accountId,toId:dest.id,amount:amountPaid,fromAmount:amountPaid,toAmount,fromCurrency:fromCur,toCurrency:toCur,fxRate:rate,fxDate:fxRecord(fromCur,toCur)?.date||"",date:paidDate,note:detail.note||b.name,budgetMonth:month,billId,occurrenceIndex,commitmentType:type,postSnapshot:true,origin:"recurring_commitment"});
     }else{
       if(type==="transfer"){toast("Choose a tracked source account for a transfer.");return}
       const toCur=accountCurrency(dest),nativeAmount=toCur===reportingCurrency()?amountPaid:convertCurrency(amountPaid,reportingCurrency(),toCur,dest);if(nativeAmount===null){toast(`No ${reportingCurrency()}/${toCur} FX rate is available. Refresh the destination account rate first.`);return}
-      state.accountTransactions.push({id:uid(),referenceId:commitRef,type:"wealth_contribution",direction:"credit",accountId:dest.id,amount:nativeAmount,baseAmount:amountPaid,currency:toCur,date:paidDate,budgetMonth:month,billId,occurrenceIndex,note:detail.note||b.name,commitmentType:type});
+      state.accountTransactions.push({id:uid(),referenceId:commitRef,type:"wealth_contribution",direction:"credit",accountId:dest.id,amount:nativeAmount,baseAmount:amountPaid,currency:toCur,date:paidDate,budgetMonth:month,billId,occurrenceIndex,note:detail.note||b.name,commitmentType:type,postSnapshot:true,origin:"recurring_commitment"});
     }
   }else if(type==="debt"){
     const loan=commitmentLinkedLoan(b);if(!loan||loan.direction!=="borrowed"){toast("This recurring repayment is not linked to a valid amount you owe.");return}
@@ -17883,11 +17916,15 @@ function renderIncome(){
       ?salaryDeductionBreakdown(x,state.month)
       :{totalDeductions:0,attendance:{total:0},net:incomeGrossMonthly(x,state.month)};
     tr.dataset.search=`${x.name} ${x.kind} ${x.frequency} ${employmentTreatmentLabel(treatment)}`.toLowerCase();
+    const scheduleLabel=x.frequency==="one_time"?"Income date":(["monthly","twice_monthly"].includes(x.frequency)?"Expected payday(s)":"Expected schedule");
+    const grossLabel=x.frequency==="one_time"?"Gross amount":"Gross / payment";
+    const deductionLabel=salary&&treatment!=="none"?"Estimated deductions":"Deductions this month";
+    const mobileLabel=text=>`<span class="income-mobile-field-label">${esc(text)}</span>`;
 
     tr.innerHTML=`
-      <td><input class="cell-input i-name" value="${esc(x.name)}"></td>
-      <td><select class="cell-select i-kind">${["Salary","Consulting","Freelance","Business","Bonus","Allowance","Other"].map(v=>`<option ${v===x.kind?"selected":""}>${v}</option>`).join("")}</select></td>
-      <td>
+      <td>${mobileLabel("Source")}<input class="cell-input i-name" value="${esc(x.name)}"></td>
+      <td>${mobileLabel("Type")}<select class="cell-select i-kind">${["Salary","Consulting","Freelance","Business","Bonus","Allowance","Other"].map(v=>`<option ${v===x.kind?"selected":""}>${v}</option>`).join("")}</select></td>
+      <td>${mobileLabel("Tax treatment")}
         <select class="cell-select salary-treatment i-employment" ${salary?"":"disabled"}>
           <option value="none" ${treatment==="none"?"selected":""}>No payroll deductions</option>
           <option value="government_permanent" ${treatment==="government_permanent"?"selected":""}>Permanent — Government (GSIS)</option>
@@ -17898,19 +17935,19 @@ function renderIncome(){
           ?(treatment==="government_permanent"?"GSIS, PhilHealth, Pag-IBIG + BIR tax":treatment==="private_permanent"?"SSS, PhilHealth, Pag-IBIG + BIR tax":treatment==="cos_jo"?"Requested simplified COS withholding":"Gross amount used as-is")
           :"Available for Salary sources only"}</small>
       </td>
-      <td><select class="cell-select i-frequency">
+      <td>${mobileLabel("Frequency")}<select class="cell-select i-frequency">
         ${[["monthly","Monthly"],["twice_monthly","Twice monthly"],["biweekly","Biweekly"],["weekly","Weekly"],["quarterly","Quarterly"],["annual","Annual"],["one_time","One-time"]].map(([v,l])=>`<option value="${v}" ${v===x.frequency?"selected":""}>${l}</option>`).join("")}
       </select></td>
-      <td><div class="income-receipt-cell">${incomeReceiptEditorHtml(x,state.month)}</div></td>
-      <td>${x.frequency==="one_time"?`<input class="cell-input date-input i-date" type="date" value="${x.date||""}">`:["monthly","twice_monthly"].includes(x.frequency)?`<div class="payday-editor"><input class="i-paydays" type="text" value="${esc(incomeConfiguredPayDays(x).join(", "))}" placeholder="${x.frequency==="twice_monthly"?"e.g. 7, 22":"e.g. 7"}"><small>Baseline schedule. Edit an expected date under Received payments when a particular payday is delayed.</small></div>`:`<div class="payday-editor"><small>Expected dates follow confirmed receipt history/cadence. Edit the dates under Received payments when needed.</small></div>`}</td>
-      <td class="num"><input class="cell-input amount i-amount" type="number" min="0" step="1" value="${Number(x.amount||0)}"></td>
+      <td>${mobileLabel("Received payments")}<div class="income-receipt-cell">${incomeReceiptEditorHtml(x,state.month)}</div></td>
+      <td>${mobileLabel(scheduleLabel)}${x.frequency==="one_time"?`<input class="cell-input date-input i-date" type="date" value="${x.date||""}">`:["monthly","twice_monthly"].includes(x.frequency)?`<div class="payday-editor"><input class="i-paydays" type="text" value="${esc(incomeConfiguredPayDays(x).join(", "))}" placeholder="${x.frequency==="twice_monthly"?"e.g. 7, 22":"e.g. 7"}"><small>Baseline schedule. Edit an expected date under Received payments when a particular payday is delayed.</small></div>`:`<div class="payday-editor"><small>Expected dates follow confirmed receipt history/cadence. Edit the dates under Received payments when needed.</small></div>`}</td>
+      <td class="num">${mobileLabel(grossLabel)}<input class="cell-input amount i-amount" type="number" min="0" step="1" value="${Number(x.amount||0)}"></td>
       <td class="num salary-deduction-cell">
-        <strong>${money(d.totalDeductions)}</strong>
+        ${mobileLabel(deductionLabel)}<strong>${money(d.totalDeductions)}</strong>
         <small>${x.frequency==="twice_monthly"?`1st ${money(salaryDeductionBreakdown(x,state.month,null,0).totalDeductions)} · 2nd ${money(salaryDeductionBreakdown(x,state.month,null,1).totalDeductions)}`:d.attendance.total>0?`${money(d.attendance.total)} attendance · `:""}${treatment==="none"?"No payroll estimate":"Includes payroll estimate"}</small>
         ${salary?`<button class="salary-deduction-btn i-breakdown" type="button">View / attendance</button>`:""}
       </td>
-      <td class="num salary-net i-monthly">${money(incomeMonthly(x))}</td>
-      <td><select class="cell-select i-account">${accountOptions(x.accountId||"",true,true)}</select><small class="account-select-note">Income can be linked directly to accounts using the planner currency. Foreign-currency accounts are valued separately to avoid treating PHP income as foreign units.</small></td>
+      <td class="num salary-net i-monthly">${mobileLabel("Net this month")}${money(incomeMonthly(x))}</td>
+      <td>${mobileLabel("Deposited to")}<select class="cell-select i-account">${accountOptions(x.accountId||"",true,true)}</select><small class="account-select-note">Income can be linked directly to accounts using the planner currency. Foreign-currency accounts are valued separately to avoid treating PHP income as foreign units.</small></td>
       <td><button class="icon-btn i-del" type="button" title="Delete income source" aria-label="Delete income source">${heroSvg("trash")}</button></td>`;
 
     const refresh=()=>{
@@ -23395,7 +23432,7 @@ maybeStartFirstRunSetup();
   function profileLevelData(){const xp=rewardXp(),level=rewardLevel(xp),badges=earnedRewardBadges();return {xp,level,badges,score:financialScoreSnapshot(state.month)}}
   function initials(name){return String(name||'S').trim().split(/\s+/).slice(0,2).map(x=>x[0]?.toUpperCase()||'').join('')||'S'}
   function publicName(){return String(state.settings?.publicProfileName||cloudMeta.accountName||'SINOP user').trim()||'SINOP user'}
-  function globalEndpoint(){return String(state.settings?.globalLeaderboardEndpoint||window.SINOP_GLOBAL_LEADERBOARD_ENDPOINT||'').trim()}
+  function globalEndpoint(){return String(window.SINOP_GLOBAL_LEADERBOARD_ENDPOINT||state.settings?.globalLeaderboardEndpoint||'').trim()}
 
   function uniqueNetworkProfiles(){
     const map=new Map();
@@ -23500,16 +23537,15 @@ maybeStartFirstRunSetup();
     if($p('profileNetworkRankMeta'))$p('profileNetworkRankMeta').textContent=mine>=0?`of ${ranked.length} synced profile${ranked.length===1?'':'s'} · ${profileRankMode==='xp'?'Level / XP':'Financial Score'}`:'Sync Barkada friends to compare';
 
     const endpoint=globalEndpoint();
-    if($p('profileGlobalLeaderboard'))$p('profileGlobalLeaderboard').innerHTML=endpoint?leaderboardHtml(globalEntries,{global:true}):`<div class="profile-empty"><strong>Connect the Google leaderboard once.</strong><br>Deploy the included Apps Script backend, paste its <code>/exec</code> URL below, then SINOP can publish and rank opted-in users.</div>`;
+    if($p('profileGlobalLeaderboard'))$p('profileGlobalLeaderboard').innerHTML=endpoint?leaderboardHtml(globalEntries,{global:true}):`<div class="profile-empty"><strong>Global ranking is temporarily unavailable.</strong><br>SINOP could not resolve its configured Google leaderboard service.</div>`;
     if($p('profileGlobalStatus'))$p('profileGlobalStatus').textContent=endpoint?(globalBusy?'Syncing…':`${globalMeta.total||globalEntries.length} ranked`):'Not connected';
     if($p('profileGlobalRank'))$p('profileGlobalRank').textContent=globalMeta.myRank?`#${globalMeta.myRank}`:'—';
-    if($p('profileGlobalRankMeta'))$p('profileGlobalRankMeta').textContent=!endpoint?'Connect Apps Script':state.settings.globalLeaderboardOptIn?(globalMeta.myRank?`of ${globalMeta.total} opted-in users`:'Publishing profile…'):'Opt in to publish';
+    if($p('profileGlobalRankMeta'))$p('profileGlobalRankMeta').textContent=!endpoint?'Service unavailable':state.settings.globalLeaderboardOptIn?(globalMeta.myRank?`of ${globalMeta.total} opted-in users`:'Publishing profile…'):'Opt in to publish';
     if($p('profilePublicName'))$p('profilePublicName').value=state.settings.publicProfileName||cloudMeta.accountName||'';
-    if($p('profileGlobalEndpoint'))$p('profileGlobalEndpoint').value=state.settings.globalLeaderboardEndpoint||window.SINOP_GLOBAL_LEADERBOARD_ENDPOINT||'';
-    const conn=$p('profileGlobalEndpoint')?.closest('.profile-global-connection');if(conn)conn.classList.toggle('is-connected',!!endpoint);
-    if($p('profileGlobalConnectionStatus'))$p('profileGlobalConnectionStatus').textContent=endpoint?'Connected to a Google Apps Script leaderboard.':'Paste the Apps Script Web App URL once to connect this SINOP deployment.';
+    const conn=root.querySelector('.profile-global-connection');if(conn)conn.classList.toggle('is-connected',!!endpoint);
+    if($p('profileGlobalConnectionStatus'))$p('profileGlobalConnectionStatus').textContent=endpoint?'Built in · Google Apps Script leaderboard connected automatically.':'Global ranking service unavailable.';
     if($p('profileGlobalOptIn')){$p('profileGlobalOptIn').checked=!!state.settings.globalLeaderboardOptIn;$p('profileGlobalOptIn').disabled=!endpoint}
-    if($p('profileGlobalOptInHelp'))$p('profileGlobalOptInHelp').textContent=endpoint?'Only display name, level, XP, badge count, and Financial Score are published.':'Connect the Google Apps Script leaderboard first.';
+    if($p('profileGlobalOptInHelp'))$p('profileGlobalOptInHelp').textContent=endpoint?'Only display name, level, XP, badge count, and Financial Score are published.':'Global ranking service is unavailable.';
     document.querySelectorAll('[data-profile-rank-mode]').forEach(btn=>btn.classList.toggle('active',btn.dataset.profileRankMode===profileRankMode));
     hydrateHeroIcons(root);
   };
@@ -23520,8 +23556,7 @@ maybeStartFirstRunSetup();
     const mode=e.target.closest('[data-profile-rank-mode]');if(mode){profileRankMode=mode.dataset.profileRankMode==='score'?'score':'xp';renderProfile();if(globalEndpoint())refreshGlobalLeaderboard({publish:false});return}
     const nav=e.target.closest('[data-target="profile"],[data-jump="profile"],[data-v124-more-target="profile"]');if(nav){setTimeout(()=>{renderProfile();loadNetworkProfiles();if(globalEndpoint())refreshGlobalLeaderboard({publish:!!state.settings.globalLeaderboardOptIn&&cloudTokenValid()})},80)}
   });
-  $p('profileGlobalConnectBtn')?.addEventListener('click',async()=>{const input=$p('profileGlobalEndpoint'),url=String(input?.value||'').trim();if(!/^https:\/\/script\.google\.com\/macros\/s\/.+\/exec(?:\?.*)?$/i.test(url)){toast('Paste the deployed Apps Script Web App URL ending in /exec.');input?.focus();return}state.settings.globalLeaderboardEndpoint=url;scheduleAutoSave();renderProfile();try{await testGlobalEndpoint();await refreshGlobalLeaderboard({publish:!!state.settings.globalLeaderboardOptIn&&cloudTokenValid()})}catch(e){toast(e.message||'Could not connect the Google leaderboard.')}});
-  $p('profileGlobalClearBtn')?.addEventListener('click',()=>{state.settings.globalLeaderboardEndpoint='';state.settings.globalLeaderboardOptIn=false;globalEntries=[];globalMeta={total:0,myRank:null};scheduleAutoSave();renderProfile();toast('Global leaderboard connection cleared from this SINOP profile.')});
+  $p('profileGlobalConnectBtn')?.addEventListener('click',async()=>{try{await testGlobalEndpoint();await refreshGlobalLeaderboard({publish:!!state.settings.globalLeaderboardOptIn&&cloudTokenValid()})}catch(e){toast(e.message||'Could not reach SINOP Global Ranking.')}});
   $p('profilePublicName')?.addEventListener('change',e=>{state.settings.publicProfileName=String(e.target.value||'').trim().slice(0,40);scheduleAutoSave();renderProfile();if(state.settings.globalLeaderboardOptIn&&globalEndpoint()&&cloudTokenValid())refreshGlobalLeaderboard({publish:true})});
   $p('profileGlobalOptIn')?.addEventListener('change',async e=>{if(!globalEndpoint()){e.target.checked=false;toast('Connect the Google Apps Script leaderboard first.');return}if(!cloudTokenValid()){e.target.checked=!!state.settings.globalLeaderboardOptIn;toast('Reconnect Google before changing your global profile.');connectGoogleDrive('sync');return}const enabled=!!e.target.checked;state.settings.globalLeaderboardOptIn=enabled;scheduleAutoSave();renderProfile();try{if(enabled){await refreshGlobalLeaderboard({publish:true});toast('Your sanitized SINOP profile is now in the global ranking.')}else{await globalWrite('remove');globalEntries=[];globalMeta={total:0,myRank:null};await new Promise(r=>setTimeout(r,450));await refreshGlobalLeaderboard({publish:false});toast('Your profile was removed from the global ranking.')}}catch(err){state.settings.globalLeaderboardOptIn=!enabled;e.target.checked=!enabled;scheduleAutoSave();renderProfile();toast(err.message||'Could not update global ranking privacy.')}});
   window.sinopGlobalLeaderboardSync=refreshGlobalLeaderboard;
@@ -23533,15 +23568,45 @@ maybeStartFirstRunSetup();
 
 <script id="sinop-v137-version-log-script">
 (()=>{
-  const latestText=`SINOP v138 — Google Global Ranking\nSeptember 3, 2026\n\n• Added a Google Apps Script + private Google Sheet backend for real opt-in global rankings.\n• Added authenticated profile publishing and unpublishing using the signed-in Google account.\n• Added real Level / XP and Financial Score global ranks with exact personal position.\n• Added in-app connection testing and mobile-safe leaderboard transport.`;
+  const latestText=`SINOP v141 — Income Label Reset & Time Deposit Fix
+September 3, 2026
+
+• Replaced mobile Income pseudo-labels with one real label per expanded field.
+• Disabled all legacy Income label layers that could overlap.
+• Retained the corrected Time Deposit ledger posting from v140 so source and destination balances both update exactly once.`;
   const collectLog=()=>{
     const rows=[...document.querySelectorAll('#versionTimeline .version-entry')];
     return ['SINOP Version Log',...rows.map(row=>{const version=row.dataset.version||'',date=row.dataset.date||'',title=row.querySelector('h3')?.textContent?.trim()||'',items=[...row.querySelectorAll('li')].map(li=>`• ${li.textContent.trim()}`).join('\n');return `${version} — ${title}\n${date}\n${items}`})].join('\n\n');
   };
   async function copyText(text,message){try{await navigator.clipboard.writeText(text);toast(message)}catch(_){const ta=document.createElement('textarea');ta.value=text;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();toast(message)}}
-  document.getElementById('shareLatestVersionBtn')?.addEventListener('click',async()=>{if(navigator.share){try{await navigator.share({title:'SINOP v138 update',text:latestText});return}catch(e){if(e?.name==='AbortError')return}}copyText(latestText,'Latest SINOP update copied')});
+  document.getElementById('shareLatestVersionBtn')?.addEventListener('click',async()=>{if(navigator.share){try{await navigator.share({title:'SINOP v141 update',text:latestText});return}catch(e){if(e?.name==='AbortError')return}}copyText(latestText,'Latest SINOP update copied')});
   document.getElementById('copyVersionLogBtn')?.addEventListener('click',()=>copyText(collectLog(),'SINOP version log copied'));
 })();
 </script>
+
+<style id="sinop-v141-income-label-reset">
+/* ===== SINOP v141 · FINAL cascade reset: exactly one real Income label per field =====
+   This block intentionally lives last so no legacy mobile table rule can re-enable pseudo labels. */
+.income-mobile-field-label{display:none}
+@media(max-width:760px){
+  #income table.income-table tbody>tr>td::before,
+  #income table.income-table tbody>tr>td::after,
+  #income table.v122-card-table tbody>tr>td::before,
+  #income table.v122-card-table tbody>tr>td::after,
+  #income table.v125-compact-list tbody>tr>td::before,
+  #income table.v125-compact-list tbody>tr>td::after{
+    content:none!important;display:none!important;visibility:hidden!important
+  }
+  #income .v132-income-field-label{display:none!important;visibility:hidden!important}
+  #income .income-mobile-field-label{
+    display:block!important;visibility:visible!important;width:100%!important;margin:0 0 7px!important;padding:0!important;
+    color:var(--muted)!important;font-size:clamp(11px,2.9vw,12px)!important;line-height:1.3!important;
+    font-weight:800!important;letter-spacing:.01em!important;text-transform:none!important;
+    white-space:normal!important;overflow:visible!important;overflow-wrap:anywhere!important
+  }
+  #income table.income-table tbody>tr:not(.v125-expanded) .income-mobile-field-label{display:none!important}
+  #income table.income-table tbody>tr.v125-expanded>td:not(.v125-summary-cell){position:relative!important;padding-top:11px!important}
+}
+</style>
 </body>
 </html>
