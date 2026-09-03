@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0f766e">
-<title>SINOP v128 · iPhone 14 Mobile Fix</title>
+<title>SINOP v130 · iPhone 14 UX + Phone Notifications</title>
 <meta name="application-name" content="SINOP">
 <meta name="apple-mobile-web-app-title" content="SINOP">
 <meta name="description" content="SINOP — your personal money system for income, spending, savings, investments, goals, KKB, and financial tracking.">
@@ -5287,6 +5287,165 @@ body[data-theme="dark"] .barkada-group-btn,body[data-theme="dark"] .barkada-memb
 }
 </style>
 
+
+<link rel="manifest" href="./sinop-manifest.webmanifest">
+<link rel="apple-touch-icon" sizes="180x180" href="./sinop-icon-180.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+<style id="sinop-v130-iphone14-ux">
+/* ===== SINOP v130 · live iPhone 14 UX rules ===== */
+@media(max-width:760px){
+  :root{--sinop-mobile-tab-content:54px}
+  html{scroll-padding-bottom:calc(var(--sinop-mobile-tab-content) + env(safe-area-inset-bottom) + 16px)!important}
+  .main{padding-bottom:calc(var(--sinop-mobile-tab-content) + env(safe-area-inset-bottom) + 18px)!important}
+
+  /* 1. Tab bar: safe area is internal; there is no artificial band under the bar. */
+  .mobile-bottom-nav{
+    left:0!important;right:0!important;bottom:0!important;width:100%!important;
+    height:calc(var(--sinop-mobile-tab-content) + env(safe-area-inset-bottom))!important;
+    padding:1px 7px env(safe-area-inset-bottom)!important;
+    grid-template-columns:1fr 1fr 60px 1fr 1fr!important;align-items:start!important;
+    border-left:0!important;border-right:0!important;border-bottom:0!important;
+    border-radius:18px 18px 0 0!important
+  }
+  .mobile-bottom-item{
+    height:50px!important;min-height:50px!important;padding:2px!important;gap:2px!important;
+    border-radius:13px!important;font-size:8px!important
+  }
+  .mobile-bottom-item .hero-icon{width:20px!important;height:20px!important}
+  .mobile-bottom-center{height:50px!important;min-height:50px!important;display:grid!important;place-items:start center!important;position:relative!important}
+  .mobile-bottom-create{
+    width:51px!important;height:51px!important;min-width:51px!important;min-height:51px!important;
+    transform:translateY(-9px)!important;border-width:4px!important
+  }
+  .mobile-bottom-create[aria-expanded="true"]{transform:translateY(-9px) rotate(45deg)!important}
+  .mobile-bottom-create .hero-icon{width:25px!important;height:25px!important}
+  .mobile-bottom-create-label{display:none!important}
+
+  /* Categorized More sheet. */
+  #mobileMoreSheet .mobile-action-sheet-panel{
+    left:0!important;right:0!important;bottom:0!important;max-height:calc(88dvh - env(safe-area-inset-top))!important;
+    padding:8px 12px calc(14px + env(safe-area-inset-bottom))!important;border-radius:24px 24px 0 0!important
+  }
+  #mobileMoreSheet .mobile-sheet-head{padding-bottom:8px!important}
+  .mobile-module-groups{display:grid!important;gap:13px!important}
+  .mobile-module-group{display:grid!important;gap:6px!important;min-width:0!important}
+  .mobile-module-group h4{
+    margin:0!important;padding:0 2px!important;color:var(--muted)!important;font-size:9px!important;
+    line-height:1.2!important;font-weight:900!important;text-transform:uppercase!important;letter-spacing:.07em!important
+  }
+  #mobileMoreSheet .mobile-more-grid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:6px!important}
+  #mobileMoreSheet .mobile-more-destination{
+    min-width:0!important;min-height:46px!important;padding:6px 8px!important;border-radius:12px!important;
+    display:grid!important;grid-template-columns:30px minmax(0,1fr)!important;gap:7px!important;align-items:center!important;
+    text-align:left!important;font-size:9px!important;line-height:1.15!important
+  }
+  #mobileMoreSheet .mobile-more-destination .mobile-action-icon{width:30px!important;height:30px!important;flex:0 0 30px!important;border-radius:9px!important}
+  #mobileMoreSheet .mobile-more-destination .hero-icon{width:16px!important;height:16px!important}
+  #mobileMoreSheet .mobile-more-destination>span:last-child{min-width:0!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}
+
+  /* 2. Recurring: equal-width metadata cells on phones. */
+  #bills table.v125-compact-list>tbody>tr.v125-expanded{
+    display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;
+    column-gap:6px!important;row-gap:6px!important;padding:0 7px 8px!important;overflow:hidden!important
+  }
+  #bills table.v125-compact-list>tbody>tr.v125-expanded>.v125-summary-cell{
+    grid-column:1/-1!important;width:auto!important;min-width:0!important;margin:0 -7px 1px!important
+  }
+  #bills table.v125-compact-list>tbody>tr.v125-expanded>td:not(.v125-summary-cell){
+    display:grid!important;align-content:start!important;width:100%!important;min-width:0!important;max-width:100%!important;
+    min-height:62px!important;padding:7px!important;margin:0!important;border:1px solid var(--border)!important;
+    border-radius:9px!important;background:var(--panel)!important;overflow:hidden!important
+  }
+  #bills table.v125-compact-list>tbody>tr.v125-expanded>td:not(.v125-summary-cell)::before{
+    display:block!important;width:100%!important;margin:0 0 5px!important;font-size:8px!important;line-height:1.1!important;
+    color:var(--muted)!important;font-weight:850!important;text-transform:uppercase!important;letter-spacing:.045em!important;
+    white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important
+  }
+  #bills table.v125-compact-list>tbody>tr.v125-expanded>td:nth-child(1):not(.v125-summary-cell){display:none!important}
+  #bills table.v125-compact-list>tbody>tr.v125-expanded>td:nth-child(2),
+  #bills table.v125-compact-list>tbody>tr.v125-expanded>td:nth-child(3),
+  #bills table.v125-compact-list>tbody>tr.v125-expanded>td:nth-child(4),
+  #bills table.v125-compact-list>tbody>tr.v125-expanded>td:nth-child(5),
+  #bills table.v125-compact-list>tbody>tr.v125-expanded>td:nth-child(6),
+  #bills table.v125-compact-list>tbody>tr.v125-expanded>td:nth-child(7){grid-column:auto!important}
+  #bills table.v125-compact-list>tbody>tr.v125-expanded>td:nth-child(8),
+  #bills table.v125-compact-list>tbody>tr.v125-expanded>td:nth-child(9){grid-column:1/-1!important;min-height:0!important}
+  #bills table.v125-compact-list>tbody>tr.v125-expanded td,
+  #bills table.v125-compact-list>tbody>tr.v125-expanded td *{min-width:0!important;max-width:100%!important;box-sizing:border-box!important}
+  #bills table.v125-compact-list>tbody>tr.v125-expanded .commitment-type-pill,
+  #bills table.v125-compact-list>tbody>tr.v125-expanded .summary-pill{
+    display:flex!important;width:100%!important;min-height:34px!important;align-items:center!important;justify-content:flex-start!important;
+    padding:6px 8px!important;border-radius:8px!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important
+  }
+  #bills table.v125-compact-list>tbody>tr.v125-expanded .bill-summary-amount,
+  #bills table.v125-compact-list>tbody>tr.v125-expanded .recurring-actual strong{
+    display:block!important;font-size:12px!important;line-height:1.2!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important
+  }
+  #bills table.v125-compact-list>tbody>tr.v125-expanded .bill-summary-name strong,
+  #bills table.v125-compact-list>tbody>tr.v125-expanded .bill-summary-name small,
+  #bills table.v125-compact-list>tbody>tr.v125-expanded .recurring-actual small{
+    display:-webkit-box!important;-webkit-box-orient:vertical!important;-webkit-line-clamp:2!important;overflow:hidden!important;line-height:1.25!important
+  }
+  #bills table.v125-compact-list>tbody>tr.v125-expanded .bill-actions{width:100%!important;display:grid!important;grid-template-columns:minmax(0,1fr) 44px!important;gap:6px!important}
+  #bills table.v125-compact-list>tbody>tr.v125-expanded .bill-actions .btn,
+  #bills table.v125-compact-list>tbody>tr.v125-expanded .bill-actions .icon-btn{width:100%!important;min-width:0!important;min-height:42px!important}
+  #bills table.v125-compact-list>tbody>tr.v125-expanded .bill-occurrence-editor,
+  #bills table.v125-compact-list>tbody>tr.v125-expanded .grocery-recurring-actions{width:100%!important;min-width:0!important}
+
+  /* 4. Wrapped mobile is a story viewport, not a large desktop card. */
+  body:has(#wrapped.wrapped-story-page.active) .mobile-bottom-nav,
+  body:has(#wrapped.wrapped-story-page.active)>.app>.main>.topbar{display:none!important}
+  #wrapped.wrapped-story-page.active{inset:0!important;width:100dvw!important;height:100dvh!important;max-width:none!important;border:0!important;border-radius:0!important;box-shadow:none!important}
+  #wrapped .wrapped-story-topbar{
+    top:max(5px,env(safe-area-inset-top))!important;left:7px!important;right:7px!important;transform:none!important;
+    width:auto!important;min-height:46px!important;padding:5px 6px!important;border-radius:14px!important;
+    align-items:center!important;gap:5px!important
+  }
+  #wrapped .wrapped-story-left,#wrapped .wrapped-story-right{gap:4px!important;min-width:0!important;flex-wrap:nowrap!important}
+  #wrapped .wrapped-story-left{flex:0 0 auto!important}
+  #wrapped .wrapped-story-right{flex:1 1 auto!important;justify-content:flex-end!important;overflow:hidden!important}
+  #wrapped .wrapped-story-brand span:last-child{display:none!important}
+  #wrapped .wrapped-story-brand-icon{width:30px!important;height:30px!important;border-radius:9px!important}
+  #wrapped .wrapped-icon-btn{width:34px!important;height:34px!important;min-width:34px!important;border-radius:10px!important}
+  #wrapped #copyWrappedBtn,#wrapped #printWrappedBtn{display:none!important}
+  #wrapped .wrapped-mode-switch{order:0!important;width:auto!important;flex:0 0 auto!important;padding:2px!important;border-radius:10px!important}
+  #wrapped .wrapped-mode-switch button{height:28px!important;padding:0 7px!important;font-size:8.5px!important;border-radius:8px!important}
+  #wrapped .wrapped-story-picker{height:32px!important;min-width:0!important;width:104px!important;max-width:104px!important;padding:0 5px!important;font-size:10px!important;border-radius:9px!important}
+  #wrapped .wrapped-story-year{width:74px!important;max-width:74px!important}
+  #wrapped .wrapped-story-progress{top:calc(max(5px,env(safe-area-inset-top)) + 55px)!important;width:calc(100% - 52px)!important;height:3px!important}
+  #wrapped .wrapped-progress-label{top:calc(max(5px,env(safe-area-inset-top)) + 48px)!important;right:8px!important;font-size:8px!important}
+  #wrapped .wrapped-scene{min-height:100dvh!important;padding:calc(env(safe-area-inset-top) + 78px) 14px calc(env(safe-area-inset-bottom) + 68px)!important}
+  #wrapped .wrapped-scene h1{font-size:clamp(38px,12vw,54px)!important;max-width:12ch!important}
+  #wrapped .wrapped-scene h2{font-size:clamp(32px,10vw,46px)!important;max-width:13ch!important}
+  #wrapped .wrapped-scene-copy{margin-top:17px!important;font-size:14px!important;line-height:1.45!important}
+  #wrapped .wrapped-big-number{margin-top:20px!important;font-size:clamp(46px,16vw,70px)!important}
+  #wrapped .wrapped-chip-row{margin-top:20px!important;gap:6px!important}
+  #wrapped .wrapped-story-chip{padding:8px 10px!important;font-size:9px!important}
+  #wrapped .wrapped-duo{margin-top:20px!important;gap:8px!important}
+  #wrapped .wrapped-duo-card{padding:14px!important;border-radius:16px!important}
+  #wrapped .wrapped-story-nav{bottom:calc(5px + env(safe-area-inset-bottom))!important;width:calc(100% - 14px)!important;padding:5px!important;border-radius:14px!important}
+  #wrapped .wrapped-story-nav button{min-height:38px!important;padding:0 10px!important;font-size:9px!important}
+
+  /* Notification settings stay readable on narrow screens. */
+  #settings #testPhoneNotificationBtn,#settings #requestNotificationPermissionBtn{min-height:44px!important}
+}
+
+@media(max-width:390px){
+  .mobile-bottom-nav{padding-top:0!important;grid-template-columns:1fr 1fr 58px 1fr 1fr!important}
+  .mobile-bottom-item{height:49px!important;min-height:49px!important}
+  .mobile-bottom-create{width:49px!important;height:49px!important;min-width:49px!important;min-height:49px!important;transform:translateY(-8px)!important}
+  .mobile-bottom-create[aria-expanded="true"]{transform:translateY(-8px) rotate(45deg)!important}
+  #mobileMoreSheet .mobile-action-sheet-panel{padding-left:10px!important;padding-right:10px!important}
+  #mobileMoreSheet .mobile-more-grid{gap:5px!important}
+  #bills table.v125-compact-list>tbody>tr.v125-expanded{column-gap:5px!important;row-gap:5px!important;padding-left:6px!important;padding-right:6px!important}
+  #bills table.v125-compact-list>tbody>tr.v125-expanded>.v125-summary-cell{margin-left:-6px!important;margin-right:-6px!important}
+  #bills table.v125-compact-list>tbody>tr.v125-expanded>td:not(.v125-summary-cell){padding:6px!important;min-height:60px!important}
+  #bills .v128-recurring-summary{grid-template-columns:minmax(0,1fr) 88px 14px!important;gap:6px!important}
+}
+</style>
 </head>
 <body class="sinop-auth-locked">
 <div id="sinopLoginGate" class="sinop-login-gate" aria-hidden="false">
@@ -7123,12 +7282,12 @@ body[data-theme="dark"] .barkada-group-btn,body[data-theme="dark"] .barkada-memb
               <label class="toggle"><input id="settingOverdueReminders" type="checkbox"><span></span></label>
             </div>
             <div class="switch-row">
-              <div class="switch-copy"><strong>Browser notifications</strong><small>Show a system notification when the planner is open and permission is allowed.</small></div>
+              <div class="switch-copy"><strong>Phone notifications</strong><small>On iPhone, install SINOP to the Home Screen, then allow notifications. Alerts use the phone notification system.</small></div>
               <label class="toggle"><input id="settingBrowserNotifications" type="checkbox"><span></span></label>
             </div>
           </div>
           <div class="data-actions">
-            <button class="btn btn-secondary" id="requestNotificationPermissionBtn" type="button">Allow browser notifications</button>
+            <button class="btn btn-secondary" id="requestNotificationPermissionBtn" type="button">Enable phone notifications</button><button class="btn btn-secondary" id="testPhoneNotificationBtn" type="button">Send test notification</button>
           </div>
           <div id="notificationPermissionStatus" class="reminder-setting-note"></div>
         </article>
@@ -19732,6 +19891,7 @@ function statementPrintDocumentHtml(){
 </style>
 
 
+
 </head><body>
   <div class="statement">
     <div class="head">
@@ -20814,8 +20974,8 @@ maybeStartFirstRunSetup();
 
 <!-- ===== SINOP v124 · mobile bottom navigation ===== -->
 <nav class="mobile-bottom-nav" id="mobileBottomNav" aria-label="Quick access">
-  <button class="mobile-bottom-item" type="button" data-v122-nav-target="overview" aria-label="Overview">
-    <span data-hero="home"></span><span>Overview</span>
+  <button class="mobile-bottom-item" type="button" data-v122-nav-target="dashboard" aria-label="Dashboard">
+    <span data-hero="squares-2x2"></span><span>Dashboard</span>
   </button>
   <button class="mobile-bottom-item" type="button" data-v122-nav-target="spending" aria-label="Spending">
     <span data-hero="wallet"></span><span>Spending</span>
@@ -20824,7 +20984,6 @@ maybeStartFirstRunSetup();
     <button class="mobile-bottom-create" id="mobileBottomCreateBtn" type="button" aria-label="Quick add" aria-expanded="false" aria-controls="mobileCreateSheet">
       <span data-hero="plus"></span>
     </button>
-    <span class="mobile-bottom-create-label">Add</span>
   </div>
   <button class="mobile-bottom-item" type="button" data-v122-nav-target="accounts" aria-label="Accounts">
     <span data-hero="building-library"></span><span>Accounts</span>
@@ -20860,10 +21019,70 @@ maybeStartFirstRunSetup();
   <section class="mobile-action-sheet-panel" role="dialog" aria-modal="true" aria-labelledby="mobileMoreSheetTitle">
     <div class="mobile-sheet-handle" aria-hidden="true"></div>
     <div class="mobile-sheet-head">
-      <div class="mobile-sheet-head-copy"><span class="mobile-sheet-eyebrow">Navigation</span><h3 id="mobileMoreSheetTitle">All SINOP modules</h3><p>Every destination from the desktop sidebar, in one compact mobile menu.</p></div>
+      <div class="mobile-sheet-head-copy"><span class="mobile-sheet-eyebrow">Navigation</span><h3 id="mobileMoreSheetTitle">All SINOP modules</h3><p>Grouped by what you want to do, so the full app stays easy to scan.</p></div>
       <button class="mobile-sheet-close" type="button" data-mobile-sheet-close="mobileMoreSheet" aria-label="Close more features"><span data-hero="x-mark"></span></button>
     </div>
-    <div class="mobile-more-grid" aria-label="SINOP destinations"><button class="mobile-more-destination" type="button" data-v124-more-target="overview" aria-label="Overview"><span class="mobile-action-icon"><span data-hero="home"></span></span><span>Overview</span></button><button class="mobile-more-destination" type="button" data-v124-more-target="dashboard" aria-label="Dashboard"><span class="mobile-action-icon"><span data-hero="squares-2x2"></span></span><span>Dashboard</span></button><button class="mobile-more-destination" type="button" data-v124-more-target="income" aria-label="Income"><span class="mobile-action-icon"><span data-hero="plus-circle"></span></span><span>Income</span></button><button class="mobile-more-destination" type="button" data-v124-more-target="bills" aria-label="Recurring"><span class="mobile-action-icon"><span data-hero="arrow-path"></span></span><span>Recurring</span></button><button class="mobile-more-destination" type="button" data-v124-more-target="spending" aria-label="Spending"><span class="mobile-action-icon"><span data-hero="wallet"></span></span><span>Spending</span></button><button class="mobile-more-destination" type="button" data-v124-more-target="daily-allowance" aria-label="Daily allowance"><span class="mobile-action-icon"><span data-hero="calendar-days"></span></span><span>Daily allowance</span></button><button class="mobile-more-destination" type="button" data-v124-more-target="grocery" aria-label="Grocery"><span class="mobile-action-icon"><span data-hero="shopping-cart"></span></span><span>Grocery</span></button><button class="mobile-more-destination" type="button" data-v124-more-target="accounts" aria-label="Accounts"><span class="mobile-action-icon"><span data-hero="building-library"></span></span><span>Accounts</span></button><button class="mobile-more-destination" type="button" data-v124-more-target="credit-cards" aria-label="Credit cards"><span class="mobile-action-icon"><span data-hero="credit-card"></span></span><span>Credit cards</span></button><button class="mobile-more-destination" type="button" data-v124-more-target="loans" aria-label="Loans &amp; IOUs"><span class="mobile-action-icon"><span data-hero="arrows-right-left"></span></span><span>Loans &amp; IOUs</span></button><button class="mobile-more-destination" type="button" data-v124-more-target="barkada" aria-label="Barkada"><span class="mobile-action-icon"><span data-hero="user-group"></span></span><span>Barkada</span></button><button class="mobile-more-destination" type="button" data-v124-more-target="kkb" aria-label="KKB"><span class="mobile-action-icon"><span data-hero="calculator"></span></span><span>KKB</span></button><button class="mobile-more-destination" type="button" data-v124-more-target="activity" aria-label="Activity"><span class="mobile-action-icon"><span data-hero="clock"></span></span><span>Activity</span></button><button class="mobile-more-destination" type="button" data-v124-more-target="calendar" aria-label="Calendar"><span class="mobile-action-icon"><span data-hero="calendar-days"></span></span><span>Calendar</span></button><button class="mobile-more-destination" type="button" data-v124-more-target="forecast" aria-label="Forecast"><span class="mobile-action-icon"><span data-hero="chart-bar-square"></span></span><span>Forecast</span></button><button class="mobile-more-destination" type="button" data-v124-more-target="decisions" aria-label="Decisions"><span class="mobile-action-icon"><span data-hero="calculator"></span></span><span>Decisions</span></button><button class="mobile-more-destination" type="button" data-v124-more-target="goals" aria-label="Goals"><span class="mobile-action-icon"><span data-hero="flag"></span></span><span>Goals</span></button><button class="mobile-more-destination" type="button" data-v124-more-target="rewards" aria-label="Rewards"><span class="mobile-action-icon"><span data-hero="trophy"></span></span><span>Rewards</span></button><button class="mobile-more-destination" type="button" data-v124-more-target="monthly-statement" aria-label="Statements"><span class="mobile-action-icon"><span data-hero="banknotes"></span></span><span>Statements</span></button><button class="mobile-more-destination" type="button" data-v124-more-target="wrapped" aria-label="Wrapped"><span class="mobile-action-icon"><span data-hero="sparkles"></span></span><span>Wrapped</span></button><button class="mobile-more-destination" type="button" data-v124-more-target="settings" aria-label="Customize"><span class="mobile-action-icon"><span data-hero="adjustments-horizontal"></span></span><span>Customize</span></button><button class="mobile-more-destination" type="button" data-v124-more-target="user-manual" aria-label="User manual"><span class="mobile-action-icon"><span data-hero="question-mark-circle"></span></span><span>User manual</span></button></div>
+
+    <div class="mobile-module-groups" aria-label="SINOP destinations">
+      <section class="mobile-module-group" aria-labelledby="mobileGroupHome">
+        <h4 id="mobileGroupHome">Home</h4>
+        <div class="mobile-more-grid">
+          <button class="mobile-more-destination" type="button" data-v124-more-target="dashboard" aria-label="Dashboard"><span class="mobile-action-icon"><span data-hero="squares-2x2"></span></span><span>Dashboard</span></button>
+          <button class="mobile-more-destination" type="button" data-v124-more-target="overview" aria-label="Overview"><span class="mobile-action-icon"><span data-hero="home"></span></span><span>Overview</span></button>
+        </div>
+      </section>
+
+      <section class="mobile-module-group" aria-labelledby="mobileGroupCashflow">
+        <h4 id="mobileGroupCashflow">Cash flow</h4>
+        <div class="mobile-more-grid">
+          <button class="mobile-more-destination" type="button" data-v124-more-target="income" aria-label="Income"><span class="mobile-action-icon"><span data-hero="plus-circle"></span></span><span>Income</span></button>
+          <button class="mobile-more-destination" type="button" data-v124-more-target="bills" aria-label="Recurring"><span class="mobile-action-icon"><span data-hero="arrow-path"></span></span><span>Recurring</span></button>
+          <button class="mobile-more-destination" type="button" data-v124-more-target="spending" aria-label="Spending"><span class="mobile-action-icon"><span data-hero="wallet"></span></span><span>Spending</span></button>
+          <button class="mobile-more-destination" type="button" data-v124-more-target="daily-allowance" aria-label="Daily allowance"><span class="mobile-action-icon"><span data-hero="calendar-days"></span></span><span>Daily allowance</span></button>
+          <button class="mobile-more-destination" type="button" data-v124-more-target="grocery" aria-label="Grocery"><span class="mobile-action-icon"><span data-hero="shopping-cart"></span></span><span>Grocery</span></button>
+        </div>
+      </section>
+
+      <section class="mobile-module-group" aria-labelledby="mobileGroupMoney">
+        <h4 id="mobileGroupMoney">Money & obligations</h4>
+        <div class="mobile-more-grid">
+          <button class="mobile-more-destination" type="button" data-v124-more-target="accounts" aria-label="Accounts"><span class="mobile-action-icon"><span data-hero="building-library"></span></span><span>Accounts</span></button>
+          <button class="mobile-more-destination" type="button" data-v124-more-target="credit-cards" aria-label="Credit cards"><span class="mobile-action-icon"><span data-hero="credit-card"></span></span><span>Credit cards</span></button>
+          <button class="mobile-more-destination" type="button" data-v124-more-target="loans" aria-label="Loans & IOUs"><span class="mobile-action-icon"><span data-hero="arrows-right-left"></span></span><span>Loans & IOUs</span></button>
+          <button class="mobile-more-destination" type="button" data-v124-more-target="barkada" aria-label="Barkada"><span class="mobile-action-icon"><span data-hero="user-group"></span></span><span>Barkada</span></button>
+          <button class="mobile-more-destination" type="button" data-v124-more-target="kkb" aria-label="KKB"><span class="mobile-action-icon"><span data-hero="calculator"></span></span><span>KKB</span></button>
+        </div>
+      </section>
+
+      <section class="mobile-module-group" aria-labelledby="mobileGroupAhead">
+        <h4 id="mobileGroupAhead">Plan ahead</h4>
+        <div class="mobile-more-grid">
+          <button class="mobile-more-destination" type="button" data-v124-more-target="activity" aria-label="Activity"><span class="mobile-action-icon"><span data-hero="clock"></span></span><span>Activity</span></button>
+          <button class="mobile-more-destination" type="button" data-v124-more-target="calendar" aria-label="Calendar"><span class="mobile-action-icon"><span data-hero="calendar-days"></span></span><span>Calendar</span></button>
+          <button class="mobile-more-destination" type="button" data-v124-more-target="forecast" aria-label="Forecast"><span class="mobile-action-icon"><span data-hero="chart-bar-square"></span></span><span>Forecast</span></button>
+          <button class="mobile-more-destination" type="button" data-v124-more-target="decisions" aria-label="Decisions"><span class="mobile-action-icon"><span data-hero="calculator"></span></span><span>Decisions</span></button>
+        </div>
+      </section>
+
+      <section class="mobile-module-group" aria-labelledby="mobileGroupReports">
+        <h4 id="mobileGroupReports">Goals & reports</h4>
+        <div class="mobile-more-grid">
+          <button class="mobile-more-destination" type="button" data-v124-more-target="goals" aria-label="Goals"><span class="mobile-action-icon"><span data-hero="flag"></span></span><span>Goals</span></button>
+          <button class="mobile-more-destination" type="button" data-v124-more-target="rewards" aria-label="Rewards"><span class="mobile-action-icon"><span data-hero="trophy"></span></span><span>Rewards</span></button>
+          <button class="mobile-more-destination" type="button" data-v124-more-target="monthly-statement" aria-label="Statements"><span class="mobile-action-icon"><span data-hero="banknotes"></span></span><span>Statements</span></button>
+          <button class="mobile-more-destination" type="button" data-v124-more-target="wrapped" aria-label="Wrapped"><span class="mobile-action-icon"><span data-hero="sparkles"></span></span><span>Wrapped</span></button>
+        </div>
+      </section>
+
+      <section class="mobile-module-group" aria-labelledby="mobileGroupSettings">
+        <h4 id="mobileGroupSettings">Settings & help</h4>
+        <div class="mobile-more-grid">
+          <button class="mobile-more-destination" type="button" data-v124-more-target="settings" aria-label="Customize"><span class="mobile-action-icon"><span data-hero="adjustments-horizontal"></span></span><span>Customize</span></button>
+          <button class="mobile-more-destination" type="button" data-v124-more-target="user-manual" aria-label="User manual"><span class="mobile-action-icon"><span data-hero="question-mark-circle"></span></span><span>User manual</span></button>
+        </div>
+      </section>
+    </div>
+
     <div class="mobile-sheet-section-title">Tools</div>
     <div class="mobile-tools-row">
       <button class="mobile-tool-action" id="v124MobileSearchBtn" type="button"><span data-hero="magnifying-glass"></span><span>Search</span></button>
@@ -22028,6 +22247,122 @@ maybeStartFirstRunSetup();
   document.addEventListener('click',()=>requestAnimationFrame(syncModalLayer));
   document.addEventListener('keydown',()=>requestAnimationFrame(syncModalLayer));
   syncModalLayer();
+})();
+</script>
+
+<script id="sinop-v130-pwa-notifications">
+(() => {
+  const SW_URL='./sinop-sw.js';
+  const isIOS=()=>/iphone|ipad|ipod/i.test(navigator.userAgent||'');
+  const isStandalone=()=>window.matchMedia?.('(display-mode: standalone)').matches||navigator.standalone===true;
+  const secureEnough=()=>location.protocol==='https:'||location.hostname==='localhost'||location.hostname==='127.0.0.1';
+  const supportsPhoneNotifications=()=>('serviceWorker' in navigator)&&('Notification' in window)&&secureEnough();
+  const notificationPermission=()=>('Notification' in window)?Notification.permission:'unsupported';
+  let swRegistration=null;
+
+  async function getSinopSW(){
+    if(!supportsPhoneNotifications())return null;
+    if(swRegistration)return swRegistration;
+    try{
+      swRegistration=await navigator.serviceWorker.register(SW_URL,{scope:'./'});
+      await navigator.serviceWorker.ready;
+      return swRegistration;
+    }catch(err){console.warn('SINOP service worker registration failed',err);return null}
+  }
+  async function showSystemNotification(title,options={}){
+    const reg=await getSinopSW();
+    if(!reg||notificationPermission()!=='granted')return false;
+    try{
+      await reg.showNotification(title,{
+        icon:'./sinop-icon-192.png',badge:'./sinop-icon-192.png',
+        ...options,
+        data:{url:location.href,...(options.data||{})}
+      });
+      return true;
+    }catch(err){console.warn('SINOP notification failed',err);return false}
+  }
+  async function enablePhoneNotifications(){
+    if(!secureEnough()){
+      toast('Phone notifications need SINOP to be hosted over HTTPS, such as GitHub Pages.');
+      renderNotificationSettingsStatus();return;
+    }
+    if(isIOS()&&!isStandalone()){
+      toast('On iPhone, add SINOP to the Home Screen first, open it from the new icon, then tap Enable phone notifications.');
+      renderNotificationSettingsStatus();return;
+    }
+    const reg=await getSinopSW();
+    if(!reg){toast('SINOP could not start its notification service worker.');renderNotificationSettingsStatus();return}
+    try{
+      const result=await Notification.requestPermission();
+      const enabled=result==='granted';
+      state.settings.notifications.browser=enabled;
+      if($('settingBrowserNotifications'))$('settingBrowserNotifications').checked=enabled;
+      scheduleAutoSave();
+      if(enabled){
+        await showSystemNotification('SINOP notifications are on',{body:'Upcoming commitments and SINOP reminders can now appear as phone notifications while the web app is active.',tag:'sinop-enabled'});
+        toast('Phone notifications enabled.');
+        dispatchBrowserReminders();
+      }else toast(result==='denied'?'Phone notifications were blocked.':'Notification permission was not enabled.');
+    }catch(err){toast('SINOP could not enable phone notifications on this device.')}
+    renderNotificationSettingsStatus();
+  }
+  async function testPhoneNotification(){
+    if(notificationPermission()!=='granted')return enablePhoneNotifications();
+    const ok=await showSystemNotification('SINOP test notification',{body:'This is how SINOP alerts will appear on your phone.',tag:'sinop-test-'+Date.now()});
+    toast(ok?'Test notification sent.':'Could not send a test notification.');
+  }
+
+  /* Override the legacy page-only notification path with service-worker notifications. */
+  window.requestBrowserNotificationPermission=enablePhoneNotifications;
+  try{requestBrowserNotificationPermission=enablePhoneNotifications}catch(_){ }
+  window.dispatchBrowserReminders=async function(items=currentBillReminders()){
+    if(!state.settings.notifications.browser||notificationPermission()!=='granted')return;
+    const pending=items.filter(x=>!state.reminders.sent[x.key]);
+    for(const x of pending){
+      const ok=await showSystemNotification(x.title,{body:x.message,tag:x.key,data:{reminderKey:x.key,url:location.href}});
+      if(ok)state.reminders.sent[x.key]=true;
+    }
+    localStorage.setItem(KEY,JSON.stringify(state));
+  };
+  try{dispatchBrowserReminders=window.dispatchBrowserReminders}catch(_){ }
+  window.browserPermissionText=function(){
+    if(!secureEnough())return 'Phone notifications require the hosted HTTPS version of SINOP; they cannot work from a downloaded file:// page.';
+    if(!('Notification' in window)||!('serviceWorker' in navigator))return 'Phone notifications are not supported by this browser.';
+    if(isIOS()&&!isStandalone())return 'On iPhone, add SINOP to the Home Screen first. Then open the Home Screen app and enable notifications here.';
+    if(Notification.permission==='granted')return 'Phone notification permission is allowed. SINOP can show real system notifications through its service worker.';
+    if(Notification.permission==='denied')return 'Phone notification permission is blocked. Change it in the phone/browser notification settings to enable alerts.';
+    return 'Phone notification permission has not been enabled yet.';
+  };
+  try{browserPermissionText=window.browserPermissionText}catch(_){ }
+
+  const oldStatus=window.renderNotificationSettingsStatus;
+  window.renderNotificationSettingsStatus=function(){
+    try{oldStatus?.()}catch(_){ }
+    const box=$('notificationPermissionStatus');
+    if(box){
+      const backgroundNote='<br><strong>Background push:</strong> the phone-side Web Push support is installed. Alerts while SINOP is completely closed require a Web Push sender/server to send the push event.';
+      box.innerHTML=browserPermissionText()+backgroundNote;
+    }
+    const btn=$('requestNotificationPermissionBtn');
+    if(btn){btn.disabled=false;btn.textContent=notificationPermission()==='granted'?'Phone notifications enabled':'Enable phone notifications'}
+  };
+  try{renderNotificationSettingsStatus=window.renderNotificationSettingsStatus}catch(_){ }
+
+  function wire(){
+    const enable=$('requestNotificationPermissionBtn');if(enable)enable.onclick=enablePhoneNotifications;
+    const test=$('testPhoneNotificationBtn');if(test)test.onclick=testPhoneNotification;
+    getSinopSW();
+    renderNotificationSettingsStatus();
+  }
+  function syncAppBadge(){
+    if(!('setAppBadge' in navigator))return;
+    const n=Number(String($('notificationBadge')?.textContent||'0').replace(/\D/g,''))||0;
+    if(n>0)navigator.setAppBadge(n).catch(()=>{}); else navigator.clearAppBadge?.().catch(()=>{});
+  }
+  const badge=$('notificationBadge');if(badge)new MutationObserver(syncAppBadge).observe(badge,{childList:true,characterData:true,subtree:true,attributes:true});
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden){syncAppBadge();dispatchBrowserReminders();}});
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',wire,{once:true});else wire();
+  syncAppBadge();
 })();
 </script>
 </body>
