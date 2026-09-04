@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0f766e">
-<title>SINOP v149 · Unified Mobile Date Controls</title>
+<title>SINOP v150 · Mobile Accounts Wheel Switcher</title>
 <meta name="application-name" content="SINOP">
 <meta name="apple-mobile-web-app-title" content="SINOP">
 <meta name="description" content="SINOP — your personal money system for income, spending, savings, investments, goals, KKB, and financial tracking.">
@@ -7217,12 +7217,13 @@ body[data-theme="dark"] .barkada-group-btn,body[data-theme="dark"] .barkada-memb
       </div>
 
       <article class="version-latest-card">
-        <div class="version-latest-badge"><span>Latest</span><strong>v149</strong></div>
-        <div class="version-latest-copy"><span>September 4, 2026</span><h3>Unified Mobile Date Controls</h3><p>SINOP now uses one contained mobile date-control pattern across the app, preventing native browser date inputs from overlapping neighboring fields in Add Expense, Edit Expense, Income, Accounts, KKB, Loans, Grocery, and other date-based workflows.</p></div>
+        <div class="version-latest-badge"><span>Latest</span><strong>v150</strong></div>
+        <div class="version-latest-copy"><span>September 4, 2026</span><h3>Mobile Accounts Wheel Switcher</h3><p>The Accounts page now has a dedicated mobile wheel-style switcher: cards rotate vertically like a circular stack, back cards are dimmed, spacing is tighter, and the active account stays front-and-center with quick actions and a cleaner detail panel.</p></div>
       </article>
 
       <div class="version-timeline" id="versionTimeline">
-        <article class="version-entry is-latest" data-version="v149" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v149</span><h3>Unified Mobile Date Controls</h3></div><time>Sep 4, 2026</time></header><ul><li>Applied the contained custom mobile date control to Add Expense as well as Edit Expense.</li><li>Audited all date inputs and unified mobile date behavior across Income, Activity, Accounts, transfers/contributions, Grocery, recurring payments, KKB, Loans/IOUs, credit-card payments, setup, and goal dates.</li><li>Kept the actual native date input as an invisible full-control overlay so the device picker still opens normally without affecting layout width.</li><li>Added automatic resync when modals open or JavaScript changes date values.</li><li>Preserved the Income/Spending mobile rebuild, Time Deposit ledger fix, login hotfix, Barkada/Profile features, and Global Ranking connection.</li></ul></div></article>
+        <article class="version-entry is-latest" data-version="v150" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v150</span><h3>Mobile Accounts Wheel Switcher</h3></div><time>Sep 4, 2026</time></header><ul><li>Replaced the old stacked mobile Accounts cards with a wheel-style switcher inspired by a vertical circular deck.</li><li>Cards at the back now have noticeably lower opacity and tighter spacing so the active account stands out more clearly.</li><li>Added a dedicated active-account detail panel with balance, usable money, goal reservation, flow metrics, and quick actions.</li><li>Desktop Accounts stays unchanged, while mobile Accounts gets the new interaction and layout.</li><li>All previous fixes remain, including unified mobile date controls, login hotfixes, and Time Deposit handling.</li></ul></div></article>
+        <article class="version-entry" data-version="v149" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v149</span><h3>Unified Mobile Date Controls</h3></div><time>Sep 4, 2026</time></header><ul><li>Applied the contained custom mobile date control to Add Expense as well as Edit Expense.</li><li>Audited all date inputs and unified mobile date behavior across Income, Activity, Accounts, transfers/contributions, Grocery, recurring payments, KKB, Loans/IOUs, credit-card payments, setup, and goal dates.</li><li>Kept the actual native date input as an invisible full-control overlay so the device picker still opens normally without affecting layout width.</li><li>Added automatic resync when modals open or JavaScript changes date values.</li><li>Preserved the Income/Spending mobile rebuild, Time Deposit ledger fix, login hotfix, Barkada/Profile features, and Global Ranking connection.</li></ul></div></article>
         <article class="version-entry" data-version="v148" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v148</span><h3>Spending Date Control Fix</h3></div><time>Sep 4, 2026</time></header><ul><li>Removed the visible native date input from the mobile Edit Spending layout.</li><li>Added a clean full-width custom date field that opens the device date picker through an invisible native control.</li><li>Prevented Safari and Chromium mobile intrinsic date-control sizing from overlapping neighboring content.</li><li>Kept the v146 mobile Income/Spending rebuild, Time Deposit fix, login hotfix, and connected Global Ranking.</li></ul></div></article>
         <article class="version-entry" data-version="v147" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v147</span><h3>Spending Date Picker Fix</h3></div><time>Sep 4, 2026</time></header><ul><li>Moved the mobile Spending date picker to its own full-width row instead of sharing a row with Amount.</li><li>Constrained native date input sizing so browser calendar controls stay inside the field.</li><li>Preserved the v146 mobile Income and Spending redesign, login hotfix, Time Deposit ledger correction, and global ranking integration.</li></ul></div></article>
         <article class="version-entry" data-version="v146" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v146</span><h3>Income & Spending Mobile Rebuild</h3></div><time>Sep 4, 2026</time></header><ul><li>Rebuilt the Income and Spending pages for mobile instead of continuing the column-based adaptation.</li><li>Removed on-page action icon clutter and replaced editing with focused mobile sheets.</li><li>Added cleaner summary cards, search/filter controls, and simplified list cards that are easier to scan.</li><li>Moved destructive actions like delete into the editor footer instead of tiny trash icons in the record list.</li><li>Preserved the login hotfix, Time Deposit destination credit fix, Barkada/Profile features, and the connected Global Ranking service.</li></ul></div></article>
@@ -24644,6 +24645,244 @@ maybeStartFirstRunSetup();
   });
   observer.observe(document.documentElement,{subtree:true,childList:true,attributes:true,attributeFilter:['class']});
   window.sinopSyncDateControls=syncAll;
+})();
+</script>
+
+
+<style id="sinop-v150-mobile-accounts-wheel-style">
+@media (max-width:760px){
+  #accounts .account-summary-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}
+  #accounts .account-summary-card{padding:14px!important;border-radius:18px!important;min-height:86px!important}
+  #accounts .account-summary-card span{font-size:11px!important;line-height:1.3!important}
+  #accounts .account-summary-card strong{font-size:18px!important;line-height:1.1!important}
+  #accounts .account-grid{display:none!important}
+  #accounts .double-count-warning{font-size:12px!important;line-height:1.55!important}
+  #v150AccountsWheelHub{display:block!important;margin:14px 0 16px}
+  .v150-accounts-shell{display:grid;gap:14px}
+  .v150-accounts-empty{display:grid;gap:10px;padding:18px;border-radius:20px;background:var(--panel);border:1px dashed color-mix(in srgb,var(--muted) 28%,var(--border));box-shadow:var(--shadow)}
+  .v150-accounts-empty strong{font-size:15px;color:var(--text)}
+  .v150-accounts-empty p{margin:0;font-size:13px;line-height:1.5;color:var(--muted)}
+  .v150-wheel-stage{position:relative;background:linear-gradient(180deg,color-mix(in srgb,var(--brandsoft) 34%,var(--panel)),var(--panel));border:1px solid var(--border);border-radius:24px;box-shadow:var(--shadow);padding:16px 14px 18px;overflow:hidden}
+  .v150-wheel-stage::before{content:"";position:absolute;inset:14px;pointer-events:none;border-radius:20px;background:radial-gradient(circle at 50% 50%, rgba(15,118,110,.09), transparent 56%)}
+  .v150-wheel-head{position:relative;display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:6px}
+  .v150-wheel-head-copy{min-width:0}
+  .v150-wheel-head-copy span{display:block;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+  .v150-wheel-head-copy h3{margin:4px 0 0;font-size:18px;line-height:1.2;color:var(--text)}
+  .v150-wheel-head-copy p{margin:5px 0 0;font-size:12px;line-height:1.45;color:var(--muted)}
+  .v150-wheel-counter{flex:none;display:inline-flex;align-items:center;justify-content:center;min-width:56px;padding:8px 10px;border-radius:999px;background:var(--soft);font-size:12px;font-weight:800;color:var(--brand2)}
+  .v150-wheel-viewport{position:relative;height:330px;margin-top:6px;touch-action:pan-y;overscroll-behavior:contain;user-select:none}
+  .v150-wheel-ring{position:absolute;inset:0;pointer-events:none}
+  .v150-wheel-ring::before{content:"";position:absolute;left:50%;top:50%;width:86%;height:68%;transform:translate(-50%,-50%);border-radius:50%;border:1px dashed color-mix(in srgb,var(--muted) 18%,transparent);opacity:.55}
+  .v150-wheel-card{position:absolute;left:50%;top:50%;width:min(90%,320px);transform:translate(-50%,-50%) translate3d(var(--tx,0px),var(--ty,0px),0) scale(var(--scale,1));opacity:var(--opacity,1);z-index:var(--z,1);border:none;background:transparent;padding:0;transition:transform .36s cubic-bezier(.22,.78,.16,1),opacity .28s ease;cursor:pointer}
+  .v150-wheel-card.is-back .v150-wheel-card-inner{filter:saturate(.85)}
+  .v150-wheel-card.is-active{cursor:default}
+  .v150-wheel-card-inner{background:var(--panel);border:1px solid color-mix(in srgb,var(--accent,#0f766e) 22%,var(--border));border-radius:24px;box-shadow:0 12px 28px rgba(15,23,42,.08);padding:15px 16px 16px;display:grid;gap:10px;overflow:hidden;position:relative}
+  .v150-wheel-card-inner::before{content:"";position:absolute;left:0;right:0;top:0;height:12px;background:var(--accent,#0f766e)}
+  .v150-wheel-card-id{display:flex;align-items:center;gap:12px;min-width:0;padding-top:2px}
+  .v150-wheel-icon{width:42px;height:42px;border-radius:14px;background:color-mix(in srgb,var(--accent,#0f766e) 12%,#fff);display:grid;place-items:center;flex:none;overflow:hidden;border:1px solid color-mix(in srgb,var(--accent,#0f766e) 18%,var(--border))}
+  .v150-wheel-icon .bank-brand-mark{width:28px;height:28px}
+  .v150-wheel-icon .bank-brand-mark img{width:100%;height:100%;object-fit:contain}
+  .v150-wheel-icon svg,.v150-wheel-icon [data-hero]{width:22px;height:22px;color:var(--accent,#0f766e)}
+  .v150-wheel-meta{min-width:0;display:grid;gap:3px}
+  .v150-wheel-meta strong{display:block;font-size:16px;line-height:1.2;color:var(--text);word-break:break-word}
+  .v150-wheel-meta small{display:block;font-size:11px;line-height:1.4;color:var(--muted);word-break:break-word}
+  .v150-wheel-balance{display:grid;gap:2px}
+  .v150-wheel-balance span{font-size:11px;color:var(--muted)}
+  .v150-wheel-balance strong{font-size:24px;line-height:1.05;color:var(--text)}
+  .v150-wheel-balance em{font-style:normal;font-size:11px;color:var(--muted)}
+  .v150-wheel-card:not(.is-active) .v150-wheel-balance strong{font-size:20px}
+  .v150-wheel-card:not(.is-active) .v150-wheel-meta strong{font-size:15px}
+  .v150-wheel-card:not(.is-active) .v150-wheel-foot{opacity:.72}
+  .v150-wheel-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;border-top:1px solid var(--border);padding-top:10px}
+  .v150-wheel-foot span{font-size:11px;color:var(--muted)}
+  .v150-wheel-pill{display:inline-flex;align-items:center;justify-content:center;min-height:28px;padding:0 10px;border-radius:999px;background:var(--soft);font-size:11px;font-weight:800;color:var(--brand2);white-space:nowrap}
+  .v150-wheel-hint{position:relative;display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:6px;padding:0 2px}
+  .v150-wheel-hint span{font-size:12px;color:var(--muted)}
+  .v150-wheel-dots{display:flex;gap:6px;align-items:center}
+  .v150-wheel-dot{width:7px;height:7px;border-radius:999px;background:color-mix(in srgb,var(--muted) 35%, transparent)}
+  .v150-wheel-dot.active{width:18px;background:var(--brand)}
+  .v150-active-panel{background:var(--panel);border:1px solid var(--border);border-radius:24px;box-shadow:var(--shadow);padding:16px;display:grid;gap:14px}
+  .v150-active-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+  .v150-active-identity{display:flex;align-items:flex-start;gap:12px;min-width:0}
+  .v150-active-icon{width:48px;height:48px;border-radius:16px;background:color-mix(in srgb,var(--accent,#0f766e) 12%,#fff);display:grid;place-items:center;flex:none;overflow:hidden;border:1px solid color-mix(in srgb,var(--accent,#0f766e) 20%,var(--border))}
+  .v150-active-icon .bank-brand-mark{width:31px;height:31px}
+  .v150-active-icon .bank-brand-mark img{width:100%;height:100%;object-fit:contain}
+  .v150-active-icon svg{width:24px;height:24px;color:var(--accent,#0f766e)}
+  .v150-active-copy{min-width:0;display:grid;gap:4px}
+  .v150-active-copy h3{margin:0;font-size:18px;line-height:1.2;color:var(--text);word-break:break-word}
+  .v150-active-copy p{margin:0;font-size:12px;line-height:1.5;color:var(--muted)}
+  .v150-active-balance{display:grid;gap:4px;justify-items:end;flex:none;text-align:right}
+  .v150-active-balance strong{font-size:22px;line-height:1.05;color:var(--text)}
+  .v150-active-balance span,.v150-active-balance small{font-size:11px;line-height:1.4;color:var(--muted)}
+  .v150-status-row{display:flex;flex-wrap:wrap;gap:8px}
+  .v150-status-chip{display:inline-flex;align-items:center;gap:6px;padding:7px 11px;border-radius:999px;border:1px solid var(--border);background:var(--soft);font-size:12px;font-weight:700;color:var(--text)}
+  .v150-status-chip.locked{background:color-mix(in srgb,var(--warnsoft) 72%,var(--panel));color:var(--warn);border-color:color-mix(in srgb,var(--warn) 18%,var(--border))}
+  .v150-action-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .v150-action-row .btn{width:100%;min-height:44px;justify-content:center}
+  .v150-action-row .btn.v150-wide{grid-column:1/-1}
+  .v150-metric-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .v150-metric{padding:12px;border-radius:18px;background:var(--soft);border:1px solid var(--border);display:grid;gap:4px}
+  .v150-metric span{font-size:11px;line-height:1.35;color:var(--muted)}
+  .v150-metric strong{font-size:17px;line-height:1.1;color:var(--text)}
+  .v150-metric small{font-size:11px;line-height:1.35;color:var(--muted)}
+  .v150-active-note{padding:12px 14px;border-radius:18px;border:1px solid var(--border);background:#fff;font-size:12px;line-height:1.55;color:var(--muted)}
+  .v150-goal-list{display:grid;gap:8px}
+  .v150-goal-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
+  .v150-goal-head strong{font-size:14px;color:var(--text)}
+  .v150-goal-head span{font-size:11px;color:var(--muted)}
+  .v150-goal-row{display:flex;justify-content:space-between;gap:10px;font-size:12px;color:var(--text);padding:9px 0;border-top:1px solid var(--border)}
+  .v150-goal-row:first-of-type{border-top:none;padding-top:0}
+  @media (max-width:430px){
+    .v150-active-head{flex-direction:column}
+    .v150-active-balance{justify-items:start;text-align:left}
+    .v150-metric-grid,.v150-action-row{grid-template-columns:1fr}
+    .v150-wheel-head{flex-direction:column;align-items:flex-start}
+  }
+}
+@media (min-width:761px){#v150AccountsWheelHub{display:none!important}}
+</style>
+<script id="sinop-v150-mobile-accounts-wheel-script">
+(function(){
+  const stateKey={index:0,touchStartY:0,touchStartTime:0,wheelLock:false};
+  const MOBILE_MAX=760;
+  function isMobile(){return window.innerWidth<=MOBILE_MAX;}
+  function byId(id){return document.getElementById(id);}
+  function ensureHub(){
+    const section=byId('accounts'); if(!section) return null;
+    let hub=byId('v150AccountsWheelHub');
+    if(!hub){
+      hub=document.createElement('div');
+      hub.id='v150AccountsWheelHub';
+      const toggle=section.querySelector(':scope > .v122-account-rules-toggle');
+      const warning=section.querySelector(':scope > .double-count-warning');
+      const anchor=toggle||warning||section.querySelector(':scope > .account-summary-grid');
+      if(anchor) anchor.insertAdjacentElement('afterend',hub); else section.appendChild(hub);
+    }
+    return hub;
+  }
+  function wrapIndex(i,len){return ((i%len)+len)%len;}
+  function circularDelta(index,active,len){
+    let delta=index-active;
+    delta=((delta+len/2)%len+len)%len-len/2;
+    return delta;
+  }
+  function accountAccent(account){return account?.color||v122BankBrand(account?.name||'')?.color||'#0f766e';}
+  function compactBrandIcon(account){
+    const brand=v122BankBrand(account?.name||'');
+    if(brand) return v122BankMark(brand,true);
+    return heroSvg(accountIcon(account?.type||'bank'));
+  }
+  function activeBadge(account){
+    if(!account) return '';
+    if(account.type==='time_deposit') return '<span class="v150-status-chip locked">Non-spendable · Time deposit</span>';
+    if(account.type==='mp2') return '<span class="v150-status-chip locked">Non-spendable · Pag-IBIG MP2</span>';
+    if(account.type==='cash') return '<span class="v150-status-chip">Cold cash</span>';
+    if(account.type==='ewallet') return '<span class="v150-status-chip">E-wallet</span>';
+    if(account.type==='savings') return '<span class="v150-status-chip">Savings</span>';
+    return '<span class="v150-status-chip">Spendable account</span>';
+  }
+  function cardHtml(account,index,activeIndex,len){
+    const accent=accountAccent(account);
+    const delta=circularDelta(index,activeIndex,len);
+    if(Math.abs(delta)>2.6 && len>5) return '';
+    const stepAngle=(Math.PI*2)/Math.min(Math.max(len,4),7);
+    const angle=delta*stepAngle;
+    const depth=(Math.cos(angle)+1)/2;
+    const ty=Math.sin(angle)*112;
+    const tx=Math.sin(angle)*8;
+    const scale=(0.82+(0.18*depth)).toFixed(3);
+    const opacity=(0.10+(0.90*depth)).toFixed(3);
+    const z=Math.round(depth*100)+1;
+    const tracked=accountIsTrackedInMonth(account,state.month);
+    const bal=tracked?moneyIn(accountBalance(account,state.month),accountCurrency(account)):'—';
+    const fx=tracked&&accountCurrency(account)!==reportingCurrency()?`<em>≈ ${money(accountValueInReporting(account,accountBalance(account,state.month)))}</em>`:'';
+    const status=tracked?`Balance through ${formatMonthFull(state.month)}`:`Tracking starts ${formatDateFull(accountBaselineDate(account))}`;
+    const lockedLabel=isSpendableAccount(account)?'View account':'Locked';
+    return `<button class="v150-wheel-card ${index===activeIndex?'is-active':'is-back'}" type="button" data-v150-account-index="${index}" style="--accent:${esc(accent)};--tx:${tx.toFixed(1)}px;--ty:${ty.toFixed(1)}px;--scale:${scale};--opacity:${opacity};--z:${z}"><div class="v150-wheel-card-inner"><div class="v150-wheel-card-id"><div class="v150-wheel-icon">${compactBrandIcon(account)}</div><div class="v150-wheel-meta"><strong>${esc(account.name||'Account')}</strong><small>${esc(accountTypeLabel(account.type))} · ${esc(accountCurrency(account))}</small></div></div><div class="v150-wheel-balance"><span>${status}</span><strong>${bal}</strong>${fx}</div><div class="v150-wheel-foot"><span>${esc(account.type==='time_deposit' || account.type==='mp2' ? 'Tracked as an asset' : 'Tap another card or use actions below')}</span><span class="v150-wheel-pill">${lockedLabel}</span></div></div></button>`;
+  }
+  function activePanelHtml(account,activeIndex,len){
+    if(!account) return '';
+    const accent=accountAccent(account);
+    const tracked=accountIsTrackedInMonth(account,state.month);
+    const bal=accountBalance(account,state.month);
+    const cur=accountCurrency(account);
+    const flow=accountMonthFlow(account,state.month);
+    const reservedReport=accountGoalReserved(account.id);
+    const reservedNative=cur===reportingCurrency()?reservedReport:reportingToAccountValue(reservedReport,account);
+    const available=accountAvailableAfterGoals(account,state.month);
+    const allocs=accountGoalAllocations(account.id);
+    const contributionLabel=wealthKindForAccount(account)?(account.type==='time_deposit'||account.type==='savings'?'Add deposit':'Add contribution'):'';
+    const eq=tracked&&cur!==reportingCurrency()?`<small>≈ ${money(accountValueInReporting(account,bal))}</small>`:'';
+    const reservedDisplay=cur===reportingCurrency()?money(reservedReport):moneyIn(reservedNative,cur);
+    const inflow=tracked?moneyIn(flow.inflow,cur):'—';
+    const outflow=tracked?moneyIn(flow.outflow,cur):'—';
+    const usableLabel=isSpendableAccount(account)?'Usable after goals':'Balance after goals';
+    const snapshotNote=tracked?`Snapshot ${moneyIn(account.openingBalance,cur)} as of ${formatDateFull(accountBaselineDate(account))}. ${moneyIn(flow.bills,cur)} recurring bills paid this month.`:`Tracking for this account starts ${formatDateFull(accountBaselineDate(account))}.`;
+    return `<article class="v150-active-panel" style="--accent:${esc(accent)}"><div class="v150-active-head"><div class="v150-active-identity"><div class="v150-active-icon">${compactBrandIcon(account)}</div><div class="v150-active-copy"><h3>${esc(account.name||'Account')}</h3><p>${esc(accountTypeLabel(account.type))} · ${esc(cur)} · ${activeIndex+1} of ${len}</p></div></div><div class="v150-active-balance"><span>${tracked?`Balance through ${formatMonthFull(state.month)}`:'Not tracked yet'}</span><strong>${tracked?moneyIn(bal,cur):'—'}</strong>${eq}</div></div><div class="v150-status-row">${activeBadge(account)}${cur!==reportingCurrency()?`<span class="v150-status-chip">Reporting currency: ${esc(reportingCurrency())}</span>`:''}${allocs.length?`<span class="v150-status-chip">${allocs.length} goal allocation${allocs.length===1?'':'s'}</span>`:''}</div><div class="v150-action-row">${contributionLabel?`<button class="btn btn-primary icon-leading" type="button" data-v150-action="contribution" data-v150-account-id="${account.id}"><span data-hero="plus"></span>${contributionLabel}</button>`:''}<button class="btn btn-secondary icon-leading ${contributionLabel?'':'v150-wide'}" type="button" data-v150-action="reconcile" data-v150-account-id="${account.id}"><span data-hero="scale"></span>Reconcile</button><button class="btn btn-secondary icon-leading ${!contributionLabel?'v150-wide':''}" type="button" data-v150-action="edit" data-v150-account-id="${account.id}"><span data-hero="pencil-square"></span>Edit account</button></div><div class="v150-metric-grid"><div class="v150-metric"><span>${usableLabel}</span><strong>${moneyIn(available,cur)}</strong>${cur!==reportingCurrency()?`<small>≈ ${money(accountValueInReporting(account,available))}</small>`:''}</div><div class="v150-metric"><span>Reserved for goals</span><strong>${reservedDisplay}</strong>${cur!==reportingCurrency()&&reservedReport>0?`<small>${money(reservedReport)} reporting value</small>`:''}</div><div class="v150-metric"><span>Inflows this month</span><strong>${inflow}</strong><small>${tracked?'Income, transfers, and contributions in':'Visible once tracking starts'}</small></div><div class="v150-metric"><span>Outflows this month</span><strong>${outflow}</strong><small>${tracked?'Spending, bills, transfers, and card payments':'Visible once tracking starts'}</small></div></div><div class="v150-active-note">${snapshotNote}</div>${allocs.length?`<div class="v150-goal-list"><div class="v150-goal-head"><strong>Goal savings in this account</strong><span>${allocs.length} goal${allocs.length===1?'':'s'}</span></div>${allocs.map(row=>`<div class="v150-goal-row"><span>${esc(row.goal.name)}</span><strong>${money(row.amount)}</strong></div>`).join('')}</div>`:''}</article>`;
+  }
+  function renderMobileAccounts(){
+    const hub=ensureHub(); if(!hub) return;
+    if(!isMobile()){ hub.innerHTML=''; return; }
+    const accounts=state.accounts||[];
+    if(!accounts.length){
+      hub.innerHTML=`<div class="v150-accounts-shell"><div class="v150-accounts-empty"><strong>No accounts or wallets yet</strong><p>Add Cold Cash, bank accounts, savings, e-wallets, time deposits, or Pag-IBIG MP2 to start tracking where your money sits.</p><button class="btn btn-primary icon-leading" id="v150MobileAddFirstAccount" type="button"><span data-hero="plus"></span>Add account</button></div></div>`;
+      byId('v150MobileAddFirstAccount')?.addEventListener('click',()=>openAccountEditor());
+      hydrateHeroIcons(hub); return;
+    }
+    stateKey.index=wrapIndex(stateKey.index,accounts.length);
+    const active=accounts[stateKey.index];
+    hub.innerHTML=`<div class="v150-accounts-shell"><div class="v150-wheel-stage"><div class="v150-wheel-head"><div class="v150-wheel-head-copy"><span>Mobile account switcher</span><h3>Scroll through your accounts</h3><p>Swipe or scroll vertically to rotate the cards. Back cards stay dim so the active one remains readable.</p></div><div class="v150-wheel-counter">${stateKey.index+1}/${accounts.length}</div></div><div class="v150-wheel-viewport" id="v150AccountsWheelViewport"><div class="v150-wheel-ring"></div>${accounts.map((account,index)=>cardHtml(account,index,stateKey.index,accounts.length)).join('')}</div><div class="v150-wheel-hint"><span>Swipe up/down on the deck to switch accounts.</span><div class="v150-wheel-dots">${accounts.map((_,i)=>`<span class="v150-wheel-dot ${i===stateKey.index?'active':''}"></span>`).join('')}</div></div></div>${activePanelHtml(active,stateKey.index,accounts.length)}</div>`;
+    bindHub(hub,accounts.length);
+    hydrateHeroIcons(hub);
+  }
+  function shift(delta){
+    const len=(state.accounts||[]).length; if(!len) return;
+    stateKey.index=wrapIndex(stateKey.index+delta,len);
+    renderMobileAccounts();
+  }
+  function bindHub(hub,len){
+    hub.querySelectorAll('[data-v150-account-index]').forEach(btn=>btn.addEventListener('click',()=>{
+      const idx=Number(btn.dataset.v150AccountIndex||0);
+      if(Number.isFinite(idx) && idx!==stateKey.index){ stateKey.index=wrapIndex(idx,len); renderMobileAccounts(); }
+    }));
+    hub.querySelectorAll('[data-v150-action]').forEach(btn=>btn.addEventListener('click',()=>{
+      const id=btn.dataset.v150AccountId||''; const action=btn.dataset.v150Action||'';
+      if(action==='edit') openAccountEditor(id);
+      if(action==='reconcile') openReconcileAccount(id);
+      if(action==='contribution') openAccountContributionModal(id);
+    }));
+    const deck=byId('v150AccountsWheelViewport'); if(!deck) return;
+    deck.addEventListener('wheel',e=>{
+      if(Math.abs(e.deltaY)<10) return;
+      e.preventDefault();
+      if(stateKey.wheelLock) return;
+      stateKey.wheelLock=true;
+      shift(e.deltaY>0?1:-1);
+      setTimeout(()=>{stateKey.wheelLock=false},260);
+    },{passive:false});
+    deck.addEventListener('touchstart',e=>{
+      const touch=e.changedTouches?.[0]; if(!touch) return;
+      stateKey.touchStartY=touch.clientY; stateKey.touchStartTime=Date.now();
+    },{passive:true});
+    deck.addEventListener('touchend',e=>{
+      const touch=e.changedTouches?.[0]; if(!touch) return;
+      const dy=touch.clientY-stateKey.touchStartY; const dt=Date.now()-stateKey.touchStartTime;
+      if(Math.abs(dy)<24 && dt<500) return;
+      shift(dy<0?1:-1);
+    },{passive:true});
+    deck.addEventListener('keydown',e=>{
+      if(e.key==='ArrowUp'){ e.preventDefault(); shift(-1); }
+      if(e.key==='ArrowDown'){ e.preventDefault(); shift(1); }
+    });
+  }
+  const originalRenderAccounts=window.renderAccounts;
+  if(typeof originalRenderAccounts==='function' && !window.__sinopV150AccountsWrapped){
+    window.renderAccounts=function(){ const result=originalRenderAccounts.apply(this,arguments); renderMobileAccounts(); return result; };
+    window.__sinopV150AccountsWrapped=true;
+  }
+  function initV150(){ renderMobileAccounts(); }
+  window.addEventListener('load',()=>setTimeout(initV150,120));
+  window.addEventListener('resize',()=>{ if(isMobile()) renderMobileAccounts(); else { const hub=byId('v150AccountsWheelHub'); if(hub) hub.innerHTML=''; } },{passive:true});
 })();
 </script>
 
