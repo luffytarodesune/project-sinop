@@ -1,4 +1,4 @@
-const SINOP_CACHE='sinop-runtime-v154';
+const SINOP_CACHE='sinop-runtime-v155';
 
 self.addEventListener('install',event=>{
   event.waitUntil(self.skipWaiting());
@@ -17,6 +17,10 @@ function paidActionUrl(data={}){
   if(data.occurrenceIndex!==null&&data.occurrenceIndex!==undefined)url.searchParams.set('occurrenceIndex',String(data.occurrenceIndex));
   if(data.reminderKey)url.searchParams.set('reminderKey',data.reminderKey);
   return url.href;
+}
+
+function supportsNotificationActions(){
+  try{return typeof Notification!=='undefined'&&Number(Notification.maxActions||0)>0}catch(_){return false}
 }
 
 async function focusOrOpen(data={},action='open'){
@@ -41,14 +45,12 @@ async function focusOrOpen(data={},action='open'){
 self.addEventListener('notificationclick',event=>{
   const notification=event.notification;
   const data=notification.data||{};
-  const action=event.action||'open';
+  const explicitAction=event.action||'';
+  const wantsPaid=explicitAction==='paid'||(!explicitAction&&data.openPaymentOnTap===true);
   notification.close();
-  event.waitUntil(focusOrOpen(data,action==='paid'?'paid':'open'));
+  event.waitUntil(focusOrOpen(data,wantsPaid?'paid':'open'));
 });
 
-/* Ready for a future real Web Push sender. The page can already create
-   service-worker notifications while SINOP is active; this handler lets the
-   same Paid action work when a push server is added later. */
 self.addEventListener('push',event=>{
   if(!event.data)return;
   let payload={};
@@ -56,13 +58,16 @@ self.addEventListener('push',event=>{
   const title=payload.title||'SINOP';
   const data=payload.data||{};
   const paidAction=!!data.paidAction;
+  const actionButtons=paidAction&&supportsNotificationActions();
+  const baseBody=payload.body||'';
+  const body=paidAction&&!actionButtons&&baseBody&&!/tap to mark as paid/i.test(baseBody)?`${baseBody} Tap to mark as paid.`:baseBody;
   const options={
-    body:payload.body||'',
+    body,
     tag:payload.tag||data.reminderKey||'sinop-reminder',
     icon:'./sinop-icon-192.png',
     badge:'./sinop-icon-192.png',
-    data,
-    actions:paidAction?[{action:'paid',title:'Paid'}]:[]
+    data:{...data,openPaymentOnTap:paidAction||data.openPaymentOnTap===true},
+    actions:actionButtons?[{action:'paid',title:'Paid'}]:[]
   };
   event.waitUntil(self.registration.showNotification(title,options));
 });

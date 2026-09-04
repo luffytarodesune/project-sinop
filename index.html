@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0f766e">
-<title>SINOP v154 · Actionable Recurring Notifications</title>
+<title>SINOP v155 · iPhone Recurring Notification Tap Action</title>
 <meta name="application-name" content="SINOP">
 <meta name="apple-mobile-web-app-title" content="SINOP">
 <meta name="description" content="SINOP — your personal money system for income, spending, savings, investments, goals, KKB, and financial tracking.">
@@ -7217,12 +7217,13 @@ body[data-theme="dark"] .barkada-group-btn,body[data-theme="dark"] .barkada-memb
       </div>
 
       <article class="version-latest-card">
-        <div class="version-latest-badge"><span>Latest</span><strong>v154</strong></div>
-        <div class="version-latest-copy"><span>September 4, 2026</span><h3>Actionable Recurring Notifications</h3><p>Recurring-expense system notifications can now show a Paid action. Tapping it opens the exact recurring payment in SINOP with its amount, date, and payment source prefilled so the ledger stays accurate.</p></div>
+        <div class="version-latest-badge"><span>Latest</span><strong>v155</strong></div>
+        <div class="version-latest-copy"><span>September 4, 2026</span><h3>iPhone Recurring Notification Tap Action</h3><p>On iPhone, tapping an eligible recurring-expense notification now opens that exact payment directly because iOS Web Push does not expose web notification action buttons. Browsers that support notification actions can still show Paid.</p></div>
       </article>
 
       <div class="version-timeline" id="versionTimeline">
-        <article class="version-entry is-latest" data-version="v154" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v154</span><h3>Actionable Recurring Notifications</h3></div><time>Sep 4, 2026</time></header><ul><li>Added a Paid action to eligible recurring-expense system notifications.</li><li>Tapping Paid opens the exact unpaid occurrence in the recurring-payment confirmation instead of guessing a payment source.</li><li>Linked credit cards and the configured default spending account are preselected by the existing payment workflow.</li><li>Added the same Paid shortcut to the in-app reminder center for consistency.</li><li>Added a companion service worker that handles notification actions and can route the user back into the correct recurring payment even when SINOP is not already open.</li></ul></div></article>
+        <article class="version-entry is-latest" data-version="v155" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v155</span><h3>iPhone Recurring Notification Tap Action</h3></div><time>Sep 4, 2026</time></header><ul><li>iPhone recurring-expense notifications now use the whole notification as the payment shortcut.</li><li>Tapping the notification opens the exact unpaid occurrence in SINOP and launches the existing payment confirmation sheet.</li><li>Browsers with Web Notification action-button support keep the separate Paid action.</li><li>No payment is silently posted: SINOP still confirms the payment source before changing the ledger.</li></ul></div></article>
+        <article class="version-entry" data-version="v154" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v154</span><h3>Actionable Recurring Notifications</h3></div><time>Sep 4, 2026</time></header><ul><li>Added a Paid action to eligible recurring-expense system notifications.</li><li>Tapping Paid opens the exact unpaid occurrence in the recurring-payment confirmation instead of guessing a payment source.</li><li>Linked credit cards and the configured default spending account are preselected by the existing payment workflow.</li><li>Added the same Paid shortcut to the in-app reminder center for consistency.</li><li>Added a companion service worker that handles notification actions and can route the user back into the correct recurring payment even when SINOP is not already open.</li></ul></div></article>
         <article class="version-entry" data-version="v153" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v153</span><h3>Authentic Mobile Account Cards</h3></div><time>Sep 4, 2026</time></header><ul><li>Removed generated/fabricated last-four digits from every mobile account card.</li><li>Replaced the broken CSS contactless mark with a proper NFC/contactless SVG positioned beside the chip.</li><li>Top-right card content now shows only the real account currency instead of an ambiguous icon.</li><li>Preserved the circular wheel, tight spacing, fading/blurred rear cards, momentum, and spring snapping.</li></ul></div></article>
         <article class="version-entry" data-version="v152" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v152</span><h3>Concise Mobile UI & Card Accounts</h3></div><time>Sep 4, 2026</time></header><ul><li>Removed redundant explanatory copy from normal mobile page views while preserving statuses, validation, warnings that require action, and the User Manual.</li><li>Shortened primary mobile page headings to the module name instead of descriptive marketing-style titles.</li><li>Redesigned mobile Account cards to look like real landscape bank cards with bank marks, chip/contactless styling, masked references, and integrated balance.</li><li>Kept the circular vertical wheel, momentum, spring snap, tight spacing, and stronger fade/blur for cards behind the active card.</li><li>Simplified the selected-account area to essential actions plus usable and goal-reserved amounts.</li></ul></div></article>
         <article class="version-entry" data-version="v151" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v151</span><h3>Premium Mobile Accounts Wheel</h3></div><time>Sep 4, 2026</time></header><ul><li>Made the mobile account wheel track touch-drag movement continuously instead of switching only after release.</li><li>Added light momentum and spring-based snap easing for a more physical card-wheel feel.</li><li>Added stronger depth cues: active cards scale forward while rear cards progressively fade, desaturate, and blur.</li><li>Kept the wheel compact with tight spacing so the cards still read as one circular stack.</li><li>Preserved the active-account detail panel, quick actions, unified date controls, and all earlier ledger/login fixes.</li></ul></div></article>
@@ -22828,6 +22829,9 @@ maybeStartFirstRunSetup();
   const secureEnough=()=>location.protocol==='https:'||location.hostname==='localhost'||location.hostname==='127.0.0.1';
   const supportsPhoneNotifications=()=>('serviceWorker' in navigator)&&('Notification' in window)&&secureEnough();
   const notificationPermission=()=>('Notification' in window)?Notification.permission:'unsupported';
+  const supportsNotificationActionButtons=()=>{
+    try{return !isIOS()&&Number(Notification.maxActions||0)>0}catch(_){return false}
+  };
   let swRegistration=null;
 
   async function getSinopSW(){
@@ -22890,14 +22894,16 @@ maybeStartFirstRunSetup();
     const pending=items.filter(x=>!state.reminders.sent[x.key]);
     for(const x of pending){
       const paidAction=x.source==='bill'&&x.commitmentType==='expense'&&!x.grocery;
+      const actionButtons=paidAction&&supportsNotificationActionButtons();
+      const body=paidAction&&!actionButtons?`${x.message} Tap to mark as paid.`:x.message;
       const ok=await showSystemNotification(x.title,{
-        body:x.message,
+        body,
         tag:x.key,
-        actions:paidAction?[{action:'paid',title:'Paid'}]:[],
+        actions:actionButtons?[{action:'paid',title:'Paid'}]:[],
         data:{
           reminderKey:x.key,url:location.href,
           kind:x.source||'',billId:x.billId||'',month:x.month||'',occurrenceIndex:Number.isFinite(Number(x.occurrenceIndex))?Number(x.occurrenceIndex):null,
-          paidAction
+          paidAction,openPaymentOnTap:paidAction
         }
       });
       if(ok)state.reminders.sent[x.key]=true;
