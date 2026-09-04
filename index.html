@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0f766e">
-<title>SINOP v146 · Income & Spending Mobile Rebuild</title>
+<title>SINOP v147 · Spending Date Picker Fix</title>
 <meta name="application-name" content="SINOP">
 <meta name="apple-mobile-web-app-title" content="SINOP">
 <meta name="description" content="SINOP — your personal money system for income, spending, savings, investments, goals, KKB, and financial tracking.">
@@ -7217,12 +7217,13 @@ body[data-theme="dark"] .barkada-group-btn,body[data-theme="dark"] .barkada-memb
       </div>
 
       <article class="version-latest-card">
-        <div class="version-latest-badge"><span>Latest</span><strong>v146</strong></div>
+        <div class="version-latest-badge"><span>Latest</span><strong>v147</strong></div>
         <div class="version-latest-copy"><span>September 4, 2026</span><h3>Income & Spending Mobile Redesign</h3><p>Income and Spending now use a dedicated, readable mobile interface with compact summaries and clear one-column editing, while preserving the login and Time Deposit fixes.</p></div>
       </article>
 
       <div class="version-timeline" id="versionTimeline">
-        <article class="version-entry is-latest" data-version="v146" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v146</span><h3>Income & Spending Mobile Rebuild</h3></div><time>Sep 4, 2026</time></header><ul><li>Rebuilt the Income and Spending pages for mobile instead of continuing the column-based adaptation.</li><li>Removed on-page action icon clutter and replaced editing with focused mobile sheets.</li><li>Added cleaner summary cards, search/filter controls, and simplified list cards that are easier to scan.</li><li>Moved destructive actions like delete into the editor footer instead of tiny trash icons in the record list.</li><li>Preserved the login hotfix, Time Deposit destination credit fix, Barkada/Profile features, and the connected Global Ranking service.</li></ul></div></article>
+        <article class="version-entry is-latest" data-version="v147" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v147</span><h3>Spending Date Picker Fix</h3></div><time>Sep 4, 2026</time></header><ul><li>Moved the mobile Spending date picker to its own full-width row instead of sharing a row with Amount.</li><li>Constrained native date input sizing so browser calendar controls stay inside the field.</li><li>Preserved the v146 mobile Income and Spending redesign, login hotfix, Time Deposit ledger correction, and global ranking integration.</li></ul></div></article>
+        <article class="version-entry" data-version="v146" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v146</span><h3>Income & Spending Mobile Rebuild</h3></div><time>Sep 4, 2026</time></header><ul><li>Rebuilt the Income and Spending pages for mobile instead of continuing the column-based adaptation.</li><li>Removed on-page action icon clutter and replaced editing with focused mobile sheets.</li><li>Added cleaner summary cards, search/filter controls, and simplified list cards that are easier to scan.</li><li>Moved destructive actions like delete into the editor footer instead of tiny trash icons in the record list.</li><li>Preserved the login hotfix, Time Deposit destination credit fix, Barkada/Profile features, and the connected Global Ranking service.</li></ul></div></article>
         <article class="version-entry" data-version="v145" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v145</span><h3>Income & Spending Mobile Redesign</h3></div><time>Sep 4, 2026</time></header><ul><li>Rebuilt Income and Spending as dedicated mobile card interfaces instead of compressed desktop tables.</li><li>Improved summary hierarchy so users can immediately see amounts, status, source/category, and receipt information.</li><li>Expanded records use one-column field groups with readable labels, 46px touch targets, and stronger visual separation.</li><li>Added a mobile Spending overview for total, actual, planned, and top-category spending.</li><li>Built from the validated v143 base so login initialization, global ranking, and Time Deposit ledger posting remain intact.</li></ul></div></article>
         <article class="version-entry" data-version="v143" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v143</span><h3>Login Hotfix</h3></div><time>Sep 4, 2026</time></header><ul><li>Fixed a JavaScript parser regression that could leave SINOP permanently stuck on the Google login screen.</li><li>Rebuilt the v142 mobile Income insertion from the clean v141 base using the real document closing tag instead of an HTML string inside the IOU print template.</li><li>Retained the dedicated mobile Income cards and full-width editor.</li><li>Retained the Time Deposit source-debit and destination-credit ledger fix.</li><li>Validated every inline JavaScript block after the rebuild.</li></ul></div></article>
         <article class="version-entry" data-version="v142" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v142</span><h3>Income Mobile Redesign</h3></div><time>Sep 4, 2026</time></header><ul><li>Rebuilt Income for phones as a dedicated mobile-first card interface instead of squeezing the desktop table.</li><li>Collapsed sources now show source name, type, frequency, receipt status, and net amount.</li><li>Expanded sources use readable one-column field blocks with large touch targets and stronger contrast.</li><li>Removed the table-label system from the visible mobile interface, eliminating duplicate and overlapping labels.</li><li>Retained the corrected Time Deposit destination-credit behavior.</li></ul></div></article>
@@ -24363,7 +24364,7 @@ maybeStartFirstRunSetup();
         <div class="v146-editor-head"><span>Basics</span><h3>Expense details</h3><p>Capture what you spent or what you plan to spend.</p></div>
         <div class="v146-form-stack">
           <label class="v146-control"><span>Description</span><input id="v146SpendDescription" type="text" value="${escapeHtml(x.description||'')}" placeholder="e.g. Groceries, Cinema, Coffee"></label>
-          <div class="v146-two-col">
+          <div class="v146-form-stack v147-spend-date-amount">
             <label class="v146-control"><span>Date</span><input id="v146SpendDate" type="date" value="${escapeHtml(x.date||localDateKey())}"></label>
             <label class="v146-control"><span>Amount</span><input id="v146SpendAmount" type="number" min="0" step="1" value="${Number(x.amount||0)}"></label>
           </div>
@@ -24443,5 +24444,14 @@ maybeStartFirstRunSetup();
   window.addEventListener('resize',()=>{ if(isMobile()) rerenderMobile(); });
 })();
 </script>
+
+<style id="sinop-v147-spending-date-picker-fix">
+@media (max-width:760px){
+  #v146EntryEditorBody .v147-spend-date-amount{display:grid!important;grid-template-columns:minmax(0,1fr)!important;gap:12px!important}
+  #v146SpendDate{display:block!important;width:100%!important;max-width:100%!important;min-width:0!important;box-sizing:border-box!important;overflow:hidden!important;-webkit-appearance:auto!important;appearance:auto!important}
+  #v146SpendDate::-webkit-date-and-time-value{min-width:0!important;text-align:left!important}
+  #v146SpendDate::-webkit-calendar-picker-indicator{margin:0!important;padding:0!important;flex:none!important}
+}
+</style>
 </body>
 </html>
