@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0f766e">
-<title>SINOP v147 · Spending Date Picker Fix</title>
+<title>SINOP v148 · Spending Date Control Fix</title>
 <meta name="application-name" content="SINOP">
 <meta name="apple-mobile-web-app-title" content="SINOP">
 <meta name="description" content="SINOP — your personal money system for income, spending, savings, investments, goals, KKB, and financial tracking.">
@@ -7217,12 +7217,13 @@ body[data-theme="dark"] .barkada-group-btn,body[data-theme="dark"] .barkada-memb
       </div>
 
       <article class="version-latest-card">
-        <div class="version-latest-badge"><span>Latest</span><strong>v147</strong></div>
+        <div class="version-latest-badge"><span>Latest</span><strong>v148</strong></div>
         <div class="version-latest-copy"><span>September 4, 2026</span><h3>Income & Spending Mobile Redesign</h3><p>Income and Spending now use a dedicated, readable mobile interface with compact summaries and clear one-column editing, while preserving the login and Time Deposit fixes.</p></div>
       </article>
 
       <div class="version-timeline" id="versionTimeline">
-        <article class="version-entry is-latest" data-version="v147" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v147</span><h3>Spending Date Picker Fix</h3></div><time>Sep 4, 2026</time></header><ul><li>Moved the mobile Spending date picker to its own full-width row instead of sharing a row with Amount.</li><li>Constrained native date input sizing so browser calendar controls stay inside the field.</li><li>Preserved the v146 mobile Income and Spending redesign, login hotfix, Time Deposit ledger correction, and global ranking integration.</li></ul></div></article>
+        <article class="version-entry is-latest" data-version="v148" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v148</span><h3>Spending Date Control Fix</h3></div><time>Sep 4, 2026</time></header><ul><li>Removed the visible native date input from the mobile Edit Spending layout.</li><li>Added a clean full-width custom date field that opens the device date picker through an invisible native control.</li><li>Prevented Safari and Chromium mobile intrinsic date-control sizing from overlapping neighboring content.</li><li>Kept the v146 mobile Income/Spending rebuild, Time Deposit fix, login hotfix, and connected Global Ranking.</li></ul></div></article>
+        <article class="version-entry" data-version="v147" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v147</span><h3>Spending Date Picker Fix</h3></div><time>Sep 4, 2026</time></header><ul><li>Moved the mobile Spending date picker to its own full-width row instead of sharing a row with Amount.</li><li>Constrained native date input sizing so browser calendar controls stay inside the field.</li><li>Preserved the v146 mobile Income and Spending redesign, login hotfix, Time Deposit ledger correction, and global ranking integration.</li></ul></div></article>
         <article class="version-entry" data-version="v146" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v146</span><h3>Income & Spending Mobile Rebuild</h3></div><time>Sep 4, 2026</time></header><ul><li>Rebuilt the Income and Spending pages for mobile instead of continuing the column-based adaptation.</li><li>Removed on-page action icon clutter and replaced editing with focused mobile sheets.</li><li>Added cleaner summary cards, search/filter controls, and simplified list cards that are easier to scan.</li><li>Moved destructive actions like delete into the editor footer instead of tiny trash icons in the record list.</li><li>Preserved the login hotfix, Time Deposit destination credit fix, Barkada/Profile features, and the connected Global Ranking service.</li></ul></div></article>
         <article class="version-entry" data-version="v145" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v145</span><h3>Income & Spending Mobile Redesign</h3></div><time>Sep 4, 2026</time></header><ul><li>Rebuilt Income and Spending as dedicated mobile card interfaces instead of compressed desktop tables.</li><li>Improved summary hierarchy so users can immediately see amounts, status, source/category, and receipt information.</li><li>Expanded records use one-column field groups with readable labels, 46px touch targets, and stronger visual separation.</li><li>Added a mobile Spending overview for total, actual, planned, and top-category spending.</li><li>Built from the validated v143 base so login initialization, global ranking, and Time Deposit ledger posting remain intact.</li></ul></div></article>
         <article class="version-entry" data-version="v143" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v143</span><h3>Login Hotfix</h3></div><time>Sep 4, 2026</time></header><ul><li>Fixed a JavaScript parser regression that could leave SINOP permanently stuck on the Google login screen.</li><li>Rebuilt the v142 mobile Income insertion from the clean v141 base using the real document closing tag instead of an HTML string inside the IOU print template.</li><li>Retained the dedicated mobile Income cards and full-width editor.</li><li>Retained the Time Deposit source-debit and destination-credit ledger fix.</li><li>Validated every inline JavaScript block after the rebuild.</li></ul></div></article>
@@ -24365,7 +24366,7 @@ maybeStartFirstRunSetup();
         <div class="v146-form-stack">
           <label class="v146-control"><span>Description</span><input id="v146SpendDescription" type="text" value="${escapeHtml(x.description||'')}" placeholder="e.g. Groceries, Cinema, Coffee"></label>
           <div class="v146-form-stack v147-spend-date-amount">
-            <label class="v146-control"><span>Date</span><input id="v146SpendDate" type="date" value="${escapeHtml(x.date||localDateKey())}"></label>
+            <label class="v146-control"><span>Date</span><span class="v148-date-control"><span class="v148-date-display" id="v148SpendDateDisplay">${escapeHtml(formatDateFull(x.date||localDateKey()))}</span><span class="v148-date-icon">${heroSvg('calendar-days')}</span><input id="v146SpendDate" class="v148-native-date" type="date" value="${escapeHtml(x.date||localDateKey())}" aria-label="Spending date"></span><small>Tap the date to choose another day.</small></label>
             <label class="v146-control"><span>Amount</span><input id="v146SpendAmount" type="number" min="0" step="1" value="${Number(x.amount||0)}"></label>
           </div>
         </div>
@@ -24387,6 +24388,7 @@ maybeStartFirstRunSetup();
         <div class="v146-inline-note">Actual spending can reduce account balances or credit-card statements. Planned spending helps you budget without applying the transaction yet.</div>
       </section>`;
     document.getElementById('v146SpendStatus')?.addEventListener('change',e=>{ const help=document.getElementById('v146SpendSourceHelp'); if(help) help.textContent=e.target.value==='actual'?'Required for actual spending so SINOP knows which account or card was used.':'Optional for planned spending, but helpful if you already know where it will come from.'; });
+    document.getElementById('v146SpendDate')?.addEventListener('change',e=>{ const display=document.getElementById('v148SpendDateDisplay'); if(display) display.textContent=formatDateFull(e.target.value||localDateKey()); });
     openEditorShell(id?`Edit ${x.description||'expense'}`:'Add expense',`${formatMonth(state.month)} · Spending`, id?'Save changes':'Add expense');
   }
   function saveSpendingEditor(){
@@ -24451,6 +24453,17 @@ maybeStartFirstRunSetup();
   #v146SpendDate{display:block!important;width:100%!important;max-width:100%!important;min-width:0!important;box-sizing:border-box!important;overflow:hidden!important;-webkit-appearance:auto!important;appearance:auto!important}
   #v146SpendDate::-webkit-date-and-time-value{min-width:0!important;text-align:left!important}
   #v146SpendDate::-webkit-calendar-picker-indicator{margin:0!important;padding:0!important;flex:none!important}
+}
+</style>
+
+<style id="sinop-v148-spending-custom-date-control">
+@media (max-width:760px){
+  #v146EntryEditorBody .v148-date-control{position:relative;display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;min-width:0;min-height:48px;padding:12px 14px;border:1px solid var(--border);border-radius:14px;background:#fff;box-sizing:border-box;overflow:hidden}
+  #v146EntryEditorBody .v148-date-display{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:16px;font-weight:650;color:var(--text);line-height:1.2}
+  #v146EntryEditorBody .v148-date-icon{display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto;width:20px;height:20px;color:var(--muted)}
+  #v146EntryEditorBody .v148-date-icon .hero-icon{width:20px;height:20px}
+  #v146EntryEditorBody .v148-native-date{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;min-width:0!important;max-width:none!important;margin:0!important;padding:0!important;border:0!important;opacity:0!important;cursor:pointer!important;appearance:none!important;-webkit-appearance:none!important;box-sizing:border-box!important}
+  #v146EntryEditorBody .v148-native-date::-webkit-calendar-picker-indicator{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;margin:0!important;padding:0!important;opacity:0!important;cursor:pointer!important}
 }
 </style>
 </body>
