@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0f766e">
-<title>SINOP v141 · Income Labels & Time Deposit Fix</title>
+<title>SINOP v142 · Income Mobile Redesign</title>
 <meta name="application-name" content="SINOP">
 <meta name="apple-mobile-web-app-title" content="SINOP">
 <meta name="description" content="SINOP — your personal money system for income, spending, savings, investments, goals, KKB, and financial tracking.">
@@ -7217,12 +7217,12 @@ body[data-theme="dark"] .barkada-group-btn,body[data-theme="dark"] .barkada-memb
       </div>
 
       <article class="version-latest-card">
-        <div class="version-latest-badge"><span>Latest</span><strong>v141</strong></div>
+        <div class="version-latest-badge"><span>Latest</span><strong>v142</strong></div>
         <div class="version-latest-copy"><span>September 3, 2026</span><h3>Income Label Reset & Time Deposit Fix</h3><p>Income now uses one real mobile label per expanded field with all legacy pseudo-label layers disabled. The corrected Time Deposit ledger behavior from v140 is retained.</p></div>
       </article>
 
       <div class="version-timeline" id="versionTimeline">
-        <article class="version-entry is-latest" data-version="v141" data-date="September 3, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v141</span><h3>Income Label Reset & Time Deposit Fix</h3></div><time>Sep 3, 2026</time></header><ul><li>Removed all pseudo-element and legacy injected label rendering from mobile Income.</li><li>Added one real DOM label per expanded Income field so labels cannot overlay each other.</li><li>Kept collapsed Income rows label-free and compact.</li><li>Retained v140 Time Deposit ledger posting so deposits debit the source and credit the destination exactly once, including same-day post-snapshot deposits.</li><li>Preserved the snapshot anti-double-counting rule for historical activity.</li></ul></div></article>
+        <article class="version-entry is-latest" data-version="v142" data-date="September 3, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v142</span><h3>Income Mobile Redesign</h3></div><time>Sep 3, 2026</time></header><ul><li>Rebuilt Income for phones as a dedicated mobile-first card interface instead of squeezing the desktop table.</li><li>Collapsed sources now show clean summary cards with source name, type, frequency, receipt status, and net amount.</li><li>Expanded sources open into readable one-column field blocks with large touch targets and stronger contrast.</li><li>Eliminated duplicated and overlapping Income labels by removing the table-based mobile label system from view.</li><li>Kept the corrected Time Deposit ledger posting behavior from v141/v140.</li></ul></div></article>
         <article class="version-entry" data-version="v140" data-date="September 3, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v140</span><h3>Time Deposit Ledger Fix</h3></div><time>Sep 3, 2026</time></header><ul><li>Fixed same-day Time Deposit deposits that debited the source account but failed to increase the destination balance.</li><li>Added explicit post-snapshot ledger markers for direct savings/investment contributions.</li><li>Applied the same fix to Recurring Savings and Investment commitments.</li><li>Migrated prior same-day wealth placements into the corrected ledger behavior.</li><li>Kept ordinary snapshot-date activity excluded by default to prevent double-counting.</li></ul></div></article>
         <article class="version-entry" data-version="v139" data-date="September 3, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v139</span><h3>Global Ranking Connected</h3></div><time>Sep 3, 2026</time></header><ul><li>Embedded the production Google Apps Script leaderboard endpoint directly into SINOP.</li><li>Removed user-facing endpoint paste, save, and clear setup from Profile.</li><li>Global leaderboard reads now work automatically for every v139 deployment using the shared production service.</li><li>Kept global profile publishing opt-in; private financial amounts remain excluded.</li><li>Added a one-tap connection check for diagnostics without exposing backend configuration.</li></ul></div></article>
         <article class="version-entry" data-version="v138" data-date="September 3, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v138</span><h3>Google Global Ranking</h3></div><time>Sep 3, 2026</time></header><ul><li>Implemented a Google Apps Script global leaderboard backend with an automatically created private Google Sheet.</li><li>Added authenticated opt-in publishing tied to the signed-in Google account without exposing email or financial amounts.</li><li>Added real global Level / XP and Financial Score rankings with exact personal rank and total opted-in users.</li><li>Used mobile-safe JSONP reads and no-CORS authenticated writes for reliable static-site deployment.</li><li>Added in-app Apps Script endpoint setup, connection testing, publish, and unpublish controls.</li></ul></div></article>
@@ -15316,6 +15316,234 @@ function printLoanStatement(){
 
 
 
+
+<style id="sinop-v142-income-mobile-redesign">
+@media (max-width:760px){
+  #income .table-card{display:none!important}
+  #income .info-grid{grid-template-columns:1fr!important;gap:10px!important;margin-top:14px!important}
+  #income .info-grid .mini{padding:12px 14px!important}
+  #income .section-head.page-head{gap:12px!important}
+  #income .section-head.page-head .action-row{width:100%!important;display:grid!important;grid-template-columns:1fr 1fr!important;gap:10px!important}
+  #income .section-head.page-head .action-row .btn{width:100%!important;min-height:46px!important;justify-content:center!important}
+  #income .income-payroll-summary{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}
+  #income .income-payroll-card{padding:12px 14px!important;min-height:92px!important}
+  #income .list-toolbar{gap:10px!important;align-items:stretch!important}
+  #income .list-toolbar .toolbar-left,
+  #income .list-toolbar .toolbar-right{width:100%!important}
+  #income .list-toolbar .search-box{width:100%!important}
+  #income .list-toolbar .result-count{display:block!important;text-align:left!important;padding-left:2px!important}
+  #incomeMobileListV142{display:grid!important;gap:12px!important;margin-top:12px!important}
+  #incomeMobileListV142[hidden]{display:none!important}
+  #incomeMobileListV142 .income-mobile-empty{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:20px 16px;color:var(--muted);box-shadow:var(--shadow)}
+  #incomeMobileListV142 .income-mobile-empty strong{display:block;color:var(--text);margin-bottom:6px}
+  #incomeMobileListV142 .income-mobile-card{background:var(--panel);border:1px solid var(--border);border-radius:18px;box-shadow:var(--shadow);overflow:hidden}
+  #incomeMobileListV142 .income-mobile-card.is-open{border-color:color-mix(in srgb, var(--brand) 28%, var(--border))}
+  #incomeMobileListV142 .income-mobile-card>summary{list-style:none;cursor:pointer;padding:14px 16px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:start}
+  #incomeMobileListV142 .income-mobile-card>summary::-webkit-details-marker{display:none}
+  #incomeMobileListV142 .income-mobile-main{min-width:0;display:grid;gap:5px}
+  #incomeMobileListV142 .income-mobile-title-row{display:flex;gap:8px;align-items:flex-start;justify-content:space-between}
+  #incomeMobileListV142 .income-mobile-title{font-size:16px;font-weight:800;line-height:1.25;color:var(--text);margin:0;word-break:break-word}
+  #incomeMobileListV142 .income-mobile-status{display:inline-flex;align-items:center;gap:6px;flex-wrap:wrap}
+  #incomeMobileListV142 .income-mobile-status .pill{display:inline-flex;align-items:center;border-radius:999px;padding:4px 9px;font-size:11px;font-weight:800;line-height:1;background:var(--soft);color:var(--muted);white-space:nowrap}
+  #incomeMobileListV142 .income-mobile-status .pill.received{background:var(--brandsoft);color:var(--brand2)}
+  #incomeMobileListV142 .income-mobile-status .pill.pending{background:var(--warnsoft);color:var(--warn)}
+  #incomeMobileListV142 .income-mobile-meta{display:flex;flex-wrap:wrap;gap:6px;color:var(--muted)}
+  #incomeMobileListV142 .income-mobile-meta .chip{display:inline-flex;align-items:center;border-radius:999px;border:1px solid var(--border);background:var(--soft);padding:5px 10px;font-size:12px;font-weight:700;line-height:1.2}
+  #incomeMobileListV142 .income-mobile-subline{font-size:12px;line-height:1.4;color:var(--muted)}
+  #incomeMobileListV142 .income-mobile-amount{text-align:right;display:grid;gap:5px;justify-items:end}
+  #incomeMobileListV142 .income-mobile-amount strong{font-size:18px;line-height:1.1;color:var(--text)}
+  #incomeMobileListV142 .income-mobile-amount small{font-size:12px;line-height:1.35;color:var(--muted)}
+  #incomeMobileListV142 .income-mobile-chevron{width:18px;height:18px;color:var(--muted);transition:transform .18s ease;margin-top:2px}
+  #incomeMobileListV142 .income-mobile-card[open] .income-mobile-chevron{transform:rotate(180deg)}
+  #incomeMobileListV142 .income-mobile-card-body{padding:0 16px 16px;display:grid;gap:12px;border-top:1px solid var(--border);background:linear-gradient(180deg, rgba(15,118,110,.03), rgba(255,255,255,0))}
+  #incomeMobileListV142 .income-mobile-group{display:grid;gap:10px}
+  #incomeMobileListV142 .income-mobile-field{border:1px solid var(--border);border-radius:14px;padding:12px;background:#fff;display:grid;gap:8px;min-width:0}
+  #incomeMobileListV142 .income-mobile-field.is-emphasis{background:var(--soft)}
+  #incomeMobileListV142 .income-mobile-field.is-danger{background:var(--dangersoft)}
+  #incomeMobileListV142 .income-mobile-field-label{font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);line-height:1.2;margin:0}
+  #incomeMobileListV142 .income-mobile-field-content{display:grid;gap:8px;min-width:0}
+  #incomeMobileListV142 .income-mobile-field-content>*{min-width:0;max-width:100%;box-sizing:border-box}
+  #incomeMobileListV142 .income-mobile-field-content input,
+  #incomeMobileListV142 .income-mobile-field-content select,
+  #incomeMobileListV142 .income-mobile-field-content button:not(.icon-btn),
+  #incomeMobileListV142 .income-mobile-field-content .btn{width:100%!important;min-height:46px!important;font-size:16px!important}
+  #incomeMobileListV142 .income-mobile-field-content .icon-btn{min-width:46px!important;min-height:46px!important}
+  #incomeMobileListV142 .income-mobile-field-content .salary-deduction-btn{width:100%!important}
+  #incomeMobileListV142 .income-mobile-field-content .payday-editor,
+  #incomeMobileListV142 .income-mobile-field-content .income-receipt-cell,
+  #incomeMobileListV142 .income-mobile-field-content .income-receipt-editor,
+  #incomeMobileListV142 .income-mobile-field-content .income-receipt-list,
+  #incomeMobileListV142 .income-mobile-field-content .income-receipt-summary,
+  #incomeMobileListV142 .income-mobile-field-content .income-receipt-actions{width:100%!important;min-width:0!important;display:grid!important;gap:8px!important}
+  #incomeMobileListV142 .income-mobile-field-content .income-receipt-entry{display:grid!important;gap:8px!important}
+  #incomeMobileListV142 .income-mobile-field-content .income-receipt-meta{display:flex!important;flex-wrap:wrap!important;gap:8px!important}
+  #incomeMobileListV142 .income-mobile-field-content .income-receipt-date,
+  #incomeMobileListV142 .income-mobile-field-content .i-paydays,
+  #incomeMobileListV142 .income-mobile-field-content .date-input,
+  #incomeMobileListV142 .income-mobile-field-content .amount{font-size:16px!important}
+  #incomeMobileListV142 .income-mobile-field-content small{font-size:12px!important;line-height:1.45!important;color:var(--muted)!important}
+  #incomeMobileListV142 .income-mobile-field-content strong{font-size:16px;line-height:1.35;color:var(--text)}
+  #incomeMobileListV142 .income-mobile-field-content .salary-net{font-size:18px;font-weight:800;color:var(--text)}
+  #incomeMobileListV142 .income-mobile-field-content .i-del{justify-self:start}
+}
+@media (max-width:430px){
+  #income .income-payroll-summary{grid-template-columns:1fr!important}
+  #incomeMobileListV142 .income-mobile-card>summary{grid-template-columns:1fr!important}
+  #incomeMobileListV142 .income-mobile-amount{justify-items:start;text-align:left}
+  #incomeMobileListV142 .income-mobile-title-row{flex-direction:column;align-items:flex-start}
+}
+@media (min-width:761px){
+  #incomeMobileListV142{display:none!important}
+}
+</style>
+<script id="sinop-v142-income-mobile-redesign-script">
+(function(){
+  const BREAKPOINT=760;
+  let lastMobile=window.innerWidth<=BREAKPOINT;
+  function ensureHost(){
+    const section=document.getElementById('income');
+    if(!section) return null;
+    let host=document.getElementById('incomeMobileListV142');
+    if(!host){
+      host=document.createElement('div');
+      host.id='incomeMobileListV142';
+      host.hidden=true;
+      const anchor=section.querySelector('.card.table-card');
+      if(anchor) anchor.insertAdjacentElement('afterend', host);
+      else section.appendChild(host);
+    }
+    return host;
+  }
+  function stripOldLabels(node){
+    if(!node || node.nodeType!==1) return;
+    node.querySelectorAll('.income-mobile-field-label,.v132-income-field-label').forEach(el=>el.remove());
+  }
+  function moveFieldContent(td){
+    const frag=document.createDocumentFragment();
+    [...td.childNodes].forEach(node=>{
+      if(node.nodeType===1 && (node.classList.contains('income-mobile-field-label') || node.classList.contains('v132-income-field-label'))) return;
+      if(node.nodeType===3 && !node.textContent.trim()) return;
+      if(node.nodeType===1) stripOldLabels(node);
+      frag.appendChild(node);
+    });
+    return frag;
+  }
+  function makeField(td,label,cls=''){
+    const wrap=document.createElement('div');
+    wrap.className='income-mobile-field'+(cls?` ${cls}`:'');
+    const head=document.createElement('p');
+    head.className='income-mobile-field-label';
+    head.textContent=label;
+    const content=document.createElement('div');
+    content.className='income-mobile-field-content';
+    content.appendChild(moveFieldContent(td));
+    wrap.append(head,content);
+    return wrap;
+  }
+  function receivedPill(x){
+    try{
+      const flags=incomeReceiptFlags(x,state.month,false) || [];
+      if(!flags.length) return '<span class="pill pending">No receipts yet</span>';
+      const received=flags.filter(Boolean).length;
+      if(received===flags.length) return `<span class="pill received">${received}/${flags.length} received</span>`;
+      if(received>0) return `<span class="pill received">${received}/${flags.length} received</span>`;
+      return `<span class="pill pending">0/${flags.length} received</span>`;
+    }catch(_){ return '<span class="pill pending">Receipt status unavailable</span>'; }
+  }
+  function summaryAmount(x){
+    try{return money(incomeMonthly(x))}catch(_){return '—'}
+  }
+  function renderIncomeMobileCards(){
+    const host=ensureHost();
+    const body=document.getElementById('incomeBody');
+    const section=document.getElementById('income');
+    if(!host || !body || !section) return;
+    const isMobile=window.innerWidth<=BREAKPOINT;
+    host.hidden=!isMobile;
+    if(!isMobile){ host.innerHTML=''; return; }
+    const rows=[...body.querySelectorAll('tr[data-income-id],tr[data-search]')].filter(r=>!r.hidden);
+    if(!rows.length){
+      const hasIncomes=(state.incomes||[]).length;
+      host.innerHTML=`<div class="income-mobile-empty"><strong>${hasIncomes?'No income sources match your search':'No income sources yet'}</strong>${hasIncomes?'Try another search term or add a new income source.':'Tap “Add income” to add salary, freelance, consulting, or other income.'}</div>`;
+      return;
+    }
+    const openIds=new Set([...host.querySelectorAll('details[open][data-income-id]')].map(d=>d.dataset.incomeId));
+    host.innerHTML='';
+    rows.forEach(row=>{
+      const incomeId=row.dataset.incomeId||'';
+      const x=(state.incomes||[]).find(i=>i.id===incomeId) || null;
+      const cells=row.querySelectorAll('td');
+      if(cells.length<11) return;
+      const details=document.createElement('details');
+      details.className='income-mobile-card';
+      details.dataset.incomeId=incomeId;
+      if(openIds.has(incomeId)) details.open=true;
+      const name=(row.querySelector('.i-name')?.value||x?.name||'Income source').trim()||'Income source';
+      const kind=row.querySelector('.i-kind')?.value||x?.kind||'Other';
+      const freq=row.querySelector('.i-frequency option:checked')?.textContent?.trim()||x?.frequency||'';
+      const net=summaryAmount(x||{});
+      const summary=document.createElement('summary');
+      summary.innerHTML=`
+        <div class="income-mobile-main">
+          <div class="income-mobile-title-row">
+            <h3 class="income-mobile-title">${name.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</h3>
+            <span class="income-mobile-chevron">${heroSvg('chevron-down')}</span>
+          </div>
+          <div class="income-mobile-meta"><span class="chip">${kind.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</span><span class="chip">${String(freq).replace(/</g,'&lt;').replace(/>/g,'&gt;')}</span></div>
+          <div class="income-mobile-subline"><span class="income-mobile-status">${receivedPill(x||{})}</span></div>
+        </div>
+        <div class="income-mobile-amount"><strong>${net}</strong><small>Net this month</small></div>`;
+      const bodyWrap=document.createElement('div');
+      bodyWrap.className='income-mobile-card-body';
+      const group=document.createElement('div');
+      group.className='income-mobile-group';
+      const ordered=[
+        [0,'Source'],[1,'Type'],[2,'Tax treatment'],[3,'Frequency'],[6, x && x.frequency==='one_time' ? 'Gross amount' : 'Gross / payment','is-emphasis'],[4,'Received payments'],[5, x && x.frequency==='one_time' ? 'Income date' : 'Expected payday / schedule'],[7,'Deductions','is-danger'],[8,'Net this month','is-emphasis'],[9,'Deposited to'],[10,'Actions']
+      ];
+      ordered.forEach(item=>{
+        const td=cells[item[0]];
+        if(!td) return;
+        if(item[0]===2 && !(x && x.kind==='Salary')) return;
+        const field=makeField(td,item[1],item[2]||'');
+        group.appendChild(field);
+      });
+      bodyWrap.appendChild(group);
+      details.append(summary,bodyWrap);
+      details.addEventListener('toggle',()=>details.classList.toggle('is-open',details.open));
+      details.classList.toggle('is-open',details.open);
+      host.appendChild(details);
+    });
+    if(typeof hydrateHeroIcons==='function') hydrateHeroIcons(host);
+  }
+  const originalApply=window.applyListFilters;
+  if(typeof originalApply==='function' && !window.__sinopIncomeApplyWrapped){
+    window.applyListFilters=function(){
+      const result=originalApply.apply(this,arguments);
+      try{renderIncomeMobileCards()}catch(e){console.warn('SINOP income mobile render failed',e)}
+      return result;
+    };
+    window.__sinopIncomeApplyWrapped=true;
+  }
+  window.renderIncomeMobileCards=renderIncomeMobileCards;
+  const mq=window.matchMedia(`(max-width:${BREAKPOINT}px)`);
+  const onModeChange=()=>{
+    const mobile=mq.matches;
+    if(mobile!==lastMobile){
+      lastMobile=mobile;
+      if(typeof renderIncome==='function') renderIncome();
+    }else if(mobile){
+      renderIncomeMobileCards();
+    }
+  };
+  if(mq.addEventListener) mq.addEventListener('change',onModeChange); else if(mq.addListener) mq.addListener(onModeChange);
+  window.addEventListener('load',()=>setTimeout(()=>{ if(window.innerWidth<=BREAKPOINT) renderIncomeMobileCards(); },80));
+  document.addEventListener('click',e=>{
+    const nav=e.target.closest('[data-target="income"],[data-jump="income"],[data-v124-more-target="income"]');
+    if(nav){ setTimeout(()=>{ if(window.innerWidth<=BREAKPOINT) renderIncomeMobileCards(); },120); }
+  });
+})();
+</script>
+
 </body></html>`);
   win.document.close();setTimeout(()=>{win.focus();win.print()},250);
 }
@@ -17910,6 +18138,7 @@ function renderIncome(){
   }
   state.incomes.forEach(x=>{
     const tr=document.createElement("tr");
+    tr.dataset.incomeId=x.id;
     const salary=x.kind==="Salary";
     const treatment=x.employmentType||"none";
     const d=salary
@@ -20468,7 +20697,235 @@ details.barkada-peer-row>summary{list-style:none;cursor:pointer}.barkada-peer-ro
     </table>
     <div class="foot"><span>${esc(period)}</span><span>Generated from locally saved data</span></div>
   </div>
-  </body></html>`;
+  
+<style id="sinop-v142-income-mobile-redesign">
+@media (max-width:760px){
+  #income .table-card{display:none!important}
+  #income .info-grid{grid-template-columns:1fr!important;gap:10px!important;margin-top:14px!important}
+  #income .info-grid .mini{padding:12px 14px!important}
+  #income .section-head.page-head{gap:12px!important}
+  #income .section-head.page-head .action-row{width:100%!important;display:grid!important;grid-template-columns:1fr 1fr!important;gap:10px!important}
+  #income .section-head.page-head .action-row .btn{width:100%!important;min-height:46px!important;justify-content:center!important}
+  #income .income-payroll-summary{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}
+  #income .income-payroll-card{padding:12px 14px!important;min-height:92px!important}
+  #income .list-toolbar{gap:10px!important;align-items:stretch!important}
+  #income .list-toolbar .toolbar-left,
+  #income .list-toolbar .toolbar-right{width:100%!important}
+  #income .list-toolbar .search-box{width:100%!important}
+  #income .list-toolbar .result-count{display:block!important;text-align:left!important;padding-left:2px!important}
+  #incomeMobileListV142{display:grid!important;gap:12px!important;margin-top:12px!important}
+  #incomeMobileListV142[hidden]{display:none!important}
+  #incomeMobileListV142 .income-mobile-empty{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:20px 16px;color:var(--muted);box-shadow:var(--shadow)}
+  #incomeMobileListV142 .income-mobile-empty strong{display:block;color:var(--text);margin-bottom:6px}
+  #incomeMobileListV142 .income-mobile-card{background:var(--panel);border:1px solid var(--border);border-radius:18px;box-shadow:var(--shadow);overflow:hidden}
+  #incomeMobileListV142 .income-mobile-card.is-open{border-color:color-mix(in srgb, var(--brand) 28%, var(--border))}
+  #incomeMobileListV142 .income-mobile-card>summary{list-style:none;cursor:pointer;padding:14px 16px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:start}
+  #incomeMobileListV142 .income-mobile-card>summary::-webkit-details-marker{display:none}
+  #incomeMobileListV142 .income-mobile-main{min-width:0;display:grid;gap:5px}
+  #incomeMobileListV142 .income-mobile-title-row{display:flex;gap:8px;align-items:flex-start;justify-content:space-between}
+  #incomeMobileListV142 .income-mobile-title{font-size:16px;font-weight:800;line-height:1.25;color:var(--text);margin:0;word-break:break-word}
+  #incomeMobileListV142 .income-mobile-status{display:inline-flex;align-items:center;gap:6px;flex-wrap:wrap}
+  #incomeMobileListV142 .income-mobile-status .pill{display:inline-flex;align-items:center;border-radius:999px;padding:4px 9px;font-size:11px;font-weight:800;line-height:1;background:var(--soft);color:var(--muted);white-space:nowrap}
+  #incomeMobileListV142 .income-mobile-status .pill.received{background:var(--brandsoft);color:var(--brand2)}
+  #incomeMobileListV142 .income-mobile-status .pill.pending{background:var(--warnsoft);color:var(--warn)}
+  #incomeMobileListV142 .income-mobile-meta{display:flex;flex-wrap:wrap;gap:6px;color:var(--muted)}
+  #incomeMobileListV142 .income-mobile-meta .chip{display:inline-flex;align-items:center;border-radius:999px;border:1px solid var(--border);background:var(--soft);padding:5px 10px;font-size:12px;font-weight:700;line-height:1.2}
+  #incomeMobileListV142 .income-mobile-subline{font-size:12px;line-height:1.4;color:var(--muted)}
+  #incomeMobileListV142 .income-mobile-amount{text-align:right;display:grid;gap:5px;justify-items:end}
+  #incomeMobileListV142 .income-mobile-amount strong{font-size:18px;line-height:1.1;color:var(--text)}
+  #incomeMobileListV142 .income-mobile-amount small{font-size:12px;line-height:1.35;color:var(--muted)}
+  #incomeMobileListV142 .income-mobile-chevron{width:18px;height:18px;color:var(--muted);transition:transform .18s ease;margin-top:2px}
+  #incomeMobileListV142 .income-mobile-card[open] .income-mobile-chevron{transform:rotate(180deg)}
+  #incomeMobileListV142 .income-mobile-card-body{padding:0 16px 16px;display:grid;gap:12px;border-top:1px solid var(--border);background:linear-gradient(180deg, rgba(15,118,110,.03), rgba(255,255,255,0))}
+  #incomeMobileListV142 .income-mobile-group{display:grid;gap:10px}
+  #incomeMobileListV142 .income-mobile-field{border:1px solid var(--border);border-radius:14px;padding:12px;background:#fff;display:grid;gap:8px;min-width:0}
+  #incomeMobileListV142 .income-mobile-field.is-emphasis{background:var(--soft)}
+  #incomeMobileListV142 .income-mobile-field.is-danger{background:var(--dangersoft)}
+  #incomeMobileListV142 .income-mobile-field-label{font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);line-height:1.2;margin:0}
+  #incomeMobileListV142 .income-mobile-field-content{display:grid;gap:8px;min-width:0}
+  #incomeMobileListV142 .income-mobile-field-content>*{min-width:0;max-width:100%;box-sizing:border-box}
+  #incomeMobileListV142 .income-mobile-field-content input,
+  #incomeMobileListV142 .income-mobile-field-content select,
+  #incomeMobileListV142 .income-mobile-field-content button:not(.icon-btn),
+  #incomeMobileListV142 .income-mobile-field-content .btn{width:100%!important;min-height:46px!important;font-size:16px!important}
+  #incomeMobileListV142 .income-mobile-field-content .icon-btn{min-width:46px!important;min-height:46px!important}
+  #incomeMobileListV142 .income-mobile-field-content .salary-deduction-btn{width:100%!important}
+  #incomeMobileListV142 .income-mobile-field-content .payday-editor,
+  #incomeMobileListV142 .income-mobile-field-content .income-receipt-cell,
+  #incomeMobileListV142 .income-mobile-field-content .income-receipt-editor,
+  #incomeMobileListV142 .income-mobile-field-content .income-receipt-list,
+  #incomeMobileListV142 .income-mobile-field-content .income-receipt-summary,
+  #incomeMobileListV142 .income-mobile-field-content .income-receipt-actions{width:100%!important;min-width:0!important;display:grid!important;gap:8px!important}
+  #incomeMobileListV142 .income-mobile-field-content .income-receipt-entry{display:grid!important;gap:8px!important}
+  #incomeMobileListV142 .income-mobile-field-content .income-receipt-meta{display:flex!important;flex-wrap:wrap!important;gap:8px!important}
+  #incomeMobileListV142 .income-mobile-field-content .income-receipt-date,
+  #incomeMobileListV142 .income-mobile-field-content .i-paydays,
+  #incomeMobileListV142 .income-mobile-field-content .date-input,
+  #incomeMobileListV142 .income-mobile-field-content .amount{font-size:16px!important}
+  #incomeMobileListV142 .income-mobile-field-content small{font-size:12px!important;line-height:1.45!important;color:var(--muted)!important}
+  #incomeMobileListV142 .income-mobile-field-content strong{font-size:16px;line-height:1.35;color:var(--text)}
+  #incomeMobileListV142 .income-mobile-field-content .salary-net{font-size:18px;font-weight:800;color:var(--text)}
+  #incomeMobileListV142 .income-mobile-field-content .i-del{justify-self:start}
+}
+@media (max-width:430px){
+  #income .income-payroll-summary{grid-template-columns:1fr!important}
+  #incomeMobileListV142 .income-mobile-card>summary{grid-template-columns:1fr!important}
+  #incomeMobileListV142 .income-mobile-amount{justify-items:start;text-align:left}
+  #incomeMobileListV142 .income-mobile-title-row{flex-direction:column;align-items:flex-start}
+}
+@media (min-width:761px){
+  #incomeMobileListV142{display:none!important}
+}
+</style>
+<script id="sinop-v142-income-mobile-redesign-script">
+(function(){
+  const BREAKPOINT=760;
+  let lastMobile=window.innerWidth<=BREAKPOINT;
+  function ensureHost(){
+    const section=document.getElementById('income');
+    if(!section) return null;
+    let host=document.getElementById('incomeMobileListV142');
+    if(!host){
+      host=document.createElement('div');
+      host.id='incomeMobileListV142';
+      host.hidden=true;
+      const anchor=section.querySelector('.card.table-card');
+      if(anchor) anchor.insertAdjacentElement('afterend', host);
+      else section.appendChild(host);
+    }
+    return host;
+  }
+  function stripOldLabels(node){
+    if(!node || node.nodeType!==1) return;
+    node.querySelectorAll('.income-mobile-field-label,.v132-income-field-label').forEach(el=>el.remove());
+  }
+  function moveFieldContent(td){
+    const frag=document.createDocumentFragment();
+    [...td.childNodes].forEach(node=>{
+      if(node.nodeType===1 && (node.classList.contains('income-mobile-field-label') || node.classList.contains('v132-income-field-label'))) return;
+      if(node.nodeType===3 && !node.textContent.trim()) return;
+      if(node.nodeType===1) stripOldLabels(node);
+      frag.appendChild(node);
+    });
+    return frag;
+  }
+  function makeField(td,label,cls=''){
+    const wrap=document.createElement('div');
+    wrap.className='income-mobile-field'+(cls?` ${cls}`:'');
+    const head=document.createElement('p');
+    head.className='income-mobile-field-label';
+    head.textContent=label;
+    const content=document.createElement('div');
+    content.className='income-mobile-field-content';
+    content.appendChild(moveFieldContent(td));
+    wrap.append(head,content);
+    return wrap;
+  }
+  function receivedPill(x){
+    try{
+      const flags=incomeReceiptFlags(x,state.month,false) || [];
+      if(!flags.length) return '<span class="pill pending">No receipts yet</span>';
+      const received=flags.filter(Boolean).length;
+      if(received===flags.length) return `<span class="pill received">${received}/${flags.length} received</span>`;
+      if(received>0) return `<span class="pill received">${received}/${flags.length} received</span>`;
+      return `<span class="pill pending">0/${flags.length} received</span>`;
+    }catch(_){ return '<span class="pill pending">Receipt status unavailable</span>'; }
+  }
+  function summaryAmount(x){
+    try{return money(incomeMonthly(x))}catch(_){return '—'}
+  }
+  function renderIncomeMobileCards(){
+    const host=ensureHost();
+    const body=document.getElementById('incomeBody');
+    const section=document.getElementById('income');
+    if(!host || !body || !section) return;
+    const isMobile=window.innerWidth<=BREAKPOINT;
+    host.hidden=!isMobile;
+    if(!isMobile){ host.innerHTML=''; return; }
+    const rows=[...body.querySelectorAll('tr[data-income-id],tr[data-search]')].filter(r=>!r.hidden);
+    if(!rows.length){
+      const hasIncomes=(state.incomes||[]).length;
+      host.innerHTML=`<div class="income-mobile-empty"><strong>${hasIncomes?'No income sources match your search':'No income sources yet'}</strong>${hasIncomes?'Try another search term or add a new income source.':'Tap “Add income” to add salary, freelance, consulting, or other income.'}</div>`;
+      return;
+    }
+    const openIds=new Set([...host.querySelectorAll('details[open][data-income-id]')].map(d=>d.dataset.incomeId));
+    host.innerHTML='';
+    rows.forEach(row=>{
+      const incomeId=row.dataset.incomeId||'';
+      const x=(state.incomes||[]).find(i=>i.id===incomeId) || null;
+      const cells=row.querySelectorAll('td');
+      if(cells.length<11) return;
+      const details=document.createElement('details');
+      details.className='income-mobile-card';
+      details.dataset.incomeId=incomeId;
+      if(openIds.has(incomeId)) details.open=true;
+      const name=(row.querySelector('.i-name')?.value||x?.name||'Income source').trim()||'Income source';
+      const kind=row.querySelector('.i-kind')?.value||x?.kind||'Other';
+      const freq=row.querySelector('.i-frequency option:checked')?.textContent?.trim()||x?.frequency||'';
+      const net=summaryAmount(x||{});
+      const summary=document.createElement('summary');
+      summary.innerHTML=`
+        <div class="income-mobile-main">
+          <div class="income-mobile-title-row">
+            <h3 class="income-mobile-title">${name.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</h3>
+            <span class="income-mobile-chevron">${heroSvg('chevron-down')}</span>
+          </div>
+          <div class="income-mobile-meta"><span class="chip">${kind.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</span><span class="chip">${String(freq).replace(/</g,'&lt;').replace(/>/g,'&gt;')}</span></div>
+          <div class="income-mobile-subline"><span class="income-mobile-status">${receivedPill(x||{})}</span></div>
+        </div>
+        <div class="income-mobile-amount"><strong>${net}</strong><small>Net this month</small></div>`;
+      const bodyWrap=document.createElement('div');
+      bodyWrap.className='income-mobile-card-body';
+      const group=document.createElement('div');
+      group.className='income-mobile-group';
+      const ordered=[
+        [0,'Source'],[1,'Type'],[2,'Tax treatment'],[3,'Frequency'],[6, x && x.frequency==='one_time' ? 'Gross amount' : 'Gross / payment','is-emphasis'],[4,'Received payments'],[5, x && x.frequency==='one_time' ? 'Income date' : 'Expected payday / schedule'],[7,'Deductions','is-danger'],[8,'Net this month','is-emphasis'],[9,'Deposited to'],[10,'Actions']
+      ];
+      ordered.forEach(item=>{
+        const td=cells[item[0]];
+        if(!td) return;
+        if(item[0]===2 && !(x && x.kind==='Salary')) return;
+        const field=makeField(td,item[1],item[2]||'');
+        group.appendChild(field);
+      });
+      bodyWrap.appendChild(group);
+      details.append(summary,bodyWrap);
+      details.addEventListener('toggle',()=>details.classList.toggle('is-open',details.open));
+      details.classList.toggle('is-open',details.open);
+      host.appendChild(details);
+    });
+    if(typeof hydrateHeroIcons==='function') hydrateHeroIcons(host);
+  }
+  const originalApply=window.applyListFilters;
+  if(typeof originalApply==='function' && !window.__sinopIncomeApplyWrapped){
+    window.applyListFilters=function(){
+      const result=originalApply.apply(this,arguments);
+      try{renderIncomeMobileCards()}catch(e){console.warn('SINOP income mobile render failed',e)}
+      return result;
+    };
+    window.__sinopIncomeApplyWrapped=true;
+  }
+  window.renderIncomeMobileCards=renderIncomeMobileCards;
+  const mq=window.matchMedia(`(max-width:${BREAKPOINT}px)`);
+  const onModeChange=()=>{
+    const mobile=mq.matches;
+    if(mobile!==lastMobile){
+      lastMobile=mobile;
+      if(typeof renderIncome==='function') renderIncome();
+    }else if(mobile){
+      renderIncomeMobileCards();
+    }
+  };
+  if(mq.addEventListener) mq.addEventListener('change',onModeChange); else if(mq.addListener) mq.addListener(onModeChange);
+  window.addEventListener('load',()=>setTimeout(()=>{ if(window.innerWidth<=BREAKPOINT) renderIncomeMobileCards(); },80));
+  document.addEventListener('click',e=>{
+    const nav=e.target.closest('[data-target="income"],[data-jump="income"],[data-v124-more-target="income"]');
+    if(nav){ setTimeout(()=>{ if(window.innerWidth<=BREAKPOINT) renderIncomeMobileCards(); },120); }
+  });
+})();
+</script>
+
+</body></html>`;
 }
 function printMonthlyStatement(){
   renderMonthlyStatement();
@@ -23608,5 +24065,233 @@ September 3, 2026
   #income table.income-table tbody>tr.v125-expanded>td:not(.v125-summary-cell){position:relative!important;padding-top:11px!important}
 }
 </style>
+
+<style id="sinop-v142-income-mobile-redesign">
+@media (max-width:760px){
+  #income .table-card{display:none!important}
+  #income .info-grid{grid-template-columns:1fr!important;gap:10px!important;margin-top:14px!important}
+  #income .info-grid .mini{padding:12px 14px!important}
+  #income .section-head.page-head{gap:12px!important}
+  #income .section-head.page-head .action-row{width:100%!important;display:grid!important;grid-template-columns:1fr 1fr!important;gap:10px!important}
+  #income .section-head.page-head .action-row .btn{width:100%!important;min-height:46px!important;justify-content:center!important}
+  #income .income-payroll-summary{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}
+  #income .income-payroll-card{padding:12px 14px!important;min-height:92px!important}
+  #income .list-toolbar{gap:10px!important;align-items:stretch!important}
+  #income .list-toolbar .toolbar-left,
+  #income .list-toolbar .toolbar-right{width:100%!important}
+  #income .list-toolbar .search-box{width:100%!important}
+  #income .list-toolbar .result-count{display:block!important;text-align:left!important;padding-left:2px!important}
+  #incomeMobileListV142{display:grid!important;gap:12px!important;margin-top:12px!important}
+  #incomeMobileListV142[hidden]{display:none!important}
+  #incomeMobileListV142 .income-mobile-empty{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:20px 16px;color:var(--muted);box-shadow:var(--shadow)}
+  #incomeMobileListV142 .income-mobile-empty strong{display:block;color:var(--text);margin-bottom:6px}
+  #incomeMobileListV142 .income-mobile-card{background:var(--panel);border:1px solid var(--border);border-radius:18px;box-shadow:var(--shadow);overflow:hidden}
+  #incomeMobileListV142 .income-mobile-card.is-open{border-color:color-mix(in srgb, var(--brand) 28%, var(--border))}
+  #incomeMobileListV142 .income-mobile-card>summary{list-style:none;cursor:pointer;padding:14px 16px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:start}
+  #incomeMobileListV142 .income-mobile-card>summary::-webkit-details-marker{display:none}
+  #incomeMobileListV142 .income-mobile-main{min-width:0;display:grid;gap:5px}
+  #incomeMobileListV142 .income-mobile-title-row{display:flex;gap:8px;align-items:flex-start;justify-content:space-between}
+  #incomeMobileListV142 .income-mobile-title{font-size:16px;font-weight:800;line-height:1.25;color:var(--text);margin:0;word-break:break-word}
+  #incomeMobileListV142 .income-mobile-status{display:inline-flex;align-items:center;gap:6px;flex-wrap:wrap}
+  #incomeMobileListV142 .income-mobile-status .pill{display:inline-flex;align-items:center;border-radius:999px;padding:4px 9px;font-size:11px;font-weight:800;line-height:1;background:var(--soft);color:var(--muted);white-space:nowrap}
+  #incomeMobileListV142 .income-mobile-status .pill.received{background:var(--brandsoft);color:var(--brand2)}
+  #incomeMobileListV142 .income-mobile-status .pill.pending{background:var(--warnsoft);color:var(--warn)}
+  #incomeMobileListV142 .income-mobile-meta{display:flex;flex-wrap:wrap;gap:6px;color:var(--muted)}
+  #incomeMobileListV142 .income-mobile-meta .chip{display:inline-flex;align-items:center;border-radius:999px;border:1px solid var(--border);background:var(--soft);padding:5px 10px;font-size:12px;font-weight:700;line-height:1.2}
+  #incomeMobileListV142 .income-mobile-subline{font-size:12px;line-height:1.4;color:var(--muted)}
+  #incomeMobileListV142 .income-mobile-amount{text-align:right;display:grid;gap:5px;justify-items:end}
+  #incomeMobileListV142 .income-mobile-amount strong{font-size:18px;line-height:1.1;color:var(--text)}
+  #incomeMobileListV142 .income-mobile-amount small{font-size:12px;line-height:1.35;color:var(--muted)}
+  #incomeMobileListV142 .income-mobile-chevron{width:18px;height:18px;color:var(--muted);transition:transform .18s ease;margin-top:2px}
+  #incomeMobileListV142 .income-mobile-card[open] .income-mobile-chevron{transform:rotate(180deg)}
+  #incomeMobileListV142 .income-mobile-card-body{padding:0 16px 16px;display:grid;gap:12px;border-top:1px solid var(--border);background:linear-gradient(180deg, rgba(15,118,110,.03), rgba(255,255,255,0))}
+  #incomeMobileListV142 .income-mobile-group{display:grid;gap:10px}
+  #incomeMobileListV142 .income-mobile-field{border:1px solid var(--border);border-radius:14px;padding:12px;background:#fff;display:grid;gap:8px;min-width:0}
+  #incomeMobileListV142 .income-mobile-field.is-emphasis{background:var(--soft)}
+  #incomeMobileListV142 .income-mobile-field.is-danger{background:var(--dangersoft)}
+  #incomeMobileListV142 .income-mobile-field-label{font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);line-height:1.2;margin:0}
+  #incomeMobileListV142 .income-mobile-field-content{display:grid;gap:8px;min-width:0}
+  #incomeMobileListV142 .income-mobile-field-content>*{min-width:0;max-width:100%;box-sizing:border-box}
+  #incomeMobileListV142 .income-mobile-field-content input,
+  #incomeMobileListV142 .income-mobile-field-content select,
+  #incomeMobileListV142 .income-mobile-field-content button:not(.icon-btn),
+  #incomeMobileListV142 .income-mobile-field-content .btn{width:100%!important;min-height:46px!important;font-size:16px!important}
+  #incomeMobileListV142 .income-mobile-field-content .icon-btn{min-width:46px!important;min-height:46px!important}
+  #incomeMobileListV142 .income-mobile-field-content .salary-deduction-btn{width:100%!important}
+  #incomeMobileListV142 .income-mobile-field-content .payday-editor,
+  #incomeMobileListV142 .income-mobile-field-content .income-receipt-cell,
+  #incomeMobileListV142 .income-mobile-field-content .income-receipt-editor,
+  #incomeMobileListV142 .income-mobile-field-content .income-receipt-list,
+  #incomeMobileListV142 .income-mobile-field-content .income-receipt-summary,
+  #incomeMobileListV142 .income-mobile-field-content .income-receipt-actions{width:100%!important;min-width:0!important;display:grid!important;gap:8px!important}
+  #incomeMobileListV142 .income-mobile-field-content .income-receipt-entry{display:grid!important;gap:8px!important}
+  #incomeMobileListV142 .income-mobile-field-content .income-receipt-meta{display:flex!important;flex-wrap:wrap!important;gap:8px!important}
+  #incomeMobileListV142 .income-mobile-field-content .income-receipt-date,
+  #incomeMobileListV142 .income-mobile-field-content .i-paydays,
+  #incomeMobileListV142 .income-mobile-field-content .date-input,
+  #incomeMobileListV142 .income-mobile-field-content .amount{font-size:16px!important}
+  #incomeMobileListV142 .income-mobile-field-content small{font-size:12px!important;line-height:1.45!important;color:var(--muted)!important}
+  #incomeMobileListV142 .income-mobile-field-content strong{font-size:16px;line-height:1.35;color:var(--text)}
+  #incomeMobileListV142 .income-mobile-field-content .salary-net{font-size:18px;font-weight:800;color:var(--text)}
+  #incomeMobileListV142 .income-mobile-field-content .i-del{justify-self:start}
+}
+@media (max-width:430px){
+  #income .income-payroll-summary{grid-template-columns:1fr!important}
+  #incomeMobileListV142 .income-mobile-card>summary{grid-template-columns:1fr!important}
+  #incomeMobileListV142 .income-mobile-amount{justify-items:start;text-align:left}
+  #incomeMobileListV142 .income-mobile-title-row{flex-direction:column;align-items:flex-start}
+}
+@media (min-width:761px){
+  #incomeMobileListV142{display:none!important}
+}
+</style>
+<script id="sinop-v142-income-mobile-redesign-script">
+(function(){
+  const BREAKPOINT=760;
+  let lastMobile=window.innerWidth<=BREAKPOINT;
+  function ensureHost(){
+    const section=document.getElementById('income');
+    if(!section) return null;
+    let host=document.getElementById('incomeMobileListV142');
+    if(!host){
+      host=document.createElement('div');
+      host.id='incomeMobileListV142';
+      host.hidden=true;
+      const anchor=section.querySelector('.card.table-card');
+      if(anchor) anchor.insertAdjacentElement('afterend', host);
+      else section.appendChild(host);
+    }
+    return host;
+  }
+  function stripOldLabels(node){
+    if(!node || node.nodeType!==1) return;
+    node.querySelectorAll('.income-mobile-field-label,.v132-income-field-label').forEach(el=>el.remove());
+  }
+  function moveFieldContent(td){
+    const frag=document.createDocumentFragment();
+    [...td.childNodes].forEach(node=>{
+      if(node.nodeType===1 && (node.classList.contains('income-mobile-field-label') || node.classList.contains('v132-income-field-label'))) return;
+      if(node.nodeType===3 && !node.textContent.trim()) return;
+      if(node.nodeType===1) stripOldLabels(node);
+      frag.appendChild(node);
+    });
+    return frag;
+  }
+  function makeField(td,label,cls=''){
+    const wrap=document.createElement('div');
+    wrap.className='income-mobile-field'+(cls?` ${cls}`:'');
+    const head=document.createElement('p');
+    head.className='income-mobile-field-label';
+    head.textContent=label;
+    const content=document.createElement('div');
+    content.className='income-mobile-field-content';
+    content.appendChild(moveFieldContent(td));
+    wrap.append(head,content);
+    return wrap;
+  }
+  function receivedPill(x){
+    try{
+      const flags=incomeReceiptFlags(x,state.month,false) || [];
+      if(!flags.length) return '<span class="pill pending">No receipts yet</span>';
+      const received=flags.filter(Boolean).length;
+      if(received===flags.length) return `<span class="pill received">${received}/${flags.length} received</span>`;
+      if(received>0) return `<span class="pill received">${received}/${flags.length} received</span>`;
+      return `<span class="pill pending">0/${flags.length} received</span>`;
+    }catch(_){ return '<span class="pill pending">Receipt status unavailable</span>'; }
+  }
+  function summaryAmount(x){
+    try{return money(incomeMonthly(x))}catch(_){return '—'}
+  }
+  function renderIncomeMobileCards(){
+    const host=ensureHost();
+    const body=document.getElementById('incomeBody');
+    const section=document.getElementById('income');
+    if(!host || !body || !section) return;
+    const isMobile=window.innerWidth<=BREAKPOINT;
+    host.hidden=!isMobile;
+    if(!isMobile){ host.innerHTML=''; return; }
+    const rows=[...body.querySelectorAll('tr[data-income-id],tr[data-search]')].filter(r=>!r.hidden);
+    if(!rows.length){
+      const hasIncomes=(state.incomes||[]).length;
+      host.innerHTML=`<div class="income-mobile-empty"><strong>${hasIncomes?'No income sources match your search':'No income sources yet'}</strong>${hasIncomes?'Try another search term or add a new income source.':'Tap “Add income” to add salary, freelance, consulting, or other income.'}</div>`;
+      return;
+    }
+    const openIds=new Set([...host.querySelectorAll('details[open][data-income-id]')].map(d=>d.dataset.incomeId));
+    host.innerHTML='';
+    rows.forEach(row=>{
+      const incomeId=row.dataset.incomeId||'';
+      const x=(state.incomes||[]).find(i=>i.id===incomeId) || null;
+      const cells=row.querySelectorAll('td');
+      if(cells.length<11) return;
+      const details=document.createElement('details');
+      details.className='income-mobile-card';
+      details.dataset.incomeId=incomeId;
+      if(openIds.has(incomeId)) details.open=true;
+      const name=(row.querySelector('.i-name')?.value||x?.name||'Income source').trim()||'Income source';
+      const kind=row.querySelector('.i-kind')?.value||x?.kind||'Other';
+      const freq=row.querySelector('.i-frequency option:checked')?.textContent?.trim()||x?.frequency||'';
+      const net=summaryAmount(x||{});
+      const summary=document.createElement('summary');
+      summary.innerHTML=`
+        <div class="income-mobile-main">
+          <div class="income-mobile-title-row">
+            <h3 class="income-mobile-title">${name.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</h3>
+            <span class="income-mobile-chevron">${heroSvg('chevron-down')}</span>
+          </div>
+          <div class="income-mobile-meta"><span class="chip">${kind.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</span><span class="chip">${String(freq).replace(/</g,'&lt;').replace(/>/g,'&gt;')}</span></div>
+          <div class="income-mobile-subline"><span class="income-mobile-status">${receivedPill(x||{})}</span></div>
+        </div>
+        <div class="income-mobile-amount"><strong>${net}</strong><small>Net this month</small></div>`;
+      const bodyWrap=document.createElement('div');
+      bodyWrap.className='income-mobile-card-body';
+      const group=document.createElement('div');
+      group.className='income-mobile-group';
+      const ordered=[
+        [0,'Source'],[1,'Type'],[2,'Tax treatment'],[3,'Frequency'],[6, x && x.frequency==='one_time' ? 'Gross amount' : 'Gross / payment','is-emphasis'],[4,'Received payments'],[5, x && x.frequency==='one_time' ? 'Income date' : 'Expected payday / schedule'],[7,'Deductions','is-danger'],[8,'Net this month','is-emphasis'],[9,'Deposited to'],[10,'Actions']
+      ];
+      ordered.forEach(item=>{
+        const td=cells[item[0]];
+        if(!td) return;
+        if(item[0]===2 && !(x && x.kind==='Salary')) return;
+        const field=makeField(td,item[1],item[2]||'');
+        group.appendChild(field);
+      });
+      bodyWrap.appendChild(group);
+      details.append(summary,bodyWrap);
+      details.addEventListener('toggle',()=>details.classList.toggle('is-open',details.open));
+      details.classList.toggle('is-open',details.open);
+      host.appendChild(details);
+    });
+    if(typeof hydrateHeroIcons==='function') hydrateHeroIcons(host);
+  }
+  const originalApply=window.applyListFilters;
+  if(typeof originalApply==='function' && !window.__sinopIncomeApplyWrapped){
+    window.applyListFilters=function(){
+      const result=originalApply.apply(this,arguments);
+      try{renderIncomeMobileCards()}catch(e){console.warn('SINOP income mobile render failed',e)}
+      return result;
+    };
+    window.__sinopIncomeApplyWrapped=true;
+  }
+  window.renderIncomeMobileCards=renderIncomeMobileCards;
+  const mq=window.matchMedia(`(max-width:${BREAKPOINT}px)`);
+  const onModeChange=()=>{
+    const mobile=mq.matches;
+    if(mobile!==lastMobile){
+      lastMobile=mobile;
+      if(typeof renderIncome==='function') renderIncome();
+    }else if(mobile){
+      renderIncomeMobileCards();
+    }
+  };
+  if(mq.addEventListener) mq.addEventListener('change',onModeChange); else if(mq.addListener) mq.addListener(onModeChange);
+  window.addEventListener('load',()=>setTimeout(()=>{ if(window.innerWidth<=BREAKPOINT) renderIncomeMobileCards(); },80));
+  document.addEventListener('click',e=>{
+    const nav=e.target.closest('[data-target="income"],[data-jump="income"],[data-v124-more-target="income"]');
+    if(nav){ setTimeout(()=>{ if(window.innerWidth<=BREAKPOINT) renderIncomeMobileCards(); },120); }
+  });
+})();
+</script>
+
 </body>
 </html>
