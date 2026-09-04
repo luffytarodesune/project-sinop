@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0f766e">
-<title>SINOP v162 · Designed Analytics Dashboard</title>
+<title>SINOP v163 · Unified Financial Score Dashboard</title>
 <meta name="application-name" content="SINOP">
 <meta name="apple-mobile-web-app-title" content="SINOP">
 <meta name="description" content="SINOP — your personal money system for income, spending, savings, investments, goals, KKB, and financial tracking.">
@@ -5944,8 +5944,8 @@ body[data-theme="dark"] .barkada-group-btn,body[data-theme="dark"] .barkada-memb
               <strong class="dashboard-v161-pulse-value" id="dashProjectedPosition">₱0.00</strong>
               <div class="dashboard-v161-delta" id="dashPositionDelta">No comparison yet</div>
             </div>
-            <div class="dashboard-v161-score" id="dashHealthRing" style="--score:0">
-              <strong id="healthScore">0</strong><span>/100</span>
+            <div class="dashboard-v161-score" id="dashHealthRing" style="--score:0" aria-label="SINOP Financial Score">
+              <strong id="healthScore">0</strong><span>/1000</span>
             </div>
           </div>
           <div class="dashboard-v161-pulse-foot">
@@ -7248,12 +7248,13 @@ body[data-theme="dark"] .barkada-group-btn,body[data-theme="dark"] .barkada-memb
       </div>
 
       <article class="version-latest-card">
-        <div class="version-latest-badge"><span>Latest</span><strong>v162</strong></div>
-        <div class="version-latest-copy"><span>September 4, 2026</span><h3>Designed Analytics Dashboard</h3><p>Fixed the v161 stylesheet placement bug and applied the dashboard design at the true final CSS cascade. Analytics now render as a designed finance workspace with a financial pulse hero, KPI band, cashflow chart, allocation analysis, liquidity view, pressure signals, goals, and planning guardrails.</p></div>
+        <div class="version-latest-badge"><span>Latest</span><strong>v163</strong></div>
+        <div class="version-latest-copy"><span>September 4, 2026</span><h3>Unified Financial Score Dashboard</h3><p>The Dashboard now uses the same 0–1000 SINOP Financial Score as Profile instead of maintaining a separate 100-point budget score.</p></div>
       </article>
 
       <div class="version-timeline" id="versionTimeline">
-        <article class="version-entry is-latest" data-version="v162" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v162</span><h3>Designed Analytics Dashboard</h3></div><time>Sep 4, 2026</time></header><ul><li>Fixed the v161 dashboard stylesheet that was mistakenly inserted inside the printable financial-statement HTML template instead of the live app document.</li><li>Moved the Dashboard visual layer to the true final CSS cascade so it actually renders after all older SINOP styles.</li><li>Added a strong financial-pulse hero, six analytical KPI tiles, designed cashflow chart, allocation visualization, spending/income intelligence, liquidity donut, commitment pressure, goal momentum, signals, and planning guardrails.</li><li>Recomposed the mobile Dashboard as an analytics feed rather than squeezed desktop cards.</li><li>Kept all v161 analytics calculations and existing SINOP ledger rules unchanged.</li></ul></div></article>
+        <article class="version-entry is-latest" data-version="v163" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v163</span><h3>Unified Financial Score Dashboard</h3></div><time>Sep 4, 2026</time></header><ul><li>Removed the separate 100-point Dashboard budget-health score.</li><li>The Dashboard score ring now uses the exact same 0–1000 SINOP Financial Score calculation used in Profile.</li><li>Dashboard score bands now match Profile: Excellent, Strong, Stable, Building, and Needs attention.</li><li>The ring progress is normalized from the 1000-point score while the displayed value remains the real Financial Score.</li></ul></div></article>
+        <article class="version-entry" data-version="v162" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v162</span><h3>Designed Analytics Dashboard</h3></div><time>Sep 4, 2026</time></header><ul><li>Fixed the v161 dashboard stylesheet that was mistakenly inserted inside the printable financial-statement HTML template instead of the live app document.</li><li>Moved the Dashboard visual layer to the true final CSS cascade so it actually renders after all older SINOP styles.</li><li>Added a strong financial-pulse hero, six analytical KPI tiles, designed cashflow chart, allocation visualization, spending/income intelligence, liquidity donut, commitment pressure, goal momentum, signals, and planning guardrails.</li><li>Recomposed the mobile Dashboard as an analytics feed rather than squeezed desktop cards.</li><li>Kept all v161 analytics calculations and existing SINOP ledger rules unchanged.</li></ul></div></article>
         <article class="version-entry" data-version="v161" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v161</span><h3>Analytics Dashboard Rebuild</h3></div><time>Sep 4, 2026</time></header><ul><li>Rebuilt Dashboard around analytical signals instead of generic totals.</li><li>Added projected month-end position, month-over-month movement, income receipt rate, commitment load, savings/investment rate, liquidity coverage, account allocation, and recurring-payment progress.</li><li>Added six-month cashflow trend, category acceleration and budget status, income concentration, goal momentum, fixed-term relief, and early-next-month pressure.</li><li>Recommendations are now concise data-driven insights tied directly to current SINOP records.</li><li>Kept the existing planner controls and dashboard visibility preferences compatible.</li></ul></div></article>
         <article class="version-entry" data-version="v160" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v160</span><h3>Smooth Account Switch Transition</h3></div><time>Sep 4, 2026</time></header><ul><li>Reworked the mobile Accounts interaction so cards switch smoothly instead of instantly toppling when you scroll.</li><li>The active card now glides upward and back while the next card comes forward into the center with a clean handoff.</li><li>Touch, mouse-wheel, keyboard, and card-tap navigation now use the same discrete transition model.</li><li>Cards keep the compact circular-stack feel, heavier fade on back cards, and the real card styling introduced in earlier versions.</li></ul></div></article>
         <article class="version-entry" data-version="v157" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v157</span><h3>New SINOP App Identity</h3></div><time>Sep 4, 2026</time></header><ul><li>Replaced the old hard-coded S logo in login, sidebar, and mobile header with the new growth-wallet SINOP mark.</li><li>Updated browser favicon, iPhone Home Screen icon, PWA 192×192 and 512×512 icons, and notification icon assets.</li><li>Preserved the new logo proportions with transparent padding instead of stretching it into a square.</li><li>Retained the iPhone Home Screen and actionable recurring-notification fixes from v156.</li></ul></div></article>
@@ -17401,12 +17402,21 @@ function renderDashboard(){
   applyDashboardVisibility();
   const summary=monthSummary(state.month),prevMonth=shiftMonth(state.month,-1),prev=monthSummary(prevMonth),income=summary.income||0,credited=totalCreditedIncome(state.month);
   const actualSpend=actualVariableTotal(state.month),prevActual=actualVariableTotal(prevMonth),wealth=wealthContribution(state.month),payment=billPaymentSummary(state.month),reserve=nextCycleFundingReserve(state.month);
-  const health=budgetHealthScore(summary),plannedPosition=summary.cashAfterIous,totalTracked=totalAccountBalance(state.month),usable=totalUsableMoney(state.month),reserved=totalGoalReserved(),lockedGross=accountBalanceByTypes(["time_deposit","mp2"],state.month),lockedReserved=state.accounts.filter(a=>["time_deposit","mp2"].includes(a.type)).reduce((s,a)=>s+accountGoalReserved(a.id),0),locked=Math.max(0,lockedGross-lockedReserved);
+  const financialScore=typeof window.financialScoreSnapshot==="function"?window.financialScoreSnapshot(state.month):null,plannedPosition=summary.cashAfterIous,totalTracked=totalAccountBalance(state.month),usable=totalUsableMoney(state.month),reserved=totalGoalReserved(),lockedGross=accountBalanceByTypes(["time_deposit","mp2"],state.month),lockedReserved=state.accounts.filter(a=>["time_deposit","mp2"].includes(a.type)).reduce((s,a)=>s+accountGoalReserved(a.id),0),locked=Math.max(0,lockedGross-lockedReserved);
   const series=dashboardMonthlySeries(),nonzeroOut=series.map(x=>x.summary.outflow).filter(v=>v>0),avgOut=nonzeroOut.length?nonzeroOut.reduce((a,b)=>a+b,0)/nonzeroOut.length:0,runway=avgOut>0?usable/avgOut:0;
   const commitmentRate=income>0?summary.recurring/income*100:0,wealthRate=income>0?wealth/income*100:0,receiptRate=income>0?credited/income*100:0,paidPct=payment.total>0?payment.paid/payment.total*100:0;
 
   if($("dashboardAnalyticsMonth"))$("dashboardAnalyticsMonth").textContent=formatMonthFull(state.month);
-  $("healthScore").textContent=health.score;$("healthLabel").textContent=health.label;$("dashHealthRing").style.setProperty("--score",health.score);
+  if(financialScore){
+    $("healthScore").textContent=String(financialScore.score);
+    $("healthLabel").textContent=financialScore.band.label;
+    $("dashHealthRing").style.setProperty("--score",financialScore.score/10);
+    $("dashHealthRing").setAttribute("title",`SINOP Financial Score: ${financialScore.score}/1000 · ${financialScore.band.label}`);
+  }else{
+    $("healthScore").textContent="—";
+    $("healthLabel").textContent="Financial Score";
+    $("dashHealthRing").style.setProperty("--score",0);
+  }
   $("dashProjectedPosition").textContent=money(plannedPosition);$("dashProjectedPosition").classList.toggle("negative",plannedPosition<0);
   const posDelta=dashboardDeltaText(plannedPosition,prev.cashAfterIous||0,false);$("dashPositionDelta").textContent=posDelta.text;$("dashPositionDelta").className=`dashboard-v161-delta ${posDelta.className}`;
   $("dashPulseSummary").textContent=income>0?`${commitmentRate.toFixed(0)}% committed · ${receiptRate.toFixed(0)}% income received`:`Add income to calculate ratios`;
@@ -25172,5 +25182,12 @@ body[data-theme="dark"] #dashboard .dashboard-v161-category-value span.up{backgr
 }
 </style>
 
+
+<script id="sinop-v163-dashboard-financial-score-bridge">
+(() => {
+  const refresh=()=>{if(typeof window.financialScoreSnapshot==="function"&&typeof renderDashboard==="function")renderDashboard();};
+  if(document.readyState==="complete")setTimeout(refresh,0);else window.addEventListener("load",()=>setTimeout(refresh,0),{once:true});
+})();
+</script>
 </body>
 </html>
