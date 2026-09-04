@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0f766e">
-<title>SINOP v145 · Income & Spending Mobile Redesign</title>
+<title>SINOP v146 · Income & Spending Mobile Rebuild</title>
 <meta name="application-name" content="SINOP">
 <meta name="apple-mobile-web-app-title" content="SINOP">
 <meta name="description" content="SINOP — your personal money system for income, spending, savings, investments, goals, KKB, and financial tracking.">
@@ -7217,12 +7217,13 @@ body[data-theme="dark"] .barkada-group-btn,body[data-theme="dark"] .barkada-memb
       </div>
 
       <article class="version-latest-card">
-        <div class="version-latest-badge"><span>Latest</span><strong>v145</strong></div>
+        <div class="version-latest-badge"><span>Latest</span><strong>v146</strong></div>
         <div class="version-latest-copy"><span>September 4, 2026</span><h3>Income & Spending Mobile Redesign</h3><p>Income and Spending now use a dedicated, readable mobile interface with compact summaries and clear one-column editing, while preserving the login and Time Deposit fixes.</p></div>
       </article>
 
       <div class="version-timeline" id="versionTimeline">
-        <article class="version-entry is-latest" data-version="v145" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v145</span><h3>Income & Spending Mobile Redesign</h3></div><time>Sep 4, 2026</time></header><ul><li>Rebuilt Income and Spending as dedicated mobile card interfaces instead of compressed desktop tables.</li><li>Improved summary hierarchy so users can immediately see amounts, status, source/category, and receipt information.</li><li>Expanded records use one-column field groups with readable labels, 46px touch targets, and stronger visual separation.</li><li>Added a mobile Spending overview for total, actual, planned, and top-category spending.</li><li>Built from the validated v143 base so login initialization, global ranking, and Time Deposit ledger posting remain intact.</li></ul></div></article>
+        <article class="version-entry is-latest" data-version="v146" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v146</span><h3>Income & Spending Mobile Rebuild</h3></div><time>Sep 4, 2026</time></header><ul><li>Rebuilt the Income and Spending pages for mobile instead of continuing the column-based adaptation.</li><li>Removed on-page action icon clutter and replaced editing with focused mobile sheets.</li><li>Added cleaner summary cards, search/filter controls, and simplified list cards that are easier to scan.</li><li>Moved destructive actions like delete into the editor footer instead of tiny trash icons in the record list.</li><li>Preserved the login hotfix, Time Deposit destination credit fix, Barkada/Profile features, and the connected Global Ranking service.</li></ul></div></article>
+        <article class="version-entry" data-version="v145" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v145</span><h3>Income & Spending Mobile Redesign</h3></div><time>Sep 4, 2026</time></header><ul><li>Rebuilt Income and Spending as dedicated mobile card interfaces instead of compressed desktop tables.</li><li>Improved summary hierarchy so users can immediately see amounts, status, source/category, and receipt information.</li><li>Expanded records use one-column field groups with readable labels, 46px touch targets, and stronger visual separation.</li><li>Added a mobile Spending overview for total, actual, planned, and top-category spending.</li><li>Built from the validated v143 base so login initialization, global ranking, and Time Deposit ledger posting remain intact.</li></ul></div></article>
         <article class="version-entry" data-version="v143" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v143</span><h3>Login Hotfix</h3></div><time>Sep 4, 2026</time></header><ul><li>Fixed a JavaScript parser regression that could leave SINOP permanently stuck on the Google login screen.</li><li>Rebuilt the v142 mobile Income insertion from the clean v141 base using the real document closing tag instead of an HTML string inside the IOU print template.</li><li>Retained the dedicated mobile Income cards and full-width editor.</li><li>Retained the Time Deposit source-debit and destination-credit ledger fix.</li><li>Validated every inline JavaScript block after the rebuild.</li></ul></div></article>
         <article class="version-entry" data-version="v142" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v142</span><h3>Income Mobile Redesign</h3></div><time>Sep 4, 2026</time></header><ul><li>Rebuilt Income for phones as a dedicated mobile-first card interface instead of squeezing the desktop table.</li><li>Collapsed sources now show source name, type, frequency, receipt status, and net amount.</li><li>Expanded sources use readable one-column field blocks with large touch targets and stronger contrast.</li><li>Removed the table-label system from the visible mobile interface, eliminating duplicate and overlapping labels.</li><li>Retained the corrected Time Deposit destination-credit behavior.</li></ul></div></article>
         <article class="version-entry" data-version="v140" data-date="September 3, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v140</span><h3>Time Deposit Ledger Fix</h3></div><time>Sep 3, 2026</time></header><ul><li>Fixed same-day Time Deposit deposits that debited the source account but failed to increase the destination balance.</li><li>Added explicit post-snapshot ledger markers for direct savings/investment contributions.</li><li>Applied the same fix to Recurring Savings and Investment commitments.</li><li>Migrated prior same-day wealth placements into the corrected ledger behavior.</li><li>Kept ordinary snapshot-date activity excluded by default to prevent double-counting.</li></ul></div></article>
@@ -24010,6 +24011,436 @@ maybeStartFirstRunSetup();
     const nav=e.target.closest('[data-target="income"],[data-target="spending"],[data-jump="income"],[data-jump="spending"],[data-v124-more-target="income"],[data-v124-more-target="spending"]');
     if(nav){ setTimeout(()=>{ if(window.innerWidth<=BREAKPOINT){ renderIncomeMobile();renderSpendingMobile(); } },160); }
   });
+})();
+</script>
+<style id="sinop-v146-income-spending-mobile-rebuild">
+@media (max-width:760px){
+  #income .income-payroll-summary,
+  #income .list-toolbar,
+  #income .table-card,
+  #spending .spending-budget-summary,
+  #spending .list-toolbar,
+  #spending .table-card,
+  #spending #spendBreakdown,
+  #incomeMobileListV145,
+  #spendingMobileListV145,
+  #spendingMobileSummaryV145{display:none!important}
+
+  #incomeMobileHubV146,
+  #spendingMobileHubV146{display:block!important;margin-top:14px}
+  #income .section-head.page-head,
+  #spending .section-head.page-head{gap:12px!important}
+  #income .section-head.page-head .action-row,
+  #spending .section-head.page-head .action-row{width:100%!important;display:grid!important;grid-template-columns:1fr 1fr!important;gap:10px!important}
+  #income .section-head.page-head .action-row .btn,
+  #spending .section-head.page-head .action-row .btn{width:100%!important;min-height:46px!important;justify-content:center!important}
+
+  .v146-shell{display:grid;gap:14px}
+  .v146-summary-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .v146-summary-card{background:var(--panel);border:1px solid var(--border);border-radius:18px;box-shadow:var(--shadow);padding:14px;display:grid;gap:6px;min-width:0}
+  .v146-summary-card span{font-size:11px;color:var(--muted);line-height:1.25}
+  .v146-summary-card strong{font-size:20px;line-height:1.1;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .v146-summary-card small{font-size:12px;color:var(--muted);line-height:1.4}
+
+  .v146-toolbar{display:grid;gap:10px}
+  .v146-search{display:flex;align-items:center;gap:10px;background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:12px 14px;box-shadow:var(--shadow)}
+  .v146-search .hero-icon{width:18px;height:18px;color:var(--muted);flex:none}
+  .v146-search input{border:none!important;outline:none!important;background:transparent!important;box-shadow:none!important;padding:0!important;margin:0!important;width:100%!important;min-width:0;font-size:16px!important}
+  .v146-toolbar-meta{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:0 2px}
+  .v146-toolbar-meta span{font-size:12px;color:var(--muted)}
+  .v146-segmented{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+  .v146-seg-btn{min-height:40px;border-radius:14px;border:1px solid var(--border);background:var(--panel);box-shadow:var(--shadow);font-size:13px;font-weight:700;color:var(--muted)}
+  .v146-seg-btn.active{background:var(--brand);border-color:var(--brand);color:#fff;box-shadow:0 10px 24px rgba(15,118,110,.18)}
+
+  .v146-record-list{display:grid;gap:12px}
+  .v146-record-card{background:var(--panel);border:1px solid var(--border);border-radius:20px;box-shadow:var(--shadow);overflow:hidden}
+  .v146-record-open{display:grid;gap:12px;width:100%;padding:16px;border:none;background:transparent;text-align:left}
+  .v146-record-top{display:flex;justify-content:space-between;align-items:flex-start;gap:14px}
+  .v146-record-copy{min-width:0;display:grid;gap:5px}
+  .v146-record-title{margin:0;font-size:17px;line-height:1.25;color:var(--text);font-weight:800;word-break:break-word}
+  .v146-record-subtitle{font-size:12px;line-height:1.45;color:var(--muted);word-break:break-word}
+  .v146-record-value{text-align:right;display:grid;gap:4px;justify-items:end;flex:none}
+  .v146-record-value strong{font-size:20px;line-height:1.05;color:var(--text)}
+  .v146-record-value small{font-size:12px;line-height:1.3;color:var(--muted)}
+  .v146-chip-row{display:flex;flex-wrap:wrap;gap:7px}
+  .v146-chip{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:6px 10px;border:1px solid var(--border);background:var(--soft);font-size:12px;line-height:1.2;font-weight:700;color:var(--text)}
+  .v146-chip.good{background:var(--brandsoft);color:var(--brand2);border-color:color-mix(in srgb,var(--brand) 22%, var(--border))}
+  .v146-chip.warn{background:var(--warnsoft);color:var(--warn);border-color:color-mix(in srgb,var(--warn) 22%, var(--border))}
+  .v146-chip.soft{background:transparent;color:var(--muted)}
+  .v146-record-foot{display:flex;justify-content:space-between;align-items:center;gap:12px}
+  .v146-record-foot span{font-size:12px;line-height:1.45;color:var(--muted);word-break:break-word}
+  .v146-record-cta{display:inline-flex;align-items:center;justify-content:center;min-height:34px;padding:0 12px;border-radius:999px;background:var(--soft);color:var(--brand2);font-size:12px;font-weight:800;white-space:nowrap}
+  .v146-empty{background:var(--panel);border:1px dashed color-mix(in srgb,var(--muted) 28%, var(--border));border-radius:18px;padding:22px 16px;display:grid;gap:6px;box-shadow:var(--shadow)}
+  .v146-empty strong{font-size:15px;color:var(--text)}
+  .v146-empty p{margin:0;font-size:13px;line-height:1.5;color:var(--muted)}
+
+  .v146-accordion{background:var(--panel);border:1px solid var(--border);border-radius:18px;box-shadow:var(--shadow);overflow:hidden}
+  .v146-accordion>summary{list-style:none;cursor:pointer;padding:15px 16px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+  .v146-accordion>summary::-webkit-details-marker{display:none}
+  .v146-accordion h3{margin:0;font-size:15px;line-height:1.3;color:var(--text)}
+  .v146-accordion p{margin:4px 0 0;font-size:12px;line-height:1.45;color:var(--muted)}
+  .v146-accordion-body{padding:0 16px 16px;display:grid;gap:14px;border-top:1px solid var(--border)}
+  .v146-budget-list,.v146-topcat-list{display:grid;gap:10px}
+  .v146-budget-row{display:grid;gap:6px}
+  .v146-budget-row-head{display:flex;justify-content:space-between;gap:10px;font-size:13px;color:var(--text)}
+  .v146-budget-row small{font-size:12px;color:var(--muted)}
+
+  #v146EntryEditorModal.open{display:flex}
+  #v146EntryEditorModal .modal{max-width:680px;width:min(100%,680px)}
+  #v146EntryEditorModal .modal-head h2{font-size:20px;line-height:1.2}
+  #v146EntryEditorBody{display:grid;gap:14px}
+  .v146-editor-section{background:var(--soft);border:1px solid var(--border);border-radius:18px;padding:14px;display:grid;gap:12px}
+  .v146-editor-section.v146-highlight{background:linear-gradient(180deg, rgba(15,118,110,.08), rgba(15,118,110,.03))}
+  .v146-editor-head{display:grid;gap:3px}
+  .v146-editor-head span{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+  .v146-editor-head h3{margin:0;font-size:15px;line-height:1.3;color:var(--text)}
+  .v146-editor-head p{margin:0;font-size:12px;line-height:1.45;color:var(--muted)}
+  .v146-form-stack{display:grid;gap:12px}
+  .v146-form-grid{display:grid;grid-template-columns:1fr;gap:12px}
+  .v146-two-col{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  .v146-control{display:grid;gap:7px;min-width:0}
+  .v146-control span{font-size:12px;font-weight:700;color:var(--text)}
+  .v146-control small{font-size:11px;color:var(--muted);line-height:1.45}
+  .v146-control input,.v146-control select,.v146-control textarea{width:100%!important;min-width:0;min-height:46px;border-radius:14px!important;border:1px solid var(--border)!important;background:#fff!important;font-size:16px!important;padding:12px 13px!important}
+  .v146-control textarea{min-height:96px;resize:vertical}
+  .v146-inline-note{padding:10px 12px;border-radius:14px;background:#fff;border:1px solid var(--border);font-size:12px;line-height:1.5;color:var(--muted)}
+  .v146-kpis{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .v146-kpi{background:#fff;border:1px solid var(--border);border-radius:16px;padding:12px;display:grid;gap:4px}
+  .v146-kpi span{font-size:11px;color:var(--muted)}
+  .v146-kpi strong{font-size:17px;color:var(--text)}
+  .v146-receipts{display:grid;gap:10px}
+  .v146-receipt-row{background:#fff;border:1px solid var(--border);border-radius:16px;padding:12px;display:grid;gap:10px}
+  .v146-receipt-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+  .v146-checkline{display:flex;gap:10px;align-items:flex-start}
+  .v146-checkline input{margin-top:3px;transform:scale(1.1)}
+  .v146-checkline strong{display:block;font-size:14px;color:var(--text)}
+  .v146-checkline small{display:block;font-size:12px;color:var(--muted);line-height:1.45}
+  .v146-receipt-actions{display:flex;gap:8px;flex-wrap:wrap}
+  .v146-receipt-actions .btn{flex:1 1 150px;min-height:42px}
+  .v146-hidden{display:none!important}
+
+  @media (max-width:430px){
+    .v146-summary-grid,
+    .v146-kpis,
+    .v146-two-col{grid-template-columns:1fr}
+    .v146-record-top,
+    .v146-record-foot,
+    .v146-receipt-top{flex-direction:column;align-items:flex-start}
+    .v146-record-value{justify-items:start;text-align:left}
+  }
+}
+@media (min-width:761px){
+  #incomeMobileHubV146,
+  #spendingMobileHubV146{display:none!important}
+}
+</style>
+<div id="v146EntryEditorModal" class="modal-backdrop" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="v146EntryEditorTitle">
+    <div class="modal-head">
+      <div>
+        <h2 id="v146EntryEditorTitle">Edit record</h2>
+        <p id="v146EntryEditorSubtitle">Adjust the details below.</p>
+      </div>
+      <button class="icon-btn" type="button" id="v146EntryEditorClose" aria-label="Close editor"><span data-hero="x-mark"></span></button>
+    </div>
+    <div class="modal-body" id="v146EntryEditorBody"></div>
+    <div class="modal-foot split">
+      <button class="btn danger-btn" type="button" id="v146EntryEditorDelete">Delete</button>
+      <div class="modal-foot-actions">
+        <button class="btn btn-secondary" type="button" id="v146EntryEditorCancel">Cancel</button>
+        <button class="btn btn-primary" type="button" id="v146EntryEditorSave">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script id="sinop-v146-income-spending-mobile-rebuild-script">
+(function(){
+  const BREAKPOINT=760;
+  const editor={type:null,id:null,isNew:false};
+  function isMobile(){return window.innerWidth<=BREAKPOINT;}
+  function escapeHtml(value){return String(value??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\"/g,"&quot;");}
+  function ensureHost(sectionId,hostId){
+    const section=document.getElementById(sectionId); if(!section) return null;
+    let host=document.getElementById(hostId);
+    if(!host){
+      host=document.createElement('div'); host.id=hostId;
+      const anchor=section.querySelector('.section-head.page-head');
+      if(anchor) anchor.insertAdjacentElement('afterend', host); else section.prepend(host);
+    }
+    return host;
+  }
+  function spendingSourceOptions(selected=""){
+    const accounts=budgetSourceAccounts(); const cards=state.creditCards||[];
+    return `<option value="">Choose tracked source later</option>${accounts.length?`<optgroup label="Accounts & wallets">${accounts.map(a=>`<option value="account:${a.id}" ${sameId(a.id,selected.replace(/^account:/,''))?'selected':''}>${escapeHtml(a.name)} · ${escapeHtml(accountTypeLabel(a.type))}</option>`).join('')}</optgroup>`:''}${cards.length?`<optgroup label="Credit cards">${cards.map(c=>`<option value="card:${c.id}" ${String(selected)===`card:${c.id}`?'selected':''}>${escapeHtml(cardLabel(c))}</option>`).join('')}</optgroup>`:''}`;
+  }
+  function incomeFilterItems(){
+    const q=String(uiFilters?.income||'').trim().toLowerCase();
+    return (state.incomes||[]).filter(x=>`${x.name||''} ${x.kind||''} ${x.frequency||''} ${employmentTreatmentLabel(x.employmentType||'none')}`.toLowerCase().includes(q));
+  }
+  function spendingFilterItems(){
+    const q=String(uiFilters?.spending||'').trim().toLowerCase();
+    const status=String(uiFilters?.spendStatus||'all');
+    return (state.spending||[]).filter(x=>{
+      const source=x.accountId?(accountById(x.accountId)?.name||'Account'):x.creditCardId?cardLabel(cardById(x.creditCardId)||{name:'Credit card'}):x.paymentMethod||'';
+      const okQuery=`${x.description||''} ${x.category||''} ${x.notes||''} ${source}`.toLowerCase().includes(q);
+      const okStatus=status==='all'||(x.status||'actual')===status;
+      return okQuery&&okStatus;
+    });
+  }
+  function incomeSummaryCards(){
+    const gross=totalGrossIncome(state.month), net=totalIncome(state.month), deductions=Math.max(0,gross-net), credited=totalCreditedIncome(state.month);
+    const items=[
+      ['Planned gross', money(gross), `${state.incomes.length} source${state.incomes.length===1?'':'s'}`],
+      ['Estimated deductions', money(deductions), deductions>0?'Payroll + attendance effects':'No deductions yet'],
+      ['Planned net', money(net), `For ${formatMonth(state.month)}`],
+      ['Confirmed received', money(credited), `${incomeFilterItems().length} visible in list`]
+    ];
+    return `<div class="v146-summary-grid">${items.map(([l,v,s])=>`<article class="v146-summary-card"><span>${escapeHtml(l)}</span><strong>${escapeHtml(v)}</strong><small>${escapeHtml(s)}</small></article>`).join('')}</div>`;
+  }
+  function spendingSummaryCards(entries){
+    const actual=entries.filter(x=>(x.status||'actual')==='actual').reduce((s,x)=>s+Number(x.amount||0),0);
+    const planned=entries.filter(x=>x.status==='planned').reduce((s,x)=>s+Number(x.amount||0),0);
+    const cats={}; entries.forEach(x=>cats[x.category]=(cats[x.category]||0)+Number(x.amount||0));
+    const top=Object.entries(cats).sort((a,b)=>b[1]-a[1])[0];
+    const items=[
+      ['This month total', money(actual+planned), `${entries.length} entr${entries.length===1?'y':'ies'}`],
+      ['Actual spending', money(actual), `${entries.filter(x=>(x.status||'actual')==='actual').length} recorded`],
+      ['Planned spending', money(planned), `${entries.filter(x=>x.status==='planned').length} planned`],
+      ['Top category', top?escapeHtml(top[0]):'—', top?money(top[1]):'No data']
+    ];
+    return `<div class="v146-summary-grid">${items.map(([l,v,s])=>`<article class="v146-summary-card"><span>${l}</span><strong>${v}</strong><small>${s}</small></article>`).join('')}</div>`;
+  }
+  function renderIncomeMobileHub(){
+    const host=ensureHost('income','incomeMobileHubV146'); if(!host) return;
+    if(!isMobile()){ host.innerHTML=''; return; }
+    const items=incomeFilterItems();
+    host.innerHTML=`<div class="v146-shell">${incomeSummaryCards()}<div class="v146-toolbar"><label class="v146-search"><span data-hero="magnifying-glass"></span><input id="v146IncomeSearch" type="search" placeholder="Search income sources" value="${escapeHtml(uiFilters?.income||'')}"></label><div class="v146-toolbar-meta"><span>${items.length} visible source${items.length===1?'':'s'}</span><span>Tap a card to edit</span></div></div><div class="v146-record-list">${items.length?items.map(incomeCardHtml).join(''):incomeEmptyHtml()}</div></div>`;
+    host.querySelector('#v146IncomeSearch')?.addEventListener('input',e=>{ uiFilters.income=e.target.value; const real=document.getElementById('incomeSearch'); if(real) real.value=e.target.value; applyListFilters(); });
+    host.querySelectorAll('[data-v146-open-income]').forEach(btn=>btn.addEventListener('click',()=>openIncomeEditor(btn.dataset.v146OpenIncome||null)));
+    if(typeof hydrateHeroIcons==='function') hydrateHeroIcons(host);
+  }
+  function incomeEmptyHtml(){ return `<div class="v146-empty"><strong>${state.incomes.length?'No income sources match your search':'No income sources yet'}</strong><p>${state.incomes.length?'Try a different keyword or add another income source.':'Add salary, freelance, consulting, bonus, allowance, or one-time income.'}</p></div>`; }
+  function incomeCardHtml(x){
+    const salary=x.kind==='Salary';
+    const flags=incomeReceiptFlags(x,state.month,false)||[]; const received=flags.filter(Boolean).length; const total=flags.length;
+    const destination=accountById(x.accountId)?.name||'Not linked to an account';
+    const schedule=x.frequency==='one_time'?(x.date||'Date not set'):(['monthly','twice_monthly'].includes(x.frequency)?(incomeConfiguredPayDays(x).length?incomeConfiguredPayDays(x).join(', '):'Paydays not set'):'Variable schedule');
+    const d=salary?salaryDeductionBreakdown(x,state.month):{totalDeductions:0};
+    return `<article class="v146-record-card"><button class="v146-record-open" type="button" data-v146-open-income="${x.id}"><div class="v146-record-top"><div class="v146-record-copy"><h3 class="v146-record-title">${escapeHtml(x.name||'Income source')}</h3><div class="v146-record-subtitle">Deposits to ${escapeHtml(destination)}</div></div><div class="v146-record-value"><strong>${money(incomeMonthly(x,state.month))}</strong><small>Net this month</small></div></div><div class="v146-chip-row"><span class="v146-chip">${escapeHtml(x.kind||'Other')}</span><span class="v146-chip">${escapeHtml(x.frequency||'')}</span>${total?`<span class="v146-chip ${received===total&&total?'good':'warn'}">${received}/${total} received</span>`:''}${salary&&d.totalDeductions>0?`<span class="v146-chip soft">Deductions ${money(d.totalDeductions)}</span>`:''}</div><div class="v146-record-foot"><span>${x.frequency==='one_time'?'Income date':'Schedule'} · ${escapeHtml(schedule)}</span><span class="v146-record-cta">Edit</span></div></button></article>`;
+  }
+  function spendingInsightsHtml(entries){
+    const sums={}; entries.forEach(x=>sums[x.category]=(sums[x.category]||0)+Number(x.amount||0));
+    const caps=state.settings.categoryBudgets||{};
+    const categories=[...new Set([...Object.keys(caps),...Object.keys(sums)])].filter(c=>Number(caps[c]||0)>0||Number(sums[c]||0)>0);
+    const top=Object.entries(sums).sort((a,b)=>b[1]-a[1]).slice(0,3);
+    return `<details class="v146-accordion"><summary><div><h3>Category budgets & insights</h3><p>See your highest categories and how they compare with your monthly limits.</p></div><span class="v146-record-cta">View</span></summary><div class="v146-accordion-body"><div><div class="v146-editor-head"><span>Top categories</span><h3>Where this month is going</h3></div><div class="v146-topcat-list">${top.length?top.map(([cat,val])=>`<div class="v146-budget-row"><div class="v146-budget-row-head"><strong>${escapeHtml(cat)}</strong><strong>${money(val)}</strong></div><small>${entries.filter(x=>x.category===cat).length} entr${entries.filter(x=>x.category===cat).length===1?'y':'ies'} this month</small></div>`).join(''):'<div class="v146-inline-note">No spending has been recorded for this month yet.</div>'}</div></div><div><div class="v146-editor-head"><span>Budget limits</span><h3>Monthly category caps</h3></div><div class="v146-budget-list">${categories.length?categories.map(cat=>{const used=Number(sums[cat]||0),cap=Number(caps[cat]||0);const text=cap>0?(used>cap?`${money(used-cap)} over`:`${money(Math.max(0,cap-used))} left`):'No limit yet';return `<div class="v146-budget-row"><div class="v146-budget-row-head"><strong>${escapeHtml(cat)}</strong><strong>${cap>0?`${money(used)} / ${money(cap)}`:money(used)}</strong></div><small>${text}</small><div class="bar-track"><div class="bar-fill" style="width:${cap>0?Math.min(100,used/cap*100):0}%"></div></div></div>`;}).join(''):'<div class="v146-inline-note">You have not configured category budgets yet. Use Customize to set limits.</div>'}</div></div></div></details>`;
+  }
+  function renderSpendingMobileHub(){
+    const host=ensureHost('spending','spendingMobileHubV146'); if(!host) return;
+    if(!isMobile()){ host.innerHTML=''; return; }
+    const items=spendingFilterItems();
+    host.innerHTML=`<div class="v146-shell">${spendingSummaryCards((state.spending||[]).filter(x=>true))}<div class="v146-toolbar"><label class="v146-search"><span data-hero="magnifying-glass"></span><input id="v146SpendSearch" type="search" placeholder="Search spending" value="${escapeHtml(uiFilters?.spending||'')}"></label><div class="v146-segmented"><button type="button" class="v146-seg-btn ${(!uiFilters?.spendStatus||uiFilters.spendStatus==='all')?'active':''}" data-v146-spend-filter="all">All</button><button type="button" class="v146-seg-btn ${uiFilters?.spendStatus==='planned'?'active':''}" data-v146-spend-filter="planned">Planned</button><button type="button" class="v146-seg-btn ${uiFilters?.spendStatus==='actual'?'active':''}" data-v146-spend-filter="actual">Actual</button></div><div class="v146-toolbar-meta"><span>${items.length} visible entr${items.length===1?'y':'ies'}</span><span>Tap a card to edit</span></div></div><div class="v146-record-list">${items.length?items.map(spendingCardHtml).join(''):spendingEmptyHtml()}</div>${spendingInsightsHtml((state.spending||[]).filter(x=>true))}</div>`;
+    host.querySelector('#v146SpendSearch')?.addEventListener('input',e=>{ uiFilters.spending=e.target.value; const real=document.getElementById('spendSearch'); if(real) real.value=e.target.value; applyListFilters(); });
+    host.querySelectorAll('[data-v146-spend-filter]').forEach(btn=>btn.addEventListener('click',()=>{ uiFilters.spendStatus=btn.dataset.v146SpendFilter||'all'; const real=document.getElementById('spendStatusFilter'); if(real) real.value=uiFilters.spendStatus; applyListFilters(); }));
+    host.querySelectorAll('[data-v146-open-spending]').forEach(btn=>btn.addEventListener('click',()=>openSpendingEditor(btn.dataset.v146OpenSpending||null)));
+    if(typeof hydrateHeroIcons==='function') hydrateHeroIcons(host);
+  }
+  function spendingEmptyHtml(){ return `<div class="v146-empty"><strong>${state.spending.length?'No spending entries match your filters':'No spending entries yet'}</strong><p>${state.spending.length?'Clear or adjust the search/filter, or add another expense.':'Add shopping, dining, transport, entertainment, and other one-off expenses here.'}</p></div>`; }
+  function spendingSourceLabel(x){ return x.accountId?(accountById(x.accountId)?.name||'Deleted account'):x.creditCardId?cardLabel(cardById(x.creditCardId)||{name:'Credit card'}):(x.paymentMethod||'Source not selected'); }
+  function spendingCardHtml(x){
+    const status=(x.status||'actual'); const statusLabel=status==='planned'?'Planned':'Spent'; const amount=money(Number(x.amount||0));
+    const subtitle=[x.date||'',spendingSourceLabel(x)].filter(Boolean).join(' · ');
+    return `<article class="v146-record-card"><button class="v146-record-open" type="button" data-v146-open-spending="${x.id}"><div class="v146-record-top"><div class="v146-record-copy"><h3 class="v146-record-title">${escapeHtml(x.description||'Expense')}</h3><div class="v146-record-subtitle">${escapeHtml(subtitle||'No date or payment source set')}</div></div><div class="v146-record-value"><strong>${amount}</strong><small>${status==='planned'?'Planned amount':'Amount spent'}</small></div></div><div class="v146-chip-row"><span class="v146-chip">${escapeHtml(x.category||'Uncategorized')}</span><span class="v146-chip ${status==='planned'?'warn':'good'}">${statusLabel}</span>${x.notes?`<span class="v146-chip soft">Has note</span>`:''}</div><div class="v146-record-foot"><span>${x.notes?escapeHtml(x.notes):'No note added'}</span><span class="v146-record-cta">Edit</span></div></button></article>`;
+  }
+  function openEditorShell(title,subtitle,saveLabel='Save changes'){
+    const modal=document.getElementById('v146EntryEditorModal'); if(!modal) return;
+    document.getElementById('v146EntryEditorTitle').textContent=title;
+    document.getElementById('v146EntryEditorSubtitle').textContent=subtitle;
+    document.getElementById('v146EntryEditorSave').textContent=saveLabel;
+    modal.classList.add('open'); modal.setAttribute('aria-hidden','false'); document.body.classList.add('v122-modal-open');
+    requestAnimationFrame(()=>document.querySelector('#v146EntryEditorBody input, #v146EntryEditorBody select, #v146EntryEditorBody textarea, #v146EntryEditorBody button')?.focus({preventScroll:true}));
+    if(typeof hydrateHeroIcons==='function') hydrateHeroIcons(modal);
+  }
+  function closeEditorShell(){ const modal=document.getElementById('v146EntryEditorModal'); if(!modal) return; modal.classList.remove('open'); modal.setAttribute('aria-hidden','true'); document.body.classList.remove('v122-modal-open'); editor.type=null; editor.id=null; editor.isNew=false; }
+  function parsePaydays(raw,frequency){ return String(raw||'').split(/[\s,]+/).map(Number).filter(d=>Number.isFinite(d)&&d>=1&&d<=31).slice(0,frequency==='twice_monthly'?2:1); }
+
+  function incomeDraft(id){ return id?clone(state.incomes.find(x=>sameId(x.id,id))):{id:uid(),name:'',kind:'Salary',frequency:'monthly',amount:0,date:localDateKey(),employmentType:'none',accountId:'',payDays:[7]}; }
+  function renderIncomeEditor(id=null){
+    const x=incomeDraft(id); if(!x) return; editor.type='income'; editor.id=id||x.id; editor.isNew=!id;
+    const salary=x.kind==='Salary'; const treatment=x.employmentType||'none'; const breakdown=salary?salaryDeductionBreakdown(x,state.month):{totalDeductions:0,net:incomeGrossMonthly(x,state.month),attendance:{total:0}};
+    const receiptCount=id?incomeReceiptSlotCount(state.incomes.find(i=>sameId(i.id,id))||x,state.month):0;
+    document.getElementById('v146EntryEditorDelete').style.visibility=id?'visible':'hidden';
+    document.getElementById('v146EntryEditorBody').innerHTML=`
+      <section class="v146-editor-section">
+        <div class="v146-editor-head"><span>Basics</span><h3>Source details</h3><p>Name the income source and choose how it behaves inside SINOP.</p></div>
+        <div class="v146-form-stack">
+          <label class="v146-control"><span>Income source</span><input id="v146IncomeName" type="text" value="${escapeHtml(x.name||'')}" placeholder="e.g. Salary, Freelance, Side business"></label>
+          <div class="v146-two-col">
+            <label class="v146-control"><span>Type</span><select id="v146IncomeKind">${['Salary','Consulting','Freelance','Business','Bonus','Allowance','Other'].map(v=>`<option ${v===x.kind?'selected':''}>${v}</option>`).join('')}</select></label>
+            <label class="v146-control ${salary?'':'v146-hidden'}" id="v146IncomeTreatmentWrap"><span>Payroll treatment</span><select id="v146IncomeTreatment"><option value="none" ${treatment==='none'?'selected':''}>No payroll deductions</option><option value="government_permanent" ${treatment==='government_permanent'?'selected':''}>Permanent — Government (GSIS)</option><option value="private_permanent" ${treatment==='private_permanent'?'selected':''}>Permanent — Private (SSS)</option><option value="cos_jo" ${treatment==='cos_jo'?'selected':''}>COS / JO — 5% excess over ₱250K</option></select></label>
+          </div>
+        </div>
+      </section>
+      <section class="v146-editor-section">
+        <div class="v146-editor-head"><span>Schedule & amount</span><h3>When and how much</h3><p>Define whether this source is one-time or repeating, then enter its gross amount.</p></div>
+        <div class="v146-form-stack">
+          <div class="v146-two-col">
+            <label class="v146-control"><span>Frequency</span><select id="v146IncomeFrequency">${[['monthly','Monthly'],['twice_monthly','Twice monthly'],['biweekly','Biweekly'],['weekly','Weekly'],['quarterly','Quarterly'],['annual','Annual'],['one_time','One-time']].map(([v,l])=>`<option value="${v}" ${v===x.frequency?'selected':''}>${l}</option>`).join('')}</select></label>
+            <label class="v146-control"><span id="v146IncomeAmountLabel">${x.frequency==='one_time'?'Gross amount':'Gross / payment'}</span><input id="v146IncomeAmount" type="number" min="0" step="1" value="${Number(x.amount||0)}"></label>
+          </div>
+          <label class="v146-control ${x.frequency==='one_time'?'':'v146-hidden'}" id="v146IncomeDateWrap"><span>Income date</span><input id="v146IncomeDate" type="date" value="${escapeHtml(x.date||localDateKey())}"></label>
+          <label class="v146-control ${['monthly','twice_monthly'].includes(x.frequency)?'':'v146-hidden'}" id="v146IncomePaydaysWrap"><span>Baseline payday(s)</span><input id="v146IncomePaydays" type="text" value="${escapeHtml((x.payDays||incomeConfiguredPayDays(x)||[]).join(', '))}" placeholder="${x.frequency==='twice_monthly'?'e.g. 7, 22':'e.g. 7'}"><small>Edit specific delayed payments under Receipts after saving.</small></label>
+          <label class="v146-control"><span>Deposited to</span><select id="v146IncomeAccount">${accountOptions(x.accountId||'',true,true)}</select><small>Link the source to a tracked account if you want SINOP to credit it there.</small></label>
+        </div>
+      </section>
+      <section class="v146-editor-section v146-highlight">
+        <div class="v146-editor-head"><span>Monthly effect</span><h3>What SINOP will use</h3><p>These figures help you understand what this source contributes to the selected month.</p></div>
+        <div class="v146-kpis"><div class="v146-kpi"><span>Gross this month</span><strong>${money(incomeGrossMonthly(x,state.month))}</strong></div><div class="v146-kpi"><span>Deductions</span><strong>${money(breakdown.totalDeductions||0)}</strong></div><div class="v146-kpi"><span>Net this month</span><strong>${money(incomeMonthly(x,state.month))}</strong></div><div class="v146-kpi"><span>Confirmed received</span><strong>${money(id?incomeCreditedAmount(state.incomes.find(i=>sameId(i.id,id))||x,state.month):0)}</strong></div></div>
+        ${salary?`<button class="btn btn-secondary" type="button" id="v146OpenSalaryBreakdown">Review deductions & attendance</button>`:''}
+      </section>
+      <section class="v146-editor-section">
+        <div class="v146-editor-head"><span>Receipts</span><h3>Confirm actual payments</h3><p>${id?'Use this section to confirm individual payments for the selected month.':'Save the income source first, then confirm actual received payments here.'}</p></div>
+        <div id="v146IncomeReceipts">${id?renderIncomeReceiptsHtml(id):'<div class="v146-inline-note">Receipts will appear here after the income source is created.</div>'}</div>
+      </section>`;
+    bindIncomeEditor(id);
+    openEditorShell(id?`Edit ${x.name||'income source'}`:'Add income source',`${formatMonth(state.month)} · Income`, id?'Save changes':'Add income');
+  }
+  function renderIncomeReceiptsHtml(id){
+    const x=state.incomes.find(i=>sameId(i.id,id)); if(!x) return '<div class="v146-inline-note">Save the income source first to manage receipts.</div>';
+    const count=incomeReceiptSlotCount(x,state.month); if(!count) return `<div class="v146-inline-note">No payment is scheduled for this selected month.</div>`;
+    if(incomeUsesLegacyAutoCredit(x,state.month)) return `<div class="v146-inline-note"><strong>Historical auto-credit preserved.</strong><br>${money(incomeMonthly(x,state.month))} remains preserved for this earlier month.</div>`;
+    const flags=incomeReceiptFlags(x,state.month,false); const dates=incomeReceiptDatesFor(x,state.month,false); const linkedAccount=accountById(x.accountId);
+    return `<div class="v146-receipts">${flags.map((checked,index)=>{const label=incomeReceiptSlotLabel(x,index,count);const amount=money(incomeNetPerPayment(x,state.month,index));const date=dates[index]||defaultIncomeReceiptDate(x,state.month,index); const included=checked&&linkedAccount&&date&&date<=accountBaselineDate(linkedAccount); return `<div class="v146-receipt-row"><div class="v146-receipt-top"><label class="v146-checkline"><input class="v146-income-receipt-check" type="checkbox" data-receipt-index="${index}" ${checked?'checked':''}><span><strong>${escapeHtml(label)}</strong><small>${amount}${included?` · Included in ${escapeHtml(linkedAccount.name)} starting balance`:''}</small></span></label><label class="v146-control" style="margin:0;min-width:140px"><span>Date</span><input class="v146-income-receipt-date" type="date" data-receipt-index="${index}" value="${escapeHtml(date)}"></label></div><div class="v146-receipt-actions">${checked?`<button class="btn btn-secondary v146-income-plan" type="button" data-receipt-index="${index}">Plan this income</button>`:''}${x.kind==='Salary'?`<button class="btn btn-secondary v146-income-salary" type="button" data-receipt-index="${index}">Deductions for this payment</button>`:''}</div></div>`;}).join('')}</div><div class="v146-inline-note">${escapeHtml(incomeReceiptHelperText(x))}</div>`;
+  }
+  function bindIncomeEditor(id){
+    const kind=document.getElementById('v146IncomeKind'); const freq=document.getElementById('v146IncomeFrequency');
+    function refresh(){
+      const salary=kind.value==='Salary'; const oneTime=freq.value==='one_time'; const payday=['monthly','twice_monthly'].includes(freq.value);
+      document.getElementById('v146IncomeTreatmentWrap')?.classList.toggle('v146-hidden',!salary);
+      document.getElementById('v146IncomeDateWrap')?.classList.toggle('v146-hidden',!oneTime);
+      document.getElementById('v146IncomePaydaysWrap')?.classList.toggle('v146-hidden',!payday);
+      const amountLabel=document.getElementById('v146IncomeAmountLabel'); if(amountLabel) amountLabel.textContent=oneTime?'Gross amount':'Gross / payment';
+      const helpInput=document.getElementById('v146IncomePaydays'); if(helpInput) helpInput.placeholder=freq.value==='twice_monthly'?'e.g. 7, 22':'e.g. 7';
+      document.getElementById('v146OpenSalaryBreakdown')?.classList.toggle('v146-hidden',!salary);
+    }
+    kind?.addEventListener('change',refresh); freq?.addEventListener('change',refresh); refresh();
+    document.getElementById('v146OpenSalaryBreakdown')?.addEventListener('click',()=>{ const target=id||editor.id; if(target){ closeEditorShell(); openSalaryBreakdown(target); } });
+    document.querySelectorAll('.v146-income-receipt-check').forEach(cb=>cb.addEventListener('change',e=>{
+      const x=state.incomes.find(i=>sameId(i.id,id)); if(!x) return; const index=Number(e.target.dataset.receiptIndex||0);
+      if(x.kind==='Salary'&&e.target.checked){ e.target.checked=false; pendingSalaryReceipt={incomeId:x.id,month:state.month,index}; closeEditorShell(); openSalaryBreakdown(x.id); return; }
+      const flags=incomeReceiptFlags(x,state.month,true), dates=incomeReceiptDatesFor(x,state.month,true); flags[index]=!!e.target.checked; if(flags[index]&&!dates[index]) dates[index]=defaultIncomeReceiptDate(x,state.month,index);
+      scheduleAutoSave(); render(); if(flags[index]){ closeEditorShell(); openIncomeCoverage(x.id,state.month,index); } else renderIncomeEditor(id);
+    }));
+    document.querySelectorAll('.v146-income-receipt-date').forEach(input=>input.addEventListener('change',e=>{ const x=state.incomes.find(i=>sameId(i.id,id)); if(!x) return; const index=Number(e.target.dataset.receiptIndex||0); const dates=incomeReceiptDatesFor(x,state.month,true); dates[index]=e.target.value||defaultIncomeReceiptDate(x,state.month,index); scheduleAutoSave(); render(); renderIncomeEditor(id); }));
+    document.querySelectorAll('.v146-income-plan').forEach(btn=>btn.addEventListener('click',()=>{ const x=state.incomes.find(i=>sameId(i.id,id)); if(!x) return; closeEditorShell(); openIncomeCoverage(x.id,state.month,Number(btn.dataset.receiptIndex||0)); }));
+    document.querySelectorAll('.v146-income-salary').forEach(btn=>btn.addEventListener('click',()=>{ const x=state.incomes.find(i=>sameId(i.id,id)); if(!x) return; closeEditorShell(); openSalaryBreakdown(x.id,Number(btn.dataset.receiptIndex||0)); }));
+  }
+  function saveIncomeEditor(){
+    const name=document.getElementById('v146IncomeName')?.value.trim()||''; const kind=document.getElementById('v146IncomeKind')?.value||'Other'; const frequency=document.getElementById('v146IncomeFrequency')?.value||'monthly'; const amount=Math.max(0,Number(document.getElementById('v146IncomeAmount')?.value||0));
+    if(!name){ toast('Enter an income source name.'); document.getElementById('v146IncomeName')?.focus(); return; }
+    if(amount<=0){ toast('Enter the income amount.'); document.getElementById('v146IncomeAmount')?.focus(); return; }
+    const date=frequency==='one_time'?(document.getElementById('v146IncomeDate')?.value||''):''; if(frequency==='one_time'&&!date){ toast('Choose the one-time income date.'); return; }
+    const payDays=['monthly','twice_monthly'].includes(frequency)?parsePaydays(document.getElementById('v146IncomePaydays')?.value||'',frequency):[];
+    const existing=editor.isNew?null:state.incomes.find(x=>sameId(x.id,editor.id)); const payload={id:existing?.id||editor.id||uid(),name,kind,frequency,amount,date,employmentType:kind==='Salary'?(document.getElementById('v146IncomeTreatment')?.value||'none'):'none',accountId:document.getElementById('v146IncomeAccount')?.value||'',payDays};
+    if(existing){
+      const frequencyChanged=existing.frequency!==payload.frequency;
+      Object.assign(existing,payload);
+      if(frequencyChanged){ if(state.incomeReceipts?.[state.month]) delete state.incomeReceipts[state.month][existing.id]; if(state.incomeReceiptDates?.[state.month]) delete state.incomeReceiptDates[state.month][existing.id]; }
+    } else state.incomes.push(payload);
+    scheduleAutoSave(); closeEditorShell(); render(); toast(existing?'Income source updated.':'Income source added.');
+  }
+  function deleteIncomeEditor(){
+    const x=state.incomes.find(i=>sameId(i.id,editor.id)); if(!x) return closeEditorShell();
+    openConfirmAction({title:'Delete income source',heading:`Delete “${x.name}”?`,message:'This income source and its saved attendance adjustments will be removed from the planner.',warning:'Your monthly income, budget balance, dashboard metrics, and rewards may change immediately.',confirmLabel:'Delete income',onConfirm:()=>{state.incomes=state.incomes.filter(i=>i.id!==x.id); Object.values(state.incomeAttendance||{}).forEach(month=>{if(month&&month[x.id]) delete month[x.id]}); Object.values(state.incomeReceipts||{}).forEach(month=>{if(month&&month[x.id]) delete month[x.id]}); Object.values(state.incomeReceiptDates||{}).forEach(month=>{if(month&&month[x.id]) delete month[x.id]}); Object.keys(state.incomeCoverageNextDates||{}).filter(k=>k.includes(`:${x.id}:`)).forEach(k=>delete state.incomeCoverageNextDates[k]); closeEditorShell(); scheduleAutoSave(); render(); toast('Income source deleted.');}});
+  }
+  function spendingDraft(id){ const a=defaultSpendingAccount(); return id?clone(state.spending.find(x=>sameId(x.id,id))):{id:uid(),date:localDateKey(),description:'',category:state.categories.spending[0]||'Other',status:'planned',paymentMethod:'',creditCardId:'',accountId:a?a.id:'',notes:'',amount:0}; }
+  function renderSpendingEditor(id=null){
+    const x=spendingDraft(id); if(!x) return; editor.type='spending'; editor.id=id||x.id; editor.isNew=!id;
+    document.getElementById('v146EntryEditorDelete').style.visibility=id?'visible':'hidden';
+    const selected=x.accountId?`account:${x.accountId}`:x.creditCardId?`card:${x.creditCardId}`:'';
+    document.getElementById('v146EntryEditorBody').innerHTML=`
+      <section class="v146-editor-section">
+        <div class="v146-editor-head"><span>Basics</span><h3>Expense details</h3><p>Capture what you spent or what you plan to spend.</p></div>
+        <div class="v146-form-stack">
+          <label class="v146-control"><span>Description</span><input id="v146SpendDescription" type="text" value="${escapeHtml(x.description||'')}" placeholder="e.g. Groceries, Cinema, Coffee"></label>
+          <div class="v146-two-col">
+            <label class="v146-control"><span>Date</span><input id="v146SpendDate" type="date" value="${escapeHtml(x.date||localDateKey())}"></label>
+            <label class="v146-control"><span>Amount</span><input id="v146SpendAmount" type="number" min="0" step="1" value="${Number(x.amount||0)}"></label>
+          </div>
+        </div>
+      </section>
+      <section class="v146-editor-section">
+        <div class="v146-editor-head"><span>Classification</span><h3>Category & status</h3><p>Tell SINOP whether this entry is planned or already spent.</p></div>
+        <div class="v146-form-stack">
+          <div class="v146-two-col">
+            <label class="v146-control"><span>Category</span><select id="v146SpendCategory">${state.categories.spending.map(v=>`<option ${v===x.category?'selected':''}>${escapeHtml(v)}</option>`).join('')}</select></label>
+            <label class="v146-control"><span>Status</span><select id="v146SpendStatus"><option value="planned" ${x.status==='planned'?'selected':''}>Planned</option><option value="actual" ${(x.status||'actual')==='actual'?'selected':''}>Spent / actual</option></select></label>
+          </div>
+          <label class="v146-control"><span>Pay from</span><select id="v146SpendSource">${spendingSourceOptions(selected)}</select><small id="v146SpendSourceHelp">Required for actual spending so SINOP knows which account or card was used.</small></label>
+          <label class="v146-control"><span>Notes</span><textarea id="v146SpendNotes" placeholder="Optional note">${escapeHtml(x.notes||'')}</textarea></label>
+        </div>
+      </section>
+      <section class="v146-editor-section v146-highlight">
+        <div class="v146-editor-head"><span>Summary</span><h3>What this entry affects</h3><p>The status and payment source change how SINOP reflects this expense.</p></div>
+        <div class="v146-kpis"><div class="v146-kpi"><span>Selected month</span><strong>${formatMonth(state.month)}</strong></div><div class="v146-kpi"><span>Status</span><strong>${x.status==='planned'?'Planned':'Spent / actual'}</strong></div><div class="v146-kpi"><span>Payment source</span><strong>${escapeHtml(selected?selected.startsWith('account:')?(accountById(x.accountId)?.name||'Account'):(cardById(x.creditCardId)?.name||'Credit card'):'Not selected')}</strong></div><div class="v146-kpi"><span>Recorded amount</span><strong>${money(Number(x.amount||0))}</strong></div></div>
+        <div class="v146-inline-note">Actual spending can reduce account balances or credit-card statements. Planned spending helps you budget without applying the transaction yet.</div>
+      </section>`;
+    document.getElementById('v146SpendStatus')?.addEventListener('change',e=>{ const help=document.getElementById('v146SpendSourceHelp'); if(help) help.textContent=e.target.value==='actual'?'Required for actual spending so SINOP knows which account or card was used.':'Optional for planned spending, but helpful if you already know where it will come from.'; });
+    openEditorShell(id?`Edit ${x.description||'expense'}`:'Add expense',`${formatMonth(state.month)} · Spending`, id?'Save changes':'Add expense');
+  }
+  function saveSpendingEditor(){
+    const description=document.getElementById('v146SpendDescription')?.value.trim()||''; const amount=Math.max(0,Number(document.getElementById('v146SpendAmount')?.value||0)); const status=document.getElementById('v146SpendStatus')?.value||'actual';
+    if(!description){ toast('Enter an expense description.'); document.getElementById('v146SpendDescription')?.focus(); return; }
+    if(amount<=0){ toast('Enter the expense amount.'); document.getElementById('v146SpendAmount')?.focus(); return; }
+    const source=document.getElementById('v146SpendSource')?.value||''; if(status==='actual'&&!source){ toast('Choose the account, wallet, or credit card used for this expense.'); document.getElementById('v146SpendSource')?.focus(); return; }
+    const existing=editor.isNew?null:state.spending.find(x=>sameId(x.id,editor.id)); const payload={id:existing?.id||editor.id||uid(),date:document.getElementById('v146SpendDate')?.value||localDateKey(),description,category:document.getElementById('v146SpendCategory')?.value||state.categories.spending[0]||'Other',status,paymentMethod:'',creditCardId:'',accountId:'',notes:document.getElementById('v146SpendNotes')?.value.trim()||'',amount};
+    if(source.startsWith('account:')){ const account=accountById(source.slice(8)); if(!isSpendableAccount(account)){ toast('Time deposit and Pag-IBIG MP2 accounts cannot be used for spending.'); return; } payload.accountId=account.id; payload.paymentMethod='Account'; }
+    else if(source.startsWith('card:')){ payload.creditCardId=source.slice(5); payload.paymentMethod='Credit card'; }
+    if(existing) Object.assign(existing,payload); else state.spending.push(payload);
+    closeEditorShell(); scheduleAutoSave(); render(); toast(existing?'Expense updated.':'Expense added.');
+  }
+  function deleteSpendingEditor(){
+    const x=state.spending.find(i=>sameId(i.id,editor.id)); if(!x) return closeEditorShell();
+    openConfirmAction({title:'Delete expense',heading:`Delete “${x.description||'this expense'}”?`,message:'This spending entry will be removed from the selected month.',warning:x.creditCardId?"Because this transaction is linked to a credit card, that card's spending and statement estimate will also change.":'Your spending totals and category budget progress will update.',confirmLabel:'Delete expense',onConfirm:()=>{state.spending=state.spending.filter(i=>i.id!==x.id); closeEditorShell(); scheduleAutoSave(); render(); toast('Expense deleted.');}});
+  }
+  function openIncomeEditor(id){ renderIncomeEditor(id); }
+  function openSpendingEditor(id){ renderSpendingEditor(id); }
+  function rerenderMobile(){ renderIncomeMobileHub(); renderSpendingMobileHub(); }
+
+  const originalRenderIncome=window.renderIncome;
+  if(typeof originalRenderIncome==='function' && !window.__sinopV146IncomeWrapped){
+    window.renderIncome=function(){ const r=originalRenderIncome.apply(this,arguments); if(isMobile()) renderIncomeMobileHub(); return r; };
+    window.__sinopV146IncomeWrapped=true;
+  }
+  const originalRenderSpending=window.renderSpending;
+  if(typeof originalRenderSpending==='function' && !window.__sinopV146SpendingWrapped){
+    window.renderSpending=function(){ const r=originalRenderSpending.apply(this,arguments); if(isMobile()) renderSpendingMobileHub(); return r; };
+    window.__sinopV146SpendingWrapped=true;
+  }
+  const originalApply=window.applyListFilters;
+  if(typeof originalApply==='function' && !window.__sinopV146ApplyWrapped){
+    window.applyListFilters=function(){ const r=originalApply.apply(this,arguments); if(isMobile()) rerenderMobile(); return r; };
+    window.__sinopV146ApplyWrapped=true;
+  }
+
+  function wireActionButtons(){
+    if(typeof v122ReplaceButton==='function' && !window.__sinopV146ButtonsWired){
+      v122ReplaceButton('addIncomeBtn',()=>isMobile()?openIncomeEditor(null):v122OpenIncomeCreate());
+      v122ReplaceButton('addSpendBtn',()=>isMobile()?openSpendingEditor(null):v122OpenSpendCreate());
+      window.__sinopV146ButtonsWired=true;
+    }
+  }
+  function bindEditorShell(){
+    document.getElementById('v146EntryEditorClose')?.addEventListener('click',closeEditorShell);
+    document.getElementById('v146EntryEditorCancel')?.addEventListener('click',closeEditorShell);
+    document.getElementById('v146EntryEditorSave')?.addEventListener('click',()=>{ if(editor.type==='income') saveIncomeEditor(); else if(editor.type==='spending') saveSpendingEditor(); });
+    document.getElementById('v146EntryEditorDelete')?.addEventListener('click',()=>{ if(editor.type==='income') deleteIncomeEditor(); else if(editor.type==='spending') deleteSpendingEditor(); });
+    document.getElementById('v146EntryEditorModal')?.addEventListener('click',e=>{ if(e.target.id==='v146EntryEditorModal') closeEditorShell(); });
+    document.addEventListener('keydown',e=>{ if(e.key==='Escape' && document.getElementById('v146EntryEditorModal')?.classList.contains('open')){ e.preventDefault(); closeEditorShell(); } });
+  }
+  function init(){ wireActionButtons(); bindEditorShell(); if(isMobile()) rerenderMobile(); }
+  window.addEventListener('load',()=>setTimeout(init,120));
+  window.addEventListener('resize',()=>{ if(isMobile()) rerenderMobile(); });
 })();
 </script>
 </body>
