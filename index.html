@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0f766e">
-<title>SINOP v152 · Concise Mobile UI & Card Accounts</title>
+<title>SINOP v153 · Authentic Mobile Account Cards</title>
 <meta name="application-name" content="SINOP">
 <meta name="apple-mobile-web-app-title" content="SINOP">
 <meta name="description" content="SINOP — your personal money system for income, spending, savings, investments, goals, KKB, and financial tracking.">
@@ -7217,12 +7217,13 @@ body[data-theme="dark"] .barkada-group-btn,body[data-theme="dark"] .barkada-memb
       </div>
 
       <article class="version-latest-card">
-        <div class="version-latest-badge"><span>Latest</span><strong>v152</strong></div>
-        <div class="version-latest-copy"><span>September 4, 2026</span><h3>Concise Mobile UI & Card Accounts</h3><p>Mobile pages now remove redundant explanatory copy and use shorter page titles. Accounts keeps the circular vertical wheel interaction but now renders each account as a realistic landscape bank card with much less surrounding UI.</p></div>
+        <div class="version-latest-badge"><span>Latest</span><strong>v153</strong></div>
+        <div class="version-latest-copy"><span>September 4, 2026</span><h3>Authentic Mobile Account Cards</h3><p>Mobile account cards no longer fabricate card-number digits. The malformed top-right contactless mark was replaced with a proper NFC symbol beside the chip, while the top-right now shows only the account currency.</p></div>
       </article>
 
       <div class="version-timeline" id="versionTimeline">
-        <article class="version-entry is-latest" data-version="v152" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v152</span><h3>Concise Mobile UI & Card Accounts</h3></div><time>Sep 4, 2026</time></header><ul><li>Removed redundant explanatory copy from normal mobile page views while preserving statuses, validation, warnings that require action, and the User Manual.</li><li>Shortened primary mobile page headings to the module name instead of descriptive marketing-style titles.</li><li>Redesigned mobile Account cards to look like real landscape bank cards with bank marks, chip/contactless styling, masked references, and integrated balance.</li><li>Kept the circular vertical wheel, momentum, spring snap, tight spacing, and stronger fade/blur for cards behind the active card.</li><li>Simplified the selected-account area to essential actions plus usable and goal-reserved amounts.</li></ul></div></article>
+        <article class="version-entry is-latest" data-version="v153" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v153</span><h3>Authentic Mobile Account Cards</h3></div><time>Sep 4, 2026</time></header><ul><li>Removed generated/fabricated last-four digits from every mobile account card.</li><li>Replaced the broken CSS contactless mark with a proper NFC/contactless SVG positioned beside the chip.</li><li>Top-right card content now shows only the real account currency instead of an ambiguous icon.</li><li>Preserved the circular wheel, tight spacing, fading/blurred rear cards, momentum, and spring snapping.</li></ul></div></article>
+        <article class="version-entry" data-version="v152" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v152</span><h3>Concise Mobile UI & Card Accounts</h3></div><time>Sep 4, 2026</time></header><ul><li>Removed redundant explanatory copy from normal mobile page views while preserving statuses, validation, warnings that require action, and the User Manual.</li><li>Shortened primary mobile page headings to the module name instead of descriptive marketing-style titles.</li><li>Redesigned mobile Account cards to look like real landscape bank cards with bank marks, chip/contactless styling, masked references, and integrated balance.</li><li>Kept the circular vertical wheel, momentum, spring snap, tight spacing, and stronger fade/blur for cards behind the active card.</li><li>Simplified the selected-account area to essential actions plus usable and goal-reserved amounts.</li></ul></div></article>
         <article class="version-entry" data-version="v151" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v151</span><h3>Premium Mobile Accounts Wheel</h3></div><time>Sep 4, 2026</time></header><ul><li>Made the mobile account wheel track touch-drag movement continuously instead of switching only after release.</li><li>Added light momentum and spring-based snap easing for a more physical card-wheel feel.</li><li>Added stronger depth cues: active cards scale forward while rear cards progressively fade, desaturate, and blur.</li><li>Kept the wheel compact with tight spacing so the cards still read as one circular stack.</li><li>Preserved the active-account detail panel, quick actions, unified date controls, and all earlier ledger/login fixes.</li></ul></div></article>
         <article class="version-entry" data-version="v150" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v150</span><h3>Mobile Accounts Wheel Switcher</h3></div><time>Sep 4, 2026</time></header><ul><li>Replaced the old stacked mobile Accounts cards with a wheel-style switcher inspired by a vertical circular deck.</li><li>Cards at the back now have noticeably lower opacity and tighter spacing so the active account stands out more clearly.</li><li>Added a dedicated active-account detail panel with balance, usable money, goal reservation, flow metrics, and quick actions.</li><li>Desktop Accounts stays unchanged, while mobile Accounts gets the new interaction and layout.</li><li>All previous fixes remain, including unified mobile date controls, login hotfixes, and Time Deposit handling.</li></ul></div></article>
         <article class="version-entry" data-version="v149" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v149</span><h3>Unified Mobile Date Controls</h3></div><time>Sep 4, 2026</time></header><ul><li>Applied the contained custom mobile date control to Add Expense as well as Edit Expense.</li><li>Audited all date inputs and unified mobile date behavior across Income, Activity, Accounts, transfers/contributions, Grocery, recurring payments, KKB, Loans/IOUs, credit-card payments, setup, and goal dates.</li><li>Kept the actual native date input as an invisible full-control overlay so the device picker still opens normally without affecting layout width.</li><li>Added automatic resync when modals open or JavaScript changes date values.</li><li>Preserved the Income/Spending mobile rebuild, Time Deposit ledger fix, login hotfix, Barkada/Profile features, and Global Ranking connection.</li></ul></div></article>
@@ -24700,7 +24701,7 @@ maybeStartFirstRunSetup();
 })();
 </script>
 
-<style id="sinop-v152-card-account-wheel-style">
+<style id="sinop-v153-card-account-wheel-style">
 @media(max-width:760px){
   #accounts .account-summary-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important;margin-bottom:10px!important}
   #accounts .account-summary-card{display:none!important}
@@ -24725,14 +24726,13 @@ maybeStartFirstRunSetup();
   .v152-card-name{min-width:0;display:grid;gap:2px}
   .v152-card-name strong{font-size:15px;line-height:1.1;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:190px}
   .v152-card-name span{font-size:9px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.72)}
-  .v152-contactless{width:27px;height:27px;position:relative;transform:rotate(90deg);opacity:.9;flex:none}
-  .v152-contactless::before,.v152-contactless::after,.v152-contactless span{content:"";position:absolute;border:2px solid rgba(255,255,255,.9);border-left-color:transparent;border-top-color:transparent;border-radius:50%;transform:rotate(-45deg)}
-  .v152-contactless::before{width:9px;height:9px;left:1px;top:8px}.v152-contactless span{width:15px;height:15px;left:1px;top:5px}.v152-contactless::after{width:21px;height:21px;left:1px;top:2px}
-  .v152-card-middle{display:grid;grid-template-columns:auto 1fr;align-items:center;gap:14px;margin-top:5px}
-  .v152-chip{width:42px;height:32px;border-radius:8px;background:linear-gradient(135deg,#efe2a2,#bfa65b);position:relative;box-shadow:inset 0 0 0 1px rgba(75,61,22,.18)}
+  .v153-card-currency{min-width:44px;height:28px;padding:0 10px;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.18);font-size:10px;font-weight:900;letter-spacing:.08em;color:#fff;flex:none}
+  .v152-card-middle{display:flex;align-items:center;gap:11px;margin-top:5px}
+  .v152-chip{width:42px;height:32px;border-radius:8px;background:linear-gradient(135deg,#efe2a2,#bfa65b);position:relative;box-shadow:inset 0 0 0 1px rgba(75,61,22,.18);flex:none}
   .v152-chip::before,.v152-chip::after{content:"";position:absolute;background:rgba(105,88,35,.22)}
   .v152-chip::before{left:13px;top:0;width:1px;height:100%}.v152-chip::after{left:0;top:15px;width:100%;height:1px}
-  .v152-card-number{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:14px;letter-spacing:.12em;color:rgba(255,255,255,.9);white-space:nowrap}
+  .v153-contactless-icon{width:28px;height:28px;color:rgba(255,255,255,.94);display:block;flex:none}
+  .v153-contactless-icon path{fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
   .v152-card-balance{display:grid;gap:3px;margin-top:7px}
   .v152-card-balance span{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:rgba(255,255,255,.68)}
   .v152-card-balance strong{font-size:25px;line-height:1;color:#fff;letter-spacing:-.02em;text-shadow:0 1px 1px rgba(0,0,0,.08)}
@@ -24759,7 +24759,7 @@ maybeStartFirstRunSetup();
 @media(prefers-reduced-motion:reduce){.v152-wheel-card,.v152-wheel-dot{transition:none!important}}
 </style>
 
-<script id="sinop-v152-card-account-wheel-script">
+<script id="sinop-v153-card-account-wheel-script">
 (function(){
   const MOBILE_MAX=760;
   const wheel={position:0,target:0,velocity:0,activeIndex:0,activeId:'',dragging:false,startY:0,startPosition:0,lastY:0,lastT:0,lastMoveVelocity:0,raf:0,wheelTimer:0};
@@ -24800,7 +24800,6 @@ maybeStartFirstRunSetup();
     return `<span class="bank-brand-mark compact" data-bank="${brand.key}"><img src="${src}" alt="${brand.label}" loading="lazy" decoding="async" referrerpolicy="no-referrer"${fallback}></span>`;
   }
   function accent(account){return account?.color||brandFor(account?.name||'')?.color||'#0f766e';}
-  function ref4(account){let s=String(account?.id||'')+String(account?.name||'');let h=2166136261;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)}return String(Math.abs(h)%10000).padStart(4,'0');}
   const wrap=(value,len)=>((value%len)+len)%len;
   function shortestDelta(index,position,len){let d=index-position;while(d>len/2)d-=len;while(d<-len/2)d+=len;return d;}
   function ensureHub(){
@@ -24813,7 +24812,7 @@ maybeStartFirstRunSetup();
     const fx=tracked&&cur!==reportingCurrency()?`<small>≈ ${money(accountValueInReporting(account,accountBalance(account,state.month)))}</small>`:'';
     const brand=brandFor(account.name||'');const brandLabel=brand?.label||accountTypeLabel(account.type);
     const locked=!isSpendableAccount(account);
-    return `<button class="v152-wheel-card" type="button" data-v152-account-index="${index}" style="--accent:${esc(accent(account))}"><div class="v152-card-face"><div class="v152-card-top"><div class="v152-card-brand"><div class="v152-card-logo">${brandMark(account)}</div><div class="v152-card-name"><strong>${esc(account.name||'Account')}</strong><span>${esc(brandLabel)}</span></div></div><div class="v152-contactless"><span></span></div></div><div class="v152-card-middle"><div class="v152-chip"></div><div class="v152-card-number">•••• &nbsp;•••• &nbsp;•••• &nbsp;${ref4(account)}</div></div><div class="v152-card-balance"><span>${tracked?'Balance':'Not tracked yet'}</span><strong>${bal}</strong>${fx}</div><div class="v152-card-bottom"><div class="v152-card-bottom-left"><span>Account type</span><strong>${esc(accountTypeLabel(account.type))} · ${esc(cur)}</strong></div><div class="v152-card-lock">${locked?'ASSET':'SINOP'}</div></div></div></button>`;
+    return `<button class="v152-wheel-card" type="button" data-v152-account-index="${index}" style="--accent:${esc(accent(account))}"><div class="v152-card-face"><div class="v152-card-top"><div class="v152-card-brand"><div class="v152-card-logo">${brandMark(account)}</div><div class="v152-card-name"><strong>${esc(account.name||'Account')}</strong><span>${esc(brandLabel)}</span></div></div><div class="v153-card-currency">${esc(cur)}</div></div><div class="v152-card-middle"><div class="v152-chip"></div><svg class="v153-contactless-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.4 8.2a5.4 5.4 0 0 1 0 7.6"/><path d="M11.2 5.4a9.3 9.3 0 0 1 0 13.2"/><path d="M14 2.8a13 13 0 0 1 0 18.4"/></svg></div><div class="v152-card-balance"><span>${tracked?'Balance':'Not tracked yet'}</span><strong>${bal}</strong>${fx}</div><div class="v152-card-bottom"><div class="v152-card-bottom-left"><span>Account type</span><strong>${esc(accountTypeLabel(account.type))}</strong></div><div class="v152-card-lock">${locked?'ASSET':'SINOP'}</div></div></div></button>`;
   }
   function toolsMarkup(account){
     if(!account)return'';const cur=accountCurrency(account),available=accountAvailableAfterGoals(account,state.month),reserved=accountGoalReserved(account.id),reservedNative=cur===reportingCurrency()?reserved:reportingToAccountValue(reserved,account),contribution=wealthKindForAccount(account)?(account.type==='time_deposit'||account.type==='savings'?'Add deposit':'Add contribution'):'';
@@ -24848,7 +24847,7 @@ maybeStartFirstRunSetup();
     deck.addEventListener('wheel',e=>{if(Math.abs(e.deltaY)<1)return;e.preventDefault();cancelAnimationFrame(wheel.raf);wheel.position+=e.deltaY/210;wheel.lastMoveVelocity=e.deltaY/210*.24;update();clearTimeout(wheel.wheelTimer);wheel.wheelTimer=setTimeout(snap,90);},{passive:false});
     deck.addEventListener('keydown',e=>{if(e.key==='ArrowUp'){e.preventDefault();setTarget(Math.round(wheel.position)-1)}if(e.key==='ArrowDown'){e.preventDefault();setTarget(Math.round(wheel.position)+1)}});
   }
-  const original=window.renderAccounts;if(typeof original==='function'&&!window.__sinopV152AccountsWrapped){window.renderAccounts=function(){const r=original.apply(this,arguments);renderHub();return r};window.__sinopV152AccountsWrapped=true;}
+  const original=window.renderAccounts;if(typeof original==='function'&&!window.__sinopV153AccountsWrapped){window.renderAccounts=function(){const r=original.apply(this,arguments);renderHub();return r};window.__sinopV153AccountsWrapped=true;}
   window.addEventListener('load',()=>setTimeout(renderHub,120));window.addEventListener('resize',()=>{if(isMobile())renderHub();else{const hub=$id('v152AccountsWheelHub');if(hub)hub.innerHTML='';}},{passive:true});
 })();
 </script>
