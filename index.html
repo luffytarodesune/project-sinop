@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0f766e">
-<title>SINOP v153 · Authentic Mobile Account Cards</title>
+<title>SINOP v154 · Actionable Recurring Notifications</title>
 <meta name="application-name" content="SINOP">
 <meta name="apple-mobile-web-app-title" content="SINOP">
 <meta name="description" content="SINOP — your personal money system for income, spending, savings, investments, goals, KKB, and financial tracking.">
@@ -7217,12 +7217,13 @@ body[data-theme="dark"] .barkada-group-btn,body[data-theme="dark"] .barkada-memb
       </div>
 
       <article class="version-latest-card">
-        <div class="version-latest-badge"><span>Latest</span><strong>v153</strong></div>
-        <div class="version-latest-copy"><span>September 4, 2026</span><h3>Authentic Mobile Account Cards</h3><p>Mobile account cards no longer fabricate card-number digits. The malformed top-right contactless mark was replaced with a proper NFC symbol beside the chip, while the top-right now shows only the account currency.</p></div>
+        <div class="version-latest-badge"><span>Latest</span><strong>v154</strong></div>
+        <div class="version-latest-copy"><span>September 4, 2026</span><h3>Actionable Recurring Notifications</h3><p>Recurring-expense system notifications can now show a Paid action. Tapping it opens the exact recurring payment in SINOP with its amount, date, and payment source prefilled so the ledger stays accurate.</p></div>
       </article>
 
       <div class="version-timeline" id="versionTimeline">
-        <article class="version-entry is-latest" data-version="v153" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v153</span><h3>Authentic Mobile Account Cards</h3></div><time>Sep 4, 2026</time></header><ul><li>Removed generated/fabricated last-four digits from every mobile account card.</li><li>Replaced the broken CSS contactless mark with a proper NFC/contactless SVG positioned beside the chip.</li><li>Top-right card content now shows only the real account currency instead of an ambiguous icon.</li><li>Preserved the circular wheel, tight spacing, fading/blurred rear cards, momentum, and spring snapping.</li></ul></div></article>
+        <article class="version-entry is-latest" data-version="v154" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v154</span><h3>Actionable Recurring Notifications</h3></div><time>Sep 4, 2026</time></header><ul><li>Added a Paid action to eligible recurring-expense system notifications.</li><li>Tapping Paid opens the exact unpaid occurrence in the recurring-payment confirmation instead of guessing a payment source.</li><li>Linked credit cards and the configured default spending account are preselected by the existing payment workflow.</li><li>Added the same Paid shortcut to the in-app reminder center for consistency.</li><li>Added a companion service worker that handles notification actions and can route the user back into the correct recurring payment even when SINOP is not already open.</li></ul></div></article>
+        <article class="version-entry" data-version="v153" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v153</span><h3>Authentic Mobile Account Cards</h3></div><time>Sep 4, 2026</time></header><ul><li>Removed generated/fabricated last-four digits from every mobile account card.</li><li>Replaced the broken CSS contactless mark with a proper NFC/contactless SVG positioned beside the chip.</li><li>Top-right card content now shows only the real account currency instead of an ambiguous icon.</li><li>Preserved the circular wheel, tight spacing, fading/blurred rear cards, momentum, and spring snapping.</li></ul></div></article>
         <article class="version-entry" data-version="v152" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v152</span><h3>Concise Mobile UI & Card Accounts</h3></div><time>Sep 4, 2026</time></header><ul><li>Removed redundant explanatory copy from normal mobile page views while preserving statuses, validation, warnings that require action, and the User Manual.</li><li>Shortened primary mobile page headings to the module name instead of descriptive marketing-style titles.</li><li>Redesigned mobile Account cards to look like real landscape bank cards with bank marks, chip/contactless styling, masked references, and integrated balance.</li><li>Kept the circular vertical wheel, momentum, spring snap, tight spacing, and stronger fade/blur for cards behind the active card.</li><li>Simplified the selected-account area to essential actions plus usable and goal-reserved amounts.</li></ul></div></article>
         <article class="version-entry" data-version="v151" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v151</span><h3>Premium Mobile Accounts Wheel</h3></div><time>Sep 4, 2026</time></header><ul><li>Made the mobile account wheel track touch-drag movement continuously instead of switching only after release.</li><li>Added light momentum and spring-based snap easing for a more physical card-wheel feel.</li><li>Added stronger depth cues: active cards scale forward while rear cards progressively fade, desaturate, and blur.</li><li>Kept the wheel compact with tight spacing so the cards still read as one circular stack.</li><li>Preserved the active-account detail panel, quick actions, unified date controls, and all earlier ledger/login fixes.</li></ul></div></article>
         <article class="version-entry" data-version="v150" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v150</span><h3>Mobile Accounts Wheel Switcher</h3></div><time>Sep 4, 2026</time></header><ul><li>Replaced the old stacked mobile Accounts cards with a wheel-style switcher inspired by a vertical circular deck.</li><li>Cards at the back now have noticeably lower opacity and tighter spacing so the active account stands out more clearly.</li><li>Added a dedicated active-account detail panel with balance, usable money, goal reservation, flow metrics, and quick actions.</li><li>Desktop Accounts stays unchanged, while mobile Accounts gets the new interaction and layout.</li><li>All previous fixes remain, including unified mobile date controls, login hotfixes, and Time Deposit handling.</li></ul></div></article>
@@ -12610,13 +12611,13 @@ function currentBillReminders(){
       const [y,m,d]=occ.date.split("-").map(Number),due=new Date(y,m-1,d),diff=dateDiffDays(due,today),slot=schedule.length>1?` · ${occ.label}`:"";
       if(diff>0 && diff<=lead){
         const key=`${reminderKey(b,due,"upcoming")}|${index}`;
-        items.push({key,type:"upcoming",source:"bill",billId:b.id,billName:b.name,due,diff,amount:occ.amount,read:!!state.reminders.read[key],title:`${b.name}${slot} is due in ${diff} day${diff===1?"":"s"}`,message:`Prepare ${money(occ.amount)} by ${formatDueDate(due)}.`});
+        items.push({key,type:"upcoming",source:"bill",billId:b.id,billName:b.name,due,diff,amount:occ.amount,month,occurrenceIndex:index,commitmentType:commitmentType(b),grocery:isGroceryBill(b),read:!!state.reminders.read[key],title:`${b.name}${slot} is due in ${diff} day${diff===1?"":"s"}`,message:`Prepare ${money(occ.amount)} by ${formatDueDate(due)}.`});
       }else if(diff===0){
         const key=`${reminderKey(b,due,"due")}|${index}`;
-        items.push({key,type:"due",source:"bill",billId:b.id,billName:b.name,due,diff,amount:occ.amount,read:!!state.reminders.read[key],title:`${b.name}${slot} is due today`,message:`${money(occ.amount)} is due today. Mark only this payment after payment.`});
+        items.push({key,type:"due",source:"bill",billId:b.id,billName:b.name,due,diff,amount:occ.amount,month,occurrenceIndex:index,commitmentType:commitmentType(b),grocery:isGroceryBill(b),read:!!state.reminders.read[key],title:`${b.name}${slot} is due today`,message:`${money(occ.amount)} is due today.`});
       }else if(diff<0 && state.settings.notifications.overdue){
         const key=`${reminderKey(b,due,"overdue")}|${index}`,days=Math.abs(diff);
-        items.push({key,type:"overdue",source:"bill",billId:b.id,billName:b.name,due,diff,amount:occ.amount,read:!!state.reminders.read[key],title:`${b.name}${slot} is ${days} day${days===1?"":"s"} overdue`,message:`${money(occ.amount)} was due ${formatDueDate(due)} and this payment is still marked unpaid.`});
+        items.push({key,type:"overdue",source:"bill",billId:b.id,billName:b.name,due,diff,amount:occ.amount,month,occurrenceIndex:index,commitmentType:commitmentType(b),grocery:isGroceryBill(b),read:!!state.reminders.read[key],title:`${b.name}${slot} is ${days} day${days===1?"":"s"} overdue`,message:`${money(occ.amount)} was due ${formatDueDate(due)} and is still unpaid.`});
       }
     });
   });
@@ -12752,10 +12753,15 @@ function renderReminderCenter(sendBrowser=true){
                 ?`<button type="button" data-reminder-inventory="${esc(x.inventoryItemId)}">View inventory</button><button type="button" data-reminder-inventory-list="${esc(x.inventoryItemId)}">Add to list</button>`
                 :x.source==="card"
                   ?`<button type="button" data-reminder-card="${esc(x.cardId)}" data-statement-month="${esc(x.statementMonth||state.month)}">View card</button>`
-                  :`<button type="button" data-reminder-bill="${esc(x.billId)}">View bill</button>`}
+                  :`${x.commitmentType==="expense"&&!x.grocery?`<button type="button" data-reminder-paid="${esc(x.billId)}" data-reminder-month="${esc(x.month||state.month)}" data-reminder-occurrence="${Number(x.occurrenceIndex??0)}" data-reminder-key="${esc(x.key)}">Paid</button>`:""}<button type="button" data-reminder-bill="${esc(x.billId)}">View bill</button>`}
           </div>
         </div>`).join("");
       list.querySelectorAll("[data-reminder-read]").forEach(btn=>btn.onclick=()=>markReminderRead(btn.dataset.reminderRead));
+      list.querySelectorAll("[data-reminder-paid]").forEach(btn=>btn.onclick=()=>{
+        const billId=btn.dataset.reminderPaid,month=btn.dataset.reminderMonth||state.month,index=Number(btn.dataset.reminderOccurrence||0),key=btn.dataset.reminderKey||"";
+        closeReminderModal();openSinopTarget("bills");
+        requestAnimationFrame(()=>openBillPaymentModal(billId,month,()=>{if(key)markReminderRead(key)},index));
+      });
       list.querySelectorAll("[data-reminder-barkada]").forEach(btn=>btn.onclick=()=>{
         const groupId=btn.dataset.reminderBarkada,tripId=btn.dataset.reminderKkb;
         closeReminderModal();
@@ -22883,7 +22889,17 @@ maybeStartFirstRunSetup();
     if(!state.settings.notifications.browser||notificationPermission()!=='granted')return;
     const pending=items.filter(x=>!state.reminders.sent[x.key]);
     for(const x of pending){
-      const ok=await showSystemNotification(x.title,{body:x.message,tag:x.key,data:{reminderKey:x.key,url:location.href}});
+      const paidAction=x.source==='bill'&&x.commitmentType==='expense'&&!x.grocery;
+      const ok=await showSystemNotification(x.title,{
+        body:x.message,
+        tag:x.key,
+        actions:paidAction?[{action:'paid',title:'Paid'}]:[],
+        data:{
+          reminderKey:x.key,url:location.href,
+          kind:x.source||'',billId:x.billId||'',month:x.month||'',occurrenceIndex:Number.isFinite(Number(x.occurrenceIndex))?Number(x.occurrenceIndex):null,
+          paidAction
+        }
+      });
       if(ok)state.reminders.sent[x.key]=true;
     }
     localStorage.setItem(KEY,JSON.stringify(state));
@@ -24849,6 +24865,70 @@ maybeStartFirstRunSetup();
   }
   const original=window.renderAccounts;if(typeof original==='function'&&!window.__sinopV153AccountsWrapped){window.renderAccounts=function(){const r=original.apply(this,arguments);renderHub();return r};window.__sinopV153AccountsWrapped=true;}
   window.addEventListener('load',()=>setTimeout(renderHub,120));window.addEventListener('resize',()=>{if(isMobile())renderHub();else{const hub=$id('v152AccountsWheelHub');if(hub)hub.innerHTML='';}},{passive:true});
+})();
+</script>
+
+
+<script id="sinop-v154-notification-paid-action-client">
+(() => {
+  let pendingPayload=null,processing=false;
+  function cleanPayload(raw={}){
+    const billId=String(raw.billId||'').trim();
+    const month=/^\d{4}-\d{2}$/.test(String(raw.month||''))?String(raw.month):'';
+    const occurrenceIndex=Number(raw.occurrenceIndex);
+    return {billId,month,occurrenceIndex:Number.isInteger(occurrenceIndex)&&occurrenceIndex>=0?occurrenceIndex:0,reminderKey:String(raw.reminderKey||'')};
+  }
+  function canOpenPayment(payload){
+    if(!payload.billId||typeof state==='undefined'||typeof openBillPaymentModal!=='function')return false;
+    const b=(state.bills||[]).find(x=>sameId(x.id,payload.billId));
+    if(!b||commitmentType(b)!=='expense'||isGroceryBill(b))return false;
+    const month=payload.month||state.month;
+    const schedule=billOccurrenceSchedule(b,month,state.scenario);
+    if(!schedule[payload.occurrenceIndex]||isBillOccurrencePaid(b.id,payload.occurrenceIndex,month))return false;
+    return true;
+  }
+  function openPaymentFromNotification(raw){
+    const payload=cleanPayload(raw);pendingPayload=payload;
+    if(processing||!canOpenPayment(payload))return false;
+    processing=true;pendingPayload=null;
+    const month=payload.month||state.month;
+    try{
+      openSinopTarget('bills');
+      requestAnimationFrame(()=>requestAnimationFrame(()=>{
+        openBillPaymentModal(payload.billId,month,()=>{
+          if(payload.reminderKey){
+            state.reminders.read[payload.reminderKey]=true;
+            scheduleAutoSave();
+          }
+        },payload.occurrenceIndex);
+        toast('Confirm the payment source.');
+        processing=false;
+      }));
+      return true;
+    }catch(err){console.warn('Could not open notification payment',err);processing=false;return false}
+  }
+  function retryPending(){if(pendingPayload&&!processing)openPaymentFromNotification(pendingPayload)}
+
+  if('serviceWorker' in navigator){
+    navigator.serviceWorker.addEventListener('message',event=>{
+      const data=event.data||{};
+      if(data.type==='SINOP_NOTIFICATION_PAID')openPaymentFromNotification(data);
+    });
+  }
+
+  function actionFromUrl(){
+    try{
+      const url=new URL(location.href);
+      if(url.searchParams.get('sinopAction')!=='paid')return;
+      const payload={billId:url.searchParams.get('billId')||'',month:url.searchParams.get('month')||'',occurrenceIndex:url.searchParams.get('occurrenceIndex')||'0',reminderKey:url.searchParams.get('reminderKey')||''};
+      ['sinopAction','billId','month','occurrenceIndex','reminderKey'].forEach(k=>url.searchParams.delete(k));
+      history.replaceState(history.state,'',url.pathname+(url.search?url.search:'')+url.hash);
+      openPaymentFromNotification(payload);
+    }catch(err){console.warn('Could not parse notification action URL',err)}
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(actionFromUrl,350),{once:true});else setTimeout(actionFromUrl,350);
+  window.addEventListener('load',()=>setTimeout(retryPending,700),{once:true});
+  document.addEventListener('sinop:state-ready',retryPending);
 })();
 </script>
 
