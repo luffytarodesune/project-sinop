@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0f766e">
-<title>SINOP v157 · iPhone Home Screen Launch Fix</title>
+<title>SINOP v161 · Analytics Dashboard Rebuild</title>
 <meta name="application-name" content="SINOP">
 <meta name="apple-mobile-web-app-title" content="SINOP">
 <meta name="description" content="SINOP — your personal money system for income, spending, savings, investments, goals, KKB, and financial tracking.">
@@ -5930,74 +5930,105 @@ body[data-theme="dark"] .barkada-group-btn,body[data-theme="dark"] .barkada-memb
       </article>
     </section>
 
-    <section id="dashboard" class="section">
-      <div class="section-head page-head">
-        <div><p class="eyebrow">Dashboard</p><h2>Spending analytics & planning support</h2><p class="subtle">Bar graphs summarize how your money moves. Planning guidance updates automatically based on the selected month and your recent trend.</p></div>
+    <section id="dashboard" class="section dashboard-v161">
+      <div class="section-head page-head dashboard-v161-head">
+        <div><p class="eyebrow">Dashboard</p><h2>Financial analytics</h2></div>
+        <div class="dashboard-v161-month" id="dashboardAnalyticsMonth">—</div>
       </div>
 
-      <div id="widgetMetrics" class="analytics-grid">
-        <article class="analytics-card"><span>Budget health score</span><strong id="healthScore">0</strong><small id="healthLabel">Needs data</small></article>
-        <article class="analytics-card"><span>Financial level</span><strong id="dashboardRewardLevel">Level 1</strong><small id="dashboardRewardTitle">Getting Started · 0 XP</small></article>
-        <article class="analytics-card"><span>Savings rate</span><strong id="savingsRate">0%</strong><small>Remaining cash ÷ income</small></article>
-        <article class="analytics-card"><span>Debt load</span><strong id="debtRate">0%</strong><small>Debt & installments ÷ income</small></article>
-        <article class="analytics-card"><span>Discretionary rate</span><strong id="discRate">0%</strong><small>Shopping, entertainment, travel, etc. ÷ income</small></article>
-      </div>
-
-      <div class="dashboard-grid">
-        <article id="widgetCategory" class="card card-pad">
-          <div class="chart-head">
-            <div class="chart-title"><h2>Variable spending by category</h2><small>Selected budget month</small></div>
-          </div>
-          <div id="categoryBars" class="chart"></div>
-        </article>
-
-        <article id="widgetMonthly" class="card card-pad">
-          <div class="chart-head">
-            <div class="chart-title"><h2>Income vs outflows</h2><small>Last 6 months including selected month</small></div>
-          </div>
-          <div id="monthlyBars" class="vbars"></div>
-          <div class="legend">
-            <span class="legend-item"><span class="swatch income"></span>Income</span>
-            <span class="legend-item"><span class="swatch outflow"></span>Total outflows</span>
-            <span class="legend-item"><span class="swatch variable"></span>Variable spending</span>
-          </div>
-        </article>
-      </div>
-
-      <article id="widgetFixed" class="card card-pad" style="margin-bottom:16px">
-        <div class="section-head">
-          <div>
-            <p class="eyebrow">Installment schedule</p>
-            <h2>Fixed-term bill outlook</h2>
-            <p class="subtle">See how much is due now and when each monthly obligation will disappear from your budget.</p>
-          </div>
-        </div>
-        <div class="fixed-summary-grid">
-          <div class="fixed-summary-card"><span>Due this month</span><strong id="fixedDueDashboard">₱0.00</strong></div>
-          <div class="fixed-summary-card"><span>Next 3 months ending</span><strong id="fixedEndingSoonDashboard">0</strong></div>
-          <div class="fixed-summary-card"><span>Freed within 6 months</span><strong id="fixedFreed6Dashboard">₱0.00</strong></div>
-          <div class="fixed-summary-card"><span>All fixed-term monthly payments</span><strong id="fixedAllDashboard">₱0.00</strong></div>
-        </div>
-        <div id="fixedListDashboard" class="fixed-list-wrap"></div>
-      </article>
-
-      <div id="widgetDecision" class="dss-grid">
-        <article class="card card-pad">
-          <div class="section-head"><div><p class="eyebrow">Decision support</p><h2>Auto recommendations</h2></div></div>
-          <div id="recommendations" class="reco-list"></div>
-        </article>
-
-        <article class="card card-pad">
-          <div class="section-head"><div><p class="eyebrow">Planning assistant</p><h2>What-if planner</h2></div></div>
-          <div class="planner-box">
-            <p class="subtle">Set a desired end-of-month savings amount and an emergency-buffer target. The planner suggests how much room you have for variable spending.</p>
-            <div class="planner-controls">
-              <label><span>Target monthly savings</span><div class="money"><span>₱</span><input id="targetSavingsInput" type="number" min="0" step="500" value="5000"></div></label>
-              <label><span>Emergency buffer target</span><div class="money"><span>₱</span><input id="bufferTargetInput" type="number" min="0" step="500" value="10000"></div></label>
+      <div id="widgetMetrics" class="dashboard-v161-metrics">
+        <article class="dashboard-v161-pulse" id="dashboardPulseCard">
+          <div class="dashboard-v161-pulse-top">
+            <div>
+              <span class="dashboard-v161-kicker">Projected month-end</span>
+              <strong class="dashboard-v161-pulse-value" id="dashProjectedPosition">₱0.00</strong>
+              <div class="dashboard-v161-delta" id="dashPositionDelta">No comparison yet</div>
             </div>
-            <div id="plannerResult" class="planner-result"></div>
-            <div id="plannerChips" class="chip-row"></div>
+            <div class="dashboard-v161-score" id="dashHealthRing" style="--score:0">
+              <strong id="healthScore">0</strong><span>/100</span>
+            </div>
           </div>
+          <div class="dashboard-v161-pulse-foot">
+            <span id="healthLabel">Needs data</span>
+            <span id="dashPulseSummary">Add financial data to begin.</span>
+          </div>
+        </article>
+
+        <div class="dashboard-v161-kpi-grid">
+          <article class="dashboard-v161-kpi"><span>Income received</span><strong id="dashIncomeReceived">₱0.00</strong><small id="dashIncomeReceiptRate">0% of plan</small></article>
+          <article class="dashboard-v161-kpi"><span>Commitment load</span><strong id="dashCommitmentRate">0%</strong><small id="dashCommitmentValue">₱0.00 recurring</small></article>
+          <article class="dashboard-v161-kpi"><span>Actual spending</span><strong id="dashActualSpending">₱0.00</strong><small id="dashSpendingDelta">No prior-month comparison</small></article>
+          <article class="dashboard-v161-kpi"><span>Saving + investing</span><strong id="dashWealthRate">0%</strong><small id="dashWealthValue">₱0.00 contributed</small></article>
+          <article class="dashboard-v161-kpi"><span>Liquidity coverage</span><strong id="dashRunway">0.0 mo</strong><small id="dashUsableMoney">₱0.00 usable</small></article>
+          <article class="dashboard-v161-kpi"><span>Recurring paid</span><strong id="dashRecurringPaidPct">0%</strong><small id="dashRecurringPending">₱0.00 pending</small></article>
+        </div>
+      </div>
+
+      <div id="widgetMonthly" class="dashboard-v161-main-grid">
+        <article class="dashboard-v161-panel dashboard-v161-trend-panel">
+          <div class="dashboard-v161-panel-head"><div><span>6-month cashflow</span><strong id="dashTrendHeadline">—</strong></div><div class="dashboard-v161-legend"><span><i class="income"></i>Income</span><span><i class="outflow"></i>Outflow</span></div></div>
+          <div id="dashCashflowTrend" class="dashboard-v161-trend"></div>
+          <div class="dashboard-v161-trend-stats" id="dashTrendStats"></div>
+        </article>
+
+        <article class="dashboard-v161-panel dashboard-v161-allocation-panel">
+          <div class="dashboard-v161-panel-head"><div><span>This month</span><strong>Where the plan goes</strong></div><span class="dashboard-v161-mini-status" id="dashAllocationStatus">—</span></div>
+          <div class="dashboard-v161-allocation-total"><span>Planned income</span><strong id="dashAllocationIncome">₱0.00</strong></div>
+          <div id="dashAllocationBar" class="dashboard-v161-allocation-bar"></div>
+          <div id="dashAllocationLegend" class="dashboard-v161-allocation-legend"></div>
+        </article>
+      </div>
+
+      <div id="widgetCategory" class="dashboard-v161-intel-grid">
+        <article class="dashboard-v161-panel">
+          <div class="dashboard-v161-panel-head"><div><span>Spending intelligence</span><strong>Category movement</strong></div><span class="dashboard-v161-mini-status" id="dashTopCategory">—</span></div>
+          <div id="categoryBars" class="dashboard-v161-category-list"></div>
+        </article>
+
+        <article class="dashboard-v161-panel">
+          <div class="dashboard-v161-panel-head"><div><span>Income structure</span><strong>Source concentration</strong></div><span class="dashboard-v161-mini-status" id="dashIncomeConcentration">—</span></div>
+          <div id="dashIncomeSources" class="dashboard-v161-source-list"></div>
+        </article>
+      </div>
+
+      <div id="widgetFixed" class="dashboard-v161-risk-grid">
+        <article class="dashboard-v161-panel">
+          <div class="dashboard-v161-panel-head"><div><span>Liquidity</span><strong>Account position</strong></div><span class="dashboard-v161-mini-status" id="dashLiquidityStatus">—</span></div>
+          <div class="dashboard-v161-account-layout">
+            <div class="dashboard-v161-donut" id="dashAccountDonut" style="--usable:0%;--reserved:0%;--locked:0%"><div><strong id="dashTrackedMoney">₱0</strong><span>tracked</span></div></div>
+            <div id="dashAccountLegend" class="dashboard-v161-account-legend"></div>
+          </div>
+        </article>
+
+        <article class="dashboard-v161-panel">
+          <div class="dashboard-v161-panel-head"><div><span>Commitment pressure</span><strong>What is tying up cash</strong></div><span class="dashboard-v161-mini-status" id="dashPressureStatus">—</span></div>
+          <div id="dashPressureMetrics" class="dashboard-v161-pressure-metrics"></div>
+          <div id="dashLargestCommitments" class="dashboard-v161-commitments"></div>
+          <div class="dashboard-v161-hidden-fixed-compat" aria-hidden="true">
+            <span id="fixedDueDashboard">₱0.00</span><span id="fixedEndingSoonDashboard">0</span><span id="fixedFreed6Dashboard">₱0.00</span><span id="fixedAllDashboard">₱0.00</span><div id="fixedListDashboard"></div>
+          </div>
+        </article>
+      </div>
+
+      <div id="widgetDecision" class="dashboard-v161-bottom-grid">
+        <article class="dashboard-v161-panel dashboard-v161-goals-panel">
+          <div class="dashboard-v161-panel-head"><div><span>Goal momentum</span><strong id="dashGoalHeadline">No active goals</strong></div><span class="dashboard-v161-mini-status" id="dashGoalProgress">0%</span></div>
+          <div id="dashGoalRows" class="dashboard-v161-goals"></div>
+        </article>
+
+        <article class="dashboard-v161-panel dashboard-v161-insights-panel">
+          <div class="dashboard-v161-panel-head"><div><span>Signals</span><strong>What deserves attention</strong></div></div>
+          <div id="recommendations" class="dashboard-v161-insights"></div>
+        </article>
+
+        <article class="dashboard-v161-panel dashboard-v161-planner-panel">
+          <div class="dashboard-v161-panel-head"><div><span>Planning</span><strong>Monthly guardrails</strong></div></div>
+          <div class="dashboard-v161-planner-controls">
+            <label><span>Target savings</span><div class="money"><span>₱</span><input id="targetSavingsInput" type="number" min="0" step="500" value="5000"></div></label>
+            <label><span>Emergency buffer</span><div class="money"><span>₱</span><input id="bufferTargetInput" type="number" min="0" step="500" value="10000"></div></label>
+          </div>
+          <div id="plannerResult" class="dashboard-v161-planner-result"></div>
+          <div id="plannerChips" class="dashboard-v161-planner-chips"></div>
         </article>
       </div>
     </section>
@@ -7217,12 +7248,13 @@ body[data-theme="dark"] .barkada-group-btn,body[data-theme="dark"] .barkada-memb
       </div>
 
       <article class="version-latest-card">
-        <div class="version-latest-badge"><span>Latest</span><strong>v160</strong></div>
-        <div class="version-latest-copy"><span>September 4, 2026</span><h3>Smooth Account Switch Transition</h3><p>The mobile Accounts wheel now switches cards smoothly instead of toppling instantly: the active card glides back, the next card comes forward, and the stack stays compact and readable.</p></div>
+        <div class="version-latest-badge"><span>Latest</span><strong>v161</strong></div>
+        <div class="version-latest-copy"><span>September 4, 2026</span><h3>Analytics Dashboard Rebuild</h3><p>Dashboard is now a full financial analytics workspace with cashflow trends, month-over-month deltas, spending concentration, liquidity coverage, income structure, commitment pressure, goal momentum, and data-driven insights.</p></div>
       </article>
 
       <div class="version-timeline" id="versionTimeline">
-        <article class="version-entry is-latest" data-version="v160" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v160</span><h3>Smooth Account Switch Transition</h3></div><time>Sep 4, 2026</time></header><ul><li>Reworked the mobile Accounts interaction so cards switch smoothly instead of instantly toppling when you scroll.</li><li>The active card now glides upward and back while the next card comes forward into the center with a clean handoff.</li><li>Touch, mouse-wheel, keyboard, and card-tap navigation now use the same discrete transition model.</li><li>Cards keep the compact circular-stack feel, heavier fade on back cards, and the real card styling introduced in earlier versions.</li></ul></div></article>
+        <article class="version-entry is-latest" data-version="v161" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v161</span><h3>Analytics Dashboard Rebuild</h3></div><time>Sep 4, 2026</time></header><ul><li>Rebuilt Dashboard around analytical signals instead of generic totals.</li><li>Added projected month-end position, month-over-month movement, income receipt rate, commitment load, savings/investment rate, liquidity coverage, account allocation, and recurring-payment progress.</li><li>Added six-month cashflow trend, category acceleration and budget status, income concentration, goal momentum, fixed-term relief, and early-next-month pressure.</li><li>Recommendations are now concise data-driven insights tied directly to current SINOP records.</li><li>Kept the existing planner controls and dashboard visibility preferences compatible.</li></ul></div></article>
+        <article class="version-entry" data-version="v160" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v160</span><h3>Smooth Account Switch Transition</h3></div><time>Sep 4, 2026</time></header><ul><li>Reworked the mobile Accounts interaction so cards switch smoothly instead of instantly toppling when you scroll.</li><li>The active card now glides upward and back while the next card comes forward into the center with a clean handoff.</li><li>Touch, mouse-wheel, keyboard, and card-tap navigation now use the same discrete transition model.</li><li>Cards keep the compact circular-stack feel, heavier fade on back cards, and the real card styling introduced in earlier versions.</li></ul></div></article>
         <article class="version-entry" data-version="v157" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v157</span><h3>New SINOP App Identity</h3></div><time>Sep 4, 2026</time></header><ul><li>Replaced the old hard-coded S logo in login, sidebar, and mobile header with the new growth-wallet SINOP mark.</li><li>Updated browser favicon, iPhone Home Screen icon, PWA 192×192 and 512×512 icons, and notification icon assets.</li><li>Preserved the new logo proportions with transparent padding instead of stretching it into a square.</li><li>Retained the iPhone Home Screen and actionable recurring-notification fixes from v156.</li></ul></div></article>
         <article class="version-entry is-latest" data-version="v155" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v155</span><h3>iPhone Recurring Notification Tap Action</h3></div><time>Sep 4, 2026</time></header><ul><li>iPhone recurring-expense notifications now use the whole notification as the payment shortcut.</li><li>Tapping the notification opens the exact unpaid occurrence in SINOP and launches the existing payment confirmation sheet.</li><li>Browsers with Web Notification action-button support keep the separate Paid action.</li><li>No payment is silently posted: SINOP still confirms the payment source before changing the ledger.</li></ul></div></article>
         <article class="version-entry" data-version="v154" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v154</span><h3>Actionable Recurring Notifications</h3></div><time>Sep 4, 2026</time></header><ul><li>Added a Paid action to eligible recurring-expense system notifications.</li><li>Tapping Paid opens the exact unpaid occurrence in the recurring-payment confirmation instead of guessing a payment source.</li><li>Linked credit cards and the configured default spending account are preselected by the existing payment workflow.</li><li>Added the same Paid shortcut to the in-app reminder center for consistency.</li><li>Added a companion service worker that handles notification actions and can route the user back into the correct recurring payment even when SINOP is not already open.</li></ul></div></article>
@@ -17324,28 +17356,115 @@ function renderOverviewCashflow(summary){
 
 function setBar(b,v,val,base){$(b).style.width=Math.min(100,val/base*100)+"%";$(v).textContent=money(val)}
 
+function dashboardPct(value,total){return total>0?Math.max(0,Math.min(100,value/total*100)):0}
+function dashboardDelta(current,previous){
+  current=Number(current||0);previous=Number(previous||0);
+  if(Math.abs(previous)<0.005)return Math.abs(current)<0.005?{pct:0,known:false}:{pct:null,known:false};
+  return {pct:(current-previous)/Math.abs(previous)*100,known:true};
+}
+function dashboardDeltaText(current,previous,invert=false){
+  const d=dashboardDelta(current,previous);
+  if(!d.known)return {text:"No prior-month baseline",className:""};
+  const abs=Math.abs(d.pct).toFixed(1),up=d.pct>0.05,down=d.pct<-0.05;
+  if(!up&&!down)return {text:"Flat vs last month",className:""};
+  const favorable=invert?down:up;
+  return {text:`${up?"↑":"↓"} ${abs}% vs last month`,className:favorable?"good":"bad"};
+}
+function dashboardCategoryMap(month){
+  const sums={};variableEntries(month).forEach(x=>{const cat=String(x.category||"Uncategorized").trim()||"Uncategorized";sums[cat]=(sums[cat]||0)+Number(x.amount||0)});return sums;
+}
+function dashboardMoneyShort(value){
+  value=Number(value||0);const sign=value<0?"-":"",n=Math.abs(value);
+  if(n>=1000000)return `${sign}₱${(n/1000000).toFixed(n>=10000000?0:1)}M`;
+  if(n>=1000)return `${sign}₱${(n/1000).toFixed(n>=100000?0:1)}k`;
+  return money(value);
+}
+function dashboardMonthlySeries(){return [-5,-4,-3,-2,-1,0].map(i=>{const month=shiftMonth(state.month,i),summary=monthSummary(month);return {month,summary}})}
+function dashboardInsights(summary){
+  const income=summary.income||0,prev=monthSummary(shiftMonth(state.month,-1)),items=[];
+  const payment=billPaymentSummary(state.month),reserve=nextCycleFundingReserve(state.month),usable=totalUsableMoney(state.month),wealth=wealthContribution(state.month);
+  const currCats=dashboardCategoryMap(state.month),prevCats=dashboardCategoryMap(shiftMonth(state.month,-1));
+  const topCat=Object.entries(currCats).sort((a,b)=>b[1]-a[1])[0];
+  if(income<=0)items.push({type:"bad",title:"Income baseline missing",text:"Add at least one income source so SINOP can calculate ratios and runway."});
+  if(income>0&&summary.cashAfterIous<0)items.push({type:"bad",title:"Month is over-allocated",text:`Projected position is ${money(summary.cashAfterIous)} after IOUs and the next-cycle reserve.`});
+  else if(income>0)items.push({type:"good",title:"Projected month-end",text:`${money(summary.cashAfterIous)} remains after planned outflows, IOUs, and early-next-month reserve.`});
+  if(payment.unpaid>0)items.push({type:payment.unpaid>income*.25?"warn":"",title:"Recurring commitments pending",text:`${money(payment.unpaid)} is still unpaid for ${formatMonth(state.month)}.`});
+  if(reserve.total>0)items.push({type:"warn",title:"Next-month pressure already exists",text:`${money(reserve.total)} should stay available for commitments due before the next expected income.`});
+  if(topCat){const prevVal=prevCats[topCat[0]]||0,d=dashboardDelta(topCat[1],prevVal);if(d.known&&d.pct>15)items.push({type:"warn",title:`${topCat[0]} accelerated`,text:`${money(topCat[1])} this month, up ${d.pct.toFixed(1)}% from last month.`});}
+  const wealthRate=income>0?wealth/income*100:0;if(income>0&&wealthRate<Number(state.settings.rules.savingsTargetPct||10))items.push({type:"warn",title:"Saving/investing pace is below target",text:`Current contribution rate is ${wealthRate.toFixed(1)}% against a ${Number(state.settings.rules.savingsTargetPct||10).toFixed(0)}% target.`});
+  const currentOut=summary.outflow||0,prevOut=prev.outflow||0,outDelta=dashboardDelta(currentOut,prevOut);if(outDelta.known&&outDelta.pct>12)items.push({type:"warn",title:"Total outflow is rising",text:`Outflows are ${outDelta.pct.toFixed(1)}% higher than last month.`});
+  const avgOut=dashboardMonthlySeries().map(x=>x.summary.outflow).filter(v=>v>0);const avg=avgOut.length?avgOut.reduce((a,b)=>a+b,0)/avgOut.length:0;const runway=avg>0?usable/avg:0;if(avg>0&&runway<1)items.push({type:"warn",title:"Liquidity coverage is under one month",text:`Usable accounts cover about ${runway.toFixed(1)} months of your recent average outflow.`});
+  return items.slice(0,5);
+}
 function renderDashboard(){
   applyDashboardVisibility();
-  const summary=monthSummary(state.month);
-  const income=summary.income||0;
-  const savingsRate=income>0?(summary.remaining/income)*100:0;
-  const debtRate=income>0?(debtTotal()/income)*100:0;
-  const discRate=income>0?(discretionaryTotal(state.month)/income)*100:0;
-  const health=budgetHealthScore(summary);
-  const xp=rewardXp(),level=rewardLevel(xp);
+  const summary=monthSummary(state.month),prevMonth=shiftMonth(state.month,-1),prev=monthSummary(prevMonth),income=summary.income||0,credited=totalCreditedIncome(state.month);
+  const actualSpend=actualVariableTotal(state.month),prevActual=actualVariableTotal(prevMonth),wealth=wealthContribution(state.month),payment=billPaymentSummary(state.month),reserve=nextCycleFundingReserve(state.month);
+  const health=budgetHealthScore(summary),plannedPosition=summary.cashAfterIous,totalTracked=totalAccountBalance(state.month),usable=totalUsableMoney(state.month),reserved=totalGoalReserved(),lockedGross=accountBalanceByTypes(["time_deposit","mp2"],state.month),lockedReserved=state.accounts.filter(a=>["time_deposit","mp2"].includes(a.type)).reduce((s,a)=>s+accountGoalReserved(a.id),0),locked=Math.max(0,lockedGross-lockedReserved);
+  const series=dashboardMonthlySeries(),nonzeroOut=series.map(x=>x.summary.outflow).filter(v=>v>0),avgOut=nonzeroOut.length?nonzeroOut.reduce((a,b)=>a+b,0)/nonzeroOut.length:0,runway=avgOut>0?usable/avgOut:0;
+  const commitmentRate=income>0?summary.recurring/income*100:0,wealthRate=income>0?wealth/income*100:0,receiptRate=income>0?credited/income*100:0,paidPct=payment.total>0?payment.paid/payment.total*100:0;
 
-  $("healthScore").textContent=health.score;
-  if($("dashboardRewardLevel"))$("dashboardRewardLevel").textContent=`Level ${level.current.level}`;
-  if($("dashboardRewardTitle"))$("dashboardRewardTitle").textContent=`${level.current.title} · ${xp} XP`;
-  $("healthLabel").textContent=health.label;
-  $("savingsRate").textContent=`${savingsRate.toFixed(1)}%`;
-  $("debtRate").textContent=`${debtRate.toFixed(1)}%`;
-  $("discRate").textContent=`${discRate.toFixed(1)}%`;
+  if($("dashboardAnalyticsMonth"))$("dashboardAnalyticsMonth").textContent=formatMonthFull(state.month);
+  $("healthScore").textContent=health.score;$("healthLabel").textContent=health.label;$("dashHealthRing").style.setProperty("--score",health.score);
+  $("dashProjectedPosition").textContent=money(plannedPosition);$("dashProjectedPosition").classList.toggle("negative",plannedPosition<0);
+  const posDelta=dashboardDeltaText(plannedPosition,prev.cashAfterIous||0,false);$("dashPositionDelta").textContent=posDelta.text;$("dashPositionDelta").className=`dashboard-v161-delta ${posDelta.className}`;
+  $("dashPulseSummary").textContent=income>0?`${commitmentRate.toFixed(0)}% committed · ${receiptRate.toFixed(0)}% income received`:`Add income to calculate ratios`;
+  $("dashIncomeReceived").textContent=money(credited);$("dashIncomeReceiptRate").textContent=income>0?`${Math.min(999,receiptRate).toFixed(0)}% of ${money(income)} plan`:`No planned income`;
+  $("dashCommitmentRate").textContent=`${commitmentRate.toFixed(1)}%`;$("dashCommitmentValue").textContent=`${money(summary.recurring)} recurring`;
+  $("dashActualSpending").textContent=money(actualSpend);const spendDelta=dashboardDeltaText(actualSpend,prevActual,true);$("dashSpendingDelta").textContent=spendDelta.text;$("dashSpendingDelta").className=spendDelta.className;
+  $("dashWealthRate").textContent=`${wealthRate.toFixed(1)}%`;$("dashWealthValue").textContent=`${money(wealth)} contributed`;
+  $("dashRunway").textContent=avgOut>0?`${runway.toFixed(1)} mo`:`—`;$("dashUsableMoney").textContent=`${money(usable)} usable`;
+  $("dashRecurringPaidPct").textContent=`${paidPct.toFixed(0)}%`;$("dashRecurringPending").textContent=`${money(payment.unpaid)} pending`;
 
+  renderDashboardCashflow(series);
+  renderDashboardAllocation(summary);
   renderCategoryBars();
-  renderMonthlyBars();
+  renderDashboardIncomeSources(income);
+  renderDashboardAccounts({totalTracked,usable,reserved,locked,runway});
+  renderDashboardPressure(summary,payment,reserve);
+  renderDashboardGoals();
   renderRecommendations();
   renderPlanner();
+}
+function renderDashboardCashflow(series){
+  const max=Math.max(1,...series.flatMap(x=>[x.summary.income,x.summary.outflow]));
+  const box=$("dashCashflowTrend");if(!box)return;
+  box.innerHTML=series.map(x=>`<div class="dashboard-v161-trend-col"><div class="dashboard-v161-trend-bars"><div class="dashboard-v161-trend-bar income" style="height:${Math.max(2,x.summary.income/max*100)}%" title="Income ${money(x.summary.income)}"></div><div class="dashboard-v161-trend-bar outflow" style="height:${Math.max(2,x.summary.outflow/max*100)}%" title="Outflow ${money(x.summary.outflow)}"></div></div><div class="dashboard-v161-trend-label">${formatMonth(x.month)}</div></div>`).join("");
+  const current=series.at(-1)?.summary||{},previous=series.at(-2)?.summary||{},net=(current.income||0)-(current.outflow||0),delta=dashboardDeltaText(current.outflow||0,previous.outflow||0,true);
+  $("dashTrendHeadline").textContent=net>=0?`${money(net)} planned surplus`:`${money(Math.abs(net))} planned deficit`;
+  const incomes=series.map(x=>x.summary.income).filter(v=>v>0),outflows=series.map(x=>x.summary.outflow).filter(v=>v>0);const avgIncome=incomes.length?incomes.reduce((a,b)=>a+b,0)/incomes.length:0,avgOut=outflows.length?outflows.reduce((a,b)=>a+b,0)/outflows.length:0;
+  $("dashTrendStats").innerHTML=`<div class="dashboard-v161-trend-stat"><span>6-mo avg income</span><strong>${money(avgIncome)}</strong></div><div class="dashboard-v161-trend-stat"><span>6-mo avg outflow</span><strong>${money(avgOut)}</strong></div><div class="dashboard-v161-trend-stat"><span>Outflow movement</span><strong>${delta.text}</strong></div>`;
+}
+function renderDashboardAllocation(summary){
+  const income=summary.income||0,rec=summary.recurring||0,variable=summary.variable||0,goals=summary.goals||0,used=rec+variable+goals,free=Math.max(0,income-used),over=Math.max(0,used-income),den=Math.max(income,used,1);
+  $("dashAllocationIncome").textContent=money(income);$("dashAllocationStatus").textContent=over>0?`${money(over)} over`:`${money(free)} unallocated`;
+  const parts=[['recurring',rec,'Recurring'],['variable',variable,'Variable'],['goals',goals,'Goals']];if(over>0)parts.push(['over',over,'Over plan']);else parts.push(['free',free,'Unallocated']);
+  $("dashAllocationBar").innerHTML=parts.map(([cls,val])=>`<span class="dashboard-v161-allocation-seg ${cls}" style="width:${Math.max(0,val/den*100)}%"></span>`).join('');
+  $("dashAllocationLegend").innerHTML=parts.map(([cls,val,label])=>`<div class="dashboard-v161-allocation-row"><i class="${cls}"></i><span>${label}</span><strong>${money(val)} · ${(val/den*100).toFixed(0)}%</strong></div>`).join('');
+}
+function renderDashboardIncomeSources(total){
+  const box=$("dashIncomeSources");if(!box)return;const rows=state.incomes.map(x=>({name:x.name||x.kind||"Income",value:Number(incomeMonthly(x,state.month)||0),credited:Number(incomeCreditedAmount(x,state.month)||0)})).filter(x=>x.value>0).sort((a,b)=>b.value-a.value);
+  if(!rows.length){box.innerHTML=`<div class="dashboard-v161-empty">No income sources yet.</div>`;$("dashIncomeConcentration").textContent="No data";return;}
+  const topShare=total>0?rows[0].value/total*100:0;$("dashIncomeConcentration").textContent=`Top source ${topShare.toFixed(0)}%`;
+  box.innerHTML=rows.slice(0,5).map(r=>{const share=total>0?r.value/total*100:0,received=r.value>0?r.credited/r.value*100:0;return `<div class="dashboard-v161-source"><div class="dashboard-v161-source-head"><strong>${esc(r.name)}</strong><span>${money(r.value)}</span></div><div class="dashboard-v161-source-track"><div class="dashboard-v161-source-fill" style="width:${share}%"></div></div><small>${share.toFixed(0)}% of planned income · ${Math.min(999,received).toFixed(0)}% received</small></div>`}).join('');
+}
+function renderDashboardAccounts(data){
+  const total=Math.max(0,data.totalTracked||0),usable=Math.max(0,data.usable||0),reserved=Math.max(0,data.reserved||0),locked=Math.max(0,data.locked||0);const allocationTotal=Math.max(usable+reserved+locked,1),usablePct=Math.min(100,usable/allocationTotal*100),reservedPct=Math.min(100-usablePct,reserved/allocationTotal*100),lockedPct=Math.max(0,100-usablePct-reservedPct);
+  $("dashTrackedMoney").textContent=dashboardMoneyShort(total);$("dashAccountDonut").style.setProperty("--usable",`${usablePct}%`);$("dashAccountDonut").style.setProperty("--reserved",`${reservedPct}%`);$("dashAccountDonut").style.setProperty("--locked",`${lockedPct}%`);$("dashLiquidityStatus").textContent=data.runway>0?`${data.runway.toFixed(1)} mo runway`:`No runway yet`;
+  $("dashAccountLegend").innerHTML=`<div class="dashboard-v161-account-row"><i></i><div><span>Usable money</span><strong>${money(usable)}</strong></div></div><div class="dashboard-v161-account-row"><i class="reserved"></i><div><span>Goal-reserved</span><strong>${money(reserved)}</strong></div></div><div class="dashboard-v161-account-row"><i class="locked"></i><div><span>Locked / non-spendable</span><strong>${money(locked)}</strong></div></div>`;
+}
+function renderDashboardPressure(summary,payment,reserve){
+  const income=summary.income||0,debt=debtTotal(),debtRate=income>0?debt/income*100:0;const fixed=fixedTermBills(state.month).map(b=>({bill:b,months:fixedBillMonthsRemaining(b,state.month),due:billValue(b,state.scenario,state.month)})).filter(x=>x.months!==null&&x.months>=0&&x.months<=6),freed=fixed.reduce((s,x)=>s+x.due,0);
+  $("dashPressureStatus").textContent=payment.unpaid>0?`${money(payment.unpaid)} pending`:`Recurring clear`;
+  $("dashPressureMetrics").innerHTML=`<div class="dashboard-v161-pressure"><span>Debt load</span><strong>${debtRate.toFixed(1)}%</strong></div><div class="dashboard-v161-pressure"><span>Before next income</span><strong>${money(reserve.total||0)}</strong></div><div class="dashboard-v161-pressure"><span>Freed ≤6 mo</span><strong>${money(freed)}</strong></div>`;
+  const rows=activeBills(state.month).map(b=>({b,amount:billValue(b,state.scenario,state.month),paid:billActualAmount(b,state.month)})).filter(x=>x.amount>0).sort((a,b)=>b.amount-a.amount).slice(0,4);const box=$("dashLargestCommitments");
+  box.innerHTML=rows.length?rows.map(x=>`<div class="dashboard-v161-commitment"><div><strong>${esc(x.b.name)}</strong><span>${esc(commitmentTypeLabel(commitmentType(x.b)))} · ${x.paid+0.005>=x.amount?'Paid':'Pending'}</span></div><strong>${money(x.amount)}</strong></div>`).join(''):`<div class="dashboard-v161-empty">No active recurring commitments.</div>`;
+}
+function renderDashboardGoals(){
+  const active=state.goals.filter(g=>Number(g.target||0)>0),box=$("dashGoalRows");if(!box)return;const totalTarget=active.reduce((s,g)=>s+Number(g.target||0),0),totalSaved=active.reduce((s,g)=>s+Math.min(Number(g.saved||0),Number(g.target||0)),0),pct=totalTarget>0?totalSaved/totalTarget*100:0;
+  $("dashGoalProgress").textContent=`${pct.toFixed(0)}%`;$("dashGoalHeadline").textContent=active.length?`${money(totalSaved)} of ${money(totalTarget)} funded`:`No active goals`;
+  if(!active.length){box.innerHTML=`<div class="dashboard-v161-empty">Add a goal to track funding momentum.</div>`;return;}
+  box.innerHTML=[...active].sort((a,b)=>{const ap=Number(a.target||0)>0?Number(a.saved||0)/Number(a.target||0):0,bp=Number(b.target||0)>0?Number(b.saved||0)/Number(b.target||0):0;return bp-ap}).slice(0,4).map(g=>{const target=Number(g.target||0),saved=Math.min(Number(g.saved||0),target),p=target>0?saved/target*100:0,remaining=Math.max(0,target-saved),monthly=Number(g.monthly||0),eta=remaining<=0?'Funded':monthly>0?`~${Math.ceil(remaining/monthly)} mo at current pace`:'No monthly allocation';return `<div class="dashboard-v161-goal"><div class="dashboard-v161-goal-head"><strong>${esc(g.name)}</strong><span>${p.toFixed(0)}%</span></div><div class="dashboard-v161-goal-track"><div class="dashboard-v161-goal-fill" style="width:${Math.min(100,p)}%"></div></div><small>${money(saved)} / ${money(target)} · ${eta}</small></div>`}).join('');
 }
 
 function budgetHealthScore(summary){
@@ -17373,23 +17492,10 @@ function budgetHealthScore(summary){
 }
 
 function renderCategoryBars(){
-  const box=$("categoryBars");
-  const entries=variableEntries(state.month);
-  if(!entries.length){
-    box.innerHTML=`<div class="empty"><strong>No variable spending yet</strong>Add entries under Variable spending to see category graphs here.</div>`;
-    return;
-  }
-  const sums={};
-  entries.forEach(x=>sums[x.category]=(sums[x.category]||0)+Number(x.amount||0));
-  const items=Object.entries(sums).sort((a,b)=>b[1]-a[1]);
-  const max=Math.max(...items.map(x=>x[1]),1);
-  box.innerHTML=items.map(([name,val])=>`
-    <div class="hbar-row">
-      <div class="label">${esc(name)}</div>
-      <div class="hbar-track"><div class="hbar-fill" style="width:${(val/max)*100}%"></div></div>
-      <div class="value">${money(val)}${Number(state.settings.categoryBudgets[name]||0)>0?` / ${money(state.settings.categoryBudgets[name])}`:""}</div>
-    </div>
-  `).join("");
+  const box=$("categoryBars");if(!box)return;const curr=dashboardCategoryMap(state.month),prev=dashboardCategoryMap(shiftMonth(state.month,-1)),items=Object.entries(curr).sort((a,b)=>b[1]-a[1]);
+  if(!items.length){box.innerHTML=`<div class="dashboard-v161-empty">No spending recorded for this month.</div>`;$("dashTopCategory").textContent="No data";return;}
+  const max=Math.max(1,...items.map(x=>x[1]));$("dashTopCategory").textContent=`Top: ${items[0][0]}`;
+  box.innerHTML=items.slice(0,6).map(([name,val])=>{const cap=Number(state.settings.categoryBudgets?.[name]||0),base=cap>0?Math.max(cap,val):max,pct=Math.min(100,val/base*100),over=cap>0&&val>cap,d=dashboardDelta(val,prev[name]||0);let deltaText="New this month",deltaClass="";if(d.known){if(Math.abs(d.pct)<.1)deltaText="Flat";else{deltaText=`${d.pct>0?'↑':'↓'} ${Math.abs(d.pct).toFixed(0)}%`;deltaClass=d.pct>0?'up':'down'}}return `<div class="dashboard-v161-category"><div class="dashboard-v161-category-main"><div class="dashboard-v161-category-name"><strong>${esc(name)}</strong><span>${cap>0?`${money(val)} / ${money(cap)}`:money(val)}</span></div><div class="dashboard-v161-category-track"><div class="dashboard-v161-category-fill ${over?'over':''}" style="width:${pct}%"></div></div></div><div class="dashboard-v161-category-value"><strong>${money(val)}</strong><span class="${deltaClass}">${deltaText}</span></div></div>`}).join('');
 }
 
 function renderMonthlyBars(){
@@ -17415,128 +17521,16 @@ function renderMonthlyBars(){
 }
 
 function renderRecommendations(){
-  const box=$("recommendations");
-  const summary=monthSummary(state.month);
-  const income=summary.income;
-  const recs=[];
-
-  if(income<=0){
-    recs.push({type:"bad",title:"Add income sources first",text:"The planner cannot produce useful decision support until at least one income source is entered."});
-  } else {
-    const debt=debtTotal();
-    const essentials=essentialsTotal();
-    const variable=summary.variable;
-    const highRecurring=billTotal("high");
-    const disc=discretionaryTotal(state.month);
-    const gapToHigh=Math.max(0,highRecurring-billTotal("expected"));
-
-    if(summary.remaining < 0){
-      recs.push({type:"bad",title:"You are over budget this month",text:`Your plan is short by ${money(Math.abs(summary.remaining))}. Reduce variable spending, lower goal contributions, or increase income for ${formatMonth(state.month)}.`});
-    } else {
-      recs.push({type:"good",title:"You still have cash left",text:`Your projected remaining cash is ${money(summary.remaining)} for ${formatMonth(state.month)}. Consider reserving part of this as buffer or debt prepayment.`});
-    }
-
-    if(income>0 && debt/income > Number(state.settings.rules.debtCapPct||30)/100){
-      recs.push({type:"warn",title:"Debt load is high",text:`Debt and installments are ${((debt/income)*100).toFixed(1)}% of income. Try limiting new shopping or directing extra cash toward the credit card balance.`});
-    }
-
-    if(income>0 && disc/income > Number(state.settings.rules.discretionaryCapPct||15)/100){
-      recs.push({type:"warn",title:"Discretionary spending is elevated",text:`Shopping, entertainment, travel, and similar spending use ${((disc/income)*100).toFixed(1)}% of income this month. Setting a cap can improve your savings rate.`});
-    } else if(disc > 0){
-      recs.push({type:"good",title:"Discretionary spending looks controlled",text:`Your discretionary spending is ${money(disc)} this month, which stays within a reasonable share of income.`});
-    }
-
-    if(gapToHigh > 0){
-      recs.push({type:"warn",title:"Maintain a utility buffer",text:`A high-bill month could cost about ${money(gapToHigh)} more than your expected recurring bills. Keep at least this amount accessible.`});
-    }
-
-
-    const paymentState=billPaymentSummary(state.month);
-    if(paymentState.unpaid>0){
-      recs.push({type:"warn",title:"Recurring commitments still pending",text:`${money(paymentState.unpaid)} of recurring commitments is still pending for ${formatMonth(state.month)}. Use Recurring to track completion.`});
-    }
-
-    const endingBills=state.bills
-      .filter(b=>(b.schedule||"ongoing")==="fixed" && b.endMonth && billActiveInMonth(b,state.month))
-      .map(b=>{
-        const end=parseMonth(b.endMonth),cur=parseMonth(state.month);
-        const months=Math.max(0,(end.getFullYear()-cur.getFullYear())*12+(end.getMonth()-cur.getMonth()));
-        return {b,months,amount:billValue(b,state.scenario,state.month)};
-      })
-      .filter(x=>x.months<=6)
-      .sort((a,b)=>a.months-b.months);
-
-    if(endingBills.length){
-      const x=endingBills[0];
-      recs.push({
-        type:"good",
-        title:`${x.b.name} is ending soon`,
-        text:x.months===0
-          ? `This is the final payment month. About ${money(x.amount)} per month becomes available starting next month.`
-          : `${x.b.name} has about ${x.months} month${x.months===1?"":"s"} left. When it ends, roughly ${money(x.amount)} per month can be redirected to savings, debt payoff, or goals.`
-      });
-    }
-
-    const goalCost=goalMonthly();
-    if(goalCost > Math.max(0, summary.remaining)){
-      recs.push({type:"warn",title:"Goal funding may be too aggressive",text:`Monthly goal contributions total ${money(goalCost)}. If cash feels tight, stagger lower-priority goals or pause one goal temporarily.`});
-    }
-
-
-    const overBudgetCats=Object.entries(state.settings.categoryBudgets||{})
-      .filter(([,cap])=>Number(cap)>0)
-      .map(([cat,cap])=>({cat,cap:Number(cap),used:variableEntries(state.month).filter(x=>x.category===cat).reduce((s,x)=>s+Number(x.amount||0),0)}))
-      .filter(x=>x.used>x.cap)
-      .sort((a,b)=>(b.used-b.cap)-(a.used-a.cap));
-    if(overBudgetCats.length){
-      const x=overBudgetCats[0];
-      recs.push({type:"warn",title:`${x.cat} is above its limit`,text:`You set ${money(x.cap)} for ${x.cat}, but planned/actual spending is ${money(x.used)}. Reduce or move about ${money(x.used-x.cap)} to get back within the category budget.`});
-    }
-
-    if(income>0 && essentials/income > 0.60){
-      recs.push({type:"warn",title:"Essentials consume most income",text:`Core living costs already use ${((essentials/income)*100).toFixed(1)}% of income. Use the dashboard to watch shopping and entertainment closely.`});
-    }
-
-    const topGoal = [...state.goals].filter(g=>Number(g.monthly||0)>0 && Number(g.target||0)>Number(g.saved||0))
-      .sort((a,b)=>((a.target-a.saved)/Math.max(1,a.monthly))-((b.target-b.saved)/Math.max(1,b.monthly)))[0];
-    if(topGoal){
-      const months=Math.ceil((topGoal.target-topGoal.saved)/Math.max(1,topGoal.monthly));
-      recs.push({type:"good",title:"Nearest funded goal",text:`At the current rate, "${topGoal.name}" may be funded in about ${months} month${months===1?"":"s"}.`});
-    }
-  }
-
-  box.innerHTML=recs.slice(0,6).map(r=>`<div class="reco ${r.type}"><strong>${r.title}</strong><p>${r.text}</p></div>`).join("");
+  const box=$("recommendations");if(!box)return;const items=dashboardInsights(monthSummary(state.month));
+  box.innerHTML=items.length?items.map(x=>`<div class="dashboard-v161-insight ${x.type||''}"><strong>${esc(x.title)}</strong><p>${esc(x.text)}</p></div>`).join(''):`<div class="dashboard-v161-empty">No strong signals yet.</div>`;
 }
 
 function renderPlanner(){
-  const box=$("plannerResult");
-  const chips=$("plannerChips");
-  const summary=monthSummary(state.month);
-  const targetSavings=Number(state.planner.targetSavings||0);
-  const bufferTarget=Number(state.planner.bufferTarget||0);
-  const availableForVariable=Math.max(0, summary.income - billTotal(state.scenario) - goalMonthly() - targetSavings);
-  const currentVariable=summary.variable;
-  const delta=availableForVariable-currentVariable;
-  const monthsToBuffer = summary.remaining>0 ? Math.ceil(bufferTarget/summary.remaining) : Infinity;
-
-  let headline="Enter income data to start planning.";
-  let body="Add at least one income source.";
-  if(summary.income>0){
-    headline=`Recommended maximum variable spending: ${money(availableForVariable)}`;
-    if(delta >= 0){
-      body=`Based on your target savings of ${money(targetSavings)}, you still have ${money(delta)} of variable-spending room this month.`;
-    } else {
-      body=`To still save ${money(targetSavings)}, you would need to cut variable spending by about ${money(Math.abs(delta))} this month.`;
-    }
-  }
-
-  box.innerHTML=`<strong>${headline}</strong><p class="subtle">${body}</p>`;
-  const chipItems = [];
-  chipItems.push(`Current variable spending: ${money(currentVariable)}`);
-  chipItems.push(`Target savings: ${money(targetSavings)}`);
-  chipItems.push(`High-bill emergency buffer: ${money(Math.max(bufferTarget, billTotal("high")-billTotal("expected")))}`);
-  chipItems.push(summary.remaining>0 && Number.isFinite(monthsToBuffer) ? `Months to build buffer: ${monthsToBuffer}` : `Months to build buffer: needs positive remaining cash`);
-  chips.innerHTML = chipItems.map(t=>`<span class="chip">${t}</span>`).join("");
+  const box=$("plannerResult"),chips=$("plannerChips");if(!box||!chips)return;const summary=monthSummary(state.month),targetSavings=Number(state.planner.targetSavings||0),bufferTarget=Number(state.planner.bufferTarget||0),availableForVariable=Math.max(0,summary.income-billTotal(state.scenario)-goalMonthly()-targetSavings),currentVariable=summary.variable,delta=availableForVariable-currentVariable;
+  if(summary.income<=0){box.innerHTML=`<strong>Add income to calculate a spending guardrail.</strong><p>SINOP needs a monthly income baseline first.</p>`;chips.innerHTML='';return;}
+  box.innerHTML=`<strong>${money(availableForVariable)} variable-spending ceiling</strong><p>${delta>=0?`${money(delta)} remains before you exceed the target-savings plan.`:`Variable spending is ${money(Math.abs(delta))} above the level compatible with your target savings.`}</p>`;
+  const highBuffer=Math.max(bufferTarget,billTotal("high")-billTotal("expected")),remaining=summary.cashAfterIous||0,months=remaining>0&&highBuffer>0?Math.ceil(highBuffer/remaining):null;
+  chips.innerHTML=[`Current variable ${money(currentVariable)}`,`Target savings ${money(targetSavings)}`,`Buffer ${money(highBuffer)}`,months?`~${months} mo to buffer`:"Buffer needs positive surplus"].map(t=>`<span class="chip">${t}</span>`).join('');
 }
 
 
@@ -20463,6 +20457,36 @@ details.barkada-peer-row>summary{list-style:none;cursor:pointer}.barkada-peer-ro
   .barkada-peer-row>summary,.barkada-peer-pending{grid-template-columns:26px 36px minmax(0,1fr) 18px;min-height:64px}.barkada-peer-pending{grid-template-columns:26px 36px minmax(0,1fr) auto}.barkada-peer-score{grid-column:3;justify-items:start;margin-top:-2px}.barkada-peer-score .barkada-badge-preview{display:none}.barkada-peer-chevron{grid-column:4;grid-row:1/3}.barkada-peer-copy small{white-space:normal;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical}.barkada-peer-badges{grid-template-columns:1fr}.barkada-your-rank{white-space:nowrap}.barkada-social-head{gap:8px}
 }
 </style>
+
+<style id="sinop-v161-dashboard-analytics-style">
+.dashboard-v161{--dash-green:var(--brand);--dash-green2:var(--brand2);--dash-soft:color-mix(in srgb,var(--brandsoft) 66%,var(--panel));--dash-border:color-mix(in srgb,var(--border) 92%,var(--brand) 8%)}
+.dashboard-v161-head{align-items:center!important;margin-bottom:12px!important}.dashboard-v161-head h2{margin-bottom:0!important}.dashboard-v161-month{padding:7px 11px;border:1px solid var(--border);border-radius:999px;background:var(--panel);font-size:11px;font-weight:800;color:var(--muted)}
+.dashboard-v161-metrics{display:grid;grid-template-columns:minmax(300px,1.05fr) minmax(0,1.95fr);gap:12px;margin-bottom:12px}
+.dashboard-v161-pulse,.dashboard-v161-kpi,.dashboard-v161-panel{background:var(--panel);border:1px solid var(--dash-border);box-shadow:0 8px 26px rgba(15,23,42,.045)}
+.dashboard-v161-pulse{border-radius:22px;padding:18px;background:linear-gradient(145deg,color-mix(in srgb,var(--brandsoft) 72%,var(--panel)),var(--panel) 66%);display:flex;flex-direction:column;justify-content:space-between;min-height:186px;overflow:hidden;position:relative}
+.dashboard-v161-pulse::after{content:"";position:absolute;width:180px;height:180px;border-radius:50%;right:-80px;bottom:-105px;background:color-mix(in srgb,var(--brand) 8%,transparent);pointer-events:none}.dashboard-v161-pulse-top{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;position:relative;z-index:1}.dashboard-v161-kicker{display:block;font-size:10px;font-weight:850;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}.dashboard-v161-pulse-value{display:block;margin-top:8px;font-size:34px;line-height:1;letter-spacing:-.035em;color:var(--text)}.dashboard-v161-delta{margin-top:9px;font-size:11px;font-weight:750;color:var(--muted)}.dashboard-v161-delta.good{color:var(--success)}.dashboard-v161-delta.bad{color:var(--danger)}
+.dashboard-v161-score{--score:0;width:76px;height:76px;border-radius:50%;display:grid;place-items:center;align-content:center;flex:none;background:radial-gradient(circle at center,var(--panel) 56%,transparent 58%),conic-gradient(var(--brand) calc(var(--score)*1%),color-mix(in srgb,var(--border) 82%,transparent) 0);box-shadow:inset 0 0 0 1px var(--border)}.dashboard-v161-score strong{font-size:22px;line-height:1;color:var(--text)}.dashboard-v161-score span{font-size:9px;font-weight:800;color:var(--muted)}.dashboard-v161-pulse-foot{position:relative;z-index:1;display:flex;justify-content:space-between;align-items:flex-end;gap:12px;border-top:1px solid color-mix(in srgb,var(--border) 70%,transparent);padding-top:13px}.dashboard-v161-pulse-foot>span:first-child{font-size:13px;font-weight:850;color:var(--text)}.dashboard-v161-pulse-foot>span:last-child{font-size:10.5px;line-height:1.4;text-align:right;color:var(--muted);max-width:180px}
+.dashboard-v161-kpi-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.dashboard-v161-kpi{border-radius:18px;padding:14px;min-width:0;display:grid;align-content:center;gap:5px}.dashboard-v161-kpi span{font-size:10px;font-weight:750;color:var(--muted)}.dashboard-v161-kpi strong{font-size:21px;line-height:1.05;letter-spacing:-.02em;color:var(--text)}.dashboard-v161-kpi small{font-size:10px;line-height:1.35;color:var(--muted)}.dashboard-v161-kpi small.good{color:var(--success)}.dashboard-v161-kpi small.bad{color:var(--danger)}.dashboard-v161-kpi small.warn{color:var(--warning)}
+.dashboard-v161-main-grid,.dashboard-v161-intel-grid,.dashboard-v161-risk-grid,.dashboard-v161-bottom-grid{display:grid;gap:12px;margin-bottom:12px}.dashboard-v161-main-grid{grid-template-columns:minmax(0,1.55fr) minmax(280px,.85fr)}.dashboard-v161-intel-grid{grid-template-columns:minmax(0,1.4fr) minmax(280px,.8fr)}.dashboard-v161-risk-grid{grid-template-columns:minmax(280px,.85fr) minmax(0,1.35fr)}.dashboard-v161-bottom-grid{grid-template-columns:minmax(0,1fr) minmax(0,1.2fr)}.dashboard-v161-planner-panel{grid-column:1/-1}
+.dashboard-v161-panel{border-radius:22px;padding:16px;min-width:0}.dashboard-v161-panel-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:14px}.dashboard-v161-panel-head>div{min-width:0}.dashboard-v161-panel-head span{display:block;font-size:10px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.075em}.dashboard-v161-panel-head strong{display:block;margin-top:4px;font-size:17px;line-height:1.2;color:var(--text)}.dashboard-v161-mini-status{flex:none!important;display:inline-flex!important;align-items:center!important;min-height:28px;padding:0 9px;border-radius:999px;background:var(--dash-soft);font-size:10px!important;text-transform:none!important;letter-spacing:0!important;color:var(--brand2)!important;white-space:nowrap}
+.dashboard-v161-trend{height:205px;display:flex;align-items:flex-end;gap:10px;padding-top:8px}.dashboard-v161-trend-col{flex:1;min-width:0;display:grid;grid-template-rows:1fr auto;gap:7px;height:100%}.dashboard-v161-trend-bars{display:flex;align-items:flex-end;justify-content:center;gap:4px;height:100%;border-bottom:1px solid var(--border)}.dashboard-v161-trend-bar{width:min(16px,38%);min-height:3px;border-radius:6px 6px 2px 2px;transition:height .25s ease}.dashboard-v161-trend-bar.income{background:var(--brand)}.dashboard-v161-trend-bar.outflow{background:color-mix(in srgb,var(--warning) 76%,var(--brand2))}.dashboard-v161-trend-label{text-align:center;font-size:9px;font-weight:750;color:var(--muted)}.dashboard-v161-legend{display:flex!important;gap:9px!important;align-items:center}.dashboard-v161-legend span{display:flex!important;align-items:center;gap:4px;font-size:9px!important;text-transform:none!important;letter-spacing:0!important}.dashboard-v161-legend i{width:7px;height:7px;border-radius:2px;background:var(--brand)}.dashboard-v161-legend i.outflow{background:color-mix(in srgb,var(--warning) 76%,var(--brand2))}.dashboard-v161-trend-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}.dashboard-v161-trend-stat{padding-top:9px;border-top:1px solid var(--border);display:grid;gap:3px}.dashboard-v161-trend-stat span{font-size:9px;color:var(--muted)}.dashboard-v161-trend-stat strong{font-size:13px;color:var(--text)}
+.dashboard-v161-allocation-total{display:flex;justify-content:space-between;gap:10px;align-items:end;margin:20px 0 12px}.dashboard-v161-allocation-total span{font-size:11px;color:var(--muted)}.dashboard-v161-allocation-total strong{font-size:26px;letter-spacing:-.025em;color:var(--text)}.dashboard-v161-allocation-bar{height:18px;border-radius:999px;background:var(--soft);overflow:hidden;display:flex;border:1px solid var(--border)}.dashboard-v161-allocation-seg{height:100%;min-width:0}.dashboard-v161-allocation-seg.recurring{background:var(--brand)}.dashboard-v161-allocation-seg.variable{background:color-mix(in srgb,var(--warning) 70%,#e59b36)}.dashboard-v161-allocation-seg.goals{background:color-mix(in srgb,var(--brand2) 62%,#829fdd)}.dashboard-v161-allocation-seg.free{background:color-mix(in srgb,var(--success) 55%,#b8dec9)}.dashboard-v161-allocation-seg.over{background:var(--danger)}.dashboard-v161-allocation-legend{display:grid;gap:9px;margin-top:16px}.dashboard-v161-allocation-row{display:grid;grid-template-columns:10px minmax(0,1fr) auto;gap:8px;align-items:center}.dashboard-v161-allocation-row i{width:8px;height:8px;border-radius:3px;background:var(--brand)}.dashboard-v161-allocation-row i.variable{background:color-mix(in srgb,var(--warning) 70%,#e59b36)}.dashboard-v161-allocation-row i.goals{background:color-mix(in srgb,var(--brand2) 62%,#829fdd)}.dashboard-v161-allocation-row i.free{background:color-mix(in srgb,var(--success) 55%,#b8dec9)}.dashboard-v161-allocation-row i.over{background:var(--danger)}.dashboard-v161-allocation-row span{font-size:11px;color:var(--muted)}.dashboard-v161-allocation-row strong{font-size:11px;color:var(--text)}
+.dashboard-v161-category-list,.dashboard-v161-source-list,.dashboard-v161-commitments,.dashboard-v161-goals,.dashboard-v161-insights{display:grid;gap:9px}.dashboard-v161-category{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px 12px;padding:10px 0;border-bottom:1px solid var(--border)}.dashboard-v161-category:last-child{border-bottom:0}.dashboard-v161-category-main{min-width:0;display:grid;gap:6px}.dashboard-v161-category-name{display:flex;align-items:center;justify-content:space-between;gap:8px}.dashboard-v161-category-name strong{font-size:12px;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.dashboard-v161-category-name span{font-size:9px;color:var(--muted)}.dashboard-v161-category-track{height:6px;border-radius:999px;background:var(--soft);overflow:hidden}.dashboard-v161-category-fill{height:100%;border-radius:999px;background:var(--brand)}.dashboard-v161-category-fill.over{background:var(--danger)}.dashboard-v161-category-value{text-align:right;display:grid;gap:3px;align-content:center}.dashboard-v161-category-value strong{font-size:12px;color:var(--text)}.dashboard-v161-category-value span{font-size:9px;font-weight:750;color:var(--muted)}.dashboard-v161-category-value span.up{color:var(--danger)}.dashboard-v161-category-value span.down{color:var(--success)}
+.dashboard-v161-source{display:grid;gap:6px;padding:10px 0;border-bottom:1px solid var(--border)}.dashboard-v161-source:last-child{border-bottom:0}.dashboard-v161-source-head{display:flex;justify-content:space-between;gap:10px}.dashboard-v161-source-head strong{font-size:12px;color:var(--text)}.dashboard-v161-source-head span{font-size:11px;color:var(--text);font-weight:800}.dashboard-v161-source-track{height:6px;border-radius:999px;background:var(--soft);overflow:hidden}.dashboard-v161-source-fill{height:100%;border-radius:999px;background:var(--brand)}.dashboard-v161-source small{font-size:9px;color:var(--muted)}
+.dashboard-v161-account-layout{display:grid;grid-template-columns:150px minmax(0,1fr);gap:16px;align-items:center}.dashboard-v161-donut{width:146px;height:146px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle,var(--panel) 57%,transparent 58%),conic-gradient(var(--brand) 0 var(--usable),color-mix(in srgb,var(--warning) 65%,#d6aa60) var(--usable) calc(var(--usable) + var(--reserved)),color-mix(in srgb,var(--brand2) 58%,#8791bf) calc(var(--usable) + var(--reserved)) 100%);box-shadow:inset 0 0 0 1px var(--border)}.dashboard-v161-donut>div{text-align:center;max-width:90px}.dashboard-v161-donut strong{display:block;font-size:15px;line-height:1.1;color:var(--text)}.dashboard-v161-donut span{font-size:9px;color:var(--muted)}.dashboard-v161-account-legend{display:grid;gap:10px}.dashboard-v161-account-row{display:grid;grid-template-columns:9px minmax(0,1fr);gap:8px}.dashboard-v161-account-row i{width:8px;height:8px;border-radius:3px;background:var(--brand);margin-top:4px}.dashboard-v161-account-row i.reserved{background:color-mix(in srgb,var(--warning) 65%,#d6aa60)}.dashboard-v161-account-row i.locked{background:color-mix(in srgb,var(--brand2) 58%,#8791bf)}.dashboard-v161-account-row span{font-size:10px;color:var(--muted)}.dashboard-v161-account-row strong{display:block;margin-top:2px;font-size:12px;color:var(--text)}
+.dashboard-v161-pressure-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}.dashboard-v161-pressure{padding:10px 11px;border-radius:15px;background:var(--soft);display:grid;gap:3px}.dashboard-v161-pressure span{font-size:9px;color:var(--muted)}.dashboard-v161-pressure strong{font-size:14px;color:var(--text)}.dashboard-v161-commitment{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;padding:9px 0;border-top:1px solid var(--border)}.dashboard-v161-commitment:first-child{border-top:0}.dashboard-v161-commitment div{min-width:0}.dashboard-v161-commitment strong{display:block;font-size:12px;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.dashboard-v161-commitment span{font-size:9px;color:var(--muted)}.dashboard-v161-commitment>strong{font-size:12px;white-space:nowrap}.dashboard-v161-hidden-fixed-compat{display:none!important}
+.dashboard-v161-goal{display:grid;gap:7px;padding:10px 0;border-bottom:1px solid var(--border)}.dashboard-v161-goal:last-child{border-bottom:0}.dashboard-v161-goal-head{display:flex;justify-content:space-between;gap:10px}.dashboard-v161-goal-head strong{font-size:12px;color:var(--text)}.dashboard-v161-goal-head span{font-size:10px;color:var(--muted)}.dashboard-v161-goal-track{height:7px;border-radius:999px;background:var(--soft);overflow:hidden}.dashboard-v161-goal-fill{height:100%;border-radius:999px;background:var(--brand)}.dashboard-v161-goal small{font-size:9px;color:var(--muted)}
+.dashboard-v161-insight{padding:11px 12px;border-left:3px solid var(--brand);border-radius:0 13px 13px 0;background:var(--soft);display:grid;gap:4px}.dashboard-v161-insight.warn{border-left-color:var(--warning)}.dashboard-v161-insight.bad{border-left-color:var(--danger)}.dashboard-v161-insight.good{border-left-color:var(--success)}.dashboard-v161-insight strong{font-size:12px;color:var(--text)}.dashboard-v161-insight p{margin:0;font-size:10.5px;line-height:1.45;color:var(--muted)}
+.dashboard-v161-planner-controls{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.dashboard-v161-planner-controls label{display:grid;gap:6px}.dashboard-v161-planner-controls label>span{font-size:10px;font-weight:750;color:var(--muted)}.dashboard-v161-planner-result{margin-top:12px;padding:12px 14px;border-radius:16px;background:var(--dash-soft);border:1px solid color-mix(in srgb,var(--brand) 15%,var(--border));display:grid;gap:4px}.dashboard-v161-planner-result strong{font-size:14px;color:var(--text)}.dashboard-v161-planner-result p{margin:0;font-size:10.5px;line-height:1.45;color:var(--muted)}.dashboard-v161-planner-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}.dashboard-v161-planner-chips .chip{font-size:9px;padding:6px 8px}
+.dashboard-v161-empty{padding:18px 0;text-align:center;color:var(--muted);font-size:11px}.dashboard-v161 .negative{color:var(--danger)!important}
+@media(max-width:980px){.dashboard-v161-metrics{grid-template-columns:1fr}.dashboard-v161-main-grid,.dashboard-v161-intel-grid,.dashboard-v161-risk-grid{grid-template-columns:1fr}.dashboard-v161-bottom-grid{grid-template-columns:1fr}.dashboard-v161-planner-panel{grid-column:auto}.dashboard-v161-kpi-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:760px){
+  .dashboard-v161-head{display:flex!important;flex-direction:row!important;align-items:center!important;justify-content:space-between!important}.dashboard-v161-head .eyebrow{display:none!important}.dashboard-v161-head h2{font-size:23px!important}.dashboard-v161-month{font-size:10px;padding:6px 9px}
+  .dashboard-v161-metrics,.dashboard-v161-main-grid,.dashboard-v161-intel-grid,.dashboard-v161-risk-grid,.dashboard-v161-bottom-grid{gap:10px;margin-bottom:10px}.dashboard-v161-pulse,.dashboard-v161-panel{border-radius:19px}.dashboard-v161-pulse{padding:15px;min-height:168px}.dashboard-v161-pulse-value{font-size:31px}.dashboard-v161-score{width:68px;height:68px}.dashboard-v161-score strong{font-size:20px}.dashboard-v161-pulse-foot>span:last-child{max-width:160px;font-size:10px}.dashboard-v161-kpi-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.dashboard-v161-kpi{padding:12px;border-radius:16px}.dashboard-v161-kpi strong{font-size:19px}.dashboard-v161-panel{padding:14px}.dashboard-v161-trend{height:180px;gap:6px}.dashboard-v161-trend-bar{width:min(13px,42%)}.dashboard-v161-trend-stats{gap:6px}.dashboard-v161-account-layout{grid-template-columns:120px minmax(0,1fr);gap:12px}.dashboard-v161-donut{width:118px;height:118px}.dashboard-v161-pressure-metrics{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}.dashboard-v161-pressure{padding:9px}.dashboard-v161-pressure strong{font-size:12px}.dashboard-v161-planner-controls{grid-template-columns:1fr 1fr}.dashboard-v161-panel-head{margin-bottom:11px}.dashboard-v161-panel-head strong{font-size:15px}.dashboard-v161-category{padding:9px 0}.dashboard-v161 .money input{font-size:16px!important}
+}
+@media(max-width:390px){.dashboard-v161-kpi-grid{grid-template-columns:1fr 1fr}.dashboard-v161-pulse-foot{display:grid}.dashboard-v161-pulse-foot>span:last-child{text-align:left;max-width:none}.dashboard-v161-account-layout{grid-template-columns:105px minmax(0,1fr)}.dashboard-v161-donut{width:102px;height:102px}.dashboard-v161-donut strong{font-size:13px}.dashboard-v161-planner-controls{grid-template-columns:1fr}.dashboard-v161-pressure-metrics{grid-template-columns:1fr 1fr}.dashboard-v161-pressure:last-child{grid-column:1/-1}}
+</style>
+
 </head><body>
   <div class="statement">
     <div class="head">
