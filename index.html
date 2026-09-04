@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0f766e">
-<title>SINOP v155 · iPhone Recurring Notification Tap Action</title>
+<title>SINOP v156 · iPhone Home Screen Launch Fix</title>
 <meta name="application-name" content="SINOP">
 <meta name="apple-mobile-web-app-title" content="SINOP">
 <meta name="description" content="SINOP — your personal money system for income, spending, savings, investments, goals, KKB, and financial tracking.">
@@ -7217,8 +7217,8 @@ body[data-theme="dark"] .barkada-group-btn,body[data-theme="dark"] .barkada-memb
       </div>
 
       <article class="version-latest-card">
-        <div class="version-latest-badge"><span>Latest</span><strong>v155</strong></div>
-        <div class="version-latest-copy"><span>September 4, 2026</span><h3>iPhone Recurring Notification Tap Action</h3><p>On iPhone, tapping an eligible recurring-expense notification now opens that exact payment directly because iOS Web Push does not expose web notification action buttons. Browsers that support notification actions can still show Paid.</p></div>
+        <div class="version-latest-badge"><span>Latest</span><strong>v156</strong></div>
+        <div class="version-latest-copy"><span>September 4, 2026</span><h3>iPhone Home Screen Launch Fix</h3><p>On iPhone, tapping an eligible recurring-expense notification now opens that exact payment directly because iOS Web Push does not expose web notification action buttons. Browsers that support notification actions can still show Paid.</p></div>
       </article>
 
       <div class="version-timeline" id="versionTimeline">
@@ -22850,7 +22850,7 @@ maybeStartFirstRunSetup();
       await reg.showNotification(title,{
         icon:'./sinop-icon-192.png',badge:'./sinop-icon-192.png',
         ...options,
-        data:{url:location.href,...(options.data||{})}
+        data:{url:new URL('./index.html',location.href).href,...(options.data||{})}
       });
       return true;
     }catch(err){console.warn('SINOP notification failed',err);return false}
@@ -22901,7 +22901,7 @@ maybeStartFirstRunSetup();
         tag:x.key,
         actions:actionButtons?[{action:'paid',title:'Paid'}]:[],
         data:{
-          reminderKey:x.key,url:location.href,
+          reminderKey:x.key,url:new URL('./index.html',location.href).href,
           kind:x.source||'',billId:x.billId||'',month:x.month||'',occurrenceIndex:Number.isFinite(Number(x.occurrenceIndex))?Number(x.occurrenceIndex):null,
           paidAction,openPaymentOnTap:paidAction
         }
