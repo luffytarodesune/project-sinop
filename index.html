@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0f766e">
-<title>SINOP v163 · Unified Financial Score Dashboard</title>
+<title>SINOP v164 · Grocery Actual & Activity Fix</title>
 <meta name="application-name" content="SINOP">
 <meta name="apple-mobile-web-app-title" content="SINOP">
 <meta name="description" content="SINOP — your personal money system for income, spending, savings, investments, goals, KKB, and financial tracking.">
@@ -7248,12 +7248,13 @@ body[data-theme="dark"] .barkada-group-btn,body[data-theme="dark"] .barkada-memb
       </div>
 
       <article class="version-latest-card">
-        <div class="version-latest-badge"><span>Latest</span><strong>v163</strong></div>
-        <div class="version-latest-copy"><span>September 4, 2026</span><h3>Unified Financial Score Dashboard</h3><p>The Dashboard now uses the same 0–1000 SINOP Financial Score as Profile instead of maintaining a separate 100-point budget score.</p></div>
+        <div class="version-latest-badge"><span>Latest</span><strong>v164</strong></div>
+        <div class="version-latest-copy"><span>September 4, 2026</span><h3>Grocery Actual & Activity Fix</h3><p>Direct grocery amounts recorded from Recurring now update the recurring actual, tracked account, Activity timeline, and statements consistently. Legacy grocery amounts saved into occurrence records are recovered automatically.</p></div>
       </article>
 
       <div class="version-timeline" id="versionTimeline">
-        <article class="version-entry is-latest" data-version="v163" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v163</span><h3>Unified Financial Score Dashboard</h3></div><time>Sep 4, 2026</time></header><ul><li>Removed the separate 100-point Dashboard budget-health score.</li><li>The Dashboard score ring now uses the exact same 0–1000 SINOP Financial Score calculation used in Profile.</li><li>Dashboard score bands now match Profile: Excellent, Strong, Stable, Building, and Needs attention.</li><li>The ring progress is normalized from the 1000-point score while the displayed value remains the real Financial Score.</li></ul></div></article>
+        <article class="version-entry is-latest" data-version="v164" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v164</span><h3>Grocery Actual & Activity Fix</h3></div><time>Sep 4, 2026</time></header><ul><li>Fixed Recurring → Grocery → Record amount so the entered actual is stored as the month-level grocery actual instead of an occurrence-only payment.</li><li>The exact recorded amount now appears in Recurring and Activity while the linked account debit remains consistent.</li><li>Direct grocery actuals now appear in monthly statements as recurring grocery payments.</li><li>When a direct grocery actual exists, Grocery item trips are not double-counted in Activity or statements.</li><li>Added automatic recovery for grocery amounts previously saved into the broken occurrence-payment path.</li></ul></div></article>
+        <article class="version-entry" data-version="v163" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v163</span><h3>Unified Financial Score Dashboard</h3></div><time>Sep 4, 2026</time></header><ul><li>Removed the separate 100-point Dashboard budget-health score.</li><li>The Dashboard score ring now uses the exact same 0–1000 SINOP Financial Score calculation used in Profile.</li><li>Dashboard score bands now match Profile: Excellent, Strong, Stable, Building, and Needs attention.</li><li>The ring progress is normalized from the 1000-point score while the displayed value remains the real Financial Score.</li></ul></div></article>
         <article class="version-entry" data-version="v162" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v162</span><h3>Designed Analytics Dashboard</h3></div><time>Sep 4, 2026</time></header><ul><li>Fixed the v161 dashboard stylesheet that was mistakenly inserted inside the printable financial-statement HTML template instead of the live app document.</li><li>Moved the Dashboard visual layer to the true final CSS cascade so it actually renders after all older SINOP styles.</li><li>Added a strong financial-pulse hero, six analytical KPI tiles, designed cashflow chart, allocation visualization, spending/income intelligence, liquidity donut, commitment pressure, goal momentum, signals, and planning guardrails.</li><li>Recomposed the mobile Dashboard as an analytics feed rather than squeezed desktop cards.</li><li>Kept all v161 analytics calculations and existing SINOP ledger rules unchanged.</li></ul></div></article>
         <article class="version-entry" data-version="v161" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v161</span><h3>Analytics Dashboard Rebuild</h3></div><time>Sep 4, 2026</time></header><ul><li>Rebuilt Dashboard around analytical signals instead of generic totals.</li><li>Added projected month-end position, month-over-month movement, income receipt rate, commitment load, savings/investment rate, liquidity coverage, account allocation, and recurring-payment progress.</li><li>Added six-month cashflow trend, category acceleration and budget status, income concentration, goal momentum, fixed-term relief, and early-next-month pressure.</li><li>Recommendations are now concise data-driven insights tied directly to current SINOP records.</li><li>Kept the existing planner controls and dashboard visibility preferences compatible.</li></ul></div></article>
         <article class="version-entry" data-version="v160" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v160</span><h3>Smooth Account Switch Transition</h3></div><time>Sep 4, 2026</time></header><ul><li>Reworked the mobile Accounts interaction so cards switch smoothly instead of instantly toppling when you scroll.</li><li>The active card now glides upward and back while the next card comes forward into the center with a clean handoff.</li><li>Touch, mouse-wheel, keyboard, and card-tap navigation now use the same discrete transition model.</li><li>Cards keep the compact circular-stack feel, heavier fade on back cards, and the real card styling introduced in earlier versions.</li></ul></div></article>
@@ -11789,6 +11790,36 @@ function groceryActualForBill(billId,month=state.month){
 function groceryTripCount(billId,month=state.month){return groceryCompletedEvents(month,billId).length}
 function groceryManualActualDetail(billId,month=state.month){const d=state.billPaymentDetails?.[month]?.[billId]||null;return d&&isBillPaid(billId,month)?d:null}
 function groceryBillHasManualActual(billId,month=state.month){return !!groceryManualActualDetail(billId,month)}
+function migrateLegacyGroceryManualActuals(){
+  let changed=false;
+  const months=new Set([
+    ...Object.keys(state.billPaymentOccurrences||{}),
+    ...Object.keys(state.billPaymentOccurrenceDetails||{})
+  ]);
+  months.forEach(month=>{
+    state.bills.filter(isGroceryBill).forEach(b=>{
+      if(!billOccurrenceRecordExists(b.id,month))return;
+      const flags=billOccurrenceFlags(b.id,month,false),details=billOccurrenceDetails(b.id,month,false),schedule=billOccurrenceSchedule(b,month,state.scenario);
+      const paid=[];
+      flags.forEach((on,index)=>{
+        if(!on)return;
+        const d=details[index]||{};
+        const amount=d.amountPaid!==""&&d.amountPaid!==null&&d.amountPaid!==undefined?Math.max(0,Number(d.amountPaid||0)):Math.max(0,Number(schedule[index]?.amount||0));
+        if(amount>0.005)paid.push({detail:d,amount,index});
+      });
+      if(!paid.length)return;
+      const amountPaid=paid.reduce((sum,row)=>sum+row.amount,0);
+      const last=[...paid].reverse().find(row=>row.detail&&Object.keys(row.detail).length)?.detail||{};
+      // Keep the already-posted account ledger entries. Only migrate the payment-state record so all modules read the same actual.
+      setBillPaid(b.id,true,month);
+      setBillPaymentDetail(b.id,{...last,amountPaid,budgetMonth:month,occurrenceIndex:null,occurrenceLabel:"Payment",migratedFromOccurrence:true},month);
+      clearBillOccurrenceRecords(b.id,month);
+      changed=true;
+    });
+  });
+  if(changed)scheduleAutoSave();
+  return changed;
+}
 function billActualAmount(b,month=state.month){
   if(!b||!billActiveInMonth(b,month))return 0;
   if(isGroceryBill(b)){const manual=groceryManualActualDetail(b.id,month);return manual?Math.max(0,Number(manual.amountPaid||0)):groceryActualForBill(b.id,month)};
@@ -15752,7 +15783,9 @@ function renderBillPaymentImpact(){
 function openBillPaymentModal(billId,month=state.month,onSaved=null,occurrenceIndex=null){
   const b=state.bills.find(x=>sameId(x.id,billId));if(!b)return;
   const schedule=billOccurrenceSchedule(b,month,state.scenario);
-  if(occurrenceIndex===null&&billUsesOccurrencePayments(b)){const flags=billOccurrenceFlags(billId,month,false),first=flags.findIndex(v=>!v);occurrenceIndex=first>=0?first:0}
+  // Grocery "Record amount" is a single month-level actual. Do not route it into weekly/twice-monthly occurrence storage.
+  if(isGroceryBill(b))occurrenceIndex=null;
+  else if(occurrenceIndex===null&&billUsesOccurrencePayments(b)){const flags=billOccurrenceFlags(billId,month,false),first=flags.findIndex(v=>!v);occurrenceIndex=first>=0?first:0}
   const occurrence=occurrenceIndex===null||occurrenceIndex===undefined?null:schedule[occurrenceIndex];
   pendingBillPayment={billId,month,onSaved,occurrenceIndex};
   const existing=occurrence?billPaymentOccurrenceDetail(billId,occurrenceIndex,month):(state.billPaymentDetails?.[month]?.[billId]||null),type=commitmentType(b),amount=occurrence?occurrence.amount:billValue(b,state.scenario,month);
@@ -15773,6 +15806,8 @@ function saveBillPayment(){
   if(source.startsWith("account:")){const account=accountById(source.slice(8));if(!isSpendableAccount(account)){toast("Choose a spendable source account.");return}detail.sourceType="account";detail.accountId=account.id}else if(source.startsWith("card:")){if(type!=="expense"){toast("Only recurring expenses can be charged to a credit card.");return}detail.sourceType="card";detail.creditCardId=source.slice(5)}
   if(type==="transfer"&&detail.sourceType!=="account"){toast("Choose the account the transfer comes from.");return}
   removeRecurringCommitmentLedgerEffect(billId,month,occurrenceIndex);
+  // Grocery direct actuals are aggregate monthly records. Clear any old accidental occurrence state before writing the canonical detail.
+  if(isGroceryBill(b)&&!occurrence)clearBillOccurrenceRecords(billId,month);
   const billRef=occurrence?accountTransactionKeyForBillOccurrence(billId,month,occurrenceIndex):accountTransactionKeyForBill(billId,month),commitRef=recurringCommitmentReference(billId,month,occurrenceIndex);
   if(type==="expense"){
     if(isGroceryBill(b))state.accountTransactions=state.accountTransactions.filter(tx=>!(tx.type==="grocery_event"&&sameId(tx.billId,billId)&&tx.budgetMonth===month));
@@ -18324,6 +18359,7 @@ function recurringBillUpcomingInfo(b,anchorDate=recurringBillSortAnchorDate()){
   return {bucket:3,date:"9999-12-31",label:billDueLabel(b),overdue:false};
 }
 function renderBills(){
+  migrateLegacyGroceryManualActuals();
   const body=$("billBody");body.innerHTML="",sortAnchor=recurringBillSortAnchorDate();
   [...state.bills].sort((a,b)=>{const ai=recurringBillUpcomingInfo(a,sortAnchor),bi=recurringBillUpcomingInfo(b,sortAnchor);return ai.bucket-bi.bucket||String(ai.date).localeCompare(String(bi.date))||String(a.name||"").localeCompare(String(b.name||""))}).forEach(b=>{
     const tr=document.createElement("tr"),active=billActiveInMonth(b,state.month),paid=isBillPaid(b.id,state.month),partial=isBillPartiallyPaid(b.id,state.month),status=billEndStatus(b,state.month),amount=billValue(b,state.scenario,state.month),actual=billActualAmount(b,state.month),variance=amount-actual,months=fixedBillMonthsRemaining(b,state.month),type=commitmentType(b),movement=commitmentMovementLabel(b),grocery=isGroceryBill(b),upcomingInfo=recurringBillUpcomingInfo(b,sortAnchor),schedule=grocery?[]:billOccurrenceSchedule(b,state.month,state.scenario),flags=grocery?[]:billOccurrenceFlags(b.id,state.month,false),details=grocery?[]:billOccurrenceDetails(b.id,state.month,false),paidCount=flags.filter(Boolean).length;
@@ -20228,16 +20264,27 @@ function financialStatementTransactions(months=statementPeriodMonths()){
     // Recurring expense actuals. Grocery is event-based, so every completed shopping trip is shown separately.
     activeBills(month).forEach(bill=>{
       if(isGroceryBill(bill)){
-        groceryCompletedEvents(month,bill.id).forEach(event=>{
-          const source=event.paymentSourceType==="account"?(accountById(event.accountId)?.name||"Linked account"):event.paymentSourceType==="card"?(cardById(event.creditCardId)?cardLabel(cardById(event.creditCardId)):"Credit card"):"Untracked";
+        const manual=groceryManualActualDetail(bill.id,month);
+        if(manual){
           rows.push({
-            date:event.date||statementMonthEndDate(month),
-            description:event.name||bill.name||"Grocery shopping",
+            date:manual.paidDate||statementBillPostingDate(bill,month),
+            description:bill.name||"Groceries",
             detail:bill.category||"Groceries",
-            reference:statementReferenceParts(["Recurring grocery",event.store||"",source]),
-            debit:0,credit:groceryEventActualTotal(event),order:30
+            reference:statementReferenceParts(["Recurring grocery",paymentSourceLabel(manual)]),
+            debit:0,credit:Math.max(0,Number(manual.amountPaid||0)),order:30
           });
-        });
+        }else{
+          groceryCompletedEvents(month,bill.id).forEach(event=>{
+            const source=event.paymentSourceType==="account"?(accountById(event.accountId)?.name||"Linked account"):event.paymentSourceType==="card"?(cardById(event.creditCardId)?cardLabel(cardById(event.creditCardId)):"Credit card"):"Untracked";
+            rows.push({
+              date:event.date||statementMonthEndDate(month),
+              description:event.name||bill.name||"Grocery shopping",
+              detail:bill.category||"Groceries",
+              reference:statementReferenceParts(["Recurring grocery",event.store||"",source]),
+              debit:0,credit:groceryEventActualTotal(event),order:30
+            });
+          });
+        }
         return;
       }
       if(billOccurrenceRecordExists(bill.id,month)){
@@ -21210,7 +21257,12 @@ function osUnifiedEvents(month=state.month){
   state.incomes.forEach(x=>incomeCreditedEvents(x,month).forEach(e=>events.push({id:`income:${x.id}:${e.index}`,date:e.date,type:"income",title:x.name,detail:`Income received · ${x.kind||"Income"}`,amount:e.amount,flow:"in",search:`${x.name} ${x.kind||""}`})));
   state.spending.filter(x=>monthMatches(x.date,month)).forEach(x=>events.push({id:`spend:${x.id}`,date:x.date,type:"spend",title:x.description||x.category||"Spending",detail:`${x.status==="planned"?"Planned":"Actual"} · ${x.category||"Other"}`,amount:Number(x.amount||0),flow:x.status==="planned"?"neutral":"out",search:`${x.description||""} ${x.category||""} ${x.notes||""}`}));
   state.dailySpendEntries.filter(x=>monthMatches(x.date,month)).forEach(x=>events.push({id:`daily:${x.id}`,date:x.date,type:"spend",title:x.note||`Quick spend · ${cap(x.kind)}`,detail:`Daily ${x.kind}`,amount:Number(x.amount||0),flow:"out",search:`${x.note||""} ${x.kind}`}));
-  groceryCompletedEvents(month).forEach(e=>events.push({id:`grocery:${e.id}`,date:e.date,type:"grocery",title:e.name||"Grocery shopping",detail:`${e.store?`${e.store} · `:""}${e.items.filter(i=>i.purchased!==false).length} item${e.items.filter(i=>i.purchased!==false).length===1?"":"s"}`,amount:groceryEventActualTotal(e),flow:"out",search:`${e.name||""} ${e.store||""} ${(e.items||[]).map(i=>i.name).join(" ")}`}));
+  groceryCompletedEvents(month).filter(e=>{const billId=e.budgetBillId||state.grocerySettings?.billId||"";return !billId||!groceryBillHasManualActual(billId,month)}).forEach(e=>events.push({id:`grocery:${e.id}`,date:e.date,type:"grocery",title:e.name||"Grocery shopping",detail:`${e.store?`${e.store} · `:""}${e.items.filter(i=>i.purchased!==false).length} item${e.items.filter(i=>i.purchased!==false).length===1?"":"s"}`,amount:groceryEventActualTotal(e),flow:"out",search:`${e.name||""} ${e.store||""} ${(e.items||[]).map(i=>i.name).join(" ")}`}));
+  activeBills(month).filter(isGroceryBill).forEach(b=>{
+    const d=groceryManualActualDetail(b.id,month);if(!d)return;
+    const amount=Math.max(0,Number(d.amountPaid||0));if(amount<=0.005)return;
+    events.push({id:`bill:${b.id}:grocery-manual`,date:d.paidDate||billDueDateForMonth(b,month)?.toISOString().slice(0,10)||monthEndDate(month),type:"bill",title:b.name||"Groceries",detail:`Recurring grocery · ${paymentSourceLabel(d)}`,amount,flow:"out",search:`${b.name||""} ${b.category||""} grocery recurring ${paymentSourceLabel(d)}`});
+  });
   activeBills(month).filter(b=>!isGroceryBill(b)).forEach(b=>{
     if(billOccurrenceRecordExists(b.id,month)){
       const schedule=billOccurrenceSchedule(b,month,state.scenario),flags=billOccurrenceFlags(b.id,month,false),details=billOccurrenceDetails(b.id,month,false);schedule.forEach((occ,index)=>{if(!flags[index])return;const d=details[index],amount=d&&d.amountPaid!==""&&d.amountPaid!==null&&d.amountPaid!==undefined?Number(d.amountPaid||0):Number(occ.amount||0);events.push({id:`bill:${b.id}:occ:${index}`,date:d?.paidDate||occ.date||monthEndDate(month),type:"bill",title:b.name,detail:`${commitmentTypeLabel(commitmentType(b))} · ${occ.label}`,amount,flow:commitmentType(b)==="expense"||commitmentType(b)==="debt"?"out":"neutral",search:`${b.name} ${b.category||""}`})});return;
