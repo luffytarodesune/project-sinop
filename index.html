@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0f766e">
-<title>SINOP v148 · Spending Date Control Fix</title>
+<title>SINOP v149 · Unified Mobile Date Controls</title>
 <meta name="application-name" content="SINOP">
 <meta name="apple-mobile-web-app-title" content="SINOP">
 <meta name="description" content="SINOP — your personal money system for income, spending, savings, investments, goals, KKB, and financial tracking.">
@@ -7217,12 +7217,13 @@ body[data-theme="dark"] .barkada-group-btn,body[data-theme="dark"] .barkada-memb
       </div>
 
       <article class="version-latest-card">
-        <div class="version-latest-badge"><span>Latest</span><strong>v148</strong></div>
-        <div class="version-latest-copy"><span>September 4, 2026</span><h3>Income & Spending Mobile Redesign</h3><p>Income and Spending now use a dedicated, readable mobile interface with compact summaries and clear one-column editing, while preserving the login and Time Deposit fixes.</p></div>
+        <div class="version-latest-badge"><span>Latest</span><strong>v149</strong></div>
+        <div class="version-latest-copy"><span>September 4, 2026</span><h3>Unified Mobile Date Controls</h3><p>SINOP now uses one contained mobile date-control pattern across the app, preventing native browser date inputs from overlapping neighboring fields in Add Expense, Edit Expense, Income, Accounts, KKB, Loans, Grocery, and other date-based workflows.</p></div>
       </article>
 
       <div class="version-timeline" id="versionTimeline">
-        <article class="version-entry is-latest" data-version="v148" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v148</span><h3>Spending Date Control Fix</h3></div><time>Sep 4, 2026</time></header><ul><li>Removed the visible native date input from the mobile Edit Spending layout.</li><li>Added a clean full-width custom date field that opens the device date picker through an invisible native control.</li><li>Prevented Safari and Chromium mobile intrinsic date-control sizing from overlapping neighboring content.</li><li>Kept the v146 mobile Income/Spending rebuild, Time Deposit fix, login hotfix, and connected Global Ranking.</li></ul></div></article>
+        <article class="version-entry is-latest" data-version="v149" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v149</span><h3>Unified Mobile Date Controls</h3></div><time>Sep 4, 2026</time></header><ul><li>Applied the contained custom mobile date control to Add Expense as well as Edit Expense.</li><li>Audited all date inputs and unified mobile date behavior across Income, Activity, Accounts, transfers/contributions, Grocery, recurring payments, KKB, Loans/IOUs, credit-card payments, setup, and goal dates.</li><li>Kept the actual native date input as an invisible full-control overlay so the device picker still opens normally without affecting layout width.</li><li>Added automatic resync when modals open or JavaScript changes date values.</li><li>Preserved the Income/Spending mobile rebuild, Time Deposit ledger fix, login hotfix, Barkada/Profile features, and Global Ranking connection.</li></ul></div></article>
+        <article class="version-entry" data-version="v148" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v148</span><h3>Spending Date Control Fix</h3></div><time>Sep 4, 2026</time></header><ul><li>Removed the visible native date input from the mobile Edit Spending layout.</li><li>Added a clean full-width custom date field that opens the device date picker through an invisible native control.</li><li>Prevented Safari and Chromium mobile intrinsic date-control sizing from overlapping neighboring content.</li><li>Kept the v146 mobile Income/Spending rebuild, Time Deposit fix, login hotfix, and connected Global Ranking.</li></ul></div></article>
         <article class="version-entry" data-version="v147" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v147</span><h3>Spending Date Picker Fix</h3></div><time>Sep 4, 2026</time></header><ul><li>Moved the mobile Spending date picker to its own full-width row instead of sharing a row with Amount.</li><li>Constrained native date input sizing so browser calendar controls stay inside the field.</li><li>Preserved the v146 mobile Income and Spending redesign, login hotfix, Time Deposit ledger correction, and global ranking integration.</li></ul></div></article>
         <article class="version-entry" data-version="v146" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v146</span><h3>Income & Spending Mobile Rebuild</h3></div><time>Sep 4, 2026</time></header><ul><li>Rebuilt the Income and Spending pages for mobile instead of continuing the column-based adaptation.</li><li>Removed on-page action icon clutter and replaced editing with focused mobile sheets.</li><li>Added cleaner summary cards, search/filter controls, and simplified list cards that are easier to scan.</li><li>Moved destructive actions like delete into the editor footer instead of tiny trash icons in the record list.</li><li>Preserved the login hotfix, Time Deposit destination credit fix, Barkada/Profile features, and the connected Global Ranking service.</li></ul></div></article>
         <article class="version-entry" data-version="v145" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v145</span><h3>Income & Spending Mobile Redesign</h3></div><time>Sep 4, 2026</time></header><ul><li>Rebuilt Income and Spending as dedicated mobile card interfaces instead of compressed desktop tables.</li><li>Improved summary hierarchy so users can immediately see amounts, status, source/category, and receipt information.</li><li>Expanded records use one-column field groups with readable labels, 46px touch targets, and stronger visual separation.</li><li>Added a mobile Spending overview for total, actual, planned, and top-category spending.</li><li>Built from the validated v143 base so login initialization, global ranking, and Time Deposit ledger posting remain intact.</li></ul></div></article>
@@ -24466,5 +24467,185 @@ maybeStartFirstRunSetup();
   #v146EntryEditorBody .v148-native-date::-webkit-calendar-picker-indicator{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;margin:0!important;padding:0!important;opacity:0!important;cursor:pointer!important}
 }
 </style>
+
+<style id="sinop-v149-unified-mobile-date-controls">
+.v149-date-control{display:contents}
+.v149-date-display,.v149-date-icon{display:none}
+@media (max-width:760px){
+  .v149-date-control{
+    position:relative!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:space-between!important;
+    gap:12px!important;
+    width:100%!important;
+    max-width:100%!important;
+    min-width:0!important;
+    min-height:48px!important;
+    padding:12px 14px!important;
+    border:1px solid var(--border)!important;
+    border-radius:14px!important;
+    background:var(--panel)!important;
+    color:var(--text)!important;
+    box-sizing:border-box!important;
+    overflow:hidden!important;
+  }
+  .v149-date-control:focus-within{
+    border-color:color-mix(in srgb,var(--brand) 55%,var(--border))!important;
+    box-shadow:0 0 0 3px color-mix(in srgb,var(--brand) 13%,transparent)!important;
+  }
+  .v149-date-control.is-disabled{opacity:.55!important;cursor:not-allowed!important}
+  .v149-date-display{
+    display:block!important;
+    flex:1 1 auto!important;
+    min-width:0!important;
+    overflow:hidden!important;
+    text-overflow:ellipsis!important;
+    white-space:nowrap!important;
+    font-size:16px!important;
+    font-weight:650!important;
+    line-height:1.2!important;
+    color:var(--text)!important;
+    pointer-events:none!important;
+  }
+  .v149-date-display.is-empty{color:var(--muted)!important;font-weight:550!important}
+  .v149-date-icon{
+    display:inline-flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    width:20px!important;
+    height:20px!important;
+    flex:0 0 20px!important;
+    color:var(--muted)!important;
+    pointer-events:none!important;
+  }
+  .v149-date-icon .hero-icon,
+  .v149-date-icon svg{width:20px!important;height:20px!important}
+  .v149-date-control>input[type="date"].v149-native-date,
+  .v149-date-control input[type="date"].v149-native-date{
+    position:absolute!important;
+    inset:0!important;
+    z-index:2!important;
+    display:block!important;
+    width:100%!important;
+    height:100%!important;
+    min-width:0!important;
+    max-width:none!important;
+    min-height:0!important;
+    margin:0!important;
+    padding:0!important;
+    border:0!important;
+    border-radius:inherit!important;
+    background:transparent!important;
+    opacity:0!important;
+    color:transparent!important;
+    cursor:pointer!important;
+    appearance:none!important;
+    -webkit-appearance:none!important;
+    box-shadow:none!important;
+    box-sizing:border-box!important;
+  }
+  .v149-date-control input[type="date"].v149-native-date:disabled{cursor:not-allowed!important}
+  .v149-date-control input[type="date"].v149-native-date::-webkit-calendar-picker-indicator{
+    position:absolute!important;
+    inset:0!important;
+    width:100%!important;
+    height:100%!important;
+    margin:0!important;
+    padding:0!important;
+    opacity:0!important;
+    cursor:pointer!important;
+  }
+  .v149-date-control input[type="date"].v149-native-date::-webkit-date-and-time-value{opacity:0!important}
+  /* Neutralize legacy native-date sizing rules once the unified control is active. */
+  .v149-date-control .v148-native-date,
+  .v149-date-control #v146SpendDate,
+  .v149-date-control .date-input,
+  .v149-date-control .income-receipt-date,
+  .v149-date-control .kkb-matrix-input{
+    position:absolute!important;
+    inset:0!important;
+    width:100%!important;
+    height:100%!important;
+    min-width:0!important;
+    max-width:none!important;
+  }
+}
+</style>
+<script id="sinop-v149-unified-mobile-date-controls-script">
+(function(){
+  const DATE_SELECTOR='input[type="date"]';
+  let syncQueued=false;
+  function formatDateValue(value){
+    const raw=String(value||'').trim();
+    if(!/^\d{4}-\d{2}-\d{2}$/.test(raw)) return 'Select date';
+    const [y,m,d]=raw.split('-').map(Number);
+    const date=new Date(y,m-1,d);
+    if(Number.isNaN(date.getTime())) return raw;
+    try{return new Intl.DateTimeFormat('en-PH',{month:'short',day:'numeric',year:'numeric'}).format(date)}catch(_){return raw}
+  }
+  function updateDateControl(input){
+    if(!input) return;
+    const control=input.closest('.v149-date-control'); if(!control) return;
+    const display=control.querySelector('.v149-date-display');
+    if(display){ display.textContent=formatDateValue(input.value); display.classList.toggle('is-empty',!input.value); }
+    control.classList.toggle('is-disabled',!!input.disabled);
+    control.setAttribute('aria-disabled',input.disabled?'true':'false');
+  }
+  function createIcon(){
+    const icon=document.createElement('span'); icon.className='v149-date-icon'; icon.setAttribute('aria-hidden','true');
+    try{ icon.innerHTML=typeof heroSvg==='function'?heroSvg('calendar-days'):'&#128197;'; }catch(_){ icon.textContent='📅'; }
+    return icon;
+  }
+  function enhanceDateInput(input){
+    if(!(input instanceof HTMLInputElement) || input.type!=='date') return;
+    if(input.dataset.v149DateEnhanced==='1'){ updateDateControl(input); return; }
+    let control=input.closest('.v148-date-control');
+    let display=null;
+    if(control){
+      control.classList.add('v149-date-control');
+      display=control.querySelector('.v148-date-display,.v149-date-display');
+      if(display){ display.classList.add('v149-date-display'); display.removeAttribute('id'); }
+      let icon=control.querySelector('.v148-date-icon,.v149-date-icon');
+      if(icon) icon.classList.add('v149-date-icon'); else control.appendChild(createIcon());
+    }else{
+      control=document.createElement('span'); control.className='v149-date-control';
+      display=document.createElement('span'); display.className='v149-date-display'; display.setAttribute('aria-hidden','true');
+      const icon=createIcon();
+      input.parentNode?.insertBefore(control,input);
+      control.append(display,icon,input);
+    }
+    input.classList.add('v149-native-date'); input.dataset.v149DateEnhanced='1';
+    if(!input.getAttribute('aria-label')){
+      const label=input.closest('label'); const labelText=label?.querySelector(':scope > span')?.textContent?.trim();
+      if(labelText) input.setAttribute('aria-label',labelText);
+    }
+    const update=()=>updateDateControl(input);
+    input.addEventListener('input',update); input.addEventListener('change',update); input.addEventListener('focus',update);
+    update();
+  }
+  function enhanceWithin(root=document){
+    if(root instanceof HTMLInputElement && root.matches(DATE_SELECTOR)) enhanceDateInput(root);
+    root.querySelectorAll?.(DATE_SELECTOR).forEach(enhanceDateInput);
+  }
+  function syncAll(){ document.querySelectorAll(DATE_SELECTOR).forEach(input=>{ enhanceDateInput(input); updateDateControl(input); }); }
+  function queueSync(){ if(syncQueued) return; syncQueued=true; requestAnimationFrame(()=>{ syncQueued=false; syncAll(); }); }
+  enhanceWithin(document);
+  window.addEventListener('load',()=>setTimeout(syncAll,100));
+  document.addEventListener('click',()=>setTimeout(queueSync,0),true);
+  document.addEventListener('focusin',e=>{ if(e.target?.matches?.(DATE_SELECTOR)) updateDateControl(e.target); });
+  const observer=new MutationObserver(records=>{
+    let needsSync=false;
+    records.forEach(record=>{
+      if(record.type==='childList') record.addedNodes.forEach(node=>{ if(node.nodeType===1){ enhanceWithin(node); needsSync=true; } });
+      if(record.type==='attributes' && record.attributeName==='class') needsSync=true;
+    });
+    if(needsSync) queueSync();
+  });
+  observer.observe(document.documentElement,{subtree:true,childList:true,attributes:true,attributeFilter:['class']});
+  window.sinopSyncDateControls=syncAll;
+})();
+</script>
+
 </body>
 </html>
