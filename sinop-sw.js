@@ -1,4 +1,4 @@
-const SINOP_CACHE='sinop-runtime-v156';
+const SINOP_CACHE='sinop-runtime-v157';
 const APP_URL=new URL('./index.html',self.registration.scope).href;
 
 self.addEventListener('install',event=>{event.waitUntil(self.skipWaiting())});

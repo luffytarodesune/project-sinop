@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0f766e">
-<title>SINOP v156 · iPhone Home Screen Launch Fix</title>
+<title>SINOP v157 · iPhone Home Screen Launch Fix</title>
 <meta name="application-name" content="SINOP">
 <meta name="apple-mobile-web-app-title" content="SINOP">
 <meta name="description" content="SINOP — your personal money system for income, spending, savings, investments, goals, KKB, and financial tracking.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg%20viewBox%3D%270%200%2064%2064%27%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20aria-hidden%3D%27true%27%3E%3Crect%20x%3D%272%27%20y%3D%272%27%20width%3D%2760%27%20height%3D%2760%27%20rx%3D%2718%27%20fill%3D%27%230f766e%27%2F%3E%3Cpath%20d%3D%27M45%2018H27c-7%200-12%204-12%2010s5%2010%2012%2010h10c7%200%2012%204%2012%2010S44%2058%2037%2058H19%27%20fill%3D%27none%27%20stroke%3D%27white%27%20stroke-width%3D%277%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%2F%3E%3Cpath%20d%3D%27M46%2018h4M14%2058h4%27%20stroke%3D%27%239ee3d4%27%20stroke-width%3D%274%27%20stroke-linecap%3D%27round%27%2F%3E%3C%2Fsvg%3E">
+<link rel="icon" type="image/png" sizes="192x192" href="./sinop-icon-192.png">
 <script id="sinop-production-config">window.SINOP_GLOBAL_LEADERBOARD_ENDPOINT='https://script.google.com/macros/s/AKfycbxQNRdFckCfhRfel9hmHBXJI-4S8Qi5JS0RVXfhFCxwk3CdsLBMm_K2Y79orCWVT8VoaA/exec';</script>
 <style>
 :root{
@@ -5132,7 +5132,7 @@ body[data-theme="dark"] .barkada-group-btn,body[data-theme="dark"] .barkada-memb
 <style id="sinop-v127-mobile-isolation">
 /* ===== SINOP v127 · hard module isolation + compact income rows ===== */
 .sinop-logo-mark{overflow:hidden}
-.sinop-logo-mark svg,.sinop-sidebar-symbol svg{display:block;width:100%;height:100%}
+.sinop-logo-mark svg,.sinop-sidebar-symbol svg,.sinop-logo-mark img,.sinop-sidebar-symbol img{display:block;width:100%;height:100%;object-fit:contain}
 .sinop-login-logo.sinop-logo-mark{padding:0;background:transparent;border:0;box-shadow:none}
 .sinop-sidebar-symbol{width:31px;height:31px;flex:0 0 31px;display:grid;place-items:center}
 .sinop-wordmark{justify-content:flex-start;gap:9px;padding:0 9px;text-indent:0;letter-spacing:0}
@@ -5651,7 +5651,7 @@ body[data-theme="dark"] .barkada-group-btn,body[data-theme="dark"] .barkada-memb
 <div id="sinopLoginGate" class="sinop-login-gate" aria-hidden="false">
   <div class="sinop-login-shell" role="dialog" aria-modal="true" aria-labelledby="sinopLoginTitle">
     <section class="sinop-login-brand-panel" aria-hidden="true">
-      <div class="sinop-login-wordmark"><div class="sinop-login-logo sinop-logo-mark"><svg viewBox='0 0 64 64' xmlns='http://www.w3.org/2000/svg' aria-hidden='true'><rect x='2' y='2' width='60' height='60' rx='18' fill='#0f766e'/><path d='M45 18H27c-7 0-12 4-12 10s5 10 12 10h10c7 0 12 4 12 10S44 58 37 58H19' fill='none' stroke='white' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'/><path d='M46 18h4M14 58h4' stroke='#9ee3d4' stroke-width='4' stroke-linecap='round'/></svg></div><h2>SINOP</h2><p>Your money, in order.</p></div>
+      <div class="sinop-login-wordmark"><div class="sinop-login-logo sinop-logo-mark"><img src="./sinop-icon-192.png" alt="" aria-hidden="true"></div><h2>SINOP</h2><p>Your money, in order.</p></div>
       <div class="sinop-login-brand-copy"><strong>One private workspace for the money you actually manage.</strong><p>Keep income, commitments, accounts, daily spending, goals, KKB, groceries and reports together—then carry the same SINOP data between your devices.</p></div>
     </section>
     <section class="sinop-login-panel">
@@ -5680,7 +5680,7 @@ body[data-theme="dark"] .barkada-group-btn,body[data-theme="dark"] .barkada-memb
     <div class="brand brand-sinop">
       <div class="sinop-sidebar-lockup">
         <div class="sinop-wordmark" aria-label="SINOP">
-          <span class="sinop-sidebar-symbol" aria-hidden="true"><svg viewBox='0 0 64 64' xmlns='http://www.w3.org/2000/svg' aria-hidden='true'><rect x='2' y='2' width='60' height='60' rx='18' fill='#0f766e'/><path d='M45 18H27c-7 0-12 4-12 10s5 10 12 10h10c7 0 12 4 12 10S44 58 37 58H19' fill='none' stroke='white' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'/><path d='M46 18h4M14 58h4' stroke='#9ee3d4' stroke-width='4' stroke-linecap='round'/></svg></span>
+          <span class="sinop-sidebar-symbol" aria-hidden="true"><img src="./sinop-icon-192.png" alt="" aria-hidden="true"></span>
           <span class="sinop-wordmark-full" id="sidebarPlannerName">SINOP</span>
         </div>
         <small>Your money, in order.</small>
@@ -5745,7 +5745,7 @@ body[data-theme="dark"] .barkada-group-btn,body[data-theme="dark"] .barkada-memb
   <main class="main">
     <header class="topbar">
       <div class="mobile-appbar" aria-label="SINOP mobile navigation">
-        <span class="mobile-app-mark sinop-logo-mark" aria-hidden="true"><svg viewBox='0 0 64 64' xmlns='http://www.w3.org/2000/svg' aria-hidden='true'><rect x='2' y='2' width='60' height='60' rx='18' fill='#0f766e'/><path d='M45 18H27c-7 0-12 4-12 10s5 10 12 10h10c7 0 12 4 12 10S44 58 37 58H19' fill='none' stroke='white' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'/><path d='M46 18h4M14 58h4' stroke='#9ee3d4' stroke-width='4' stroke-linecap='round'/></svg></span>
+        <span class="mobile-app-mark sinop-logo-mark" aria-hidden="true"><img src="./sinop-icon-192.png" alt="" aria-hidden="true"></span>
         <div class="mobile-app-copy">
           <span>SINOP</span>
           <strong id="mobileSectionTitle">Overview</strong>
@@ -7217,11 +7217,12 @@ body[data-theme="dark"] .barkada-group-btn,body[data-theme="dark"] .barkada-memb
       </div>
 
       <article class="version-latest-card">
-        <div class="version-latest-badge"><span>Latest</span><strong>v156</strong></div>
-        <div class="version-latest-copy"><span>September 4, 2026</span><h3>iPhone Home Screen Launch Fix</h3><p>On iPhone, tapping an eligible recurring-expense notification now opens that exact payment directly because iOS Web Push does not expose web notification action buttons. Browsers that support notification actions can still show Paid.</p></div>
+        <div class="version-latest-badge"><span>Latest</span><strong>v157</strong></div>
+        <div class="version-latest-copy"><span>September 4, 2026</span><h3>New SINOP App Identity</h3><p>SINOP now uses the new growth-wallet S mark throughout the app shell, login, browser favicon, iPhone Home Screen icon, PWA manifest, and push notifications.</p></div>
       </article>
 
       <div class="version-timeline" id="versionTimeline">
+        <article class="version-entry is-latest" data-version="v157" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v157</span><h3>New SINOP App Identity</h3></div><time>Sep 4, 2026</time></header><ul><li>Replaced the old hard-coded S logo in login, sidebar, and mobile header with the new growth-wallet SINOP mark.</li><li>Updated browser favicon, iPhone Home Screen icon, PWA 192×192 and 512×512 icons, and notification icon assets.</li><li>Preserved the new logo proportions with transparent padding instead of stretching it into a square.</li><li>Retained the iPhone Home Screen and actionable recurring-notification fixes from v156.</li></ul></div></article>
         <article class="version-entry is-latest" data-version="v155" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v155</span><h3>iPhone Recurring Notification Tap Action</h3></div><time>Sep 4, 2026</time></header><ul><li>iPhone recurring-expense notifications now use the whole notification as the payment shortcut.</li><li>Tapping the notification opens the exact unpaid occurrence in SINOP and launches the existing payment confirmation sheet.</li><li>Browsers with Web Notification action-button support keep the separate Paid action.</li><li>No payment is silently posted: SINOP still confirms the payment source before changing the ledger.</li></ul></div></article>
         <article class="version-entry" data-version="v154" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v154</span><h3>Actionable Recurring Notifications</h3></div><time>Sep 4, 2026</time></header><ul><li>Added a Paid action to eligible recurring-expense system notifications.</li><li>Tapping Paid opens the exact unpaid occurrence in the recurring-payment confirmation instead of guessing a payment source.</li><li>Linked credit cards and the configured default spending account are preselected by the existing payment workflow.</li><li>Added the same Paid shortcut to the in-app reminder center for consistency.</li><li>Added a companion service worker that handles notification actions and can route the user back into the correct recurring payment even when SINOP is not already open.</li></ul></div></article>
         <article class="version-entry" data-version="v153" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v153</span><h3>Authentic Mobile Account Cards</h3></div><time>Sep 4, 2026</time></header><ul><li>Removed generated/fabricated last-four digits from every mobile account card.</li><li>Replaced the broken CSS contactless mark with a proper NFC/contactless SVG positioned beside the chip.</li><li>Top-right card content now shows only the real account currency instead of an ambiguous icon.</li><li>Preserved the circular wheel, tight spacing, fading/blurred rear cards, momentum, and spring snapping.</li></ul></div></article>
