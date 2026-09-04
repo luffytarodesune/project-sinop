@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0f766e">
-<title>SINOP v159 · iPhone Home Screen Launch Fix</title>
+<title>SINOP v157 · iPhone Home Screen Launch Fix</title>
 <meta name="application-name" content="SINOP">
 <meta name="apple-mobile-web-app-title" content="SINOP">
 <meta name="description" content="SINOP — your personal money system for income, spending, savings, investments, goals, KKB, and financial tracking.">
@@ -7217,12 +7217,13 @@ body[data-theme="dark"] .barkada-group-btn,body[data-theme="dark"] .barkada-memb
       </div>
 
       <article class="version-latest-card">
-        <div class="version-latest-badge"><span>Latest</span><strong>v159</strong></div>
-        <div class="version-latest-copy"><span>September 4, 2026</span><h3>New SINOP App Identity</h3><p>SINOP now uses the new growth-wallet S mark throughout the app shell, login, browser favicon, iPhone Home Screen icon, PWA manifest, and push notifications.</p></div>
+        <div class="version-latest-badge"><span>Latest</span><strong>v160</strong></div>
+        <div class="version-latest-copy"><span>September 4, 2026</span><h3>Smooth Account Switch Transition</h3><p>The mobile Accounts wheel now switches cards smoothly instead of toppling instantly: the active card glides back, the next card comes forward, and the stack stays compact and readable.</p></div>
       </article>
 
       <div class="version-timeline" id="versionTimeline">
-        <article class="version-entry is-latest" data-version="v159" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v159</span><h3>New SINOP App Identity</h3></div><time>Sep 4, 2026</time></header><ul><li>Replaced the old hard-coded S logo in login, sidebar, and mobile header with the new growth-wallet SINOP mark.</li><li>Updated browser favicon, iPhone Home Screen icon, PWA 192×192 and 512×512 icons, and notification icon assets.</li><li>Preserved the new logo proportions with transparent padding instead of stretching it into a square.</li><li>Retained the iPhone Home Screen and actionable recurring-notification fixes from v156.</li></ul></div></article>
+        <article class="version-entry is-latest" data-version="v160" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v160</span><h3>Smooth Account Switch Transition</h3></div><time>Sep 4, 2026</time></header><ul><li>Reworked the mobile Accounts interaction so cards switch smoothly instead of instantly toppling when you scroll.</li><li>The active card now glides upward and back while the next card comes forward into the center with a clean handoff.</li><li>Touch, mouse-wheel, keyboard, and card-tap navigation now use the same discrete transition model.</li><li>Cards keep the compact circular-stack feel, heavier fade on back cards, and the real card styling introduced in earlier versions.</li></ul></div></article>
+        <article class="version-entry" data-version="v157" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v157</span><h3>New SINOP App Identity</h3></div><time>Sep 4, 2026</time></header><ul><li>Replaced the old hard-coded S logo in login, sidebar, and mobile header with the new growth-wallet SINOP mark.</li><li>Updated browser favicon, iPhone Home Screen icon, PWA 192×192 and 512×512 icons, and notification icon assets.</li><li>Preserved the new logo proportions with transparent padding instead of stretching it into a square.</li><li>Retained the iPhone Home Screen and actionable recurring-notification fixes from v156.</li></ul></div></article>
         <article class="version-entry is-latest" data-version="v155" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v155</span><h3>iPhone Recurring Notification Tap Action</h3></div><time>Sep 4, 2026</time></header><ul><li>iPhone recurring-expense notifications now use the whole notification as the payment shortcut.</li><li>Tapping the notification opens the exact unpaid occurrence in SINOP and launches the existing payment confirmation sheet.</li><li>Browsers with Web Notification action-button support keep the separate Paid action.</li><li>No payment is silently posted: SINOP still confirms the payment source before changing the ledger.</li></ul></div></article>
         <article class="version-entry" data-version="v154" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v154</span><h3>Actionable Recurring Notifications</h3></div><time>Sep 4, 2026</time></header><ul><li>Added a Paid action to eligible recurring-expense system notifications.</li><li>Tapping Paid opens the exact unpaid occurrence in the recurring-payment confirmation instead of guessing a payment source.</li><li>Linked credit cards and the configured default spending account are preselected by the existing payment workflow.</li><li>Added the same Paid shortcut to the in-app reminder center for consistency.</li><li>Added a companion service worker that handles notification actions and can route the user back into the correct recurring payment even when SINOP is not already open.</li></ul></div></article>
         <article class="version-entry" data-version="v153" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v153</span><h3>Authentic Mobile Account Cards</h3></div><time>Sep 4, 2026</time></header><ul><li>Removed generated/fabricated last-four digits from every mobile account card.</li><li>Replaced the broken CSS contactless mark with a proper NFC/contactless SVG positioned beside the chip.</li><li>Top-right card content now shows only the real account currency instead of an ambiguous icon.</li><li>Preserved the circular wheel, tight spacing, fading/blurred rear cards, momentum, and spring snapping.</li></ul></div></article>
@@ -24735,8 +24736,8 @@ maybeStartFirstRunSetup();
   #v152AccountsWheelHub{display:block!important;margin:4px 0 14px}
   .v152-accounts-shell{display:grid;gap:10px}
   .v152-wheel-stage{position:relative;overflow:hidden;min-height:326px;padding:0;margin:0;background:transparent;border:0;box-shadow:none}
-  .v152-wheel-viewport{position:relative;height:310px;touch-action:none;overscroll-behavior:contain;user-select:none;perspective:1100px;outline:none}
-  .v152-wheel-card{position:absolute;left:50%;top:50%;width:min(88vw,330px);aspect-ratio:1.586/1;transform:translate(-50%,-50%) translate3d(var(--tx,0),var(--ty,0),0) scale(var(--scale,1)) rotateX(var(--tilt,0deg));transform-origin:center;opacity:var(--opacity,1);filter:blur(var(--blur,0px)) saturate(var(--sat,1));z-index:var(--z,1);border:0;background:transparent;padding:0;will-change:transform,opacity,filter;cursor:pointer}
+  .v152-wheel-viewport{position:relative;height:310px;touch-action:pan-y;overscroll-behavior:contain;user-select:none;perspective:1100px;outline:none}
+  .v152-wheel-card{position:absolute;left:50%;top:50%;width:min(88vw,330px);aspect-ratio:1.586/1;transform:translate(-50%,-50%) translate3d(var(--tx,0),var(--ty,0),0) scale(var(--scale,1));transform-origin:center;opacity:var(--opacity,1);filter:blur(var(--blur,0px)) saturate(var(--sat,1));z-index:var(--z,1);border:0;background:transparent;padding:0;will-change:transform,opacity,filter;transition:transform .34s cubic-bezier(.22,.78,.16,1),opacity .26s ease,filter .26s ease;cursor:pointer}
   .v152-card-face{position:absolute;inset:0;border-radius:22px;overflow:hidden;color:#fff;background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 94%,#fff),color-mix(in srgb,var(--accent) 58%,#07130f));box-shadow:0 20px 40px rgba(15,23,42,.13);border:1px solid rgba(255,255,255,.22);padding:19px 20px 17px;display:flex;flex-direction:column;justify-content:space-between;text-align:left}
   .v152-wheel-card:not(.is-active) .v152-card-face{box-shadow:0 8px 20px rgba(15,23,42,.06)}
   .v152-card-face::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 88% 0%,rgba(255,255,255,.24),transparent 38%),linear-gradient(120deg,transparent 20%,rgba(255,255,255,.08) 48%,transparent 68%);pointer-events:none}
@@ -24785,7 +24786,7 @@ maybeStartFirstRunSetup();
 <script id="sinop-v153-card-account-wheel-script">
 (function(){
   const MOBILE_MAX=760;
-  const wheel={position:0,target:0,velocity:0,activeIndex:0,activeId:'',dragging:false,startY:0,startPosition:0,lastY:0,lastT:0,lastMoveVelocity:0,raf:0,wheelTimer:0};
+  const wheel={activeIndex:0,activeId:'',animating:false,fromIndex:0,toIndex:0,direction:0,progress:0,raf:0,pendingTarget:null,startY:0,startX:0,dragging:false,dragStartT:0,wheelTimer:0};
   const $id=id=>document.getElementById(id);const isMobile=()=>window.innerWidth<=MOBILE_MAX;
   const BANKS=[
     {key:'bpi',label:'BPI',color:'#a6192e',re:/\b(bpi|bank of the philippine islands)\b/i,logo:'https://commons.wikimedia.org/wiki/Special:Redirect/file/Official_BPI_Logo.svg',domain:'bpi.com.ph'},
@@ -24824,51 +24825,97 @@ maybeStartFirstRunSetup();
   }
   function accent(account){return account?.color||brandFor(account?.name||'')?.color||'#0f766e';}
   const wrap=(value,len)=>((value%len)+len)%len;
-  function shortestDelta(index,position,len){let d=index-position;while(d>len/2)d-=len;while(d<-len/2)d+=len;return d;}
+  function shortestDelta(index,center,len){let d=index-center;while(d>len/2)d-=len;while(d<-len/2)d+=len;return d;}
   function ensureHub(){
     const section=$id('accounts');if(!section)return null;let hub=$id('v152AccountsWheelHub');
-    if(!hub){hub=document.createElement('div');hub.id='v152AccountsWheelHub';const anchor=section.querySelector(':scope > .account-summary-grid');if(anchor)anchor.insertAdjacentElement('afterend',hub);else section.appendChild(hub);}
-    return hub;
+    if(!hub){hub=document.createElement('div');hub.id='v152AccountsWheelHub';const anchor=section.querySelector(':scope > .account-summary-grid');if(anchor)anchor.insertAdjacentElement('afterend',hub);else section.appendChild(hub);}return hub;
   }
   function cardMarkup(account,index){
     const tracked=accountIsTrackedInMonth(account,state.month),cur=accountCurrency(account),bal=tracked?moneyIn(accountBalance(account,state.month),cur):'—';
     const fx=tracked&&cur!==reportingCurrency()?`<small>≈ ${money(accountValueInReporting(account,accountBalance(account,state.month)))}</small>`:'';
-    const brand=brandFor(account.name||'');const brandLabel=brand?.label||accountTypeLabel(account.type);
-    const locked=!isSpendableAccount(account);
+    const brand=brandFor(account.name||'');const brandLabel=brand?.label||accountTypeLabel(account.type);const locked=!isSpendableAccount(account);
     return `<button class="v152-wheel-card" type="button" data-v152-account-index="${index}" style="--accent:${esc(accent(account))}"><div class="v152-card-face"><div class="v152-card-top"><div class="v152-card-brand"><div class="v152-card-logo">${brandMark(account)}</div><div class="v152-card-name"><strong>${esc(account.name||'Account')}</strong><span>${esc(brandLabel)}</span></div></div><div class="v153-card-currency">${esc(cur)}</div></div><div class="v152-card-middle"><div class="v152-chip"></div><svg class="v153-contactless-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.4 8.2a5.4 5.4 0 0 1 0 7.6"/><path d="M11.2 5.4a9.3 9.3 0 0 1 0 13.2"/><path d="M14 2.8a13 13 0 0 1 0 18.4"/></svg></div><div class="v152-card-balance"><span>${tracked?'Balance':'Not tracked yet'}</span><strong>${bal}</strong>${fx}</div><div class="v152-card-bottom"><div class="v152-card-bottom-left"><span>Account type</span><strong>${esc(accountTypeLabel(account.type))}</strong></div><div class="v152-card-lock">${locked?'ASSET':'SINOP'}</div></div></div></button>`;
   }
   function toolsMarkup(account){
     if(!account)return'';const cur=accountCurrency(account),available=accountAvailableAfterGoals(account,state.month),reserved=accountGoalReserved(account.id),reservedNative=cur===reportingCurrency()?reserved:reportingToAccountValue(reserved,account),contribution=wealthKindForAccount(account)?(account.type==='time_deposit'||account.type==='savings'?'Add deposit':'Add contribution'):'';
     return `<div class="v152-account-tools"><div class="v152-quick-stats"><div class="v152-quick-stat"><span>${isSpendableAccount(account)?'Usable':'After goals'}</span><strong>${moneyIn(available,cur)}</strong></div><div class="v152-quick-stat"><span>Reserved</span><strong>${cur===reportingCurrency()?money(reserved):moneyIn(reservedNative,cur)}</strong></div></div><div class="v152-card-actions">${contribution?`<button class="btn btn-primary icon-leading v152-primary-wide" type="button" data-v152-action="contribution" data-v152-account-id="${account.id}"><span data-hero="plus"></span>${contribution}</button>`:''}<button class="btn btn-secondary icon-leading" type="button" data-v152-action="reconcile" data-v152-account-id="${account.id}"><span data-hero="scale"></span>Reconcile</button><button class="btn btn-secondary icon-leading" type="button" data-v152-action="edit" data-v152-account-id="${account.id}"><span data-hero="pencil-square"></span>Edit</button></div></div>`;
   }
+  function slotFor(relative){
+    const map={
+      '-3':{tx:-5,ty:-156,scale:.64,opacity:0,blur:2.5,sat:.60,z:5},
+      '-2':{tx:-4,ty:-118,scale:.72,opacity:.12,blur:1.7,sat:.70,z:18},
+      '-1':{tx:-2,ty:-66,scale:.82,opacity:.28,blur:1.0,sat:.82,z:52},
+      '0':{tx:0,ty:0,scale:1,opacity:1,blur:0,sat:1,z:120},
+      '1':{tx:2,ty:66,scale:.82,opacity:.28,blur:1.0,sat:.82,z:52},
+      '2':{tx:4,ty:118,scale:.72,opacity:.12,blur:1.7,sat:.70,z:18},
+      '3':{tx:5,ty:156,scale:.64,opacity:0,blur:2.5,sat:.60,z:5}
+    };
+    if(relative<=-3)return map['-3']; if(relative>=3)return map['3'];
+    const key=String(relative); if(map[key]) return map[key];
+    return {tx:0,ty:relative<0?-170:170,scale:.6,opacity:0,blur:2.8,sat:.6,z:1};
+  }
+  const ease=t=>.5-.5*Math.cos(Math.PI*t);
+  const lerp=(a,b,t)=>a+(b-a)*t;
+  function mixSlot(a,b,t){return {tx:lerp(a.tx,b.tx,t),ty:lerp(a.ty,b.ty,t),scale:lerp(a.scale,b.scale,t),opacity:lerp(a.opacity,b.opacity,t),blur:lerp(a.blur,b.blur,t),sat:lerp(a.sat,b.sat,t),z:lerp(a.z,b.z,t)};}
+  function updateDots(index){const dots=$id('v152WheelDots');if(dots)[...dots.children].forEach((dot,i)=>dot.classList.toggle('active',i===index));}
+  function updateTools(index){const accounts=state.accounts||[];const tools=$id('v152AccountTools');if(!tools||!accounts.length)return;tools.innerHTML=toolsMarkup(accounts[index]);bindActions(tools);hydrateHeroIcons(tools);}
+  function applyLayout(){
+    const accounts=state.accounts||[],len=accounts.length;if(!len)return;
+    const cards=[...document.querySelectorAll('#v152AccountsWheelViewport .v152-wheel-card')];
+    const fromIndex=wheel.animating?wheel.fromIndex:wheel.activeIndex;
+    const t=wheel.animating?ease(wheel.progress):0;
+    const currentActive=wheel.animating?(wheel.progress<.56?fromIndex:wheel.toIndex):wheel.activeIndex;
+    cards.forEach((card,index)=>{
+      const rel0=shortestDelta(index,fromIndex,len);
+      const start=slotFor(rel0);
+      const end=wheel.animating?slotFor(rel0-wheel.direction):start;
+      const slot=wheel.animating?mixSlot(start,end,t):start;
+      card.style.setProperty('--tx',`${slot.tx.toFixed(2)}px`);
+      card.style.setProperty('--ty',`${slot.ty.toFixed(2)}px`);
+      card.style.setProperty('--scale',slot.scale.toFixed(4));
+      card.style.setProperty('--opacity',slot.opacity.toFixed(4));
+      card.style.setProperty('--blur',`${slot.blur.toFixed(2)}px`);
+      card.style.setProperty('--sat',slot.sat.toFixed(3));
+      card.style.setProperty('--z',String(Math.round(slot.z)));
+      card.classList.toggle('is-active',index===currentActive);
+      card.style.pointerEvents=wheel.animating?'none':(Math.abs(shortestDelta(index,wheel.activeIndex,len))>2.2?'none':'auto');
+    });
+  }
+  function finishAnimation(){
+    const accounts=state.accounts||[],len=accounts.length;if(!len)return;
+    wheel.animating=false;wheel.activeIndex=wrap(wheel.toIndex,len);wheel.activeId=accounts[wheel.activeIndex].id;wheel.progress=0;applyLayout();updateDots(wheel.activeIndex);updateTools(wheel.activeIndex);
+    if(wheel.pendingTarget!=null && wheel.pendingTarget!==wheel.activeIndex){const target=wheel.pendingTarget;wheel.pendingTarget=null;animateToward(target);}else{wheel.pendingTarget=null;}
+  }
+  function startAnimation(direction){
+    const accounts=state.accounts||[],len=accounts.length;if(!len||wheel.animating)return;
+    wheel.direction=direction>0?1:-1;wheel.fromIndex=wheel.activeIndex;wheel.toIndex=wrap(wheel.activeIndex+wheel.direction,len);wheel.progress=0;wheel.animating=true;cancelAnimationFrame(wheel.raf);
+    if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){finishAnimation();return;}
+    const started=performance.now(),duration=320;
+    const step=now=>{wheel.progress=Math.min(1,(now-started)/duration);applyLayout();if(wheel.progress>=1){finishAnimation();return;}wheel.raf=requestAnimationFrame(step);};
+    wheel.raf=requestAnimationFrame(step);
+  }
+  function animateToward(targetIndex){
+    const accounts=state.accounts||[],len=accounts.length;if(!len)return;
+    const target=wrap(targetIndex,len);if(target===wheel.activeIndex && !wheel.animating){wheel.pendingTarget=null;return;}if(wheel.animating){wheel.pendingTarget=target;return;}
+    const delta=shortestDelta(target,wheel.activeIndex,len);if(delta===0)return;startAnimation(delta>0?1:-1);if(Math.abs(delta)>1)wheel.pendingTarget=target;
+  }
+  function bindActions(root){root.querySelectorAll('[data-v152-action]').forEach(btn=>btn.addEventListener('click',()=>{const id=btn.dataset.v152AccountId,action=btn.dataset.v152Action;if(action==='edit')openAccountEditor(id);if(action==='reconcile')openReconcileAccount(id);if(action==='contribution')openAccountContributionModal(id);}));}
   function renderHub(){
     const hub=ensureHub();if(!hub)return;if(!isMobile()){hub.innerHTML='';return;}const accounts=state.accounts||[];
     if(!accounts.length){hub.innerHTML=`<div class="v152-accounts-empty"><strong>No accounts yet</strong><button class="btn btn-primary icon-leading" id="v152AddFirstAccount" type="button"><span data-hero="plus"></span>Add account</button></div>`;$id('v152AddFirstAccount')?.addEventListener('click',()=>openAccountEditor());hydrateHeroIcons(hub);return;}
-    let idx=wheel.activeId?accounts.findIndex(a=>sameId(a.id,wheel.activeId)):-1;if(idx<0)idx=Math.max(0,Math.min(accounts.length-1,Math.round(wheel.position)||0));
-    wheel.position=idx;wheel.target=idx;wheel.activeIndex=idx;wheel.activeId=accounts[idx].id;
+    let idx=wheel.activeId?accounts.findIndex(a=>sameId(a.id,wheel.activeId)):-1;if(idx<0)idx=Math.max(0,Math.min(accounts.length-1,wheel.activeIndex||0));wheel.activeIndex=idx;wheel.activeId=accounts[idx].id;wheel.animating=false;wheel.pendingTarget=null;
     hub.innerHTML=`<div class="v152-accounts-shell"><div class="v152-wheel-stage"><div class="v152-wheel-viewport" id="v152AccountsWheelViewport" tabindex="0" aria-label="Accounts">${accounts.map(cardMarkup).join('')}</div><div class="v152-wheel-dots" id="v152WheelDots">${accounts.map((_,i)=>`<span class="v152-wheel-dot ${i===idx?'active':''}"></span>`).join('')}</div></div><div id="v152AccountTools">${toolsMarkup(accounts[idx])}</div></div>`;
-    bind(hub);update(true);hydrateHeroIcons(hub);
+    bind(hub);applyLayout();hydrateHeroIcons(hub);
   }
-  function update(force=false){
-    const accounts=state.accounts||[],len=accounts.length;if(!len)return;const nearest=wrap(Math.round(wheel.position),len);
-    document.querySelectorAll('#v152AccountsWheelViewport .v152-wheel-card').forEach((card,index)=>{
-      const d=shortestDelta(index,wheel.position,len),angle=d*.72,depth=(Math.cos(angle)+1)/2;
-      const ty=Math.sin(angle)*73,tx=Math.sin(angle)*4,scale=.80+.20*depth,opacity=Math.max(.035,Math.pow(depth,2.25)),blur=(1-depth)*3,sat=.62+.38*depth,tilt=Math.max(-10,Math.min(10,d*-4.8));
-      card.style.setProperty('--tx',`${tx.toFixed(2)}px`);card.style.setProperty('--ty',`${ty.toFixed(2)}px`);card.style.setProperty('--scale',scale.toFixed(4));card.style.setProperty('--opacity',opacity.toFixed(4));card.style.setProperty('--blur',`${blur.toFixed(2)}px`);card.style.setProperty('--sat',sat.toFixed(3));card.style.setProperty('--tilt',`${tilt.toFixed(2)}deg`);card.style.setProperty('--z',String(Math.round(depth*100)+1));card.classList.toggle('is-active',index===nearest);card.style.pointerEvents=Math.abs(d)>2.2?'none':'auto';
-    });
-    if(force||nearest!==wheel.activeIndex){wheel.activeIndex=nearest;wheel.activeId=accounts[nearest].id;const dots=$id('v152WheelDots');if(dots)[...dots.children].forEach((dot,i)=>dot.classList.toggle('active',i===nearest));const tools=$id('v152AccountTools');if(tools){tools.innerHTML=toolsMarkup(accounts[nearest]);bindActions(tools);hydrateHeroIcons(tools);}}
-  }
-  function bindActions(root){root.querySelectorAll('[data-v152-action]').forEach(btn=>btn.addEventListener('click',()=>{const id=btn.dataset.v152AccountId,action=btn.dataset.v152Action;if(action==='edit')openAccountEditor(id);if(action==='reconcile')openReconcileAccount(id);if(action==='contribution')openAccountContributionModal(id);}));}
-  function animate(){cancelAnimationFrame(wheel.raf);if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){wheel.position=wheel.target;update();return;}const step=()=>{const len=(state.accounts||[]).length;if(!len)return;let diff=wheel.target-wheel.position;if(Math.abs(diff)>len/2)diff-=Math.sign(diff)*len;wheel.velocity=wheel.velocity*.76+diff*.18;wheel.position+=wheel.velocity;if(Math.abs(diff)<.0015&&Math.abs(wheel.velocity)<.0015){wheel.position=wheel.target;wheel.velocity=0;update();return;}update();wheel.raf=requestAnimationFrame(step)};wheel.raf=requestAnimationFrame(step);}
-  function setTarget(target,velocity=0){const len=(state.accounts||[]).length;if(!len)return;const current=wheel.position;while(target-current>len/2)target-=len;while(target-current<-len/2)target+=len;wheel.target=target;wheel.velocity=velocity;animate();}
-  function snap(){const projected=wheel.position+wheel.lastMoveVelocity*7;let target=Math.round(projected);if(Math.abs(wheel.lastMoveVelocity)>.035&&target===Math.round(wheel.position))target+=wheel.lastMoveVelocity>0?1:-1;setTarget(target,wheel.lastMoveVelocity*.7);}
   function bind(hub){
-    bindActions(hub);hub.querySelectorAll('[data-v152-account-index]').forEach(card=>card.addEventListener('click',()=>{if(wheel.dragging)return;const idx=Number(card.dataset.v152AccountIndex||0);if(idx!==wheel.activeIndex)setTarget(idx);}));const deck=$id('v152AccountsWheelViewport');if(!deck)return;
-    deck.addEventListener('pointerdown',e=>{if(e.pointerType==='mouse'&&e.button!==0)return;cancelAnimationFrame(wheel.raf);wheel.dragging=true;wheel.startY=e.clientY;wheel.startPosition=wheel.position;wheel.lastY=e.clientY;wheel.lastT=performance.now();wheel.lastMoveVelocity=0;try{deck.setPointerCapture(e.pointerId)}catch(_){}});
-    deck.addEventListener('pointermove',e=>{if(!wheel.dragging)return;e.preventDefault();const now=performance.now(),dy=e.clientY-wheel.startY;wheel.position=wheel.startPosition-dy/66;const dt=Math.max(8,now-wheel.lastT),stepDy=e.clientY-wheel.lastY;wheel.lastMoveVelocity=-(stepDy/66)/(dt/16.67);wheel.lastY=e.clientY;wheel.lastT=now;update();});
-    const end=e=>{if(!wheel.dragging)return;wheel.dragging=false;try{deck.releasePointerCapture(e.pointerId)}catch(_){}snap();};deck.addEventListener('pointerup',end);deck.addEventListener('pointercancel',end);
-    deck.addEventListener('wheel',e=>{if(Math.abs(e.deltaY)<1)return;e.preventDefault();cancelAnimationFrame(wheel.raf);wheel.position+=e.deltaY/210;wheel.lastMoveVelocity=e.deltaY/210*.24;update();clearTimeout(wheel.wheelTimer);wheel.wheelTimer=setTimeout(snap,90);},{passive:false});
-    deck.addEventListener('keydown',e=>{if(e.key==='ArrowUp'){e.preventDefault();setTarget(Math.round(wheel.position)-1)}if(e.key==='ArrowDown'){e.preventDefault();setTarget(Math.round(wheel.position)+1)}});
+    bindActions(hub);hub.querySelectorAll('[data-v152-account-index]').forEach(card=>card.addEventListener('click',()=>{if(wheel.dragging)return;const idx=Number(card.dataset.v152AccountIndex||0);if(Number.isFinite(idx))animateToward(idx);}));
+    const deck=$id('v152AccountsWheelViewport');if(!deck)return;
+    deck.addEventListener('pointerdown',e=>{if(e.pointerType==='mouse'&&e.button!==0)return;wheel.dragging=true;wheel.startY=e.clientY;wheel.startX=e.clientX;wheel.dragStartT=performance.now();try{deck.setPointerCapture(e.pointerId)}catch(_){}});
+    deck.addEventListener('pointermove',e=>{if(!wheel.dragging)return;const dy=e.clientY-wheel.startY,dx=e.clientX-wheel.startX;if(Math.abs(dy)>Math.abs(dx))e.preventDefault();},{passive:false});
+    const end=e=>{if(!wheel.dragging)return;const dy=e.clientY-wheel.startY;const dt=performance.now()-wheel.dragStartT;wheel.dragging=false;try{deck.releasePointerCapture(e.pointerId)}catch(_){};if(Math.abs(dy)<24&&dt<450)return;if(Math.abs(dy)>=24)animateToward(wrap(wheel.activeIndex+(dy<0?1:-1),(state.accounts||[]).length||1));};
+    deck.addEventListener('pointerup',end);deck.addEventListener('pointercancel',end);
+    deck.addEventListener('wheel',e=>{if(Math.abs(e.deltaY)<6)return;e.preventDefault();if(wheel.animating)return;animateToward(wrap(wheel.activeIndex+(e.deltaY>0?1:-1),(state.accounts||[]).length||1));},{passive:false});
+    deck.addEventListener('keydown',e=>{if(e.key==='ArrowUp'){e.preventDefault();animateToward(wrap(wheel.activeIndex-1,(state.accounts||[]).length||1));}if(e.key==='ArrowDown'){e.preventDefault();animateToward(wrap(wheel.activeIndex+1,(state.accounts||[]).length||1));}});
   }
   const original=window.renderAccounts;if(typeof original==='function'&&!window.__sinopV153AccountsWrapped){window.renderAccounts=function(){const r=original.apply(this,arguments);renderHub();return r};window.__sinopV153AccountsWrapped=true;}
   window.addEventListener('load',()=>setTimeout(renderHub,120));window.addEventListener('resize',()=>{if(isMobile())renderHub();else{const hub=$id('v152AccountsWheelHub');if(hub)hub.innerHTML='';}},{passive:true});
