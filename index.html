@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0f766e">
-<title>SINOP v166 · Cumulative Savings & Investments Dashboard</title>
+<title>SINOP v167 · Dashboard Card Breakdowns</title>
 <meta name="application-name" content="SINOP">
 <meta name="apple-mobile-web-app-title" content="SINOP">
 <meta name="description" content="SINOP — your personal money system for income, spending, savings, investments, goals, KKB, and financial tracking.">
@@ -5646,6 +5646,19 @@ body[data-theme="dark"] .barkada-group-btn,body[data-theme="dark"] .barkada-memb
 @media(max-width:760px){.profile-global-connection{padding:12px!important}.profile-global-connection-head small{font-size:11px!important;line-height:1.4!important}.profile-global-endpoint-actions .btn{width:100%;min-height:44px;justify-content:center}}
 </style>
 
+
+<style id="v167-dashboard-card-breakdown-style">
+/* ----- v167 Dashboard metric breakdowns ----- */
+#dashboard .dashboard-breakdown-card{cursor:help!important}
+#dashboard .dashboard-breakdown-card:focus-visible{outline:3px solid color-mix(in srgb,var(--brand) 28%,transparent)!important;outline-offset:3px!important}
+.dashboard-breakdown-popover{position:fixed;z-index:10050;width:min(390px,calc(100vw - 24px));max-height:min(72vh,560px);overflow:auto;padding:14px;border:1px solid var(--border);border-radius:16px;background:var(--panel);color:var(--text);box-shadow:0 22px 60px rgba(15,23,42,.22);opacity:0;visibility:hidden;transform:translateY(5px) scale(.985);pointer-events:none;transition:opacity .14s ease,transform .14s ease,visibility .14s;overscroll-behavior:contain}
+.dashboard-breakdown-popover.open{opacity:1;visibility:visible;transform:none;pointer-events:auto}
+.dashboard-breakdown-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:8px}.dashboard-breakdown-head strong{display:block;font-size:12px;line-height:1.25}.dashboard-breakdown-head small{display:block;margin-top:3px;color:var(--muted);font-size:8px}.dashboard-breakdown-hint{flex:none;padding:4px 6px;border-radius:999px;background:var(--soft);color:var(--muted);font-size:7px;font-weight:850;white-space:nowrap}
+.dashboard-breakdown-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:start;padding:7px 0;border-bottom:1px solid var(--border);font-size:9px}.dashboard-breakdown-row:last-child{border-bottom:0}.dashboard-breakdown-row span{color:var(--muted);line-height:1.35}.dashboard-breakdown-row strong{color:var(--text);font-size:10px;text-align:right;white-space:nowrap}.dashboard-breakdown-row.total{margin-top:3px;padding-top:9px;font-weight:900}.dashboard-breakdown-row.total strong{color:var(--brand2)}
+.dashboard-breakdown-note{margin:9px 0 0;padding-top:9px;border-top:1px solid var(--border);color:var(--muted);font-size:8px;line-height:1.45}
+body[data-theme="dark"] .dashboard-breakdown-popover{box-shadow:0 24px 64px rgba(0,0,0,.42)}
+@media(max-width:620px){.dashboard-breakdown-popover{width:calc(100vw - 20px);max-height:min(68vh,520px);padding:13px;border-radius:15px}.dashboard-breakdown-hint{display:none}.dashboard-breakdown-row{padding:7px 0}}
+</style>
 </head>
 <body class="sinop-auth-locked">
 <div id="sinopLoginGate" class="sinop-login-gate" aria-hidden="false">
@@ -5937,7 +5950,7 @@ body[data-theme="dark"] .barkada-group-btn,body[data-theme="dark"] .barkada-memb
       </div>
 
       <div id="widgetMetrics" class="dashboard-v161-metrics">
-        <article class="dashboard-v161-pulse" id="dashboardPulseCard">
+        <article class="dashboard-v161-pulse dashboard-breakdown-card" id="dashboardPulseCard" data-dashboard-breakdown="projected" tabindex="0" aria-haspopup="true" aria-expanded="false">
           <div class="dashboard-v161-pulse-top">
             <div>
               <span class="dashboard-v161-kicker">Projected month-end</span>
@@ -5955,12 +5968,12 @@ body[data-theme="dark"] .barkada-group-btn,body[data-theme="dark"] .barkada-memb
         </article>
 
         <div class="dashboard-v161-kpi-grid">
-          <article class="dashboard-v161-kpi"><span>Income received</span><strong id="dashIncomeReceived">₱0.00</strong><small id="dashIncomeReceiptRate">0% of plan</small></article>
-          <article class="dashboard-v161-kpi"><span>Commitment load</span><strong id="dashCommitmentRate">0%</strong><small id="dashCommitmentValue">₱0.00 recurring</small></article>
-          <article class="dashboard-v161-kpi"><span>Actual spending</span><strong id="dashActualSpending">₱0.00</strong><small id="dashSpendingDelta">No prior-month comparison</small></article>
-          <article class="dashboard-v161-kpi"><span>Savings + investments</span><strong id="dashWealthCumulative">₱0.00</strong><small id="dashWealthMonth">This month · Savings ₱0.00 · Investments ₱0.00</small></article>
-          <article class="dashboard-v161-kpi"><span>Liquidity coverage</span><strong id="dashRunway">0.0 mo</strong><small id="dashUsableMoney">₱0.00 usable</small></article>
-          <article class="dashboard-v161-kpi"><span>Recurring paid</span><strong id="dashRecurringPaidPct">0%</strong><small id="dashRecurringPending">₱0.00 pending</small></article>
+          <article class="dashboard-v161-kpi dashboard-breakdown-card" data-dashboard-breakdown="income" tabindex="0" aria-haspopup="true" aria-expanded="false"><span>Income received</span><strong id="dashIncomeReceived">₱0.00</strong><small id="dashIncomeReceiptRate">0% of plan</small></article>
+          <article class="dashboard-v161-kpi dashboard-breakdown-card" data-dashboard-breakdown="commitments" tabindex="0" aria-haspopup="true" aria-expanded="false"><span>Commitment load</span><strong id="dashCommitmentRate">0%</strong><small id="dashCommitmentValue">₱0.00 recurring</small></article>
+          <article class="dashboard-v161-kpi dashboard-breakdown-card" data-dashboard-breakdown="spending" tabindex="0" aria-haspopup="true" aria-expanded="false"><span>Actual spending</span><strong id="dashActualSpending">₱0.00</strong><small id="dashSpendingDelta">No prior-month comparison</small></article>
+          <article class="dashboard-v161-kpi dashboard-breakdown-card" data-dashboard-breakdown="wealth" tabindex="0" aria-haspopup="true" aria-expanded="false"><span>Savings + investments</span><strong id="dashWealthCumulative">₱0.00</strong><small id="dashWealthMonth">This month · Savings ₱0.00 · Investments ₱0.00</small></article>
+          <article class="dashboard-v161-kpi dashboard-breakdown-card" data-dashboard-breakdown="liquidity" tabindex="0" aria-haspopup="true" aria-expanded="false"><span>Liquidity coverage</span><strong id="dashRunway">0.0 mo</strong><small id="dashUsableMoney">₱0.00 usable</small></article>
+          <article class="dashboard-v161-kpi dashboard-breakdown-card" data-dashboard-breakdown="recurring" tabindex="0" aria-haspopup="true" aria-expanded="false"><span>Recurring paid</span><strong id="dashRecurringPaidPct">0%</strong><small id="dashRecurringPending">₱0.00 pending</small></article>
         </div>
       </div>
 
@@ -7248,12 +7261,13 @@ body[data-theme="dark"] .barkada-group-btn,body[data-theme="dark"] .barkada-memb
       </div>
 
       <article class="version-latest-card">
-        <div class="version-latest-badge"><span>Latest</span><strong>v166</strong></div>
-        <div class="version-latest-copy"><span>September 8, 2026</span><h3>Cumulative Savings & Investments Dashboard</h3><p>The Dashboard now shows the actual cumulative amount contributed to Savings and Investments instead of a monthly percentage, with this month’s Savings and Investment additions shown directly underneath.</p></div>
+        <div class="version-latest-badge"><span>Latest</span><strong>v167</strong></div>
+        <div class="version-latest-copy"><span>September 8, 2026</span><h3>Dashboard Card Breakdowns</h3><p>Every top Dashboard metric card now exposes its calculation on hover, keyboard focus, or tap, using the same inspectable-breakdown behavior introduced in Overview.</p></div>
       </article>
 
       <div class="version-timeline" id="versionTimeline">
-        <article class="version-entry is-latest" data-version="v166" data-date="September 8, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v166</span><h3>Cumulative Savings & Investments Dashboard</h3></div><time>Sep 8, 2026</time></header><ul><li>Replaced the Dashboard Savings + Investments percentage KPI with the cumulative actual amount contributed through the selected month.</li><li>The cumulative figure combines Savings/Time Deposit contributions and MP2/Investment contributions while excluding transfers between wealth accounts so reallocations are not double-counted.</li><li>Added a this-month breakdown directly below the cumulative total, showing Savings and Investments separately.</li><li>The existing savings-rate calculation remains available internally for financial insights and target recommendations; only the Dashboard KPI display changed.</li></ul></div></article>
+        <article class="version-entry is-latest" data-version="v167" data-date="September 8, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v167</span><h3>Dashboard Card Breakdowns</h3></div><time>Sep 8, 2026</time></header><ul><li>Added hover, keyboard-focus, and tap breakdowns to every top Dashboard metric card.</li><li>Projected Month-End now exposes income, recurring commitments, variable spending, goals, due/overdue IOUs, and the early-next-month reserve.</li><li>Income, commitment load, actual spending, cumulative Savings + Investments, liquidity coverage, and recurring-payment progress each show the components behind their displayed value.</li><li>Actual Spending breaks down by actual category; Savings + Investments separates cumulative and current-month Savings and Investments; Liquidity shows usable money and the recent-average-outflow denominator.</li><li>Uses one responsive floating breakdown panel so card layouts remain clean and mobile users can tap a card to inspect it.</li></ul></div></article>
+        <article class="version-entry" data-version="v166" data-date="September 8, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v166</span><h3>Cumulative Savings & Investments Dashboard</h3></div><time>Sep 8, 2026</time></header><ul><li>Replaced the Dashboard Savings + Investments percentage KPI with the cumulative actual amount contributed through the selected month.</li><li>The cumulative figure combines Savings/Time Deposit contributions and MP2/Investment contributions while excluding transfers between wealth accounts so reallocations are not double-counted.</li><li>Added a this-month breakdown directly below the cumulative total, showing Savings and Investments separately.</li><li>The existing savings-rate calculation remains available internally for financial insights and target recommendations; only the Dashboard KPI display changed.</li></ul></div></article>
         <article class="version-entry" data-version="v165" data-date="September 8, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v165</span><h3>Due IOUs & 4-Week Income Fix</h3></div><time>Sep 8, 2026</time></header><ul><li>Cash after IOUs now subtracts borrowed IOUs only when their due date falls in the selected month or is already overdue.</li><li>Borrowed IOUs with no due date and IOUs due in a later month remain visible in Loans & IOUs but no longer reduce the selected month’s cash-after-IOUs figure.</li><li>Weekly income now plans exactly four payments per month: monthly gross and net projections use per-payment amount × 4.</li><li>Weekly receipt confirmation now shows Week 1 through Week 4 only; the previous fifth weekly slot is removed.</li><li>Overview, Dashboard, income totals, salary deductions, receipt amounts, and dependent monthly projections now use the same four-week income rule.</li></ul></div></article>
         <article class="version-entry" data-version="v164" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v164</span><h3>Grocery Actual & Activity Fix</h3></div><time>Sep 4, 2026</time></header><ul><li>Fixed Recurring → Grocery → Record amount so the entered actual is stored as the month-level grocery actual instead of an occurrence-only payment.</li><li>The exact recorded amount now appears in Recurring and Activity while the linked account debit remains consistent.</li><li>Direct grocery actuals now appear in monthly statements as recurring grocery payments.</li><li>When a direct grocery actual exists, Grocery item trips are not double-counted in Activity or statements.</li><li>Added automatic recovery for grocery amounts previously saved into the broken occurrence-payment path.</li></ul></div></article>
         <article class="version-entry" data-version="v163" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v163</span><h3>Unified Financial Score Dashboard</h3></div><time>Sep 4, 2026</time></header><ul><li>Removed the separate 100-point Dashboard budget-health score.</li><li>The Dashboard score ring now uses the exact same 0–1000 SINOP Financial Score calculation used in Profile.</li><li>Dashboard score bands now match Profile: Excellent, Strong, Stable, Building, and Needs attention.</li><li>The ring progress is normalized from the 1000-point score while the displayed value remains the real Financial Score.</li></ul></div></article>
@@ -17477,6 +17491,69 @@ function renderDashboard(){
   $("dashRunway").textContent=avgOut>0?`${runway.toFixed(1)} mo`:`—`;$("dashUsableMoney").textContent=`${money(usable)} usable`;
   $("dashRecurringPaidPct").textContent=`${paidPct.toFixed(0)}%`;$("dashRecurringPending").textContent=`${money(payment.unpaid)} pending`;
 
+  const actualCategoryMap={};
+  variableEntries(state.month).filter(x=>(x.status||"actual")==="actual").forEach(x=>{const cat=String(x.category||"Uncategorized").trim()||"Uncategorized";actualCategoryMap[cat]=(actualCategoryMap[cat]||0)+Number(x.amount||0)});
+  const actualCategoryEntries=Object.entries(actualCategoryMap).sort((a,b)=>b[1]-a[1]);
+  const actualCategoryRows=actualCategoryEntries.slice(0,6).map(([label,value])=>({label,value:money(value)}));
+  if(actualCategoryEntries.length>6){const other=actualCategoryEntries.slice(6).reduce((sum,row)=>sum+Number(row[1]||0),0);actualCategoryRows.push({label:"Other categories",value:money(other)});}
+  window.SINOP_DASHBOARD_BREAKDOWNS={
+    projected:{title:"Projected month-end breakdown",subtitle:formatMonthFull(state.month),rows:[
+      {label:"Planned net income",value:money(summary.income)},
+      {label:"Recurring commitments",value:`− ${money(summary.recurring)}`},
+      {label:"Variable spending",value:`− ${money(summary.variable)}`},
+      {label:"Goal contributions",value:`− ${money(summary.goals)}`},
+      {label:"Budget balance",value:money(summary.remaining)},
+      {label:"Borrowed IOUs due / overdue",value:`− ${money(summary.iouOutstanding)}`},
+      {label:"Early-next-month reserve",value:`− ${money(summary.nextCycleReserve||0)}`},
+      {label:"Projected month-end",value:money(plannedPosition),total:true}
+    ],note:`Financial Score: ${financialScore?`${financialScore.score}/1000 · ${financialScore.band.label}`:"not available yet"}.`},
+    income:{title:"Income received breakdown",subtitle:formatMonthFull(state.month),rows:[
+      {label:"Planned net income",value:money(income)},
+      {label:"Received / credited",value:money(credited)},
+      {label:"Still expected",value:money(Math.max(0,income-credited))},
+      {label:"Receipt rate",value:income>0?`${receiptRate.toFixed(1)}%`:"—",total:true}
+    ],note:"Received income is based on the pay periods and one-time income actually marked received for the selected month."},
+    commitments:{title:"Commitment load breakdown",subtitle:formatMonthFull(state.month),rows:[
+      {label:"Recurring expenses",value:money(summary.recurringExpense)},
+      {label:"Savings commitments",value:money(summary.recurringSavings)},
+      {label:"Investment commitments",value:money(summary.recurringInvestment)},
+      {label:"Debt repayments",value:money(summary.recurringDebt)},
+      {label:"Internal transfers (excluded)",value:money(summary.recurringTransfer)},
+      {label:"Commitments counted",value:money(summary.recurring),total:true},
+      {label:"Share of planned income",value:income>0?`${commitmentRate.toFixed(1)}%`:"—",total:true}
+    ],note:"Internal transfers are shown for context but do not count as an outflow in the commitment-load percentage."},
+    spending:{title:"Actual spending breakdown",subtitle:formatMonthFull(state.month),rows:[
+      ...(actualCategoryRows.length?actualCategoryRows:[{label:"Actual categories",value:"No actual spending yet"}]),
+      {label:"Total actual spending",value:money(actualSpend),total:true},
+      {label:"Previous month",value:money(prevActual)}
+    ],note:"Only entries marked Actual are included here; planned variable spending is excluded from this card."},
+    wealth:{title:"Savings + Investments breakdown",subtitle:`Cumulative through ${formatMonthFull(state.month)}`,rows:[
+      {label:"Cumulative Savings",value:money(cumulativeSavings)},
+      {label:"Cumulative Investments",value:money(cumulativeInvestments)},
+      {label:"Cumulative total",value:money(cumulativeWealth),total:true},
+      {label:"This month · Savings",value:money(monthSavings)},
+      {label:"This month · Investments",value:money(monthInvestments)},
+      {label:"This month · Total",value:money(wealth),total:true}
+    ],note:"Transfers between wealth accounts are excluded so moving existing money does not create a false new contribution."},
+    liquidity:{title:"Liquidity coverage breakdown",subtitle:formatMonthFull(state.month),rows:[
+      {label:"Total tracked account value",value:money(totalTracked)},
+      {label:"Goal-reserved funds",value:money(reserved)},
+      {label:"TD / MP2 locked after reserves",value:money(locked)},
+      {label:"Usable spendable money",value:money(usable),total:true},
+      {label:"Recent average monthly outflow",value:avgOut>0?money(avgOut):"—"},
+      {label:"Liquidity coverage",value:avgOut>0?`${runway.toFixed(2)} months`:"—",total:true}
+    ],note:"Coverage = usable spendable money ÷ the average non-zero monthly outflow across the six-month Dashboard window."},
+    recurring:{title:"Recurring paid breakdown",subtitle:formatMonthFull(state.month),rows:[
+      {label:"Scheduled recurring total",value:money(payment.total)},
+      {label:"Paid / recorded actual",value:money(payment.paid)},
+      {label:"Still pending",value:money(payment.unpaid)},
+      {label:"Active commitments",value:String(activeBills(state.month).length)},
+      {label:"Autopay commitments",value:String(payment.autopay)},
+      {label:"Completion",value:payment.total>0?`${paidPct.toFixed(1)}%`:"—",total:true}
+    ],note:"The completion percentage compares recorded recurring actuals with the scheduled recurring amount for the selected month."}
+  };
+  if(typeof window.refreshDashboardBreakdownPopover==="function")window.refreshDashboardBreakdownPopover();
+
   renderDashboardCashflow(series);
   renderDashboardAllocation(summary);
   renderCategoryBars();
@@ -23680,13 +23757,13 @@ maybeStartFirstRunSetup();
 
 <script id="sinop-v137-version-log-script">
 (()=>{
-  const latestText=`SINOP v166 — Cumulative Savings & Investments Dashboard\nSeptember 8, 2026\n\n• Dashboard Savings + Investments now shows the cumulative actual amount contributed through the selected month.\n• This month’s Savings and Investment additions appear directly underneath as separate amounts.\n• Transfers between wealth accounts remain excluded so reallocations are not double-counted.\n• Savings-rate logic is retained for insights and recommendations, but no longer shown as this Dashboard KPI.`;
+  const latestText=`SINOP v167 — Dashboard Card Breakdowns\nSeptember 8, 2026\n\n• Every top Dashboard metric card now shows its calculation on hover, keyboard focus, or tap.\n• Projected Month-End exposes planned income, recurring commitments, spending, goals, IOUs, and the early-next-month reserve.\n• Income, commitment load, actual spending, Savings + Investments, liquidity coverage, and recurring paid each have their own detailed breakdown.\n• The breakdown panel is responsive and tap-friendly on mobile.`;
   const collectLog=()=>{
     const rows=[...document.querySelectorAll('#versionTimeline .version-entry')];
     return ['SINOP Version Log',...rows.map(row=>{const version=row.dataset.version||'',date=row.dataset.date||'',title=row.querySelector('h3')?.textContent?.trim()||'',items=[...row.querySelectorAll('li')].map(li=>`• ${li.textContent.trim()}`).join('\n');return `${version} — ${title}\n${date}\n${items}`})].join('\n\n');
   };
   async function copyText(text,message){try{await navigator.clipboard.writeText(text);toast(message)}catch(_){const ta=document.createElement('textarea');ta.value=text;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();toast(message)}}
-  document.getElementById('shareLatestVersionBtn')?.addEventListener('click',async()=>{if(navigator.share){try{await navigator.share({title:'SINOP v166 update',text:latestText});return}catch(e){if(e?.name==='AbortError')return}}copyText(latestText,'Latest SINOP update copied')});
+  document.getElementById('shareLatestVersionBtn')?.addEventListener('click',async()=>{if(navigator.share){try{await navigator.share({title:'SINOP v167 update',text:latestText});return}catch(e){if(e?.name==='AbortError')return}}copyText(latestText,'Latest SINOP update copied')});
   document.getElementById('copyVersionLogBtn')?.addEventListener('click',()=>copyText(collectLog(),'SINOP version log copied'));
 })();
 </script>
@@ -25254,6 +25331,59 @@ body[data-theme="dark"] #dashboard .dashboard-v161-category-value span.up{backgr
 (() => {
   const refresh=()=>{if(typeof window.financialScoreSnapshot==="function"&&typeof renderDashboard==="function")renderDashboard();};
   if(document.readyState==="complete")setTimeout(refresh,0);else window.addEventListener("load",()=>setTimeout(refresh,0),{once:true});
+})();
+</script>
+
+<div id="dashboardBreakdownPopover" class="dashboard-breakdown-popover" role="tooltip" aria-hidden="true"></div>
+<script id="v167-dashboard-card-breakdown-script">
+(()=>{
+  const pop=()=>document.getElementById("dashboardBreakdownPopover");
+  let activeCard=null,stickyCard=null;
+  const escHtml=value=>String(value??"").replace(/[&<>"]/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[ch]));
+  function dataFor(card){return window.SINOP_DASHBOARD_BREAKDOWNS?.[card?.dataset?.dashboardBreakdown]||null}
+  function htmlFor(data){
+    const rows=(data.rows||[]).map(row=>`<div class="dashboard-breakdown-row ${row.total?"total":""}"><span>${escHtml(row.label)}</span><strong>${escHtml(row.value)}</strong></div>`).join("");
+    return `<div class="dashboard-breakdown-head"><div><strong>${escHtml(data.title||"Breakdown")}</strong>${data.subtitle?`<small>${escHtml(data.subtitle)}</small>`:""}</div><span class="dashboard-breakdown-hint">Hover · focus · tap</span></div>${rows}${data.note?`<p class="dashboard-breakdown-note">${escHtml(data.note)}</p>`:""}`;
+  }
+  function position(card){
+    const el=pop();if(!el||!card)return;
+    const r=card.getBoundingClientRect(),gap=9,margin=10,w=Math.min(390,window.innerWidth-20);
+    el.style.width=`${Math.max(260,w)}px`;
+    const measured=el.getBoundingClientRect();
+    const left=Math.min(window.innerWidth-measured.width-margin,Math.max(margin,r.left));
+    let top=r.bottom+gap;
+    if(top+measured.height>window.innerHeight-margin&&r.top-measured.height-gap>=margin)top=r.top-measured.height-gap;
+    else top=Math.min(window.innerHeight-measured.height-margin,Math.max(margin,top));
+    el.style.left=`${Math.round(left)}px`;el.style.top=`${Math.round(top)}px`;
+  }
+  function open(card,{sticky=false}={}){
+    const el=pop(),data=dataFor(card);if(!el||!data)return;
+    if(activeCard&&activeCard!==card)activeCard.setAttribute("aria-expanded","false");
+    activeCard=card;if(sticky)stickyCard=card;
+    el.innerHTML=htmlFor(data);el.classList.add("open");el.setAttribute("aria-hidden","false");card.setAttribute("aria-expanded","true");
+    requestAnimationFrame(()=>position(card));
+  }
+  function close(force=false){
+    if(stickyCard&&!force)return;
+    const el=pop();if(activeCard)activeCard.setAttribute("aria-expanded","false");
+    activeCard=null;if(force)stickyCard=null;if(el){el.classList.remove("open");el.setAttribute("aria-hidden","true")}
+  }
+  function cardFrom(target){return target?.closest?.("#dashboard .dashboard-breakdown-card[data-dashboard-breakdown]")||null}
+  document.addEventListener("pointerover",e=>{if(e.pointerType==="touch")return;const card=cardFrom(e.target);if(!card||card.contains(e.relatedTarget)||stickyCard)return;open(card)});
+  document.addEventListener("pointerout",e=>{if(e.pointerType==="touch")return;const card=cardFrom(e.target);if(!card||card.contains(e.relatedTarget)||stickyCard)return;if(e.relatedTarget&&pop()?.contains(e.relatedTarget))return;close()});
+  document.addEventListener("focusin",e=>{const card=cardFrom(e.target);if(card&&!stickyCard)open(card)});
+  document.addEventListener("focusout",e=>{const card=cardFrom(e.target);if(!card||stickyCard)return;if(e.relatedTarget&&card.contains(e.relatedTarget))return;close()});
+  document.addEventListener("click",e=>{
+    const card=cardFrom(e.target);
+    if(card){if(stickyCard===card){close(true);return}stickyCard=card;open(card,{sticky:true});return}
+    if(pop()?.contains(e.target))return;close(true);
+  });
+  window.addEventListener("resize",()=>{if(activeCard)position(activeCard)},{passive:true});
+  pop()?.addEventListener("pointerleave",()=>{if(!stickyCard)close()});
+  document.addEventListener("keydown",e=>{if(e.key==="Escape")close(true)});
+  document.addEventListener("scroll",()=>{if(activeCard)position(activeCard)},true);
+  document.querySelectorAll("#dashboard .dashboard-breakdown-card[data-dashboard-breakdown]").forEach(card=>card.setAttribute("title","Hover or tap to see breakdown"));
+  window.refreshDashboardBreakdownPopover=()=>{if(activeCard&&dataFor(activeCard)){const el=pop();el.innerHTML=htmlFor(dataFor(activeCard));requestAnimationFrame(()=>position(activeCard))}};
 })();
 </script>
 </body>
