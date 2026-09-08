@@ -5669,6 +5669,33 @@ body[data-theme="dark"] .dashboard-breakdown-popover{box-shadow:0 24px 64px rgba
 @media(max-width:900px){.dashboard-v169-score-recs{grid-template-columns:1fr}.profile-v169-score-rec{grid-template-columns:1fr}.profile-v169-score-rec .score-rec-action{padding:8px 0 0;border-left:0;border-top:1px solid var(--border)}}
 @media(max-width:760px){.dashboard-v169-score-coach{padding:13px;border-radius:16px}.dashboard-v169-score-coach-head{display:grid}.dashboard-v169-score-coach-head .text-btn{justify-self:start;min-height:34px}.dashboard-v169-score-rec{padding:11px}.profile-v169-score-plan-head{display:grid}.profile-v169-score-plan-head small{text-align:left}.profile-v169-score-rec{padding:11px}.score-rec-body,.profile-v169-score-rec .score-rec-body{font-size:10px}}
 </style>
+
+<style id="sinop-v170-income-payment-coach-style">
+/* ===== SINOP v170 · income-to-commitment recommendation coach ===== */
+.v170-paycoach{position:relative;overflow:hidden;border:1px solid color-mix(in srgb,var(--brand) 24%,var(--border));border-radius:22px;background:var(--panel);box-shadow:0 12px 32px rgba(15,23,42,.045)}
+.v170-paycoach:before{content:"";position:absolute;inset:0 0 auto;height:4px;background:linear-gradient(90deg,var(--brand),color-mix(in srgb,var(--brand) 58%,#60a5fa),color-mix(in srgb,var(--brand) 48%,#f59e0b));pointer-events:none}
+.v170-paycoach-hero{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:18px;align-items:start;padding:20px 20px 16px;background:linear-gradient(135deg,color-mix(in srgb,var(--brandsoft) 42%,var(--panel)),var(--panel) 58%)}
+.v170-paycoach-kicker{display:flex;align-items:center;gap:7px;color:var(--brand2);font-size:9px;font-weight:950;text-transform:uppercase;letter-spacing:.075em}.v170-paycoach-kicker .hero-icon{width:15px;height:15px}
+.v170-paycoach-hero h3{margin:5px 0 4px;font-size:20px;line-height:1.18;letter-spacing:-.025em}.v170-paycoach-hero p{max-width:760px;margin:0;color:var(--muted);font-size:10px;line-height:1.55}
+.v170-paycoach-mode{display:flex;align-items:center;gap:6px;padding:7px 10px;border:1px solid color-mix(in srgb,var(--brand) 26%,var(--border));border-radius:999px;background:var(--panel);color:var(--brand2);font-size:8.5px;font-weight:900;white-space:nowrap}.v170-paycoach-mode .hero-icon{width:13px;height:13px}
+.v170-paycoach-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;padding:0 20px 16px}.v170-paycoach-stat{padding:11px 12px;border:1px solid var(--border);border-radius:14px;background:var(--panel)}.v170-paycoach-stat span{display:block;color:var(--muted);font-size:8px;font-weight:800}.v170-paycoach-stat strong{display:block;margin-top:4px;font-size:15px;line-height:1.15}.v170-paycoach-stat small{display:block;margin-top:4px;color:var(--muted);font-size:8px;line-height:1.35}.v170-paycoach-stat.good strong{color:var(--brand2)}.v170-paycoach-stat.warn strong{color:var(--warn)}.v170-paycoach-stat.bad strong{color:var(--danger)}
+.v170-paycoach-notices{display:grid;gap:7px;padding:0 20px 14px}.v170-paycoach-notice{display:flex;align-items:flex-start;gap:9px;padding:10px 11px;border:1px solid var(--border);border-radius:13px;background:var(--soft);font-size:9px;line-height:1.45}.v170-paycoach-notice .hero-icon{width:15px;height:15px;flex:none;margin-top:1px}.v170-paycoach-notice strong{color:var(--text)}.v170-paycoach-notice.warn{border-color:color-mix(in srgb,var(--warn) 34%,var(--border));background:color-mix(in srgb,var(--warn) 7%,var(--panel))}.v170-paycoach-notice.warn .hero-icon{color:var(--warn)}.v170-paycoach-notice.info .hero-icon{color:var(--blue)}.v170-paycoach-notice.good .hero-icon{color:var(--brand2)}
+.v170-paycoach-section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;padding:2px 20px 10px}.v170-paycoach-section-head span{display:block;color:var(--muted);font-size:8px;font-weight:850;text-transform:uppercase;letter-spacing:.065em}.v170-paycoach-section-head strong{display:block;margin-top:3px;font-size:13px}.v170-paycoach-section-head small{color:var(--muted);font-size:8px;text-align:right}
+.v170-paycoach-timeline{display:grid;gap:10px;padding:0 20px 20px}.v170-cycle{position:relative;display:grid;grid-template-columns:185px minmax(0,1fr);border:1px solid var(--border);border-radius:17px;background:var(--panel);overflow:hidden}.v170-cycle.is-reserve{border-color:color-mix(in srgb,var(--warn) 34%,var(--border))}.v170-cycle.is-short{border-color:color-mix(in srgb,var(--danger) 36%,var(--border))}
+.v170-cycle-side{padding:14px;border-right:1px solid var(--border);background:color-mix(in srgb,var(--soft) 66%,var(--panel))}.v170-cycle-date{display:block;color:var(--brand2);font-size:8px;font-weight:950;text-transform:uppercase;letter-spacing:.06em}.v170-cycle-side h4{margin:4px 0 2px;font-size:13px;line-height:1.25}.v170-cycle-side p{margin:0;color:var(--muted);font-size:8.5px;line-height:1.4}.v170-cycle-amount{display:block;margin-top:10px;font-size:18px;line-height:1.1}.v170-cycle-capacity{display:flex;justify-content:space-between;gap:8px;margin-top:8px;color:var(--muted);font-size:8px}.v170-cycle-bar{height:6px;margin-top:6px;border-radius:999px;background:var(--border);overflow:hidden}.v170-cycle-bar>i{display:block;height:100%;width:var(--fill,0%);border-radius:inherit;background:var(--brand)}.v170-cycle.is-short .v170-cycle-bar>i{background:var(--danger)}.v170-cycle-left{margin-top:8px;padding-top:8px;border-top:1px solid var(--border);font-size:8.5px}.v170-cycle-left strong{float:right}.v170-cycle-left.negative strong{color:var(--danger)}
+.v170-cycle-main{padding:12px 13px}.v170-cycle-main-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:8px}.v170-cycle-main-head strong{font-size:10px}.v170-cycle-main-head span{color:var(--muted);font-size:8px;text-align:right}
+.v170-funding-list{display:grid;gap:6px}.v170-funding-row{display:grid;grid-template-columns:78px minmax(0,1fr) auto;gap:9px;align-items:center;padding:8px 9px;border:1px solid var(--border);border-radius:12px;background:var(--panel)}.v170-funding-date{color:var(--muted);font-size:8px;font-weight:800}.v170-funding-copy{min-width:0}.v170-funding-copy strong{display:block;font-size:9.5px;line-height:1.3}.v170-funding-copy small{display:flex;gap:5px;flex-wrap:wrap;margin-top:3px;color:var(--muted);font-size:7.7px;line-height:1.35}.v170-funding-money{text-align:right;white-space:nowrap}.v170-funding-money strong{display:block;font-size:10px}.v170-funding-money small{display:block;margin-top:2px;font-size:7.5px;color:var(--muted)}
+.v170-chip{display:inline-flex;align-items:center;padding:2px 5px;border-radius:999px;background:var(--soft);color:var(--muted);font-size:7px;font-weight:850}.v170-chip.flex{background:color-mix(in srgb,#8b5cf6 10%,var(--panel));color:#7c3aed}.v170-chip.partial{background:color-mix(in srgb,var(--warn) 12%,var(--panel));color:var(--warn)}.v170-chip.late{background:color-mix(in srgb,var(--danger) 10%,var(--panel));color:var(--danger)}.v170-chip.reserve{background:color-mix(in srgb,#f59e0b 11%,var(--panel));color:#b45309}.v170-chip.daily{background:color-mix(in srgb,#0ea5e9 10%,var(--panel));color:#0284c7}
+.v170-transfer-box{display:flex;align-items:flex-start;gap:8px;margin-top:8px;padding:8px 9px;border-radius:11px;background:color-mix(in srgb,var(--blue) 6%,var(--panel));border:1px dashed color-mix(in srgb,var(--blue) 26%,var(--border));font-size:8px;line-height:1.4}.v170-transfer-box .hero-icon{width:13px;height:13px;flex:none;color:var(--blue);margin-top:1px}
+.v170-empty{padding:18px;border:1px dashed var(--border);border-radius:14px;color:var(--muted);text-align:center;font-size:9px;line-height:1.5}
+.v170-paycoach-options{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;padding:0 20px 20px}.v170-option{padding:11px 12px;border:1px solid var(--border);border-radius:14px;background:var(--panel)}.v170-option>span{display:flex;align-items:center;gap:6px;color:var(--muted);font-size:8px;font-weight:850;text-transform:uppercase;letter-spacing:.05em}.v170-option .hero-icon{width:13px;height:13px;color:var(--brand2)}.v170-option strong{display:block;margin-top:5px;font-size:10.5px;line-height:1.35}.v170-option p{margin:4px 0 0;color:var(--muted);font-size:8px;line-height:1.45}
+/* Dashboard compact payment coach */
+.dashboard-v170-paycoach{margin:0 0 12px;border:1px solid color-mix(in srgb,var(--blue) 24%,var(--border));border-radius:18px;background:linear-gradient(135deg,color-mix(in srgb,#dbeafe 26%,var(--panel)),var(--panel));overflow:hidden}.dashboard-v170-paycoach-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:14px 15px 10px}.dashboard-v170-paycoach-head span{display:block;color:var(--muted);font-size:8px;font-weight:900;text-transform:uppercase;letter-spacing:.06em}.dashboard-v170-paycoach-head strong{display:block;margin-top:3px;font-size:14px}.dashboard-v170-paycoach-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;padding:0 15px 14px}.dashboard-v170-mini{padding:9px 10px;border:1px solid var(--border);border-radius:12px;background:var(--panel)}.dashboard-v170-mini span{display:block;color:var(--muted);font-size:7.5px}.dashboard-v170-mini strong{display:block;margin-top:3px;font-size:12px}.dashboard-v170-mini.bad strong{color:var(--danger)}.dashboard-v170-mini.warn strong{color:var(--warn)}.dashboard-v170-next{display:flex;align-items:center;gap:9px;margin:0 15px 14px;padding:9px 10px;border:1px solid var(--border);border-radius:12px;background:var(--panel)}.dashboard-v170-next .hero-icon{width:17px;height:17px;color:var(--brand2);flex:none}.dashboard-v170-next div{min-width:0;flex:1}.dashboard-v170-next span{display:block;color:var(--muted);font-size:7.5px}.dashboard-v170-next strong{display:block;margin-top:2px;font-size:9.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.dashboard-v170-next b{font-size:10px;white-space:nowrap}
+body[data-theme="dark"] .v170-chip.flex{color:#c4b5fd}body[data-theme="dark"] .v170-chip.reserve{color:#fbbf24}body[data-theme="dark"] .v170-chip.daily{color:#7dd3fc}
+@media(max-width:900px){.v170-paycoach-stats{grid-template-columns:repeat(2,minmax(0,1fr))}.v170-paycoach-options{grid-template-columns:1fr}.v170-cycle{grid-template-columns:155px minmax(0,1fr)}}
+@media(max-width:680px){.v170-paycoach{border-radius:17px}.v170-paycoach-hero{grid-template-columns:1fr;padding:17px 14px 13px}.v170-paycoach-mode{justify-self:start}.v170-paycoach-hero h3{font-size:18px}.v170-paycoach-stats,.v170-paycoach-notices,.v170-paycoach-timeline,.v170-paycoach-options{padding-left:14px;padding-right:14px}.v170-paycoach-section-head{padding-left:14px;padding-right:14px;display:grid;align-items:start}.v170-paycoach-section-head small{text-align:left}.v170-cycle{grid-template-columns:1fr}.v170-cycle-side{border-right:0;border-bottom:1px solid var(--border)}.v170-funding-row{grid-template-columns:62px minmax(0,1fr)}.v170-funding-money{grid-column:2;text-align:left;display:flex;gap:6px;align-items:baseline}.v170-cycle-main-head{display:grid}.v170-cycle-main-head span{text-align:left}.dashboard-v170-paycoach-head{display:grid}.dashboard-v170-paycoach-head .text-btn{justify-self:start}.dashboard-v170-paycoach-summary{grid-template-columns:1fr 1fr}.dashboard-v170-mini:last-child{grid-column:1/-1}.dashboard-v170-next{align-items:flex-start}.dashboard-v170-next b{white-space:normal}}
+</style>
+
 </head>
 <body class="sinop-auth-locked">
 <div id="sinopLoginGate" class="sinop-login-gate" aria-hidden="false">
@@ -5995,6 +6022,15 @@ body[data-theme="dark"] .dashboard-breakdown-popover{box-shadow:0 24px 64px rgba
         <div class="dashboard-v169-score-recs" id="dashScoreRecommendations"></div>
       </article>
 
+      <article class="dashboard-v170-paycoach" id="dashPaymentCoachPanel">
+        <div class="dashboard-v170-paycoach-head">
+          <div><span>Income-to-commitment coach</span><strong id="dashPaymentCoachHeadline">Recommended pay-cycle plan</strong></div>
+          <button class="text-btn" type="button" data-jump="bills">Open full payment plan <span data-hero="arrow-right"></span></button>
+        </div>
+        <div class="dashboard-v170-paycoach-summary" id="dashPaymentCoachSummary"></div>
+        <div class="dashboard-v170-next" id="dashPaymentCoachNext"></div>
+      </article>
+
       <div id="widgetMonthly" class="dashboard-v161-main-grid">
         <article class="dashboard-v161-panel dashboard-v161-trend-panel">
           <div class="dashboard-v161-panel-head"><div><span>6-month cashflow</span><strong id="dashTrendHeadline">—</strong></div><div class="dashboard-v161-legend"><span><i class="income"></i>Income</span><span><i class="outflow"></i>Outflow</span></div></div>
@@ -6120,6 +6156,22 @@ body[data-theme="dark"] .dashboard-breakdown-popover{box-shadow:0 24px 64px rgba
       <article class="next-cycle-reserve" id="nextCycleReserveCard">
         <div class="next-cycle-reserve-head"><div><span class="eyebrow">Pay-cycle protection</span><h3>Fund commitments that arrive before the next income</h3><p id="nextCycleReserveCopy">SINOP checks the next expected income date and reserves early next-month commitments from the current cycle when needed.</p></div><div class="next-cycle-reserve-total"><span>Reserve from this cycle</span><strong id="nextCycleReserveTotal">₱0.00</strong></div></div>
         <div id="nextCycleReserveList" class="next-cycle-reserve-list"></div>
+      </article>
+      <article class="v170-paycoach" id="incomeCommitmentCoach">
+        <div class="v170-paycoach-hero">
+          <div>
+            <div class="v170-paycoach-kicker"><span data-hero="calendar-days"></span> Income-to-commitment coach</div>
+            <h3 id="v170PayCoachTitle">Recommended payment plan</h3>
+            <p id="v170PayCoachSubtitle">SINOP matches each commitment to the income cycle that can fund it before its due date. This is guidance only—nothing is moved, paid, or postponed automatically.</p>
+          </div>
+          <div class="v170-paycoach-mode"><span data-hero="sparkles"></span> Recommendation only</div>
+        </div>
+        <div class="v170-paycoach-stats" id="v170PayCoachStats"></div>
+        <div class="v170-paycoach-notices" id="v170PayCoachNotices"></div>
+        <div class="v170-paycoach-section-head"><div><span>Pay-cycle timeline</span><strong>What each income should cover</strong></div><small>Due dates drive the order. Savings and investments can flex when cash is tight.</small></div>
+        <div class="v170-paycoach-timeline" id="v170PayCoachTimeline"></div>
+        <div class="v170-paycoach-section-head"><div><span>When the plan is tight</span><strong>Your available choices</strong></div><small>SINOP recommends options; the user remains in control.</small></div>
+        <div class="v170-paycoach-options" id="v170PayCoachOptions"></div>
       </article>
       <div class="commitment-breakdown-grid">
         <div class="commitment-breakdown-card"><span>Expenses</span><strong id="commitmentExpenseTotal">₱0.00</strong></div>
@@ -7283,12 +7335,13 @@ body[data-theme="dark"] .dashboard-breakdown-popover{box-shadow:0 24px 64px rgba
       </div>
 
       <article class="version-latest-card">
-        <div class="version-latest-badge"><span>Latest</span><strong>v169</strong></div>
-        <div class="version-latest-copy"><span>September 8, 2026</span><h3>Personalized Financial Score Coach</h3><p>SINOP now turns each Financial Score category into a personalized improvement plan, using the user’s actual payment completion, wealth-building rate, liquidity gap, category-budget performance, card utilization, statement payments, and IOUs to recommend quantified next actions.</p></div>
+        <div class="version-latest-badge"><span>Latest</span><strong>v170</strong></div>
+        <div class="version-latest-copy"><span>September 8, 2026</span><h3>Income-to-Commitment Payment Coach</h3><p>SINOP now builds a recommendation-only pay-cycle plan that matches recurring commitments and daily living needs to scheduled income, reserves early-month and early-next-month obligations, supports partial funding and flexible savings/investments, and recommends account transfers when income and payment accounts differ.</p></div>
       </article>
 
       <div class="version-timeline" id="versionTimeline">
-        <article class="version-entry is-latest" data-version="v169" data-date="September 8, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v169</span><h3>Personalized Financial Score Coach</h3></div><time>Sep 8, 2026</time></header><ul><li>Added a rule-based Financial Score coaching engine that diagnoses the user’s weakest score categories from their own SINOP data.</li><li>Commitment recommendations count incomplete recurring occurrences; wealth recommendations calculate the exact peso gap to the configured savings/investment target.</li><li>Liquidity recommendations calculate the current emergency-runway gap and a practical next-step amount; spending recommendations identify the specific categories over budget.</li><li>Debt recommendations use tracked statement payments, card utilization, credit limits, and borrowed IOUs to produce concrete next actions without encouraging users to open debt products just for points.</li><li>Added the three highest-impact recommendations to Dashboard and the complete category-by-category score plan to Profile, including each category’s current points and potential recoverable points.</li></ul></div></article>
+        <article class="version-entry is-latest" data-version="v170" data-date="September 8, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v170</span><h3>Income-to-Commitment Payment Coach</h3></div><time>Sep 8, 2026</time></header><ul><li>Added a recommendation-only income-to-commitment planner that assigns recurring commitments to the income cycle available before each due date.</li><li>Early-month commitments and daily living before the first income are reserved from the prior pay cycle; the final pay cycle reserves commitments and daily living that arrive before the first income next month.</li><li>When a cycle is tight, SINOP preserves dated commitments, uses available non-current-income tracked cash as a suggested backstop, treats Savings and Investments as flexible, and shows partial/defer options instead of silently over-allocating.</li><li>Allowance and transportation are calculated only through the next expected income date, including cross-month days when the next payday is in the following month.</li><li>Recommendations use the income deposit account, prior recurring payment account, default spending account, credit-card routing, and savings/investment destination accounts to suggest account transfers where needed.</li><li>Added a fully designed pay-cycle timeline to Recurring Commitments and a compact payment-coach summary to Dashboard; all recommendations recalculate as income dates, commitments, payments, daily budgets, or accounts change.</li></ul></div></article>
+        <article class="version-entry" data-version="v169" data-date="September 8, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v169</span><h3>Personalized Financial Score Coach</h3></div><time>Sep 8, 2026</time></header><ul><li>Added a rule-based Financial Score coaching engine that diagnoses the user’s weakest score categories from their own SINOP data.</li><li>Commitment recommendations count incomplete recurring occurrences; wealth recommendations calculate the exact peso gap to the configured savings/investment target.</li><li>Liquidity recommendations calculate the current emergency-runway gap and a practical next-step amount; spending recommendations identify the specific categories over budget.</li><li>Debt recommendations use tracked statement payments, card utilization, credit limits, and borrowed IOUs to produce concrete next actions without encouraging users to open debt products just for points.</li><li>Added the three highest-impact recommendations to Dashboard and the complete category-by-category score plan to Profile, including each category’s current points and potential recoverable points.</li></ul></div></article>
         <article class="version-entry" data-version="v168" data-date="September 8, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v168</span><h3>Current Wealth Balances Dashboard</h3></div><time>Sep 8, 2026</time></header><ul><li>Redefined the Dashboard Savings + Investments headline as current wealth held now, independent of the selected budget month.</li><li>The headline now sums current balances in Savings accounts, Time Deposits, Pag-IBIG MP2, and Investment accounts using each account’s real ledger balance and reporting-currency conversion.</li><li>The card breakdown explicitly separates Savings accounts, Time Deposits, MP2, and Investment accounts so the total can be audited.</li><li>The smaller line under the headline still shows actual Savings and Investment additions for the selected month.</li><li>Future-dated account activity is excluded from the current balance because the headline is calculated as of today rather than month-end.</li></ul></div></article>
         <article class="version-entry" data-version="v167" data-date="September 8, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v167</span><h3>Dashboard Card Breakdowns</h3></div><time>Sep 8, 2026</time></header><ul><li>Added hover, keyboard-focus, and tap breakdowns to every top Dashboard metric card.</li><li>Projected Month-End now exposes income, recurring commitments, variable spending, goals, due/overdue IOUs, and the early-next-month reserve.</li><li>Income, commitment load, actual spending, cumulative Savings + Investments, liquidity coverage, and recurring-payment progress each show the components behind their displayed value.</li><li>Actual Spending breaks down by actual category; Savings + Investments separates cumulative and current-month Savings and Investments; Liquidity shows usable money and the recent-average-outflow denominator.</li><li>Uses one responsive floating breakdown panel so card layouts remain clean and mobile users can tap a card to inspect it.</li></ul></div></article>
         <article class="version-entry" data-version="v166" data-date="September 8, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v166</span><h3>Cumulative Savings & Investments Dashboard</h3></div><time>Sep 8, 2026</time></header><ul><li>Replaced the Dashboard Savings + Investments percentage KPI with the cumulative actual amount contributed through the selected month.</li><li>The cumulative figure combines Savings/Time Deposit contributions and MP2/Investment contributions while excluding transfers between wealth accounts so reallocations are not double-counted.</li><li>Added a this-month breakdown directly below the cumulative total, showing Savings and Investments separately.</li><li>The existing savings-rate calculation remains available internally for financial insights and target recommendations; only the Dashboard KPI display changed.</li></ul></div></article>
@@ -15447,6 +15500,248 @@ function printLoanStatement(){
 
 
 
+
+
+<script id="sinop-v170-income-payment-coach-script">
+(function(){
+  const pcMoney=v=>money(Math.max(0,Number(v||0)));
+  const pcDateObj=d=>incomeCoverageDateObj(d);
+  const pcDate=d=>d?formatDueDate(pcDateObj(d)):"No date";
+  const pcMonthStart=m=>`${m}-01`;
+  const pcMonthEnd=m=>monthEndDate(m);
+  const pcMinDate=(a,b)=>!a?b:!b?a:(a<b?a:b);
+  const pcMaxDate=(a,b)=>!a?b:!b?a:(a>b?a:b);
+  const pcAddDays=(d,n)=>incomeCoverageAddDays(d,n);
+  const pcAccountName=a=>a?`${a.name} · ${accountTypeLabel(a.type)}`:"Unassigned account";
+
+  function v170IncomeAnchorDate(x,month,stepDays){
+    const stored=incomeReceiptDatesFor(x,month,false).filter(Boolean).sort();
+    if(stored.length)return stored[0];
+    const configured=(Array.isArray(x.payDays)?x.payDays:[]).map(Number).find(d=>d>=1&&d<=31);
+    if(configured)return incomeCoverageDateAtDay(month,configured);
+    const confirmed=incomeCoverageConfirmedDates(x).filter(d=>d<pcMonthStart(month)).sort();
+    if(confirmed.length){
+      let d=confirmed[confirmed.length-1],guard=0;
+      while(d<pcMonthStart(month)&&guard++<80)d=pcAddDays(d,stepDays);
+      if(d.slice(0,7)===month)return d;
+    }
+    return incomeCoverageDateAtDay(month,7);
+  }
+
+  function v170IncomeEvents(month){
+    const events=[],missing=[];
+    state.incomes.forEach(x=>{
+      if(incomeMonthly(x,month)<=0.005)return;
+      const count=incomeReceiptSlotCount(x,month);if(!count)return;
+      const stored=incomeReceiptDatesFor(x,month,false),flags=incomeReceiptFlags(x,month,false);
+      let generated=[];
+      if(x.frequency==="weekly"){
+        const anchor=v170IncomeAnchorDate(x,month,7);generated=Array.from({length:count},(_,i)=>pcAddDays(anchor,i*7)).map(d=>d.slice(0,7)===month?d:"");
+      }else if(x.frequency==="biweekly"){
+        const anchor=v170IncomeAnchorDate(x,month,14);generated=Array.from({length:count},(_,i)=>pcAddDays(anchor,i*14)).map(d=>d.slice(0,7)===month?d:"");
+      }
+      for(let i=0;i<count;i++){
+        let date=stored[i]||"",estimated=false;
+        if(!date){
+          if(x.frequency==="one_time")date=x.date||"";
+          else if(["monthly","twice_monthly"].includes(x.frequency))date=incomeConfiguredDateForMonth(x,month,i)||"";
+          else if(["weekly","biweekly"].includes(x.frequency)){date=generated[i]||"";estimated=true}
+          else if(["quarterly","annual"].includes(x.frequency)){date="";estimated=true}
+        }
+        if(!date){missing.push(`${x.name} · ${incomeReceiptSlotLabel(x,i,count)}`);continue}
+        if(date.slice(0,7)!==month&&x.frequency!=="one_time")continue;
+        const amount=Math.max(0,Number(incomeNetPerPayment(x,month,i)||0));if(amount<=0.005)continue;
+        events.push({id:`${month}:${x.id}:${i}`,month,date,amount,income:x,index:i,label:incomeReceiptSlotLabel(x,i,count),account:accountById(x.accountId),received:!!flags[i],estimated});
+      }
+    });
+    events.sort((a,b)=>a.date.localeCompare(b.date)||String(a.income.name).localeCompare(String(b.income.name))||a.index-b.index);
+    return {events,missing};
+  }
+
+  function v170LastPaymentAccount(b){
+    const rows=[];
+    Object.entries(state.billPaymentDetails||{}).forEach(([month,records])=>{const d=records?.[b.id];if(d?.sourceType==="account"&&d.accountId)rows.push({month,date:d.paidDate||`${month}-01`,account:accountById(d.accountId)})});
+    Object.entries(state.billPaymentOccurrenceDetails||{}).forEach(([month,records])=>{const ds=records?.[b.id];if(!Array.isArray(ds))return;ds.forEach(d=>{if(d?.sourceType==="account"&&d.accountId)rows.push({month,date:d.paidDate||`${month}-01`,account:accountById(d.accountId)})})});
+    rows.sort((a,b)=>String(b.date).localeCompare(String(a.date)));return rows.find(r=>r.account)?.account||null;
+  }
+
+  function v170FundingRoute(row,incomeAccount){
+    if(row.kind==="daily"){
+      const target=defaultSpendingAccount()||incomeAccount||null;
+      return {label:target?`Keep daily funds in ${target.name}`:"Set a default spending account",target,transfer:!!(incomeAccount&&target&&!sameId(incomeAccount.id,target.id))};
+    }
+    const b=row.bill,type=row.type;
+    if(["savings","investment","transfer"].includes(type)){
+      const target=commitmentDestinationAccount(b);
+      const verb=type==="savings"?"Save to":type==="investment"?"Invest in":"Move to";
+      return {label:target?`${verb} ${target.name}`:`${verb} a destination account`,target,transfer:!!(incomeAccount&&target&&!sameId(incomeAccount.id,target.id)),direct:true};
+    }
+    if(type==="expense"&&b.creditCardId&&cardById(b.creditCardId))return {label:`Reserve cash for ${cardLabel(cardById(b.creditCardId))}`,target:null,transfer:false,card:true};
+    const target=v170LastPaymentAccount(b)||defaultSpendingAccount()||incomeAccount||null;
+    return {label:target?`Pay from ${target.name}`:"Choose a payment account",target,transfer:!!(incomeAccount&&target&&!sameId(incomeAccount.id,target.id))};
+  }
+
+  function v170CommitmentRows(month){
+    const rows=[];
+    state.bills.forEach(b=>{
+      if(!billActiveInMonth(b,month))return;
+      const type=commitmentType(b),flexible=["savings","investment"].includes(type);
+      if(isGroceryBill(b)){
+        const amount=Math.max(0,Number(billValue(b,state.scenario,month)||0)-Number(billActualAmount(b,month)||0));if(amount<=0.005)return;
+        const due=billDueDateForMonth(b,month),date=due?localDateKey(due):pcMonthEnd(month);
+        rows.push({id:`${month}:${b.id}:grocery`,month,date,amount,bill:b,type,flexible,undated:!due,label:"Payment",kind:"commitment"});return;
+      }
+      const schedule=billOccurrenceSchedule(b,month,state.scenario),flags=billOccurrenceFlags(b.id,month,false);
+      schedule.forEach((occ,index)=>{
+        if(flags[index]||occ.amount<=0.005)return;
+        const date=occ.date||pcMonthEnd(month);
+        rows.push({id:`${month}:${b.id}:${index}`,month,date,amount:Math.max(0,Number(occ.amount||0)),bill:b,type,flexible,undated:!occ.date,label:schedule.length>1?occ.label:"Payment",occurrenceIndex:index,kind:"commitment"});
+      });
+    });
+    return rows.sort((a,b)=>a.date.localeCompare(b.date)||Number(a.flexible)-Number(b.flexible)||String(a.bill.name).localeCompare(String(b.bill.name)));
+  }
+
+  function v170DailyRow(startDate,endDate,tag){
+    if(!startDate||!endDate||endDate<startDate)return null;
+    const d=incomeCoverageDailySummary(startDate,endDate);if(d.total<=0.005)return null;
+    const startMonth=startDate.slice(0,7),endMonth=endDate.slice(0,7),nextMonthReserveAmount=endMonth>startMonth?Math.max(0,Number(incomeCoverageDailySummary(`${endMonth}-01`,endDate).total||0)):0;
+    return {id:`daily:${tag}:${startDate}:${endDate}`,kind:"daily",type:"daily",flexible:false,date:endDate,amount:d.total,label:`Daily living · ${pcDate(startDate)}–${pcDate(endDate)}`,daily:d,startDate,endDate,nextMonthReserveAmount};
+  }
+
+  function v170CurrentCashBackstop(month){
+    if(month!==currentMonth)return 0;
+    const usable=Math.max(0,Number(totalUsableMoney(month)||0));
+    const received=Math.max(0,Number(totalCreditedIncome(month)||0));
+    return Math.max(0,usable-received);
+  }
+
+  function v170AllocateCycle(cycle,backstopState,nextIncome){
+    const fixed=cycle.items.filter(x=>!x.flexible).sort((a,b)=>a.date.localeCompare(b.date));
+    const flex=cycle.items.filter(x=>x.flexible).sort((a,b)=>a.date.localeCompare(b.date));
+    let available=Math.max(0,cycle.baseAvailable+cycle.carryIn),allocated=0,backstopUsed=0;
+    const allocations=[];
+    const fund=(item,isFlexible)=>{
+      const before=available;
+      let funded=Math.min(item.amount,available);available-=funded;allocated+=funded;
+      let short=Math.max(0,item.amount-funded),cashUsed=0;
+      if(short>0.005&&!isFlexible&&backstopState.remaining>0.005){cashUsed=Math.min(short,backstopState.remaining);backstopState.remaining-=cashUsed;backstopState.used+=cashUsed;backstopUsed+=cashUsed;funded+=cashUsed;allocated+=cashUsed;short-=cashUsed}
+      allocations.push({...item,funded,short,cashUsed,partial:funded>0.005&&short>0.005,deferred:isFlexible&&short>0.005,late:!isFlexible&&short>0.005&&!!nextIncome&&nextIncome.date>item.date});
+    };
+    fixed.forEach(x=>fund(x,false));flex.forEach(x=>fund(x,true));
+    cycle.allocations=allocations;cycle.allocated=allocated;cycle.backstopUsed=backstopUsed;cycle.carryOut=Math.max(0,available);cycle.shortfall=allocations.reduce((s,x)=>s+x.short,0);cycle.flexDeferred=allocations.filter(x=>x.flexible).reduce((s,x)=>s+x.short,0);cycle.fixedShortfall=allocations.filter(x=>!x.flexible).reduce((s,x)=>s+x.short,0);cycle.nextIncome=nextIncome||null;
+    const transferMap=new Map();
+    allocations.forEach(a=>{
+      if(a.funded<=0.005)return;const route=v170FundingRoute(a,cycle.incomeAccount);a.route=route;
+      if(route.transfer&&route.target&&cycle.incomeAccount){const key=String(route.target.id),old=transferMap.get(key)||{target:route.target,amount:0};old.amount+=a.funded;transferMap.set(key,old)}
+    });
+    cycle.transfers=[...transferMap.values()];
+    return cycle;
+  }
+
+  function v170PaymentPlanSnapshot(month=state.month){
+    const cur=v170IncomeEvents(month),prevMonth=shiftMonth(month,-1),nextMonth=shiftMonth(month,1),prev=v170IncomeEvents(prevMonth),next=v170IncomeEvents(nextMonth);
+    const incomes=cur.events,firstIncome=incomes[0]||null,lastIncome=incomes[incomes.length-1]||null,firstNext=next.events[0]||null,lastPrev=prev.events[prev.events.length-1]||null;
+    const rows=v170CommitmentRows(month),nextRows=v170CommitmentRows(nextMonth);
+    const warnings=[];if(cur.missing.length)warnings.push(`${cur.missing.length} income payment date${cur.missing.length===1?' is':'s are'} missing. Set expected dates in Income for a more precise plan.`);
+    const estimatedIncomeDates=cur.events.filter(e=>e.estimated).length;if(estimatedIncomeDates)warnings.push(`${estimatedIncomeDates} weekly/biweekly income date${estimatedIncomeDates===1?' is':'s are'} estimated from cadence. Edit the expected receipt dates under Income if the actual paydays differ.`);
+    if(!incomes.length)warnings.push(`No schedulable income is available for ${formatMonthFull(month)}.`);
+    const cycles=[];
+    const monthStart=pcMonthStart(month),monthEnd=pcMonthEnd(month);
+    let priorItems=[];
+    if(firstIncome){
+      priorItems=rows.filter(r=>r.date<firstIncome.date);
+      const daily=v170DailyRow(monthStart,pcAddDays(firstIncome.date,-1),`prior-${month}`);if(daily)priorItems.push(daily);
+      if(priorItems.length){
+        const prevFree=Math.max(0,Number(monthSummary(prevMonth).cashAfterIous||0));
+        cycles.push({id:`reserve:${month}`,reserve:true,date:lastPrev?.date||pcMonthEnd(prevMonth),displayDate:lastPrev?.date||pcMonthEnd(prevMonth),income:lastPrev?.income||null,incomeAccount:lastPrev?.account||null,label:lastPrev?`${lastPrev.income.name} · ${lastPrev.label}`:"Previous-month reserve",baseAvailable:prevFree,carryIn:0,items:priorItems,windowStart:monthStart,windowEnd:pcAddDays(firstIncome.date,-1),sourceNote:lastPrev?`Reserve from the prior pay cycle after ${formatMonthFull(prevMonth)} obligations.`:`Use unobligated funds carried from ${formatMonthFull(prevMonth)}.`});
+      }
+    }
+    incomes.forEach((event,index)=>{
+      const nextEvent=incomes[index+1]||firstNext||null;
+      let end=nextEvent?pcAddDays(nextEvent.date,-1):monthEnd;
+      if(end<event.date)end=event.date;
+      const cycleRows=rows.filter(r=>r.date>=event.date&&r.date<=pcMinDate(end,monthEnd));
+      let reserveRows=[];
+      if(!incomes[index+1]&&firstNext){reserveRows=nextRows.filter(r=>r.date<firstNext.date);reserveRows.forEach(r=>r.nextMonthReserve=true)}
+      const daily=v170DailyRow(event.date,end,`income-${event.id}`);const items=[...cycleRows,...reserveRows];if(daily)items.push(daily);
+      cycles.push({id:event.id,reserve:false,date:event.date,displayDate:event.date,income:event.income,incomeAccount:event.account,label:`${event.income.name} · ${event.label}`,baseAvailable:event.amount,carryIn:0,items,windowStart:event.date,windowEnd:end,sourceNote:event.received?"Already received":"Expected income",incomeEvent:event,nextIncome:nextEvent});
+    });
+    if(!firstIncome&&rows.length){
+      const daily=v170DailyRow(monthStart,monthEnd,`unscheduled-${month}`),items=[...rows];if(daily)items.push(daily);
+      cycles.push({id:`unscheduled:${month}`,reserve:true,date:monthStart,displayDate:monthStart,income:null,incomeAccount:null,label:"Unscheduled month",baseAvailable:0,carryIn:0,items,windowStart:monthStart,windowEnd:monthEnd,sourceNote:"Add expected income dates to build a true pay-cycle plan."});
+    }
+    const backstop={total:v170CurrentCashBackstop(month),remaining:v170CurrentCashBackstop(month),used:0};
+    let carry=0;
+    cycles.forEach((cycle,index)=>{
+      cycle.carryIn=carry;const nxt=cycles[index+1]?.incomeEvent||cycle.nextIncome||null;v170AllocateCycle(cycle,backstop,nxt);carry=cycle.carryOut;
+    });
+    const all=cycles.flatMap(c=>c.allocations||[]),commitmentNeed=all.reduce((s,x)=>s+x.amount,0),covered=all.reduce((s,x)=>s+x.funded,0),shortfall=all.reduce((s,x)=>s+x.short,0),flexDeferred=all.filter(x=>x.flexible).reduce((s,x)=>s+x.short,0),fixedShortfall=all.filter(x=>!x.flexible).reduce((s,x)=>s+x.short,0),transferTotal=cycles.flatMap(c=>c.transfers||[]).reduce((s,x)=>s+x.amount,0);
+    const earlyReserve=all.filter(x=>x.nextMonthReserve).reduce((s,x)=>s+x.amount,0)+all.filter(x=>x.kind==="daily").reduce((s,x)=>s+Math.max(0,Number(x.nextMonthReserveAmount||0)),0),priorReserve=cycles.filter(c=>c.reserve).flatMap(c=>c.allocations||[]).reduce((s,x)=>s+x.amount,0);
+    return {month,cycles,incomes,firstIncome,lastIncome,firstNext,lastPrev,missing:cur.missing,warnings,commitmentNeed,covered,shortfall,flexDeferred,fixedShortfall,transferTotal,earlyReserve,priorReserve,backstop,coverage:commitmentNeed>0?covered/commitmentNeed*100:100,carryOut:carry};
+  }
+
+  function v170AllocationHtml(a,cycle){
+    const name=a.kind==="daily"?a.label:(a.bill?.name||"Commitment");
+    const due=a.kind==="daily"?`Through ${pcDate(a.endDate)}`:(a.undated?"No due date · month-end review":`Due ${pcDate(a.date)}`);
+    const chips=[];if(a.flexible)chips.push(`<span class="v170-chip flex">Flexible</span>`);if(a.partial)chips.push(`<span class="v170-chip partial">Partial</span>`);if(a.deferred)chips.push(`<span class="v170-chip flex">Move remainder</span>`);if(a.late)chips.push(`<span class="v170-chip late">Late if deferred</span>`);if(a.nextMonthReserve||a.nextMonthReserveAmount>0.005)chips.push(`<span class="v170-chip reserve">Next-month reserve</span>`);if(a.kind==="daily")chips.push(`<span class="v170-chip daily">Allowance + transport</span>`);
+    const type=a.kind==="daily"?"Daily living":commitmentTypeLabel(a.type);
+    const route=a.route?.label||v170FundingRoute(a,cycle.incomeAccount).label;
+    return `<div class="v170-funding-row"><div class="v170-funding-date">${esc(due)}</div><div class="v170-funding-copy"><strong>${esc(name)}</strong><small><span>${esc(type)}</span>${a.kind!=="daily"&&a.label!=="Payment"?`<span>· ${esc(a.label)}</span>`:""}<span>· ${esc(route)}</span>${chips.join("")}</small></div><div class="v170-funding-money"><strong>${money(a.amount)}</strong>${a.short>0.005?`<small>${money(a.funded)} funded · ${money(a.short)} left</small>`:`<small>${a.cashUsed>0.005?`${money(a.cashUsed)} from cash backstop`:"Recommended funding"}</small>`}</div></div>`;
+  }
+
+  function v170CycleHtml(c){
+    const base=c.baseAvailable,need=(c.allocations||[]).reduce((s,x)=>s+x.amount,0),funded=(c.allocations||[]).reduce((s,x)=>s+x.funded,0),capacity=base+c.carryIn+c.backstopUsed,fill=capacity>0?Math.min(100,need/capacity*100):(need>0?100:0),left=capacity-funded;
+    const acct=c.incomeAccount?pcAccountName(c.incomeAccount):(c.reserve?"Prior-month unobligated funds":"No deposit account");
+    const classes=`v170-cycle ${c.reserve?'is-reserve':''} ${c.fixedShortfall>0.005?'is-short':''}`;
+    const transferHtml=c.transfers?.length?`<div class="v170-transfer-box"><span data-hero="arrows-right-left"></span><div><strong>Account routing:</strong> ${c.transfers.map(t=>`Move about ${money(t.amount)} to ${esc(t.target.name)}`).join(" · ")} before the related payments.</div></div>`:"";
+    return `<article class="${classes}"><aside class="v170-cycle-side"><span class="v170-cycle-date">${c.reserve?'Reserve before first income':pcDate(c.date)}</span><h4>${esc(c.label)}</h4><p>${esc(c.sourceNote||"")}<br>${esc(acct)}</p><strong class="v170-cycle-amount">${money(base)}</strong><div class="v170-cycle-capacity"><span>${c.carryIn>0.005?`+ ${money(c.carryIn)} carried in`:c.backstopUsed>0.005?`+ ${money(c.backstopUsed)} cash backstop`:"Cycle capacity"}</span><strong>${money(capacity)}</strong></div><div class="v170-cycle-bar" style="--fill:${fill.toFixed(1)}%"><i></i></div><div class="v170-cycle-left ${c.fixedShortfall>0.005?'negative':''}"><span>${c.shortfall>0.005?'Unfunded recommendation':'Remaining after plan'}</span><strong>${c.shortfall>0.005?money(c.shortfall):money(Math.max(0,left))}</strong></div></aside><div class="v170-cycle-main"><div class="v170-cycle-main-head"><strong>${c.reserve?'Prepare before the month starts':`Fund through ${pcDate(c.windowEnd)}`}</strong><span>${(c.allocations||[]).length} recommended allocation${(c.allocations||[]).length===1?'':'s'} · ${money(need)}</span></div>${c.allocations?.length?`<div class="v170-funding-list">${c.allocations.map(a=>v170AllocationHtml(a,c)).join("")}</div>`:`<div class="v170-empty">No unpaid recurring commitments or daily-living allocation falls inside this pay cycle.</div>`}${transferHtml}</div></article>`;
+  }
+
+  function v170Options(plan){
+    const opts=[];
+    if(plan.backstop.used>0.005)opts.push({icon:"wallet",label:"Cash backstop",title:`Use up to ${money(plan.backstop.used)} of currently usable non-current-income cash`,copy:"SINOP uses this only after the cycle income and carried funds are insufficient for dated commitments. You can choose not to use it."});
+    if(plan.flexDeferred>0.005)opts.push({icon:"arrow-path",label:"Flexible wealth",title:`Move or reduce ${money(plan.flexDeferred)} of Savings / Investment funding`,copy:"Savings and investment commitments are the first items SINOP allows to flex. Move the remainder to a later income rather than sacrificing a dated commitment."});
+    if(plan.fixedShortfall>0.005)opts.push({icon:"scissors",label:"Partial funding",title:`Split ${money(plan.fixedShortfall)} across available income cycles`,copy:"Fund what you can before the due date, then assign the remaining amount to the next income. SINOP flags when that later funding would make the commitment late."});
+    if(plan.earlyReserve>0.005)opts.push({icon:"calendar",label:"Next month",title:`Reserve ${money(plan.earlyReserve)} before the month ends`,copy:`These commitments arrive before the first expected income in ${formatMonthFull(shiftMonth(plan.month,1))}, so the final income cycle should hold the money instead of treating it as free cash.`});
+    if(plan.priorReserve>0.005)opts.push({icon:"arrow-uturn-left",label:"Early-month reserve",title:`Carry ${money(plan.priorReserve)} into ${formatMonthFull(plan.month)}`,copy:"These commitments or daily-living needs occur before the first income of the month, so they belong to the previous pay cycle."});
+    if(!opts.length)opts.push({icon:"check-circle",label:"Plan balanced",title:"Your scheduled income covers the recommended pay-cycle allocations",copy:"Keep the allocations reserved until their due dates. SINOP will recalculate automatically when an income date, commitment, payment, or account changes."});
+    return opts.slice(0,6);
+  }
+
+  function v170RenderFull(){
+    const stats=$("v170PayCoachStats"),timeline=$("v170PayCoachTimeline"),notices=$("v170PayCoachNotices"),options=$("v170PayCoachOptions");if(!stats||!timeline)return;
+    const p=v170PaymentPlanSnapshot(state.month);window.sinopPaymentCoachSnapshot=p;
+    $("v170PayCoachTitle").textContent=`Recommended payment plan · ${formatMonthFull(state.month)}`;
+    stats.innerHTML=`<div class="v170-paycoach-stat ${p.coverage>=99.5?'good':p.coverage>=85?'warn':'bad'}"><span>Recommended coverage</span><strong>${Math.min(100,p.coverage).toFixed(0)}%</strong><small>${money(p.covered)} of ${money(p.commitmentNeed)} fundable in the plan</small></div><div class="v170-paycoach-stat"><span>Prior-cycle reserve</span><strong>${money(p.priorReserve)}</strong><small>For needs before this month’s first income</small></div><div class="v170-paycoach-stat"><span>Reserve for next month</span><strong>${money(p.earlyReserve)}</strong><small>Due before next month’s first income</small></div><div class="v170-paycoach-stat ${p.shortfall>0.005?'bad':'good'}"><span>Still needs a decision</span><strong>${money(p.shortfall)}</strong><small>${p.flexDeferred>0.005?`${money(p.flexDeferred)} is flexible savings / investment`:p.shortfall>0.005?'Use a partial/defer option below':'No unresolved funding gap'}</small></div>`;
+    const noticeRows=[];
+    if(p.warnings.length)noticeRows.push(...p.warnings.map(x=>({kind:"warn",icon:"exclamation-triangle",html:esc(x)})));
+    if(p.transferTotal>0.005)noticeRows.push({kind:"info",icon:"arrows-right-left",html:`Account routing matters: about <strong>${money(p.transferTotal)}</strong> of recommended allocations should move between income and payment/destination accounts.`});
+    if(p.backstop.used>0.005)noticeRows.push({kind:"info",icon:"wallet",html:`The plan uses <strong>${money(p.backstop.used)}</strong> of currently usable tracked cash as a recommended backstop before deferring dated commitments.`});
+    if(!noticeRows.length)noticeRows.push({kind:"good",icon:"check-circle",html:"Income dates and recurring due dates form a complete schedule. SINOP will recalculate this plan automatically when the underlying records change."});
+    notices.innerHTML=noticeRows.map(n=>`<div class="v170-paycoach-notice ${n.kind}"><span data-hero="${n.icon}"></span><div>${n.html}</div></div>`).join("");
+    timeline.innerHTML=p.cycles.length?p.cycles.map(v170CycleHtml).join(""):`<div class="v170-empty"><strong>Add an income schedule to build the recommendation.</strong><br>Enter the expected payday/date for each income source; SINOP will then match commitments to pay cycles.</div>`;
+    options.innerHTML=v170Options(p).map(o=>`<article class="v170-option"><span><span data-hero="${o.icon}"></span>${esc(o.label)}</span><strong>${esc(o.title)}</strong><p>${esc(o.copy)}</p></article>`).join("");
+    if(typeof hydrateHeroIcons==="function")hydrateHeroIcons($("incomeCommitmentCoach"));
+  }
+
+  function v170RenderDashboard(){
+    const box=$("dashPaymentCoachSummary"),next=$("dashPaymentCoachNext");if(!box||!next)return;
+    const p=v170PaymentPlanSnapshot(state.month),short=p.shortfall,headline=$("dashPaymentCoachHeadline");
+    if(headline)headline.textContent=p.incomes.length?`How to fund ${formatMonth(state.month)} from ${p.incomes.length} income cycle${p.incomes.length===1?'':'s'}`:`Add income dates to build the pay-cycle plan`;
+    box.innerHTML=`<div class="dashboard-v170-mini"><span>Coverage</span><strong>${Math.min(100,p.coverage).toFixed(0)}%</strong></div><div class="dashboard-v170-mini ${p.earlyReserve>0.005?'warn':''}"><span>Hold for next month</span><strong>${money(p.earlyReserve)}</strong></div><div class="dashboard-v170-mini ${short>0.005?'bad':''}"><span>Needs a decision</span><strong>${money(short)}</strong></div>`;
+    const target=p.cycles.find(c=>(c.allocations||[]).length&&(!c.incomeEvent?.received||c.date>=localDateKey()))||p.cycles.find(c=>(c.allocations||[]).length)||null;
+    if(target){const need=(target.allocations||[]).reduce((s,x)=>s+x.amount,0);next.innerHTML=`<span data-hero="calendar-days"></span><div><span>${target.reserve?'Reserve before first income':`Next recommended cycle · ${pcDate(target.date)}`}</span><strong>${esc(target.label)} · ${(target.allocations||[]).length} allocation${(target.allocations||[]).length===1?'':'s'}</strong></div><b>${money(need)}</b>`}
+    else next.innerHTML=`<span data-hero="check-circle"></span><div><span>Payment plan</span><strong>No unpaid recurring allocations are currently scheduled.</strong></div><b>${money(0)}</b>`;
+    if(typeof hydrateHeroIcons==="function")hydrateHeroIcons($("dashPaymentCoachPanel"));
+  }
+
+  // Recalculate anywhere the existing app refreshes Dashboard or Recurring Commitments.
+  const oldDashboard=renderDashboard;renderDashboard=function(){oldDashboard();v170RenderDashboard()};
+  const oldBills=renderBills;renderBills=function(){oldBills();v170RenderFull()};
+  window.sinopPaymentPlanSnapshot=v170PaymentPlanSnapshot;
+  v170RenderFull();v170RenderDashboard();
+})();
+</script>
 
 </body></html>`);
   win.document.close();setTimeout(()=>{win.focus();win.print()},250);
