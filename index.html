@@ -5689,6 +5689,17 @@ body[data-theme="dark"] .dashboard-breakdown-popover{box-shadow:0 24px 64px rgba
 .v170-transfer-box{display:flex;align-items:flex-start;gap:8px;margin-top:8px;padding:8px 9px;border-radius:11px;background:color-mix(in srgb,var(--blue) 6%,var(--panel));border:1px dashed color-mix(in srgb,var(--blue) 26%,var(--border));font-size:8px;line-height:1.4}.v170-transfer-box .hero-icon{width:13px;height:13px;flex:none;color:var(--blue);margin-top:1px}
 .v170-empty{padding:18px;border:1px dashed var(--border);border-radius:14px;color:var(--muted);text-align:center;font-size:9px;line-height:1.5}
 .v170-paycoach-options{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;padding:0 20px 20px}.v170-option{padding:11px 12px;border:1px solid var(--border);border-radius:14px;background:var(--panel)}.v170-option>span{display:flex;align-items:center;gap:6px;color:var(--muted);font-size:8px;font-weight:850;text-transform:uppercase;letter-spacing:.05em}.v170-option .hero-icon{width:13px;height:13px;color:var(--brand2)}.v170-option strong{display:block;margin-top:5px;font-size:10.5px;line-height:1.35}.v170-option p{margin:4px 0 0;color:var(--muted);font-size:8px;line-height:1.45}
+
+/* Collapsible full payment coach */
+.v170-paycoach-hero-actions{display:flex;align-items:center;justify-content:flex-end;gap:8px;flex-wrap:wrap}
+.v170-paycoach-toggle{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:34px;padding:7px 11px;border:1px solid color-mix(in srgb,var(--brand) 28%,var(--border));border-radius:999px;background:var(--panel);color:var(--brand2);font:inherit;font-size:8.5px;font-weight:900;cursor:pointer;white-space:nowrap;transition:border-color .18s ease,background .18s ease,transform .18s ease}
+.v170-paycoach-toggle:hover{border-color:color-mix(in srgb,var(--brand) 48%,var(--border));background:color-mix(in srgb,var(--brandsoft) 42%,var(--panel))}.v170-paycoach-toggle:active{transform:translateY(1px)}.v170-paycoach-toggle .hero-icon{width:13px;height:13px;transition:transform .2s ease}.v170-paycoach.is-expanded .v170-paycoach-toggle .hero-icon{transform:rotate(180deg)}
+.v170-paycoach-collapsed-summary{display:flex;align-items:center;gap:7px;flex-wrap:wrap;padding:0 20px 14px;color:var(--muted);font-size:8.5px;line-height:1.4}.v170-paycoach-collapsed-summary strong{color:var(--text);font-size:9px}.v170-paycoach-collapsed-summary .v170-summary-dot{width:3px;height:3px;border-radius:50%;background:var(--muted);opacity:.55}
+.v170-paycoach-body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .24s ease}.v170-paycoach-body-inner{min-height:0;overflow:hidden}.v170-paycoach.is-expanded .v170-paycoach-body{grid-template-rows:1fr}
+.v170-paycoach:not(.is-expanded){box-shadow:0 7px 22px rgba(15,23,42,.035)}
+@media(max-width:680px){.v170-paycoach-hero-actions{justify-content:flex-start}.v170-paycoach-toggle{min-height:36px}.v170-paycoach-collapsed-summary{padding-left:14px;padding-right:14px;padding-bottom:12px}.v170-paycoach:not(.is-expanded) .v170-paycoach-hero{padding-bottom:10px}}
+@media(prefers-reduced-motion:reduce){.v170-paycoach-body,.v170-paycoach-toggle,.v170-paycoach-toggle .hero-icon{transition:none}}
+
 /* Dashboard compact payment coach */
 .dashboard-v170-paycoach{margin:0 0 12px;border:1px solid color-mix(in srgb,var(--blue) 24%,var(--border));border-radius:18px;background:linear-gradient(135deg,color-mix(in srgb,#dbeafe 26%,var(--panel)),var(--panel));overflow:hidden}.dashboard-v170-paycoach-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:14px 15px 10px}.dashboard-v170-paycoach-head span{display:block;color:var(--muted);font-size:8px;font-weight:900;text-transform:uppercase;letter-spacing:.06em}.dashboard-v170-paycoach-head strong{display:block;margin-top:3px;font-size:14px}.dashboard-v170-paycoach-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;padding:0 15px 14px}.dashboard-v170-mini{padding:9px 10px;border:1px solid var(--border);border-radius:12px;background:var(--panel)}.dashboard-v170-mini span{display:block;color:var(--muted);font-size:7.5px}.dashboard-v170-mini strong{display:block;margin-top:3px;font-size:12px}.dashboard-v170-mini.bad strong{color:var(--danger)}.dashboard-v170-mini.warn strong{color:var(--warn)}.dashboard-v170-next{display:flex;align-items:center;gap:9px;margin:0 15px 14px;padding:9px 10px;border:1px solid var(--border);border-radius:12px;background:var(--panel)}.dashboard-v170-next .hero-icon{width:17px;height:17px;color:var(--brand2);flex:none}.dashboard-v170-next div{min-width:0;flex:1}.dashboard-v170-next span{display:block;color:var(--muted);font-size:7.5px}.dashboard-v170-next strong{display:block;margin-top:2px;font-size:9.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.dashboard-v170-next b{font-size:10px;white-space:nowrap}
 body[data-theme="dark"] .v170-chip.flex{color:#c4b5fd}body[data-theme="dark"] .v170-chip.reserve{color:#fbbf24}body[data-theme="dark"] .v170-chip.daily{color:#7dd3fc}
@@ -6164,14 +6175,22 @@ body[data-theme="dark"] .v170-chip.flex{color:#c4b5fd}body[data-theme="dark"] .v
             <h3 id="v170PayCoachTitle">Recommended payment plan</h3>
             <p id="v170PayCoachSubtitle">SINOP matches each commitment to the income cycle that can fund it before its due date. This is guidance only—nothing is moved, paid, or postponed automatically.</p>
           </div>
-          <div class="v170-paycoach-mode"><span data-hero="sparkles"></span> Recommendation only</div>
+          <div class="v170-paycoach-hero-actions">
+            <div class="v170-paycoach-mode"><span data-hero="sparkles"></span> Recommendation only</div>
+            <button class="v170-paycoach-toggle" id="v170PayCoachToggle" type="button" aria-expanded="false" aria-controls="v170PayCoachBody"><span id="v170PayCoachToggleLabel">View payment plan</span><span data-hero="chevron-down"></span></button>
+          </div>
         </div>
-        <div class="v170-paycoach-stats" id="v170PayCoachStats"></div>
-        <div class="v170-paycoach-notices" id="v170PayCoachNotices"></div>
-        <div class="v170-paycoach-section-head"><div><span>Pay-cycle timeline</span><strong>What each income should cover</strong></div><small>Due dates drive the order. Savings and investments can flex when cash is tight.</small></div>
-        <div class="v170-paycoach-timeline" id="v170PayCoachTimeline"></div>
-        <div class="v170-paycoach-section-head"><div><span>When the plan is tight</span><strong>Your available choices</strong></div><small>SINOP recommends options; the user remains in control.</small></div>
-        <div class="v170-paycoach-options" id="v170PayCoachOptions"></div>
+        <div class="v170-paycoach-collapsed-summary" id="v170PayCoachCollapsedSummary"><strong>Building recommendation…</strong></div>
+        <div class="v170-paycoach-body" id="v170PayCoachBody" aria-hidden="true">
+          <div class="v170-paycoach-body-inner">
+            <div class="v170-paycoach-stats" id="v170PayCoachStats"></div>
+            <div class="v170-paycoach-notices" id="v170PayCoachNotices"></div>
+            <div class="v170-paycoach-section-head"><div><span>Pay-cycle timeline</span><strong>What each income should cover</strong></div><small>Due dates drive the order. Savings and investments can flex when cash is tight.</small></div>
+            <div class="v170-paycoach-timeline" id="v170PayCoachTimeline"></div>
+            <div class="v170-paycoach-section-head"><div><span>When the plan is tight</span><strong>Your available choices</strong></div><small>SINOP recommends options; the user remains in control.</small></div>
+            <div class="v170-paycoach-options" id="v170PayCoachOptions"></div>
+          </div>
+        </div>
       </article>
       <div class="commitment-breakdown-grid">
         <div class="commitment-breakdown-card"><span>Expenses</span><strong id="commitmentExpenseTotal">₱0.00</strong></div>
@@ -7335,12 +7354,13 @@ body[data-theme="dark"] .v170-chip.flex{color:#c4b5fd}body[data-theme="dark"] .v
       </div>
 
       <article class="version-latest-card">
-        <div class="version-latest-badge"><span>Latest</span><strong>v170</strong></div>
-        <div class="version-latest-copy"><span>September 8, 2026</span><h3>Income-to-Commitment Payment Coach</h3><p>SINOP now builds a recommendation-only pay-cycle plan that matches recurring commitments and daily living needs to scheduled income, reserves early-month and early-next-month obligations, supports partial funding and flexible savings/investments, and recommends account transfers when income and payment accounts differ.</p></div>
+        <div class="version-latest-badge"><span>Latest</span><strong>v171</strong></div>
+        <div class="version-latest-copy"><span>September 8, 2026</span><h3>Collapsible Payment Coach</h3><p>The full Income-to-Commitment Coach now stays compact by default and expands only when requested, while preserving a live one-line summary of coverage, next-month reserves, and unresolved funding decisions.</p></div>
       </article>
 
       <div class="version-timeline" id="versionTimeline">
-        <article class="version-entry is-latest" data-version="v170" data-date="September 8, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v170</span><h3>Income-to-Commitment Payment Coach</h3></div><time>Sep 8, 2026</time></header><ul><li>Added a recommendation-only income-to-commitment planner that assigns recurring commitments to the income cycle available before each due date.</li><li>Early-month commitments and daily living before the first income are reserved from the prior pay cycle; the final pay cycle reserves commitments and daily living that arrive before the first income next month.</li><li>When a cycle is tight, SINOP preserves dated commitments, uses available non-current-income tracked cash as a suggested backstop, treats Savings and Investments as flexible, and shows partial/defer options instead of silently over-allocating.</li><li>Allowance and transportation are calculated only through the next expected income date, including cross-month days when the next payday is in the following month.</li><li>Recommendations use the income deposit account, prior recurring payment account, default spending account, credit-card routing, and savings/investment destination accounts to suggest account transfers where needed.</li><li>Added a fully designed pay-cycle timeline to Recurring Commitments and a compact payment-coach summary to Dashboard; all recommendations recalculate as income dates, commitments, payments, daily budgets, or accounts change.</li></ul></div></article>
+        <article class="version-entry is-latest" data-version="v171" data-date="September 8, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v171</span><h3>Collapsible Payment Coach</h3></div><time>Sep 8, 2026</time></header><ul><li>Collapsed the full Income-to-Commitment Coach by default so Recurring Commitments remains compact.</li><li>Added an accessible View payment plan / Hide payment plan control with keyboard and screen-reader state.</li><li>Kept a compact live summary visible while collapsed: recommended coverage, next-month reserve, and unresolved funding gap.</li><li>Preserved the full pay-cycle timeline, notices, choices, account-routing recommendations, partial funding, and reserve logic when expanded.</li></ul></div></article>
+        <article class="version-entry" data-version="v170" data-date="September 8, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v170</span><h3>Income-to-Commitment Payment Coach</h3></div><time>Sep 8, 2026</time></header><ul><li>Added a recommendation-only income-to-commitment planner that assigns recurring commitments to the income cycle available before each due date.</li><li>Early-month commitments and daily living before the first income are reserved from the prior pay cycle; the final pay cycle reserves commitments and daily living that arrive before the first income next month.</li><li>When a cycle is tight, SINOP preserves dated commitments, uses available non-current-income tracked cash as a suggested backstop, treats Savings and Investments as flexible, and shows partial/defer options instead of silently over-allocating.</li><li>Allowance and transportation are calculated only through the next expected income date, including cross-month days when the next payday is in the following month.</li><li>Recommendations use the income deposit account, prior recurring payment account, default spending account, credit-card routing, and savings/investment destination accounts to suggest account transfers where needed.</li><li>Added a fully designed pay-cycle timeline to Recurring Commitments and a compact payment-coach summary to Dashboard; all recommendations recalculate as income dates, commitments, payments, daily budgets, or accounts change.</li></ul></div></article>
         <article class="version-entry" data-version="v169" data-date="September 8, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v169</span><h3>Personalized Financial Score Coach</h3></div><time>Sep 8, 2026</time></header><ul><li>Added a rule-based Financial Score coaching engine that diagnoses the user’s weakest score categories from their own SINOP data.</li><li>Commitment recommendations count incomplete recurring occurrences; wealth recommendations calculate the exact peso gap to the configured savings/investment target.</li><li>Liquidity recommendations calculate the current emergency-runway gap and a practical next-step amount; spending recommendations identify the specific categories over budget.</li><li>Debt recommendations use tracked statement payments, card utilization, credit limits, and borrowed IOUs to produce concrete next actions without encouraging users to open debt products just for points.</li><li>Added the three highest-impact recommendations to Dashboard and the complete category-by-category score plan to Profile, including each category’s current points and potential recoverable points.</li></ul></div></article>
         <article class="version-entry" data-version="v168" data-date="September 8, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v168</span><h3>Current Wealth Balances Dashboard</h3></div><time>Sep 8, 2026</time></header><ul><li>Redefined the Dashboard Savings + Investments headline as current wealth held now, independent of the selected budget month.</li><li>The headline now sums current balances in Savings accounts, Time Deposits, Pag-IBIG MP2, and Investment accounts using each account’s real ledger balance and reporting-currency conversion.</li><li>The card breakdown explicitly separates Savings accounts, Time Deposits, MP2, and Investment accounts so the total can be audited.</li><li>The smaller line under the headline still shows actual Savings and Investment additions for the selected month.</li><li>Future-dated account activity is excluded from the current balance because the headline is calculated as of today rather than month-end.</li></ul></div></article>
         <article class="version-entry" data-version="v167" data-date="September 8, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v167</span><h3>Dashboard Card Breakdowns</h3></div><time>Sep 8, 2026</time></header><ul><li>Added hover, keyboard-focus, and tap breakdowns to every top Dashboard metric card.</li><li>Projected Month-End now exposes income, recurring commitments, variable spending, goals, due/overdue IOUs, and the early-next-month reserve.</li><li>Income, commitment load, actual spending, cumulative Savings + Investments, liquidity coverage, and recurring-payment progress each show the components behind their displayed value.</li><li>Actual Spending breaks down by actual category; Savings + Investments separates cumulative and current-month Savings and Investments; Liquidity shows usable money and the recent-average-outflow denominator.</li><li>Uses one responsive floating breakdown panel so card layouts remain clean and mobile users can tap a card to inspect it.</li></ul></div></article>
@@ -25762,6 +25782,11 @@ body[data-theme="dark"] #dashboard .dashboard-v161-category-value span.up{backgr
     const stats=$("v170PayCoachStats"),timeline=$("v170PayCoachTimeline"),notices=$("v170PayCoachNotices"),options=$("v170PayCoachOptions");if(!stats||!timeline)return;
     const p=v170PaymentPlanSnapshot(state.month);window.sinopPaymentCoachSnapshot=p;
     $("v170PayCoachTitle").textContent=`Recommended payment plan · ${formatMonthFull(state.month)}`;
+    const compactSummary=$("v170PayCoachCollapsedSummary");
+    if(compactSummary){
+      const gapCopy=p.shortfall>0.005?`${money(p.shortfall)} needs a decision`:"No unresolved funding gap";
+      compactSummary.innerHTML=`<strong>${Math.min(100,p.coverage).toFixed(0)}% covered</strong><span class="v170-summary-dot"></span><span>${money(p.earlyReserve)} held for next month</span><span class="v170-summary-dot"></span><span>${gapCopy}</span>`;
+    }
     stats.innerHTML=`<div class="v170-paycoach-stat ${p.coverage>=99.5?'good':p.coverage>=85?'warn':'bad'}"><span>Recommended coverage</span><strong>${Math.min(100,p.coverage).toFixed(0)}%</strong><small>${money(p.covered)} of ${money(p.commitmentNeed)} fundable in the plan</small></div><div class="v170-paycoach-stat"><span>Prior-cycle reserve</span><strong>${money(p.priorReserve)}</strong><small>For needs before this month’s first income</small></div><div class="v170-paycoach-stat"><span>Reserve for next month</span><strong>${money(p.earlyReserve)}</strong><small>Due before next month’s first income</small></div><div class="v170-paycoach-stat ${p.shortfall>0.005?'bad':'good'}"><span>Still needs a decision</span><strong>${money(p.shortfall)}</strong><small>${p.flexDeferred>0.005?`${money(p.flexDeferred)} is flexible savings / investment`:p.shortfall>0.005?'Use a partial/defer option below':'No unresolved funding gap'}</small></div>`;
     const noticeRows=[];
     if(p.warnings.length)noticeRows.push(...p.warnings.map(x=>({kind:"warn",icon:"exclamation-triangle",html:esc(x)})));
@@ -25784,6 +25809,24 @@ body[data-theme="dark"] #dashboard .dashboard-v161-category-value span.up{backgr
     else next.innerHTML=`<span data-hero="check-circle"></span><div><span>Payment plan</span><strong>No unpaid recurring allocations are currently scheduled.</strong></div><b>${money(0)}</b>`;
     if(typeof hydrateHeroIcons==="function")hydrateHeroIcons($("dashPaymentCoachPanel"));
   }
+
+  function v170SetCoachExpanded(expanded){
+    const coach=$("incomeCommitmentCoach"),body=$("v170PayCoachBody"),toggle=$("v170PayCoachToggle"),label=$("v170PayCoachToggleLabel");
+    if(!coach||!body||!toggle)return;
+    coach.classList.toggle("is-expanded",!!expanded);
+    toggle.setAttribute("aria-expanded",expanded?"true":"false");
+    body.setAttribute("aria-hidden",expanded?"false":"true");
+    if(label)label.textContent=expanded?"Hide payment plan":"View payment plan";
+  }
+  const v170Toggle=$("v170PayCoachToggle");
+  if(v170Toggle&&!v170Toggle.dataset.bound){
+    v170Toggle.dataset.bound="1";
+    v170Toggle.addEventListener("click",()=>{
+      const coach=$("incomeCommitmentCoach");
+      v170SetCoachExpanded(!(coach&&coach.classList.contains("is-expanded")));
+    });
+  }
+  v170SetCoachExpanded(false);
 
   // Recalculate anywhere the existing app refreshes Dashboard or Recurring Commitments.
   const oldDashboard=renderDashboard;renderDashboard=function(){oldDashboard();v170RenderDashboard()};
