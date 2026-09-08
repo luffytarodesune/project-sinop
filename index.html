@@ -5659,6 +5659,16 @@ body[data-theme="dark"] .barkada-group-btn,body[data-theme="dark"] .barkada-memb
 body[data-theme="dark"] .dashboard-breakdown-popover{box-shadow:0 24px 64px rgba(0,0,0,.42)}
 @media(max-width:620px){.dashboard-breakdown-popover{width:calc(100vw - 20px);max-height:min(68vh,520px);padding:13px;border-radius:15px}.dashboard-breakdown-hint{display:none}.dashboard-breakdown-row{padding:7px 0}}
 </style>
+
+<style id="sinop-v169-financial-score-coach-style">
+/* ===== SINOP v169 · personalized Financial Score coach ===== */
+.dashboard-v169-score-coach{margin:0 0 12px;padding:15px 16px;border:1px solid color-mix(in srgb,var(--brand) 24%,var(--border));border-radius:18px;background:linear-gradient(135deg,color-mix(in srgb,var(--brandsoft) 32%,var(--panel)),var(--panel))}
+.dashboard-v169-score-coach-head,.profile-v169-score-plan-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:11px}.dashboard-v169-score-coach-head>div>span,.profile-v169-score-plan-head span{display:block;color:var(--muted);font-size:9px;font-weight:850;text-transform:uppercase;letter-spacing:.055em}.dashboard-v169-score-coach-head>div>strong,.profile-v169-score-plan-head strong{display:block;margin-top:3px;font-size:15px;line-height:1.25}.dashboard-v169-score-recs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.dashboard-v169-score-rec,.profile-v169-score-rec{min-width:0;border:1px solid var(--border);border-radius:14px;background:var(--panel)}
+.dashboard-v169-score-rec{padding:11px}.score-rec-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}.score-rec-category{min-width:0}.score-rec-category span{display:block;color:var(--muted);font-size:8px;font-weight:800}.score-rec-category strong{display:block;margin-top:2px;font-size:11px;line-height:1.25}.score-rec-gain{flex:none;padding:4px 7px;border-radius:999px;background:var(--brandsoft);color:var(--brand2);font-size:8px;font-weight:900;white-space:nowrap}.score-rec-body{margin:8px 0 0;color:var(--muted);font-size:9px;line-height:1.45}.score-rec-action{display:flex;align-items:flex-start;gap:6px;margin-top:8px;padding-top:8px;border-top:1px solid var(--border);font-size:9px;font-weight:800;line-height:1.4}.score-rec-action .hero-icon{width:13px;height:13px;flex:none;color:var(--brand2);margin-top:1px}.score-rec-perfect{padding:13px;border:1px dashed color-mix(in srgb,var(--brand) 32%,var(--border));border-radius:14px;background:color-mix(in srgb,var(--brandsoft) 22%,var(--panel));color:var(--muted);font-size:10px;line-height:1.45}.score-rec-perfect strong{color:var(--text)}
+.profile-v169-score-plan{margin-top:14px;padding-top:14px;border-top:1px solid var(--border)}.profile-v169-score-plan-head small{color:var(--muted);font-size:9px;text-align:right}.profile-v169-score-recs{display:grid;gap:8px}.profile-v169-score-rec{padding:12px;display:grid;grid-template-columns:minmax(0,1fr) minmax(180px,34%);gap:12px;align-items:start}.profile-v169-score-rec .score-rec-body{font-size:10px}.profile-v169-score-rec .score-rec-action{margin:0;padding:0 0 0 12px;border-top:0;border-left:1px solid var(--border);font-size:10px}.profile-v169-score-rec .score-rec-category strong{font-size:12px}.profile-v169-score-rec .score-rec-category span{font-size:9px}
+@media(max-width:900px){.dashboard-v169-score-recs{grid-template-columns:1fr}.profile-v169-score-rec{grid-template-columns:1fr}.profile-v169-score-rec .score-rec-action{padding:8px 0 0;border-left:0;border-top:1px solid var(--border)}}
+@media(max-width:760px){.dashboard-v169-score-coach{padding:13px;border-radius:16px}.dashboard-v169-score-coach-head{display:grid}.dashboard-v169-score-coach-head .text-btn{justify-self:start;min-height:34px}.dashboard-v169-score-rec{padding:11px}.profile-v169-score-plan-head{display:grid}.profile-v169-score-plan-head small{text-align:left}.profile-v169-score-rec{padding:11px}.score-rec-body,.profile-v169-score-rec .score-rec-body{font-size:10px}}
+</style>
 </head>
 <body class="sinop-auth-locked">
 <div id="sinopLoginGate" class="sinop-login-gate" aria-hidden="false">
@@ -5976,6 +5986,14 @@ body[data-theme="dark"] .dashboard-breakdown-popover{box-shadow:0 24px 64px rgba
           <article class="dashboard-v161-kpi dashboard-breakdown-card" data-dashboard-breakdown="recurring" tabindex="0" aria-haspopup="true" aria-expanded="false"><span>Recurring paid</span><strong id="dashRecurringPaidPct">0%</strong><small id="dashRecurringPending">₱0.00 pending</small></article>
         </div>
       </div>
+
+      <article class="dashboard-v169-score-coach" id="dashScoreCoachPanel">
+        <div class="dashboard-v169-score-coach-head">
+          <div><span>Financial Score coach</span><strong id="dashScoreCoachHeadline">Your highest-impact next moves</strong></div>
+          <button class="text-btn" type="button" data-jump="profile">View full score plan <span data-hero="arrow-right"></span></button>
+        </div>
+        <div class="dashboard-v169-score-recs" id="dashScoreRecommendations"></div>
+      </article>
 
       <div id="widgetMonthly" class="dashboard-v161-main-grid">
         <article class="dashboard-v161-panel dashboard-v161-trend-panel">
@@ -6975,6 +6993,10 @@ body[data-theme="dark"] .dashboard-breakdown-popover{box-shadow:0 24px 64px rgba
             <div class="profile-score-ring" id="profileScoreRing" aria-label="Financial score"><span id="profileScoreRingValue">—</span><small>/1000</small></div>
           </div>
           <div id="profileScoreComponents" class="profile-score-components"></div>
+          <section class="profile-v169-score-plan" aria-labelledby="profileScorePlanTitle">
+            <div class="profile-v169-score-plan-head"><div><span>Personalized score plan</span><strong id="profileScorePlanTitle">How to increase your Financial Score</strong></div><small id="profileScorePlanMeta">Based on your weakest categories</small></div>
+            <div id="profileScoreRecommendations" class="profile-v169-score-recs"></div>
+          </section>
           <div class="profile-score-note"><strong>Not a credit score.</strong> This is SINOP's internal wellness score based only on the financial data you record in the app. It does not come from a bank, bureau, or lender.</div>
         </article>
 
@@ -7261,12 +7283,13 @@ body[data-theme="dark"] .dashboard-breakdown-popover{box-shadow:0 24px 64px rgba
       </div>
 
       <article class="version-latest-card">
-        <div class="version-latest-badge"><span>Latest</span><strong>v168</strong></div>
-        <div class="version-latest-copy"><span>September 8, 2026</span><h3>Current Wealth Balances Dashboard</h3><p>Savings + Investments now shows the user’s current total balance across Savings accounts, Time Deposits, MP2, and Investment accounts regardless of the selected budget month, while keeping the selected month’s new savings and investments underneath.</p></div>
+        <div class="version-latest-badge"><span>Latest</span><strong>v169</strong></div>
+        <div class="version-latest-copy"><span>September 8, 2026</span><h3>Personalized Financial Score Coach</h3><p>SINOP now turns each Financial Score category into a personalized improvement plan, using the user’s actual payment completion, wealth-building rate, liquidity gap, category-budget performance, card utilization, statement payments, and IOUs to recommend quantified next actions.</p></div>
       </article>
 
       <div class="version-timeline" id="versionTimeline">
-        <article class="version-entry is-latest" data-version="v168" data-date="September 8, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v168</span><h3>Current Wealth Balances Dashboard</h3></div><time>Sep 8, 2026</time></header><ul><li>Redefined the Dashboard Savings + Investments headline as current wealth held now, independent of the selected budget month.</li><li>The headline now sums current balances in Savings accounts, Time Deposits, Pag-IBIG MP2, and Investment accounts using each account’s real ledger balance and reporting-currency conversion.</li><li>The card breakdown explicitly separates Savings accounts, Time Deposits, MP2, and Investment accounts so the total can be audited.</li><li>The smaller line under the headline still shows actual Savings and Investment additions for the selected month.</li><li>Future-dated account activity is excluded from the current balance because the headline is calculated as of today rather than month-end.</li></ul></div></article>
+        <article class="version-entry is-latest" data-version="v169" data-date="September 8, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v169</span><h3>Personalized Financial Score Coach</h3></div><time>Sep 8, 2026</time></header><ul><li>Added a rule-based Financial Score coaching engine that diagnoses the user’s weakest score categories from their own SINOP data.</li><li>Commitment recommendations count incomplete recurring occurrences; wealth recommendations calculate the exact peso gap to the configured savings/investment target.</li><li>Liquidity recommendations calculate the current emergency-runway gap and a practical next-step amount; spending recommendations identify the specific categories over budget.</li><li>Debt recommendations use tracked statement payments, card utilization, credit limits, and borrowed IOUs to produce concrete next actions without encouraging users to open debt products just for points.</li><li>Added the three highest-impact recommendations to Dashboard and the complete category-by-category score plan to Profile, including each category’s current points and potential recoverable points.</li></ul></div></article>
+        <article class="version-entry" data-version="v168" data-date="September 8, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v168</span><h3>Current Wealth Balances Dashboard</h3></div><time>Sep 8, 2026</time></header><ul><li>Redefined the Dashboard Savings + Investments headline as current wealth held now, independent of the selected budget month.</li><li>The headline now sums current balances in Savings accounts, Time Deposits, Pag-IBIG MP2, and Investment accounts using each account’s real ledger balance and reporting-currency conversion.</li><li>The card breakdown explicitly separates Savings accounts, Time Deposits, MP2, and Investment accounts so the total can be audited.</li><li>The smaller line under the headline still shows actual Savings and Investment additions for the selected month.</li><li>Future-dated account activity is excluded from the current balance because the headline is calculated as of today rather than month-end.</li></ul></div></article>
         <article class="version-entry" data-version="v167" data-date="September 8, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v167</span><h3>Dashboard Card Breakdowns</h3></div><time>Sep 8, 2026</time></header><ul><li>Added hover, keyboard-focus, and tap breakdowns to every top Dashboard metric card.</li><li>Projected Month-End now exposes income, recurring commitments, variable spending, goals, due/overdue IOUs, and the early-next-month reserve.</li><li>Income, commitment load, actual spending, cumulative Savings + Investments, liquidity coverage, and recurring-payment progress each show the components behind their displayed value.</li><li>Actual Spending breaks down by actual category; Savings + Investments separates cumulative and current-month Savings and Investments; Liquidity shows usable money and the recent-average-outflow denominator.</li><li>Uses one responsive floating breakdown panel so card layouts remain clean and mobile users can tap a card to inspect it.</li></ul></div></article>
         <article class="version-entry" data-version="v166" data-date="September 8, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v166</span><h3>Cumulative Savings & Investments Dashboard</h3></div><time>Sep 8, 2026</time></header><ul><li>Replaced the Dashboard Savings + Investments percentage KPI with the cumulative actual amount contributed through the selected month.</li><li>The cumulative figure combines Savings/Time Deposit contributions and MP2/Investment contributions while excluding transfers between wealth accounts so reallocations are not double-counted.</li><li>Added a this-month breakdown directly below the cumulative total, showing Savings and Investments separately.</li><li>The existing savings-rate calculation remains available internally for financial insights and target recommendations; only the Dashboard KPI display changed.</li></ul></div></article>
         <article class="version-entry" data-version="v165" data-date="September 8, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v165</span><h3>Due IOUs & 4-Week Income Fix</h3></div><time>Sep 8, 2026</time></header><ul><li>Cash after IOUs now subtracts borrowed IOUs only when their due date falls in the selected month or is already overdue.</li><li>Borrowed IOUs with no due date and IOUs due in a later month remain visible in Loans & IOUs but no longer reduce the selected month’s cash-after-IOUs figure.</li><li>Weekly income now plans exactly four payments per month: monthly gross and net projections use per-payment amount × 4.</li><li>Weekly receipt confirmation now shows Week 1 through Week 4 only; the previous fifth weekly slot is removed.</li><li>Overview, Dashboard, income totals, salary deductions, receipt amounts, and dependent monthly projections now use the same four-week income rule.</li></ul></div></article>
@@ -17487,6 +17510,14 @@ function renderDashboard(){
     $("healthLabel").textContent="Financial Score";
     $("dashHealthRing").style.setProperty("--score",0);
   }
+  if($("dashScoreRecommendations")){
+    const scoreRecs=financialScore&&Array.isArray(financialScore.recommendations)?financialScore.recommendations:[];
+    const topRecs=scoreRecs.filter(r=>r.potential>0).slice(0,3);
+    const chosen=topRecs.length?topRecs:scoreRecs.slice(0,3);
+    $("dashScoreRecommendations").innerHTML=chosen.length?chosen.map(r=>typeof window.sinopFinancialScoreRecommendationHtml==="function"?window.sinopFinancialScoreRecommendationHtml(r,{compact:true}):`<article class="dashboard-v169-score-rec"><div class="score-rec-top"><div class="score-rec-category"><span>${esc(r.category)} · ${r.score}/${r.weight}</span><strong>${esc(r.title)}</strong></div>${r.potential>0?`<span class="score-rec-gain">Up to +${r.potential} pts</span>`:''}</div><p class="score-rec-body">${esc(r.body)}</p><div class="score-rec-action">${esc(r.action)}</div></article>`).join(''):`<div class="score-rec-perfect"><strong>No score gap detected.</strong> Keep the habits already supporting your score.</div>`;
+    if($("dashScoreCoachHeadline"))$("dashScoreCoachHeadline").textContent=topRecs.length?`${topRecs.length} highest-impact move${topRecs.length===1?'':'s'} for ${formatMonth(state.month)}`:'Score setup & maintenance';
+    if(typeof hydrateHeroIcons==="function")hydrateHeroIcons($("dashScoreRecommendations"));
+  }
   $("dashProjectedPosition").textContent=money(plannedPosition);$("dashProjectedPosition").classList.toggle("negative",plannedPosition<0);
   const posDelta=dashboardDeltaText(plannedPosition,prev.cashAfterIous||0,false);$("dashPositionDelta").textContent=posDelta.text;$("dashPositionDelta").className=`dashboard-v161-delta ${posDelta.className}`;
   $("dashPulseSummary").textContent=income>0?`${commitmentRate.toFixed(0)}% committed · ${receiptRate.toFixed(0)}% income received`:`Add income to calculate ratios`;
@@ -23570,8 +23601,16 @@ maybeStartFirstRunSetup();
 
   window.financialScoreSnapshot=function(month=state.month){
     const components=[];
+    const recommendations=[];
     const push=(key,label,weight,ratio,detail,hasData=true)=>{
-      ratio=clamp(ratio,0,1);components.push({key,label,weight,ratio,points:Math.round(weight*ratio),detail,hasData});
+      ratio=clamp(ratio,0,1);
+      const component={key,label,weight,ratio,points:Math.round(weight*ratio),detail,hasData};
+      component.gapPoints=Math.max(0,component.weight-component.points);
+      components.push(component);
+      return component;
+    };
+    const recommend=(component,title,body,action,{potential=component?.gapPoints||0,priority=50,setup=false}={})=>{
+      recommendations.push({key:component?.key||'',category:component?.label||'',score:component?.points||0,weight:component?.weight||0,title,body,action,potential:Math.max(0,Math.round(potential||0)),priority:Number(priority||0),setup:!!setup});
     };
 
     const bills=activeBills(month);
@@ -23585,12 +23624,24 @@ maybeStartFirstRunSetup();
       }else{totalOcc++;if(isBillPaid(b.id,month))paidOcc++}
     });
     const billRatio=totalOcc?paidOcc/totalOcc:.70;
-    push('commitments','Commitment reliability',250,billRatio,totalOcc?`${paidOcc} of ${totalOcc} scheduled payments marked complete`:'Add recurring commitments to improve confidence',!!totalOcc);
+    const commitmentComponent=push('commitments','Commitment reliability',250,billRatio,totalOcc?`${paidOcc} of ${totalOcc} scheduled payments marked complete`:'Add recurring commitments to improve confidence',!!totalOcc);
+    if(totalOcc&&paidOcc<totalOcc){
+      const missed=totalOcc-paidOcc;
+      recommend(commitmentComponent,`${missed} scheduled payment${missed===1?' is':'s are'} still incomplete`,`${commitmentComponent.points}/${commitmentComponent.weight} points. SINOP sees ${paidOcc} completed occurrence${paidOcc===1?'':'s'} out of ${totalOcc} scheduled for ${formatMonth(month)}.`,`Pay or record the ${missed} pending occurrence${missed===1?'':'s'} so the month reaches 100% recurring-payment completion.`,{potential:commitmentComponent.gapPoints,priority:95});
+    }else if(!totalOcc){
+      recommend(commitmentComponent,'Teach SINOP your recurring commitments',`${commitmentComponent.points}/${commitmentComponent.weight} points currently uses a neutral baseline because no recurring schedule is available.`,`Add the bills and commitments you actually pay. Once tracked, paying them reliably can lift this category above the neutral baseline.`,{potential:Math.max(0,250-commitmentComponent.points),priority:35,setup:true});
+    }
 
     const income=Math.max(0,totalIncome(month));
     const wealthPct=Math.max(0,wealthRate(month));
     const wealthTarget=Math.max(10,Number(state.settings?.rules?.savingsTargetPct||10));
-    push('wealth','Savings & investing',200,income>0?wealthPct/wealthTarget:.50,income>0?`${wealthPct.toFixed(1)}% of income directed to wealth building · target ${wealthTarget.toFixed(0)}%`:'Add income to measure your wealth-building rate',income>0);
+    const wealthComponent=push('wealth','Savings & investing',200,income>0?wealthPct/wealthTarget:.50,income>0?`${wealthPct.toFixed(1)}% of income directed to wealth building · target ${wealthTarget.toFixed(0)}%`:'Add income to measure your wealth-building rate',income>0);
+    if(income>0&&wealthPct<wealthTarget){
+      const wealthGap=Math.max(0,income*((wealthTarget-wealthPct)/100));
+      recommend(wealthComponent,`Close a ${Math.max(0,wealthTarget-wealthPct).toFixed(1)}-point wealth-rate gap`,`${wealthComponent.points}/${wealthComponent.weight} points. You are directing ${wealthPct.toFixed(1)}% of ${money(income)} planned net income to savings/investments versus your ${wealthTarget.toFixed(0)}% target.`,`Add about ${money(wealthGap)} more to Savings, Time Deposit, MP2, or Investments during ${formatMonth(month)} to reach the target rate.`,{potential:wealthComponent.gapPoints,priority:90});
+    }else if(!income){
+      recommend(wealthComponent,'Add income so the wealth rate can be personalized',`${wealthComponent.points}/${wealthComponent.weight} points is a neutral fallback because SINOP has no planned income for ${formatMonth(month)}.`,`Record the income you expect for this month; SINOP can then calculate the exact savings/investment amount needed to hit your target rate.`,{potential:0,priority:25,setup:true});
+    }
 
     const liquid=Math.max(0,totalUsableMoney(month));
     const recent=previousMonths(month,3);
@@ -23599,33 +23650,71 @@ maybeStartFirstRunSetup();
     const monthlyNeed=committed+avgVariable;
     const targetMonths=Math.max(1,Number(state.settings?.rules?.emergencyMonths||3));
     const runway=monthlyNeed>0?liquid/monthlyNeed:0;
-    push('liquidity','Liquidity cushion',200,monthlyNeed>0?runway/targetMonths:.60,monthlyNeed>0?`${runway.toFixed(1)} months of tracked bills + recent variable spending · target ${targetMonths} months`:'Track spending and commitments to estimate your runway',monthlyNeed>0);
+    const liquidityComponent=push('liquidity','Liquidity cushion',200,monthlyNeed>0?runway/targetMonths:.60,monthlyNeed>0?`${runway.toFixed(1)} months of tracked bills + recent variable spending · target ${targetMonths} months`:'Track spending and commitments to estimate your runway',monthlyNeed>0);
+    if(monthlyNeed>0&&runway<targetMonths){
+      const fullBuffer=monthlyNeed*targetMonths;
+      const bufferGap=Math.max(0,fullBuffer-liquid);
+      const nextStep=Math.min(bufferGap,Math.max(1000,income>0?income*.05:monthlyNeed*.05));
+      recommend(liquidityComponent,`Build your runway from ${runway.toFixed(1)} to ${targetMonths} months`,`${liquidityComponent.points}/${liquidityComponent.weight} points. Usable money is ${money(liquid)} against about ${money(monthlyNeed)} of monthly tracked need; the full ${targetMonths}-month buffer is ${money(fullBuffer)}.`,`Your remaining buffer gap is ${money(bufferGap)}. A practical next step is to keep at least ${money(nextStep)} more liquid before locking additional money into long-term placements.`,{potential:liquidityComponent.gapPoints,priority:88});
+    }else if(!monthlyNeed){
+      recommend(liquidityComponent,'Give SINOP enough history to estimate your runway',`${liquidityComponent.points}/${liquidityComponent.weight} points currently uses a neutral baseline because monthly need cannot yet be measured.`,`Track recurring commitments and actual spending; after SINOP has outflow data, it can calculate the peso amount needed for your emergency runway.`,{potential:0,priority:20,setup:true});
+    }
 
     const caps=Object.entries(state.settings?.categoryBudgets||{}).filter(([,cap])=>Number(cap)>0);
     let spendingRatio=.70,spendingDetail='Set category limits to measure spending control more precisely',spendingData=false;
+    let categoryAssessments=[];
     if(caps.length){
-      const ratios=caps.map(([cat,cap])=>{const used=variableEntries(month).filter(x=>x.category===cat&&(x.status||'actual')==='actual').reduce((sum,x)=>sum+Number(x.amount||0),0);return used<=0?1:Math.min(1,Number(cap)/used)});
+      categoryAssessments=caps.map(([cat,cap])=>{const used=variableEntries(month).filter(x=>x.category===cat&&(x.status||'actual')==='actual').reduce((sum,x)=>sum+Number(x.amount||0),0);return {cat,cap:Number(cap),used,over:Math.max(0,used-Number(cap)),ratio:used<=0?1:Math.min(1,Number(cap)/used)}});
+      const ratios=categoryAssessments.map(x=>x.ratio);
       spendingRatio=ratios.reduce((a,b)=>a+b,0)/ratios.length;spendingDetail=`${caps.length} category limit${caps.length===1?'':'s'} assessed`;spendingData=true;
     }
-    push('spending','Spending control',175,spendingRatio,spendingDetail,spendingData);
+    const spendingComponent=push('spending','Spending control',175,spendingRatio,spendingDetail,spendingData);
+    const overCategories=categoryAssessments.filter(x=>x.over>0).sort((a,b)=>b.over-a.over);
+    if(overCategories.length){
+      const top=overCategories[0];
+      const extra=overCategories.length>1?` ${overCategories.length-1} other categor${overCategories.length-1===1?'y is':'ies are'} also above limit.`:'';
+      recommend(spendingComponent,`${top.cat} is ${money(top.over)} over its limit`,`${spendingComponent.points}/${spendingComponent.weight} points. ${top.cat} has ${money(top.used)} of actual spending against a ${money(top.cap)} limit.${extra}`,`Avoid additional discretionary spending in the over-limit categories for the rest of ${formatMonth(month)}. For the next month, staying within every configured category limit can recover the available score gap.`,{potential:spendingComponent.gapPoints,priority:82});
+    }else if(!caps.length){
+      const topSpend=Object.entries(variableEntries(month).filter(x=>(x.status||'actual')==='actual').reduce((map,x)=>{const cat=String(x.category||'Uncategorized');map[cat]=(map[cat]||0)+Number(x.amount||0);return map},{})).sort((a,b)=>b[1]-a[1])[0];
+      recommend(spendingComponent,'Set category limits for the spending you actually have',`${spendingComponent.points}/${spendingComponent.weight} points uses a neutral baseline because no category budgets are configured.${topSpend?` Your largest actual category this month is ${topSpend[0]} at ${money(topSpend[1])}.`:''}`,`Set realistic monthly limits for your main variable-spending categories. SINOP will then score actual control instead of using the neutral fallback.`,{potential:0,priority:30,setup:true});
+    }
 
     const cards=state.creditCards||[];
     let debtRatio=.72,debtDetail='No active card data; component held at a neutral baseline',debtData=false;
+    let utilization=0,payRatio=1,borrowed=0,totalLimits=0,totalStatements=0,totalRemaining=0;
     if(cards.length){
-      const util=clamp(allCardUtilization(month),0,150);
-      const utilRatio=util<=30?1:util>=100?0:(100-util)/70;
+      utilization=clamp(allCardUtilization(month),0,150);
+      const utilRatio=utilization<=30?1:utilization>=100?0:(100-utilization)/70;
       const statementRatios=cards.map(card=>{const amount=Math.max(0,cardStatementAmount(card,month));if(amount<=0)return 1;const remaining=Math.max(0,cardStatementRemaining(card,month));return clamp(1-(remaining/amount),0,1)});
-      const payRatio=statementRatios.reduce((a,b)=>a+b,0)/Math.max(1,statementRatios.length);
-      const borrowed=(state.loans||[]).filter(l=>l.direction==='borrowed').reduce((sum,l)=>sum+Math.max(0,loanRemainingAsOfMonth(l,month)),0);
+      payRatio=statementRatios.reduce((a,b)=>a+b,0)/Math.max(1,statementRatios.length);
+      borrowed=(state.loans||[]).filter(l=>l.direction==='borrowed').reduce((sum,l)=>sum+Math.max(0,loanRemainingAsOfMonth(l,month)),0);
       const debtPenalty=income>0?clamp(1-(borrowed/(income*6)),.55,1):1;
       debtRatio=(utilRatio*.55+payRatio*.45)*debtPenalty;
-      debtDetail=`${util.toFixed(1)}% card utilization · ${Math.round(payRatio*100)}% of tracked statement balances paid${borrowed>0?' · outstanding IOUs considered':''}`;debtData=true;
+      debtDetail=`${utilization.toFixed(1)}% card utilization · ${Math.round(payRatio*100)}% of tracked statement balances paid${borrowed>0?' · outstanding IOUs considered':''}`;debtData=true;
+      totalLimits=cardTotalLimits();
+      totalStatements=cards.reduce((sum,c)=>sum+Math.max(0,cardStatementAmount(c,month)),0);
+      totalRemaining=cards.reduce((sum,c)=>sum+Math.max(0,cardStatementRemaining(c,month)),0);
     }
-    push('debt','Debt & card management',175,debtRatio,debtDetail,debtData);
+    const debtComponent=push('debt','Debt & card management',175,debtRatio,debtDetail,debtData);
+    if(cards.length&&(payRatio<1||utilization>30||borrowed>0)){
+      const actions=[];
+      if(totalRemaining>0)actions.push(`pay the remaining ${money(totalRemaining)} of tracked statement balances`);
+      if(utilization>30&&totalLimits>0){const targetReduction=Math.max(0,totalStatements-totalLimits*.30);if(targetReduction>0)actions.push(`bring the next reported card balance down by about ${money(targetReduction)} to reach 30% utilization`)}
+      if(borrowed>0)actions.push(`continue reducing ${money(borrowed)} of outstanding borrowed IOUs`);
+      recommend(debtComponent,'Reduce the highest-cost debt pressure first',`${debtComponent.points}/${debtComponent.weight} points. Card utilization is ${utilization.toFixed(1)}% and ${Math.round(payRatio*100)}% of tracked statement balances are paid${borrowed>0?`; borrowed IOUs total ${money(borrowed)}`:''}.`,`${actions.slice(0,2).join('; ')}${actions.length?'.':''}`,{potential:debtComponent.gapPoints,priority:86});
+    }else if(!cards.length){
+      recommend(debtComponent,'No card behavior is available to score',`${debtComponent.points}/${debtComponent.weight} points currently uses SINOP's neutral debt-management baseline.`,`If you do use credit cards, add them so utilization and statement-payment behavior can be scored. Do not open a card just to increase this score.`,{potential:0,priority:10,setup:true});
+    }
 
     const score=clamp(components.reduce((sum,c)=>sum+c.points,0),0,1000);
     const confidence=components.filter(c=>c.hasData).length;
-    return {score:Math.round(score),band:scoreBand(score),components,confidence,month};
+    const rankedRecommendations=recommendations.sort((a,b)=>{
+      const actionableA=a.potential>0?1:0, actionableB=b.potential>0?1:0;
+      if(actionableB!==actionableA)return actionableB-actionableA;
+      if(b.potential!==a.potential)return b.potential-a.potential;
+      return b.priority-a.priority;
+    });
+    return {score:Math.round(score),band:scoreBand(score),components,confidence,month,recommendations:rankedRecommendations};
   };
 
   function profileLevelData(){const xp=rewardXp(),level=rewardLevel(xp),badges=earnedRewardBadges();return {xp,level,badges,score:financialScoreSnapshot(state.month)}}
@@ -23709,6 +23798,12 @@ maybeStartFirstRunSetup();
     }catch(e){console.warn('Global leaderboard unavailable',e);globalEntries=[];globalMeta={total:0,myRank:null};if(publish)toast(e.message||'Could not publish global profile.')}finally{globalBusy=false;renderProfile()}
   }
 
+  function scoreRecommendationHtml(rec,{compact=false}={}){
+    const gain=rec.potential>0?`<span class="score-rec-gain">Up to +${rec.potential} pts</span>`:`<span class="score-rec-gain">Set up</span>`;
+    return `<article class="${compact?'dashboard-v169-score-rec':'profile-v169-score-rec'}"><div><div class="score-rec-top"><div class="score-rec-category"><span>${esc(rec.category)} · ${rec.score}/${rec.weight}</span><strong>${esc(rec.title)}</strong></div>${gain}</div><p class="score-rec-body">${esc(rec.body)}</p></div><div class="score-rec-action"><span data-hero="arrow-trending-up"></span><span>${esc(rec.action)}</span></div></article>`;
+  }
+  window.sinopFinancialScoreRecommendationHtml=scoreRecommendationHtml;
+
   window.renderProfile=function(){
     const root=$p('profile');if(!root)return;
     const d=profileLevelData(),score=d.score,band=score.band;
@@ -23724,6 +23819,9 @@ maybeStartFirstRunSetup();
     if($p('profileScoreRingValue'))$p('profileScoreRingValue').textContent=String(score.score);
     if($p('profileScoreRing'))$p('profileScoreRing').style.setProperty('--score-pct',`${score.score/10}%`);
     if($p('profileScoreComponents'))$p('profileScoreComponents').innerHTML=score.components.map(c=>`<div class="profile-score-component"><span>${esc(c.label)}</span><strong>${c.points}/${c.weight}</strong><div class="profile-score-track"><div class="profile-score-fill" style="width:${Math.round(c.ratio*100)}%"></div></div><small>${esc(c.detail)}</small></div>`).join('');
+    const scoreRecs=Array.isArray(score.recommendations)?score.recommendations:[];
+    if($p('profileScorePlanMeta'))$p('profileScorePlanMeta').textContent=scoreRecs.some(r=>r.potential>0)?`${scoreRecs.filter(r=>r.potential>0).length} score-improvement opportunit${scoreRecs.filter(r=>r.potential>0).length===1?'y':'ies'} detected`:`${score.confidence}/5 categories personalized`;
+    if($p('profileScoreRecommendations'))$p('profileScoreRecommendations').innerHTML=scoreRecs.length?scoreRecs.map(r=>scoreRecommendationHtml(r)).join(''):`<div class="score-rec-perfect"><strong>No score gap detected from the current data.</strong><br>Keep your payment reliability, wealth-building rate, liquidity, spending control, and debt behavior consistent.</div>`;
 
     const earned=d.badges;
     if($p('profileBadgePill'))$p('profileBadgePill').textContent=`${earned.length} earned`;
