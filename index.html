@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0f766e">
-<title>SINOP v167 · Dashboard Card Breakdowns</title>
+<title>SINOP v168 · Current Wealth Balances Dashboard</title>
 <meta name="application-name" content="SINOP">
 <meta name="apple-mobile-web-app-title" content="SINOP">
 <meta name="description" content="SINOP — your personal money system for income, spending, savings, investments, goals, KKB, and financial tracking.">
@@ -7261,12 +7261,13 @@ body[data-theme="dark"] .dashboard-breakdown-popover{box-shadow:0 24px 64px rgba
       </div>
 
       <article class="version-latest-card">
-        <div class="version-latest-badge"><span>Latest</span><strong>v167</strong></div>
-        <div class="version-latest-copy"><span>September 8, 2026</span><h3>Dashboard Card Breakdowns</h3><p>Every top Dashboard metric card now exposes its calculation on hover, keyboard focus, or tap, using the same inspectable-breakdown behavior introduced in Overview.</p></div>
+        <div class="version-latest-badge"><span>Latest</span><strong>v168</strong></div>
+        <div class="version-latest-copy"><span>September 8, 2026</span><h3>Current Wealth Balances Dashboard</h3><p>Savings + Investments now shows the user’s current total balance across Savings accounts, Time Deposits, MP2, and Investment accounts regardless of the selected budget month, while keeping the selected month’s new savings and investments underneath.</p></div>
       </article>
 
       <div class="version-timeline" id="versionTimeline">
-        <article class="version-entry is-latest" data-version="v167" data-date="September 8, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v167</span><h3>Dashboard Card Breakdowns</h3></div><time>Sep 8, 2026</time></header><ul><li>Added hover, keyboard-focus, and tap breakdowns to every top Dashboard metric card.</li><li>Projected Month-End now exposes income, recurring commitments, variable spending, goals, due/overdue IOUs, and the early-next-month reserve.</li><li>Income, commitment load, actual spending, cumulative Savings + Investments, liquidity coverage, and recurring-payment progress each show the components behind their displayed value.</li><li>Actual Spending breaks down by actual category; Savings + Investments separates cumulative and current-month Savings and Investments; Liquidity shows usable money and the recent-average-outflow denominator.</li><li>Uses one responsive floating breakdown panel so card layouts remain clean and mobile users can tap a card to inspect it.</li></ul></div></article>
+        <article class="version-entry is-latest" data-version="v168" data-date="September 8, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v168</span><h3>Current Wealth Balances Dashboard</h3></div><time>Sep 8, 2026</time></header><ul><li>Redefined the Dashboard Savings + Investments headline as current wealth held now, independent of the selected budget month.</li><li>The headline now sums current balances in Savings accounts, Time Deposits, Pag-IBIG MP2, and Investment accounts using each account’s real ledger balance and reporting-currency conversion.</li><li>The card breakdown explicitly separates Savings accounts, Time Deposits, MP2, and Investment accounts so the total can be audited.</li><li>The smaller line under the headline still shows actual Savings and Investment additions for the selected month.</li><li>Future-dated account activity is excluded from the current balance because the headline is calculated as of today rather than month-end.</li></ul></div></article>
+        <article class="version-entry" data-version="v167" data-date="September 8, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v167</span><h3>Dashboard Card Breakdowns</h3></div><time>Sep 8, 2026</time></header><ul><li>Added hover, keyboard-focus, and tap breakdowns to every top Dashboard metric card.</li><li>Projected Month-End now exposes income, recurring commitments, variable spending, goals, due/overdue IOUs, and the early-next-month reserve.</li><li>Income, commitment load, actual spending, cumulative Savings + Investments, liquidity coverage, and recurring-payment progress each show the components behind their displayed value.</li><li>Actual Spending breaks down by actual category; Savings + Investments separates cumulative and current-month Savings and Investments; Liquidity shows usable money and the recent-average-outflow denominator.</li><li>Uses one responsive floating breakdown panel so card layouts remain clean and mobile users can tap a card to inspect it.</li></ul></div></article>
         <article class="version-entry" data-version="v166" data-date="September 8, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v166</span><h3>Cumulative Savings & Investments Dashboard</h3></div><time>Sep 8, 2026</time></header><ul><li>Replaced the Dashboard Savings + Investments percentage KPI with the cumulative actual amount contributed through the selected month.</li><li>The cumulative figure combines Savings/Time Deposit contributions and MP2/Investment contributions while excluding transfers between wealth accounts so reallocations are not double-counted.</li><li>Added a this-month breakdown directly below the cumulative total, showing Savings and Investments separately.</li><li>The existing savings-rate calculation remains available internally for financial insights and target recommendations; only the Dashboard KPI display changed.</li></ul></div></article>
         <article class="version-entry" data-version="v165" data-date="September 8, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v165</span><h3>Due IOUs & 4-Week Income Fix</h3></div><time>Sep 8, 2026</time></header><ul><li>Cash after IOUs now subtracts borrowed IOUs only when their due date falls in the selected month or is already overdue.</li><li>Borrowed IOUs with no due date and IOUs due in a later month remain visible in Loans & IOUs but no longer reduce the selected month’s cash-after-IOUs figure.</li><li>Weekly income now plans exactly four payments per month: monthly gross and net projections use per-payment amount × 4.</li><li>Weekly receipt confirmation now shows Week 1 through Week 4 only; the previous fifth weekly slot is removed.</li><li>Overview, Dashboard, income totals, salary deductions, receipt amounts, and dependent monthly projections now use the same four-week income rule.</li></ul></div></article>
         <article class="version-entry" data-version="v164" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v164</span><h3>Grocery Actual & Activity Fix</h3></div><time>Sep 4, 2026</time></header><ul><li>Fixed Recurring → Grocery → Record amount so the entered actual is stored as the month-level grocery actual instead of an occurrence-only payment.</li><li>The exact recorded amount now appears in Recurring and Activity while the linked account debit remains consistent.</li><li>Direct grocery actuals now appear in monthly statements as recurring grocery payments.</li><li>When a direct grocery actual exists, Grocery item trips are not double-counted in Activity or statements.</li><li>Added automatic recovery for grocery amounts previously saved into the broken occurrence-payment path.</li></ul></div></article>
@@ -17461,9 +17462,16 @@ function renderDashboard(){
   applyDashboardVisibility();
   const summary=monthSummary(state.month),prevMonth=shiftMonth(state.month,-1),prev=monthSummary(prevMonth),income=summary.income||0,credited=totalCreditedIncome(state.month);
   const actualSpend=actualVariableTotal(state.month),prevActual=actualVariableTotal(prevMonth),wealth=wealthContribution(state.month),monthSavings=wealthContributionByKind(state.month,"savings"),monthInvestments=wealthContributionByKind(state.month,"investment"),payment=billPaymentSummary(state.month),reserve=nextCycleFundingReserve(state.month);
-  const cumulativeSavings=trackedRewardMonths().filter(month=>month<=state.month).reduce((sum,month)=>sum+wealthContributionByKind(month,"savings"),0);
-  const cumulativeInvestments=trackedRewardMonths().filter(month=>month<=state.month).reduce((sum,month)=>sum+wealthContributionByKind(month,"investment"),0);
-  const cumulativeWealth=cumulativeSavings+cumulativeInvestments;
+  // v168: the Dashboard wealth headline is the CURRENT balance held in wealth accounts,
+  // independent of the selected budget month. Use today's ledger cutoff so future-dated
+  // deposits/transfers do not inflate the amount.
+  const wealthBalanceDate=localDateKey();
+  const currentWealthByType=type=>state.accounts.filter(a=>a.type===type).reduce((sum,a)=>sum+accountValueInReporting(a,accountBalanceOnDate(a,wealthBalanceDate)),0);
+  const currentSavingsBalance=currentWealthByType("savings");
+  const currentTimeDepositBalance=currentWealthByType("time_deposit");
+  const currentMp2Balance=currentWealthByType("mp2");
+  const currentInvestmentBalance=currentWealthByType("investment");
+  const currentSavingsAndInvestments=currentSavingsBalance+currentTimeDepositBalance+currentMp2Balance+currentInvestmentBalance;
   const financialScore=typeof window.financialScoreSnapshot==="function"?window.financialScoreSnapshot(state.month):null,plannedPosition=summary.cashAfterIous,totalTracked=totalAccountBalance(state.month),usable=totalUsableMoney(state.month),reserved=totalGoalReserved(),lockedGross=accountBalanceByTypes(["time_deposit","mp2"],state.month),lockedReserved=state.accounts.filter(a=>["time_deposit","mp2"].includes(a.type)).reduce((s,a)=>s+accountGoalReserved(a.id),0),locked=Math.max(0,lockedGross-lockedReserved);
   const series=dashboardMonthlySeries(),nonzeroOut=series.map(x=>x.summary.outflow).filter(v=>v>0),avgOut=nonzeroOut.length?nonzeroOut.reduce((a,b)=>a+b,0)/nonzeroOut.length:0,runway=avgOut>0?usable/avgOut:0;
   const commitmentRate=income>0?summary.recurring/income*100:0,wealthRate=income>0?wealth/income*100:0,receiptRate=income>0?credited/income*100:0,paidPct=payment.total>0?payment.paid/payment.total*100:0;
@@ -17485,8 +17493,8 @@ function renderDashboard(){
   $("dashIncomeReceived").textContent=money(credited);$("dashIncomeReceiptRate").textContent=income>0?`${Math.min(999,receiptRate).toFixed(0)}% of ${money(income)} plan`:`No planned income`;
   $("dashCommitmentRate").textContent=`${commitmentRate.toFixed(1)}%`;$("dashCommitmentValue").textContent=`${money(summary.recurring)} recurring`;
   $("dashActualSpending").textContent=money(actualSpend);const spendDelta=dashboardDeltaText(actualSpend,prevActual,true);$("dashSpendingDelta").textContent=spendDelta.text;$("dashSpendingDelta").className=spendDelta.className;
-  $("dashWealthCumulative").textContent=money(cumulativeWealth);
-  $("dashWealthCumulative").setAttribute("title",`Cumulative through ${formatMonthFull(state.month)} · Savings ${money(cumulativeSavings)} · Investments ${money(cumulativeInvestments)}`);
+  $("dashWealthCumulative").textContent=money(currentSavingsAndInvestments);
+  $("dashWealthCumulative").setAttribute("title",`Current total as of ${formatDateFull(wealthBalanceDate)} · Savings accounts ${money(currentSavingsBalance)} · Time deposits ${money(currentTimeDepositBalance)} · MP2 ${money(currentMp2Balance)} · Investment accounts ${money(currentInvestmentBalance)}`);
   $("dashWealthMonth").textContent=`This month · Savings ${money(monthSavings)} · Investments ${money(monthInvestments)}`;
   $("dashRunway").textContent=avgOut>0?`${runway.toFixed(1)} mo`:`—`;$("dashUsableMoney").textContent=`${money(usable)} usable`;
   $("dashRecurringPaidPct").textContent=`${paidPct.toFixed(0)}%`;$("dashRecurringPending").textContent=`${money(payment.unpaid)} pending`;
@@ -17527,14 +17535,16 @@ function renderDashboard(){
       {label:"Total actual spending",value:money(actualSpend),total:true},
       {label:"Previous month",value:money(prevActual)}
     ],note:"Only entries marked Actual are included here; planned variable spending is excluded from this card."},
-    wealth:{title:"Savings + Investments breakdown",subtitle:`Cumulative through ${formatMonthFull(state.month)}`,rows:[
-      {label:"Cumulative Savings",value:money(cumulativeSavings)},
-      {label:"Cumulative Investments",value:money(cumulativeInvestments)},
-      {label:"Cumulative total",value:money(cumulativeWealth),total:true},
-      {label:"This month · Savings",value:money(monthSavings)},
-      {label:"This month · Investments",value:money(monthInvestments)},
-      {label:"This month · Total",value:money(wealth),total:true}
-    ],note:"Transfers between wealth accounts are excluded so moving existing money does not create a false new contribution."},
+    wealth:{title:"Savings + Investments breakdown",subtitle:`Current balances as of ${formatDateFull(wealthBalanceDate)} · selected month: ${formatMonthFull(state.month)}`,rows:[
+      {label:"Savings accounts",value:money(currentSavingsBalance)},
+      {label:"Time Deposits",value:money(currentTimeDepositBalance)},
+      {label:"Pag-IBIG MP2",value:money(currentMp2Balance)},
+      {label:"Investment accounts",value:money(currentInvestmentBalance)},
+      {label:"Current total",value:money(currentSavingsAndInvestments),total:true},
+      {label:`${formatMonth(state.month)} · Savings added`,value:money(monthSavings)},
+      {label:`${formatMonth(state.month)} · Investments added`,value:money(monthInvestments)},
+      {label:`${formatMonth(state.month)} · Total added`,value:money(wealth),total:true}
+    ],note:"The headline is current account value, regardless of the Dashboard month. The monthly rows show new wealth added during the selected month; they are a separate flow metric."},
     liquidity:{title:"Liquidity coverage breakdown",subtitle:formatMonthFull(state.month),rows:[
       {label:"Total tracked account value",value:money(totalTracked)},
       {label:"Goal-reserved funds",value:money(reserved)},
@@ -23757,7 +23767,7 @@ maybeStartFirstRunSetup();
 
 <script id="sinop-v137-version-log-script">
 (()=>{
-  const latestText=`SINOP v167 — Dashboard Card Breakdowns\nSeptember 8, 2026\n\n• Every top Dashboard metric card now shows its calculation on hover, keyboard focus, or tap.\n• Projected Month-End exposes planned income, recurring commitments, spending, goals, IOUs, and the early-next-month reserve.\n• Income, commitment load, actual spending, Savings + Investments, liquidity coverage, and recurring paid each have their own detailed breakdown.\n• The breakdown panel is responsive and tap-friendly on mobile.`;
+  const latestText=`SINOP v168 — Current Wealth Balances Dashboard\nSeptember 8, 2026\n\n• Savings + Investments now shows current balances regardless of the selected budget month.\n• The total includes Savings accounts, Time Deposits, Pag-IBIG MP2, and Investment accounts.\n• Hover/tap breakdown separates each account type and shows the current total as of today.\n• The smaller line still shows Savings and Investments added during the selected month.`;
   const collectLog=()=>{
     const rows=[...document.querySelectorAll('#versionTimeline .version-entry')];
     return ['SINOP Version Log',...rows.map(row=>{const version=row.dataset.version||'',date=row.dataset.date||'',title=row.querySelector('h3')?.textContent?.trim()||'',items=[...row.querySelectorAll('li')].map(li=>`• ${li.textContent.trim()}`).join('\n');return `${version} — ${title}\n${date}\n${items}`})].join('\n\n');
