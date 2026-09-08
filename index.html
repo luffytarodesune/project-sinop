@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0f766e">
-<title>SINOP v164 · Grocery Actual & Activity Fix</title>
+<title>SINOP v165 · Due IOUs & 4-Week Income Fix</title>
 <meta name="application-name" content="SINOP">
 <meta name="apple-mobile-web-app-title" content="SINOP">
 <meta name="description" content="SINOP — your personal money system for income, spending, savings, investments, goals, KKB, and financial tracking.">
@@ -5809,7 +5809,7 @@ body[data-theme="dark"] .barkada-group-btn,body[data-theme="dark"] .barkada-memb
         <article class="metric"><span>Recurring commitments</span><strong id="mRecurring">₱0.00</strong><small id="scenarioNote">Expected scenario</small></article>
         <article class="metric"><span>Variable spending</span><strong id="mVariable">₱0.00</strong><small id="variableSplitNote">Planned + actual</small></article>
         <article class="metric"><span>Goal contributions</span><strong id="mGoals">₱0.00</strong><small>Planned this month</small></article>
-        <article class="metric accent cash-detail-metric" tabindex="0" aria-describedby="cashAfterIousPopover"><span>Cash after IOUs</span><strong id="mRemaining">₱0.00</strong><small id="remainingNote">Budget balance less money you owe</small><div class="cash-detail-popover" id="cashAfterIousPopover" role="tooltip"><h3>Cash after IOUs breakdown</h3><div id="cashAfterIousBreakdown"></div><p>Hover this card, or focus/tap it on smaller screens, to inspect how SINOP arrived at the amount.</p></div></article>
+        <article class="metric accent cash-detail-metric" tabindex="0" aria-describedby="cashAfterIousPopover"><span>Cash after IOUs</span><strong id="mRemaining">₱0.00</strong><small id="remainingNote">Budget balance less IOUs due this month or overdue</small><div class="cash-detail-popover" id="cashAfterIousPopover" role="tooltip"><h3>Cash after IOUs breakdown</h3><div id="cashAfterIousBreakdown"></div><p>Hover this card, or focus/tap it on smaller screens, to inspect how SINOP arrived at the amount.</p></div></article>
       </div>
 
       <article class="card today-budget-card" id="todayBudgetCard">
@@ -7248,12 +7248,13 @@ body[data-theme="dark"] .barkada-group-btn,body[data-theme="dark"] .barkada-memb
       </div>
 
       <article class="version-latest-card">
-        <div class="version-latest-badge"><span>Latest</span><strong>v164</strong></div>
-        <div class="version-latest-copy"><span>September 4, 2026</span><h3>Grocery Actual & Activity Fix</h3><p>Direct grocery amounts recorded from Recurring now update the recurring actual, tracked account, Activity timeline, and statements consistently. Legacy grocery amounts saved into occurrence records are recovered automatically.</p></div>
+        <div class="version-latest-badge"><span>Latest</span><strong>v165</strong></div>
+        <div class="version-latest-copy"><span>September 8, 2026</span><h3>Due IOUs & 4-Week Income Fix</h3><p>Monthly cash planning now counts only borrowed IOUs due this month or already overdue, while weekly income uses exactly four planned payments per month instead of a 4.33-payment average or a fifth weekly slot.</p></div>
       </article>
 
       <div class="version-timeline" id="versionTimeline">
-        <article class="version-entry is-latest" data-version="v164" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v164</span><h3>Grocery Actual & Activity Fix</h3></div><time>Sep 4, 2026</time></header><ul><li>Fixed Recurring → Grocery → Record amount so the entered actual is stored as the month-level grocery actual instead of an occurrence-only payment.</li><li>The exact recorded amount now appears in Recurring and Activity while the linked account debit remains consistent.</li><li>Direct grocery actuals now appear in monthly statements as recurring grocery payments.</li><li>When a direct grocery actual exists, Grocery item trips are not double-counted in Activity or statements.</li><li>Added automatic recovery for grocery amounts previously saved into the broken occurrence-payment path.</li></ul></div></article>
+        <article class="version-entry is-latest" data-version="v165" data-date="September 8, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v165</span><h3>Due IOUs & 4-Week Income Fix</h3></div><time>Sep 8, 2026</time></header><ul><li>Cash after IOUs now subtracts borrowed IOUs only when their due date falls in the selected month or is already overdue.</li><li>Borrowed IOUs with no due date and IOUs due in a later month remain visible in Loans & IOUs but no longer reduce the selected month’s cash-after-IOUs figure.</li><li>Weekly income now plans exactly four payments per month: monthly gross and net projections use per-payment amount × 4.</li><li>Weekly receipt confirmation now shows Week 1 through Week 4 only; the previous fifth weekly slot is removed.</li><li>Overview, Dashboard, income totals, salary deductions, receipt amounts, and dependent monthly projections now use the same four-week income rule.</li></ul></div></article>
+        <article class="version-entry" data-version="v164" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v164</span><h3>Grocery Actual & Activity Fix</h3></div><time>Sep 4, 2026</time></header><ul><li>Fixed Recurring → Grocery → Record amount so the entered actual is stored as the month-level grocery actual instead of an occurrence-only payment.</li><li>The exact recorded amount now appears in Recurring and Activity while the linked account debit remains consistent.</li><li>Direct grocery actuals now appear in monthly statements as recurring grocery payments.</li><li>When a direct grocery actual exists, Grocery item trips are not double-counted in Activity or statements.</li><li>Added automatic recovery for grocery amounts previously saved into the broken occurrence-payment path.</li></ul></div></article>
         <article class="version-entry" data-version="v163" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v163</span><h3>Unified Financial Score Dashboard</h3></div><time>Sep 4, 2026</time></header><ul><li>Removed the separate 100-point Dashboard budget-health score.</li><li>The Dashboard score ring now uses the exact same 0–1000 SINOP Financial Score calculation used in Profile.</li><li>Dashboard score bands now match Profile: Excellent, Strong, Stable, Building, and Needs attention.</li><li>The ring progress is normalized from the 1000-point score while the displayed value remains the real Financial Score.</li></ul></div></article>
         <article class="version-entry" data-version="v162" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v162</span><h3>Designed Analytics Dashboard</h3></div><time>Sep 4, 2026</time></header><ul><li>Fixed the v161 dashboard stylesheet that was mistakenly inserted inside the printable financial-statement HTML template instead of the live app document.</li><li>Moved the Dashboard visual layer to the true final CSS cascade so it actually renders after all older SINOP styles.</li><li>Added a strong financial-pulse hero, six analytical KPI tiles, designed cashflow chart, allocation visualization, spending/income intelligence, liquidity donut, commitment pressure, goal momentum, signals, and planning guardrails.</li><li>Recomposed the mobile Dashboard as an analytics feed rather than squeezed desktop cards.</li><li>Kept all v161 analytics calculations and existing SINOP ledger rules unchanged.</li></ul></div></article>
         <article class="version-entry" data-version="v161" data-date="September 4, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v161</span><h3>Analytics Dashboard Rebuild</h3></div><time>Sep 4, 2026</time></header><ul><li>Rebuilt Dashboard around analytical signals instead of generic totals.</li><li>Added projected month-end position, month-over-month movement, income receipt rate, commitment load, savings/investment rate, liquidity coverage, account allocation, and recurring-payment progress.</li><li>Added six-month cashflow trend, category acceleration and budget status, income concentration, goal momentum, fixed-term relief, and early-next-month pressure.</li><li>Recommendations are now concise data-driven insights tied directly to current SINOP records.</li><li>Kept the existing planner controls and dashboard visibility preferences compatible.</li></ul></div></article>
@@ -7371,7 +7372,7 @@ body[data-theme="dark"] .barkada-group-btn,body[data-theme="dark"] .barkada-memb
           <div class="manual-ledger-flow"><div class="manual-account-box"><span>Landbank</span><strong>₱10,000</strong><small>Before transfer</small></div><div class="manual-ledger-arrow"><span data-hero="arrows-right-left"></span></div><div class="manual-account-box"><span>Maribank</span><strong>+ ₱3,000</strong><small>Landbank becomes ₱7,000</small></div></div>
         </div>
         <div class="manual-feature">
-          <div class="manual-feature-head"><div class="manual-feature-icon"><span data-hero="wallet"></span></div><div><strong>Cash after IOUs</strong><small>Outstanding money you borrowed is treated as an obligation against available cash.</small></div></div>
+          <div class="manual-feature-head"><div class="manual-feature-icon"><span data-hero="wallet"></span></div><div><strong>Cash after IOUs</strong><small>Only borrowed IOUs due this month or already overdue reduce the monthly cash figure.</small></div></div>
           <div class="manual-formula"><div><span>Budget cash</span><strong>₱12,000</strong></div><b>−</b><div><span>You owe</span><strong>₱2,500</strong></div><b>=</b><div><span>Cash after IOUs</span><strong>₱9,500</strong></div></div>
         </div>
       </div>
@@ -7471,7 +7472,7 @@ body[data-theme="dark"] .barkada-group-btn,body[data-theme="dark"] .barkada-memb
       </div>
       <div class="manual-card-grid">
         <div class="manual-feature"><div class="manual-feature-head"><div class="manual-feature-icon"><span data-hero="credit-card"></span></div><div><strong>Credit cards</strong><small>Charges increase the card obligation; cash decreases only when the statement is paid.</small></div></div><ul><li>Link spending or recurring bills to the card.</li><li>Review charges and statement totals.</li><li>Record the statement payment from the actual bank/cash account.</li><li>Installments remain visible until their remaining terms are completed.</li></ul><button class="btn btn-secondary btn-sm" data-jump="credit-cards">Open Credit cards</button></div>
-        <div class="manual-feature"><div class="manual-feature-head"><div class="manual-feature-icon"><span data-hero="arrows-right-left"></span></div><div><strong>Loans & IOUs</strong><small>Use Borrowed when you owe someone; use Lent when someone owes you.</small></div></div><ul><li>Borrowed money may increase the linked account when cash is received.</li><li>Repayments reduce the linked account and the remaining obligation.</li><li>Outstanding borrowed IOUs reduce the Overview's Cash after IOUs.</li><li>Money owed to you is shown separately and does not count as cash until received.</li></ul><button class="btn btn-secondary btn-sm" data-jump="loans">Open Loans & IOUs</button></div>
+        <div class="manual-feature"><div class="manual-feature-head"><div class="manual-feature-icon"><span data-hero="arrows-right-left"></span></div><div><strong>Loans & IOUs</strong><small>Use Borrowed when you owe someone; use Lent when someone owes you.</small></div></div><ul><li>Borrowed money may increase the linked account when cash is received.</li><li>Repayments reduce the linked account and the remaining obligation.</li><li>Only borrowed IOUs due this month or already overdue reduce the Overview's Cash after IOUs; future and no-deadline IOUs stay visible without reducing this month.</li><li>Money owed to you is shown separately and does not count as cash until received.</li></ul><button class="btn btn-secondary btn-sm" data-jump="loans">Open Loans & IOUs</button></div>
       </div>
     </article>
 
@@ -9176,6 +9177,7 @@ const CLOUD_META_KEY="sinop-google-drive-sync-v1";
 const ACCOUNT_STATE_PREFIX="sinop-google-account-state-v1:";
 const HAD_EXISTING_PLANNER_DATA=!!localStorage.getItem(KEY)||!!localStorage.getItem(KEY_V2)||!!localStorage.getItem(KEY_V1);
 const WPM=52/12;
+const INCOME_WEEKS_PER_MONTH=4;
 const $=id=>document.getElementById(id);
 
 const HEROICON_PATHS={
@@ -10241,7 +10243,7 @@ function incomeGrossMonthly(x,month=state.month){
   if(x.frequency==="monthly")return a;
   if(x.frequency==="twice_monthly")return a*2;
   if(x.frequency==="biweekly")return a*26/12;
-  if(x.frequency==="weekly")return a*52/12;
+  if(x.frequency==="weekly")return a*INCOME_WEEKS_PER_MONTH;
   if(x.frequency==="quarterly")return a/3;
   if(x.frequency==="annual")return a/12;
   if(x.frequency==="one_time")return monthMatches(x.date,month)?a:0;
@@ -10251,7 +10253,7 @@ function incomeAveragePaymentsPerMonth(x,month=state.month){
   if(x.frequency==="monthly")return 1;
   if(x.frequency==="twice_monthly")return 2;
   if(x.frequency==="biweekly")return 26/12;
-  if(x.frequency==="weekly")return 52/12;
+  if(x.frequency==="weekly")return INCOME_WEEKS_PER_MONTH;
   if(x.frequency==="quarterly")return 1/3;
   if(x.frequency==="annual")return 1/12;
   if(x.frequency==="one_time")return monthMatches(x.date,month)?1:0;
@@ -10261,7 +10263,7 @@ function incomeReceiptSlotCount(x,month=state.month){
   if(x.frequency==="monthly")return 1;
   if(x.frequency==="twice_monthly")return 2;
   if(x.frequency==="biweekly")return 3;
-  if(x.frequency==="weekly")return 5;
+  if(x.frequency==="weekly")return INCOME_WEEKS_PER_MONTH;
   if(x.frequency==="quarterly"||x.frequency==="annual")return 1;
   if(x.frequency==="one_time")return monthMatches(x.date,month)?1:0;
   return 0;
@@ -10350,7 +10352,7 @@ function totalCreditedIncome(month=state.month){
 }
 function incomeReceiptHelperText(x){
   if(x.frequency==="twice_monthly")return "Tick the 1st and 2nd payment separately. Salary deductions and attendance are stored independently for each pay period.";
-  if(x.frequency==="weekly")return "Tick each weekly payment separately. A fifth checkbox is available for months with a fifth payday.";
+  if(x.frequency==="weekly")return "Tick Week 1 through Week 4 separately. SINOP uses four weekly payments for the monthly plan; record any exceptional fifth payment as one-time income.";
   if(x.frequency==="biweekly")return "Tick each biweekly payment separately. A third checkbox is available for months with a third payday.";
   if(x.frequency==="quarterly")return "Tick the quarterly payment only when it actually arrives in the selected month.";
   if(x.frequency==="annual")return "Tick the annual payment only when it actually arrives in the selected month.";
@@ -10491,8 +10493,9 @@ function incomeCoverageCadenceNextDate(x,anchorDate){
 function incomeCoverageConfirmedDates(x){
   const rows=[];
   Object.entries(state.incomeReceipts||{}).forEach(([month,records])=>{
-    const flags=records?.[x.id];if(!Array.isArray(flags))return;
-    const dates=(state.incomeReceiptDates?.[month]?.[x.id])||[];
+    const rawFlags=records?.[x.id];if(!Array.isArray(rawFlags))return;
+    const limit=incomeReceiptSlotCount(x,month),flags=rawFlags.slice(0,limit);
+    const dates=((state.incomeReceiptDates?.[month]?.[x.id])||[]).slice(0,limit);
     flags.forEach((checked,index)=>{if(checked){const date=dates[index]||defaultIncomeReceiptDate(x,month,index);if(date)rows.push(date)}});
   });
   return [...new Set(rows)].sort();
@@ -15196,6 +15199,12 @@ function loanCounterpartyText(loan){return loan?.direction==="borrowed"?`Borrowe
 function loansOutstanding(direction=null,month=state.month){
   return state.loans.filter(l=>(!direction||l.direction===direction)&&(!l.date||l.date.slice(0,7)<=month)).reduce((s,l)=>s+loanRemainingAsOfMonth(l,month),0);
 }
+function borrowedIousDueForBudget(month=state.month){
+  const monthEnd=monthEndDate(month);
+  return state.loans
+    .filter(l=>l.direction==="borrowed"&&l.dueDate&&l.dueDate<=monthEnd&&(!l.date||l.date<=monthEnd))
+    .reduce((sum,l)=>sum+loanRemainingAsOfMonth(l,month),0);
+}
 function activeLoanCount(month=state.month){return state.loans.filter(l=>l.date.slice(0,7)<=month&&loanRemainingAsOfMonth(l,month)>0.005).length}
 function loanStatementRows(loan){
   const rows=[];
@@ -16116,7 +16125,7 @@ function monthSummary(month){
   const goals=goalMonthly();
   const outflow=recurring+variable+goals;
   const remaining=income-outflow;
-  const iouOutstanding=loansOutstanding("borrowed",month),nextCycleReserve=nextCycleFundingReserve(month).total;
+  const iouOutstanding=borrowedIousDueForBudget(month),nextCycleReserve=nextCycleFundingReserve(month).total;
   return {month,income,recurring,recurringExpense,recurringSavings,recurringInvestment,recurringDebt,recurringTransfer,variable,goals,outflow,remaining,iouOutstanding,nextCycleReserve,cashAfterIous:remaining-iouOutstanding-nextCycleReserve};
 }
 
@@ -16678,7 +16687,7 @@ function rewardFeatureXpBreakdown(){
   const rows=[];
   const add=(id,label,xp)=>{xp=Math.max(0,Math.round(Number(xp||0)));if(xp>0)rows.push({id,label,xp})};
 
-  const received=(state.incomeReceipts?Object.values(state.incomeReceipts):[]).reduce((sum,records)=>sum+Object.values(records||{}).reduce((n,flags)=>n+(Array.isArray(flags)?flags.filter(Boolean).length:0),0),0);
+  const received=Object.entries(state.incomeReceipts||{}).reduce((sum,[month,records])=>sum+(state.incomes||[]).reduce((n,income)=>{const flags=records?.[income.id];if(!Array.isArray(flags))return n;return n+flags.slice(0,incomeReceiptSlotCount(income,month)).filter(Boolean).length},0),0);
   add("income-tracking","Income tracking",Math.min(60,received*3));
 
   const actualSpend=(state.spending||[]).filter(x=>Number(x.amount||0)>0).length;
@@ -17288,14 +17297,14 @@ function renderOverview(){
     ?"Add income sources"
     :summary.iouOutstanding>0||summary.nextCycleReserve>0
       ?`${money(summary.remaining)} balance − ${money(summary.iouOutstanding)} IOUs${summary.nextCycleReserve>0?` − ${money(summary.nextCycleReserve)} early-next-month reserve`:""}`
-      :summary.remaining>=0?"After all planned outflows · no outstanding IOUs":"Budget is over-allocated";
+      :summary.remaining>=0?"After all planned outflows · no due or overdue IOUs":"Budget is over-allocated";
   if($("cashAfterIousBreakdown"))$("cashAfterIousBreakdown").innerHTML=`
     <div class="cash-detail-row"><span>Planned net income</span><strong>${money(summary.income)}</strong></div>
     <div class="cash-detail-row"><span>Recurring commitments</span><strong>− ${money(summary.recurring)}</strong></div>
     <div class="cash-detail-row"><span>Variable spending</span><strong>− ${money(summary.variable)}</strong></div>
     <div class="cash-detail-row"><span>Goal contributions</span><strong>− ${money(summary.goals)}</strong></div>
     <div class="cash-detail-row"><span>Budget balance</span><strong>${money(summary.remaining)}</strong></div>
-    <div class="cash-detail-row"><span>Outstanding borrowed IOUs</span><strong>− ${money(summary.iouOutstanding)}</strong></div>
+    <div class="cash-detail-row"><span>Borrowed IOUs due / overdue</span><strong>− ${money(summary.iouOutstanding)}</strong></div>
     <div class="cash-detail-row"><span>Reserved for commitments due before next income</span><strong>− ${money(summary.nextCycleReserve||0)}</strong></div>
     <div class="cash-detail-row total"><span>Cash after IOUs & reserve</span><strong>${money(summary.cashAfterIous)}</strong></div>`;
   renderNextCycleFundingReserve();
@@ -23665,7 +23674,7 @@ maybeStartFirstRunSetup();
 
 <script id="sinop-v137-version-log-script">
 (()=>{
-  const latestText=`SINOP v143 — Login Hotfix + Income Mobile Redesign\nSeptember 4, 2026\n\n• Fixed the startup JavaScript parser regression that could leave SINOP stuck at login.\n• Retained the dedicated mobile-first Income page.\n• Retained the corrected Time Deposit source/destination balance posting.\n• Validated all inline JavaScript after rebuilding from the clean base.`;
+  const latestText=`SINOP v165 — Due IOUs & 4-Week Income Fix\nSeptember 8, 2026\n\n• Cash after IOUs counts only borrowed IOUs due this month or overdue.\n• Future and no-deadline IOUs remain tracked but do not reduce this month’s cash figure.\n• Weekly income uses exactly 4 planned payments per month.\n• Weekly receipt confirmation is limited to Week 1 through Week 4.`;
   const collectLog=()=>{
     const rows=[...document.querySelectorAll('#versionTimeline .version-entry')];
     return ['SINOP Version Log',...rows.map(row=>{const version=row.dataset.version||'',date=row.dataset.date||'',title=row.querySelector('h3')?.textContent?.trim()||'',items=[...row.querySelectorAll('li')].map(li=>`• ${li.textContent.trim()}`).join('\n');return `${version} — ${title}\n${date}\n${items}`})].join('\n\n');
