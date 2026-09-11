@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0f766e">
-<title>SINOP v176 · Voice Quick Add & Spending Order</title>
+<title>SINOP v176.1 · Login Recovery</title>
 <meta name="application-name" content="SINOP">
 <meta name="apple-mobile-web-app-title" content="SINOP">
 <meta name="description" content="SINOP — your personal money system for income, spending, savings, investments, goals, KKB, and financial tracking.">
@@ -4379,6 +4379,7 @@ body.sinop-auth-locked{overflow:hidden}
 .sinop-google-login-btn{width:100%;height:50px;margin-top:24px;display:flex;align-items:center;justify-content:center;gap:11px;border:1px solid #cfd9d5;border-radius:13px;background:#fff;color:#202724;font-size:12px;font-weight:850;box-shadow:0 5px 14px rgba(21,43,35,.06);transition:.18s}
 .sinop-google-login-btn:hover{border-color:#aebfba;background:#fbfdfc;transform:translateY(-1px)}
 .sinop-google-login-btn:disabled{opacity:.58;cursor:wait;transform:none}
+.sinop-local-login-btn{display:none;width:100%;height:44px;margin-top:9px;border:0;border-radius:12px;background:transparent;color:#0f766e;font:inherit;font-size:11px;font-weight:850;cursor:pointer}.sinop-local-login-btn.show{display:block}.sinop-local-login-btn:hover{background:#eef8f4}.sinop-local-login-btn:focus-visible{outline:3px solid rgba(15,118,110,.22);outline-offset:2px}
 .sinop-google-mark{width:24px;height:24px;display:grid;place-items:center;border:1px solid #dde5e2;border-radius:8px;background:#fff;font-size:14px;font-weight:900;color:#4285f4}
 .sinop-login-status{min-height:18px;margin-top:10px;text-align:center;color:#7b8984;font-size:9px;font-weight:700}
 .sinop-login-status.error{color:#b42318}
@@ -4390,6 +4391,7 @@ body[data-theme="dark"] .sinop-login-shell{background:#17201d;border-color:#2b3a
 body[data-theme="dark"] .sinop-login-content h1,body[data-theme="dark"] .sinop-known-account strong{color:#eef5f2}
 body[data-theme="dark"] .sinop-login-lead,body[data-theme="dark"] .sinop-login-status,body[data-theme="dark"] .sinop-login-security div{color:#9daca6}
 body[data-theme="dark"] .sinop-known-account,body[data-theme="dark"] .sinop-google-login-btn{background:#18231f;border-color:#2b3a35;color:#eef5f2}
+body[data-theme="dark"] .sinop-local-login-btn{color:#72d6c5}body[data-theme="dark"] .sinop-local-login-btn:hover{background:#20312b}
 @media(max-width:760px){.sinop-login-gate{padding:12px}.sinop-login-shell{min-height:0;grid-template-columns:1fr;border-radius:22px}.sinop-login-brand-panel{min-height:170px;padding:25px}.sinop-login-brand-copy{display:none}.sinop-login-logo{width:42px;height:42px;border-radius:13px;font-size:21px}.sinop-login-wordmark h2{margin-top:13px;font-size:27px}.sinop-login-panel{padding:30px 24px 34px}.sinop-login-content h1{font-size:31px}}
 
 .sinop-login-legal{display:flex;justify-content:center;gap:8px;margin-top:8px}.sinop-login-legal a{color:#64756f;font-weight:800;text-decoration:none}.sinop-login-legal a:hover{color:#0f766e;text-decoration:underline}
@@ -6189,6 +6191,7 @@ body[data-theme="dark"] .f175-day.shortage{background:color-mix(in srgb,var(--da
           <div><span>Last account on this device</span><strong id="sinopKnownAccountName">Google account</strong><small id="sinopKnownAccountEmail"></small></div>
         </div>
         <button class="sinop-google-login-btn" id="sinopGoogleLoginBtn" type="button"><span class="sinop-google-mark">G</span><span id="sinopGoogleLoginLabel">Continue with Google</span></button>
+        <button class="sinop-local-login-btn" id="sinopLocalContinueBtn" type="button">Open saved data on this device</button>
         <div class="sinop-login-status" id="sinopLoginStatus">Google sign-in is loading…</div>
         <div class="sinop-login-security">
           <div><span class="sinop-login-check">✓</span><span><b>No SINOP password.</b> Google handles account authentication.</span></div>
@@ -10455,6 +10458,7 @@ let cloudSyncInFlight=false;
 let cloudConnectIntent="sync";
 let sinopAuthGranted=cloudMeta.authSession===true||(cloudMeta.authSession==null&&!!cloudMeta.accountSub&&!!cloudMeta.enabled);
 let sinopAuthInFlight=false;
+let sinopAuthWatchdog=null;
 let cloudChoiceHandlers={local:null,remote:null};
 let googlePickerReady=false;
 let googlePickerLoadStarted=false;
@@ -10564,26 +10568,28 @@ function renderCloudStatus(){
   const stateBox=$("cloudSyncState"),stateText=$("cloudSyncStateText");if(stateBox&&stateText){stateBox.classList.remove("synced","pending","error");let text="Local only",cls="";if(enabled&&cloudSyncInFlight){text="Syncing to Google Drive…";cls="pending"}else if(enabled&&!token){text="Cloud paused · reconnect Google";cls="pending"}else if(enabled&&cloudMeta.localDirty){text="Local changes waiting to sync";cls="pending"}else if(enabled&&token){text="Synced to Google Drive";cls="synced"}else if(linked){text="Drive sync disabled on this device"}if(cls)stateBox.classList.add(cls);stateText.textContent=text}
 }
 function renderSinopLoginGate({error=""}={}){
-  const gate=$("sinopLoginGate"),btn=$("sinopGoogleLoginBtn"),label=$("sinopGoogleLoginLabel"),status=$("sinopLoginStatus");
+  const gate=$("sinopLoginGate"),btn=$("sinopGoogleLoginBtn"),localBtn=$("sinopLocalContinueBtn"),label=$("sinopGoogleLoginLabel"),status=$("sinopLoginStatus");
   if(!gate)return;
   gate.classList.toggle("hidden",!!sinopAuthGranted);gate.setAttribute("aria-hidden",sinopAuthGranted?"true":"false");document.body.classList.toggle("sinop-auth-locked",!sinopAuthGranted);
   const known=$("sinopKnownAccount"),avatar=$("sinopKnownAccountAvatar");
   if(known){const hasKnown=!!(cloudMeta.accountName||cloudMeta.accountEmail);known.classList.toggle("show",hasKnown);if($("sinopKnownAccountName"))$("sinopKnownAccountName").textContent=cloudMeta.accountName||"Google account";if($("sinopKnownAccountEmail"))$("sinopKnownAccountEmail").textContent=cloudMeta.accountEmail||"";if(avatar){if(cloudMeta.accountPicture){avatar.src=cloudMeta.accountPicture;avatar.style.display="block"}else{avatar.removeAttribute("src");avatar.style.display="none"}}}
-  if(btn)btn.disabled=sinopAuthInFlight||!googleTokenClient;
+  if(btn)btn.disabled=sinopAuthInFlight;
+  if(localBtn)localBtn.classList.toggle("show",cloudHasMeaningfulLocalData()||!!cloudMeta.accountSub);
   if(label)label.textContent=sinopAuthInFlight?"Signing in…":(cloudMeta.accountEmail?"Continue with Google":"Continue with Google");
   if(status){status.classList.toggle("error",!!error);status.textContent=error||(sinopAuthInFlight?"Waiting for Google…":googleTokenClient?(cloudMeta.accountEmail?`Continue to verify ${cloudMeta.accountEmail}.`:"Choose the Google account you want to use with SINOP."):"Google sign-in is loading…")}
 }
 function startSinopGoogleLogin(){
   if(sinopAuthInFlight)return;
   if(!googleTokenClient){initGoogleCloudAuth();renderSinopLoginGate({error:"Google sign-in is still loading. Try again in a moment."});return}
-  sinopAuthInFlight=true;renderSinopLoginGate();connectGoogleDrive("login");
+  sinopAuthInFlight=true;clearTimeout(sinopAuthWatchdog);sinopAuthWatchdog=setTimeout(()=>{if(!sinopAuthInFlight)return;sinopAuthInFlight=false;renderSinopLoginGate({error:"Google did not finish signing in. Try again or open the saved data on this device."})},18000);renderSinopLoginGate();connectGoogleDrive("login");
 }
 function unlockSinopAfterGoogle(){sinopAuthGranted=true;sinopAuthInFlight=false;renderSinopLoginGate()}
 function lockSinopForSignIn(message="Signed out. Sign in with Google to continue."){sinopAuthGranted=false;sinopAuthInFlight=false;renderSinopLoginGate({error:message})}
+function continueSinopLocally(){clearTimeout(sinopAuthWatchdog);sinopAuthGranted=true;sinopAuthInFlight=false;cloudMeta.authSession=true;persistCloudMeta();renderSinopLoginGate();renderCloudStatus();setSaveStatus("saved",cloudMeta.enabled?"Opened locally · reconnect Drive to sync":"Opened from this device");toast("SINOP opened from this device. Reconnect Google Drive when you want to sync.")}
 
 function initGoogleCloudAuth(attempt=0){
   if(window.google?.accounts?.oauth2){
-    googleTokenClient=google.accounts.oauth2.initTokenClient({client_id:GOOGLE_CLIENT_ID,scope:GOOGLE_SCOPES,include_granted_scopes:true,callback:handleGoogleToken,error_callback:()=>{sinopAuthInFlight=false;renderSinopLoginGate({error:"Google sign-in was cancelled or could not open."});toast("Google sign-in was cancelled or could not open.");renderCloudStatus()}});
+    googleTokenClient=google.accounts.oauth2.initTokenClient({client_id:GOOGLE_CLIENT_ID,scope:GOOGLE_SCOPES,include_granted_scopes:true,callback:handleGoogleToken,error_callback:()=>{clearTimeout(sinopAuthWatchdog);sinopAuthInFlight=false;renderSinopLoginGate({error:"Google sign-in was cancelled or could not open. Try again or open saved data on this device."});toast("Google sign-in was cancelled or could not open.");renderCloudStatus()}});
     renderCloudStatus();renderSinopLoginGate();return;
   }
   if(attempt<40)setTimeout(()=>initGoogleCloudAuth(attempt+1),250);else{if($("cloudSyncStateText"))$("cloudSyncStateText").textContent="Google Identity library could not load";renderSinopLoginGate({error:"Google sign-in could not load. Check your connection and reload SINOP."})}
@@ -10594,6 +10600,7 @@ function connectGoogleDrive(intent="sync"){
   googleTokenClient.requestAccessToken({prompt:"select_account"});
 }
 async function handleGoogleToken(response){
+  clearTimeout(sinopAuthWatchdog);
   if(!response||response.error){sinopAuthInFlight=false;renderSinopLoginGate({error:`Google authorization failed${response?.error?`: ${response.error}`:"."}`});toast(`Google authorization failed${response?.error?`: ${response.error}`:"."}`);return}
   googleAccessToken=response.access_token||"";googleTokenExpiresAt=Date.now()+Math.max(60,Number(response.expires_in||3600))*1000;
   try{
@@ -20421,6 +20428,7 @@ document.querySelectorAll("[data-scenario]").forEach(b=>b.onclick=()=>{state.sce
 $("budgetMonth").onchange=e=>{state.month=e.target.value||currentMonth;render()};
 $("saveBtn").onclick=()=>save(true);
 $("sinopGoogleLoginBtn")?.addEventListener("click",startSinopGoogleLogin);
+$("sinopLocalContinueBtn")?.addEventListener("click",continueSinopLocally);
 $("cloudTopBtn")?.addEventListener("click",()=>cloudTokenValid()?syncCloudNow({manual:true}):connectGoogleDrive("sync"));
 $("cloudConnectBtn")?.addEventListener("click",()=>connectGoogleDrive("sync"));
 $("cloudSyncNowBtn")?.addEventListener("click",()=>syncCloudNow({manual:true}));
