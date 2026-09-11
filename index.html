@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0f766e">
-<title>SINOP v175.1 · Unified Design & Mobile Navigation</title>
+<title>SINOP v176 · Voice Quick Add & Spending Order</title>
 <meta name="application-name" content="SINOP">
 <meta name="apple-mobile-web-app-title" content="SINOP">
 <meta name="description" content="SINOP — your personal money system for income, spending, savings, investments, goals, KKB, and financial tracking.">
@@ -19593,12 +19593,29 @@ function clearDailyAllowanceMonth(){
   });
 }
 
+function spendingTimestampForDate(date,existing=""){
+  const day=validDate(date)?date:localDateKey(),prior=String(existing||"");
+  if(prior.startsWith(day+"T"))return prior;
+  const now=new Date();
+  if(day===localDateKey(now))return now.toISOString();
+  return `${day}T12:00:00.000Z`;
+}
+function spendingSortValue(x){
+  const exactMs=Date.parse(String(x?.spentAt||x?.createdAt||""));
+  if(Number.isFinite(exactMs))return exactMs;
+  const date=validDate(x?.date)?x.date:"0000-01-01",dateMs=Date.parse(`${date}T12:00:00.000Z`);
+  return Number.isFinite(dateMs)?dateMs:0;
+}
+function spendingNewestFirst(items){
+  return [...(items||[])].sort((a,b)=>spendingSortValue(b)-spendingSortValue(a)||String(b.id||"").localeCompare(String(a.id||"")));
+}
+
 function renderSpending(){
   const body=$("spendBody");body.innerHTML="";
   if(!state.spending.length){
     body.innerHTML=`<tr><td colspan="6"><div class="empty"><strong>No variable expenses yet</strong>Add shopping, entertainment, dining, household purchases, travel, gifts, or any other non-recurring expense here.</div></td></tr>`;
   }
-  state.spending.forEach(x=>{
+  spendingNewestFirst(state.spending).forEach(x=>{
     const tr=document.createElement("tr");
     tr.dataset.spendId=x.id;
     tr.dataset.search=`${x.description||""} ${x.category||""} ${x.notes||""} ${x.accountId?(accountById(x.accountId)?.name||"Account"):x.creditCardId?cardLabel(cardById(x.creditCardId)||{name:"Credit card"}):x.paymentMethod||""}`.toLowerCase();
@@ -19617,10 +19634,10 @@ function renderSpending(){
       <td class="num"><input class="cell-input amount s-amount" type="number" min="0" step="1" value="${Number(x.amount||0)}"></td>
       <td><button class="icon-btn s-del" type="button" title="Delete expense" aria-label="Delete expense">${heroSvg("trash")}</button></td>`;
     const update=()=>{updateSpendTotal();renderOverview();renderSpendBreakdown();renderSpendingBudgetBars();renderDashboard();renderCreditCards();renderAccounts();renderOverviewAccounts();renderSettings();renderReminderCenter(false)};
-    tr.querySelector(".s-date").onchange=e=>{x.date=e.target.value;update()};
+    tr.querySelector(".s-date").onchange=e=>{x.date=e.target.value;if((x.status||"actual")==="actual")x.spentAt=spendingTimestampForDate(x.date,x.spentAt);update();renderSpending()};
     tr.querySelector(".s-desc").oninput=e=>{x.description=e.target.value;tr.dataset.search=`${x.description||""} ${x.category||""} ${x.notes||""} ${x.creditCardId?cardLabel(cardById(x.creditCardId)||{name:"Credit card"}):x.paymentMethod||""}`.toLowerCase()};
     tr.querySelector(".s-cat").onchange=e=>{x.category=e.target.value;update()};
-    tr.querySelector(".s-status").onchange=e=>{x.status=e.target.value;update()};
+    tr.querySelector(".s-status").onchange=e=>{x.status=e.target.value;if(x.status==="actual")x.spentAt=spendingTimestampForDate(x.date,x.spentAt);update();renderSpending()};
     tr.querySelector(".s-method").onchange=e=>{
       const value=e.target.value;
       if(value.startsWith("account:")){
@@ -20567,7 +20584,7 @@ $("incomeCoverageModal").addEventListener("click",e=>{if(e.target===$("incomeCov
 
 $("addIncomeBtn").onclick=()=>{state.incomes.push({id:uid(),name:"New income",kind:"Salary",frequency:"monthly",amount:0,date:"",employmentType:"none",accountId:""});scheduleAutoSave();renderIncome();renderOverview();renderDashboard();renderFixedTermSummary()};
 $("addBillBtn").onclick=()=>openBillEditor();
-$("addSpendBtn").onclick=()=>{const a=defaultSpendingAccount();state.spending.push({id:uid(),date:localDateKey(),description:"",category:state.categories.spending[0]||"Other",status:"planned",paymentMethod:a?"Account":"",creditCardId:"",accountId:a?a.id:"",notes:"",amount:0});scheduleAutoSave();renderSpending();renderOverview();renderDashboard();renderFixedTermSummary()};
+$("addSpendBtn").onclick=()=>{const a=defaultSpendingAccount(),date=localDateKey();state.spending.push({id:uid(),date,spentAt:spendingTimestampForDate(date),createdAt:new Date().toISOString(),description:"",category:state.categories.spending[0]||"Other",status:"actual",paymentMethod:a?"Account":"",creditCardId:"",accountId:a?a.id:"",notes:"",amount:0});scheduleAutoSave();renderSpending();renderOverview();renderDashboard();renderFixedTermSummary()};
 $("addGoalBtn").onclick=()=>{state.goals.push({id:uid(),name:"New goal",target:0,saved:0,monthly:0,priority:"medium",deadline:""});scheduleAutoSave();renderGoals();renderOverview();renderDashboard();renderFixedTermSummary()};
 
 $("goalStrategy").onchange=e=>{state.goalPlanner.strategy=e.target.value;renderGoals();renderDashboard()};
@@ -21973,7 +21990,7 @@ function renderInboxAndJournal(){
   if(!$("moneyInboxList"))return;$("inboxDate").value=$("inboxDate").value||localDateKey();$("journalDate").value=$("journalDate").value||localDateKey();
   const accountOptions=`<option value="">Untracked / other</option>`+state.accounts.filter(isSpendableAccount).map(a=>`<option value="${esc(a.id)}">${esc(a.name)}</option>`).join("");$("inboxAccount").innerHTML=accountOptions;if(!$("inboxAccount").value&&state.settings.defaultSpendingAccountId)$("inboxAccount").value=state.settings.defaultSpendingAccountId;
   const inbox=[...state.moneyInbox].sort((a,b)=>b.date.localeCompare(a.date));$("moneyInboxList").innerHTML=inbox.length?inbox.map(x=>`<div class="inbox-row" data-inbox-id="${esc(x.id)}"><small>${esc(osFormatShortDate(x.date))}</small><div><strong>${esc(x.description)}</strong><small>${accountById(x.accountId)?`Paid from ${esc(accountById(x.accountId).name)}`:"Payment source untracked"}</small></div><strong>${money(x.amount)}</strong><select data-inbox-category>${state.categories.spending.map(c=>`<option ${c==="Other"?"selected":""}>${esc(c)}</option>`).join("")}</select><div class="inbox-actions"><button class="btn btn-secondary btn-sm" type="button" data-inbox-post>Post</button><button class="icon-btn" type="button" data-inbox-delete aria-label="Delete">${heroSvg("trash")}</button></div></div>`).join(""):`<div class="empty"><strong>Inbox zero</strong>Quick captures you are not ready to categorize will wait here without affecting balances.</div>`;
-  $("moneyInboxList").querySelectorAll("[data-inbox-post]").forEach(btn=>btn.onclick=()=>{const row=btn.closest("[data-inbox-id]"),item=state.moneyInbox.find(x=>x.id===row.dataset.inboxId);if(!item)return;const category=row.querySelector("[data-inbox-category]").value||"Other",a=accountById(item.accountId);state.spending.push({id:uid(),date:item.date,description:item.description,category,status:"actual",paymentMethod:a?"Account":"Other",creditCardId:"",accountId:a?.id||"",notes:"Processed from Money Inbox",amount:item.amount});state.moneyInbox=state.moneyInbox.filter(x=>x.id!==item.id);scheduleAutoSave();render();toast("Inbox item posted to Spending.")});
+  $("moneyInboxList").querySelectorAll("[data-inbox-post]").forEach(btn=>btn.onclick=()=>{const row=btn.closest("[data-inbox-id]"),item=state.moneyInbox.find(x=>x.id===row.dataset.inboxId);if(!item)return;const category=row.querySelector("[data-inbox-category]").value||"Other",a=accountById(item.accountId);state.spending.push({id:uid(),date:item.date,spentAt:spendingTimestampForDate(item.date),createdAt:new Date().toISOString(),description:item.description,category,status:"actual",paymentMethod:a?"Account":"Other",creditCardId:"",accountId:a?.id||"",notes:"Processed from Money Inbox",amount:item.amount});state.moneyInbox=state.moneyInbox.filter(x=>x.id!==item.id);scheduleAutoSave();render();toast("Inbox item posted to Spending.")});
   $("moneyInboxList").querySelectorAll("[data-inbox-delete]").forEach(btn=>btn.onclick=()=>{const id=btn.closest("[data-inbox-id]").dataset.inboxId;state.moneyInbox=state.moneyInbox.filter(x=>x.id!==id);scheduleAutoSave();renderSinopMoneyOS();toast("Inbox item discarded.")});
   const journal=[...state.moneyJournal].sort((a,b)=>b.date.localeCompare(a.date));$("moneyJournalList").innerHTML=journal.length?journal.slice(0,12).map(x=>`<div class="journal-row" data-journal-id="${esc(x.id)}"><small>${esc(osFormatShortDate(x.date))}</small><span class="journal-tag">${esc(x.tag)}</span><div><strong>${esc(x.title)}</strong><p>${esc(x.note)}</p></div><button class="icon-btn" type="button" data-journal-delete aria-label="Delete">${heroSvg("trash")}</button></div>`).join(""):`<div class="empty"><strong>No journal notes yet</strong>Add the context that numbers alone cannot explain.</div>`;
   $("moneyJournalList").querySelectorAll("[data-journal-delete]").forEach(btn=>btn.onclick=()=>{const id=btn.closest("[data-journal-id]").dataset.journalId;state.moneyJournal=state.moneyJournal.filter(x=>x.id!==id);scheduleAutoSave();renderSinopMoneyOS();toast("Journal note deleted.")});
@@ -22079,7 +22096,7 @@ function osCommandDefaults(){return [
   {type:'Command',label:'Close this month',sub:'Review actuals and finalize the month',icon:'check-circle',action:()=>{closeCommandPalette();openMonthCloseModal()}}
 ]}
 function osParsedQuickCommand(q){
-  let m=q.match(/^spend\s+([\d,.]+)\s+(.+)$/i);if(m){const amount=Number(m[1].replaceAll(',','')),desc=m[2].trim();return {type:'Quick command',label:`Spend ${money(amount)} · ${desc}`,sub:'Post as actual Spending today using your default spending account',icon:'wallet',action:()=>{const a=defaultSpendingAccount();state.spending.push({id:uid(),date:localDateKey(),description:desc,category:'Other',status:'actual',paymentMethod:a?'Account':'Other',creditCardId:'',accountId:a?.id||'',notes:'Added from command palette',amount});scheduleAutoSave();closeCommandPalette();render();toast('Spending added.')}}}
+  let m=q.match(/^spend\s+([\d,.]+)\s+(.+)$/i);if(m){const amount=Number(m[1].replaceAll(',','')),desc=m[2].trim();return {type:'Quick command',label:`Spend ${money(amount)} · ${desc}`,sub:'Post as actual Spending today using your default spending account',icon:'wallet',action:()=>{const a=defaultSpendingAccount(),date=localDateKey();state.spending.push({id:uid(),date,spentAt:spendingTimestampForDate(date),createdAt:new Date().toISOString(),description:desc,category:'Other',status:'actual',paymentMethod:a?'Account':'Other',creditCardId:'',accountId:a?.id||'',notes:'Added from command palette',amount});scheduleAutoSave();closeCommandPalette();render();toast('Spending added.')}}}
   m=q.match(/^inbox\s+([\d,.]+)\s+(.+)$/i);if(m){const amount=Number(m[1].replaceAll(',','')),desc=m[2].trim();return {type:'Quick command',label:`Inbox ${money(amount)} · ${desc}`,sub:'Capture without changing balances yet',icon:'clock',action:()=>{state.moneyInbox.push({id:uid(),date:localDateKey(),description:desc,amount,accountId:state.settings.defaultSpendingAccountId||'',createdAt:Date.now()});scheduleAutoSave();closeCommandPalette();renderSinopMoneyOS();toast('Captured in Money Inbox.')}}}
   m=q.match(/^note\s+(.+)$/i);if(m){const note=m[1].trim();return {type:'Quick command',label:`Add journal note · ${note}`,sub:'Save as Context for today',icon:'document-text',action:()=>{state.moneyJournal.push({id:uid(),date:localDateKey(),tag:'Context',title:note.slice(0,60),note});scheduleAutoSave();closeCommandPalette();renderSinopMoneyOS();toast('Journal note added.')}}}
   m=q.match(/^transfer\s+([\d,.]+)\s+(?:to\s+)?(.+)$/i);if(m){const amount=Number(m[1].replaceAll(',','')),destText=m[2].trim().toLowerCase(),dest=state.accounts.find(a=>a.name.toLowerCase().includes(destText)||String(a.type).replace('_',' ').includes(destText)),source=defaultSpendingAccount();if(dest&&source&&dest.id!==source.id)return {type:'Quick command',label:`Transfer ${money(amount)} to ${dest.name}`,sub:`Open transfer from ${source.name} for review`,icon:'arrows-right-left',action:()=>{closeCommandPalette();document.querySelector('.nav-btn[data-target="accounts"]')?.click();openTransferModal();setTimeout(()=>{$("transferFrom").value=source.id;$("transferTo").value=dest.id;$("transferAmount").value=amount;$("transferDate").value=localDateKey()},50)}}}
@@ -22871,7 +22888,7 @@ maybeStartFirstRunSetup();
   }
   function v122OpenSpendCreate(){
     $("v122SpendDate").value=localDateKey();
-    $("v122SpendStatus").value="planned";
+    $("v122SpendStatus").value="actual";
     $("v122SpendDescription").value="";
     $("v122SpendCategory").innerHTML=state.categories.spending.map(v=>`<option>${esc(v)}</option>`).join("");
     $("v122SpendAmount").value="";
@@ -22888,8 +22905,9 @@ maybeStartFirstRunSetup();
     const source=$("v122SpendSource").value||"";
     const status=$("v122SpendStatus").value||"actual";
     if(status==="actual"&&!source){toast("Choose the account, wallet, or credit card used for this expense.");$("v122SpendSource").focus();return}
+    const date=$("v122SpendDate").value||localDateKey();
     const item={
-      id:uid(),date:$("v122SpendDate").value||localDateKey(),description,
+      id:uid(),date,spentAt:status==="actual"?spendingTimestampForDate(date):"",createdAt:new Date().toISOString(),description,
       category:$("v122SpendCategory").value||state.categories.spending[0]||"Other",
       status,
       paymentMethod:"",creditCardId:"",accountId:"",
@@ -24425,13 +24443,13 @@ maybeStartFirstRunSetup();
 
 <script id="sinop-v137-version-log-script">
 (()=>{
-  const latestText=`SINOP v175.1 — Unified Design & Mobile Navigation\nSeptember 11, 2026\n\n• Finance Tools now follows SINOP’s native cards, typography, colors, shadows and responsive patterns.\n• Replaced the separate Finance Tools sidebar with a compact SINOP-style module switcher.\n• Mobile More now contains every desktop destination, including Net worth, Household and Finance tools.`;
+  const latestText=`SINOP v176 — Voice Quick Add & Spending Order\nSeptember 11, 2026\n\n• New expenses default to Spent / actual.\n• Spending is ordered by newest spent date and time.\n• Voice or typed quick add understands expenses and account transfers, with confirmation before posting.`;
   const collectLog=()=>{
     const rows=[...document.querySelectorAll('#versionTimeline .version-entry')];
     return ['SINOP Version Log',...rows.map(row=>{const version=row.dataset.version||'',date=row.dataset.date||'',title=row.querySelector('h3')?.textContent?.trim()||'',items=[...row.querySelectorAll('li')].map(li=>`• ${li.textContent.trim()}`).join('\n');return `${version} — ${title}\n${date}\n${items}`})].join('\n\n');
   };
   async function copyText(text,message){try{await navigator.clipboard.writeText(text);toast(message)}catch(_){const ta=document.createElement('textarea');ta.value=text;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();toast(message)}}
-  document.getElementById('shareLatestVersionBtn')?.addEventListener('click',async()=>{if(navigator.share){try{await navigator.share({title:'SINOP v175 update',text:latestText});return}catch(e){if(e?.name==='AbortError')return}}copyText(latestText,'Latest SINOP update copied')});
+  document.getElementById('shareLatestVersionBtn')?.addEventListener('click',async()=>{if(navigator.share){try{await navigator.share({title:'SINOP v176 update',text:latestText});return}catch(e){if(e?.name==='AbortError')return}}copyText(latestText,'Latest SINOP update copied')});
   document.getElementById('copyVersionLogBtn')?.addEventListener('click',()=>copyText(collectLog(),'SINOP version log copied'));
 })();
 </script>
@@ -25032,12 +25050,12 @@ maybeStartFirstRunSetup();
   function spendingFilterItems(){
     const q=String(uiFilters?.spending||'').trim().toLowerCase();
     const status=String(uiFilters?.spendStatus||'all');
-    return (state.spending||[]).filter(x=>{
+    return spendingNewestFirst((state.spending||[]).filter(x=>{
       const source=x.accountId?(accountById(x.accountId)?.name||'Account'):x.creditCardId?cardLabel(cardById(x.creditCardId)||{name:'Credit card'}):x.paymentMethod||'';
       const okQuery=`${x.description||''} ${x.category||''} ${x.notes||''} ${source}`.toLowerCase().includes(q);
       const okStatus=status==='all'||(x.status||'actual')===status;
       return okQuery&&okStatus;
-    });
+    }));
   }
   function incomeSummaryCards(){
     const gross=totalGrossIncome(state.month), net=totalIncome(state.month), deductions=Math.max(0,gross-net), credited=totalCreditedIncome(state.month);
@@ -25205,7 +25223,7 @@ maybeStartFirstRunSetup();
     const x=state.incomes.find(i=>sameId(i.id,editor.id)); if(!x) return closeEditorShell();
     openConfirmAction({title:'Delete income source',heading:`Delete “${x.name}”?`,message:'This income source and its saved attendance adjustments will be removed from the planner.',warning:'Your monthly income, budget balance, dashboard metrics, and rewards may change immediately.',confirmLabel:'Delete income',onConfirm:()=>{state.incomes=state.incomes.filter(i=>i.id!==x.id); Object.values(state.incomeAttendance||{}).forEach(month=>{if(month&&month[x.id]) delete month[x.id]}); Object.values(state.incomeReceipts||{}).forEach(month=>{if(month&&month[x.id]) delete month[x.id]}); Object.values(state.incomeReceiptDates||{}).forEach(month=>{if(month&&month[x.id]) delete month[x.id]}); Object.keys(state.incomeCoverageNextDates||{}).filter(k=>k.includes(`:${x.id}:`)).forEach(k=>delete state.incomeCoverageNextDates[k]); closeEditorShell(); scheduleAutoSave(); render(); toast('Income source deleted.');}});
   }
-  function spendingDraft(id){ const a=defaultSpendingAccount(); return id?clone(state.spending.find(x=>sameId(x.id,id))):{id:uid(),date:localDateKey(),description:'',category:state.categories.spending[0]||'Other',status:'planned',paymentMethod:'',creditCardId:'',accountId:a?a.id:'',notes:'',amount:0}; }
+  function spendingDraft(id){ const a=defaultSpendingAccount(),date=localDateKey(); return id?clone(state.spending.find(x=>sameId(x.id,id))):{id:uid(),date,spentAt:spendingTimestampForDate(date),createdAt:new Date().toISOString(),description:'',category:state.categories.spending[0]||'Other',status:'actual',paymentMethod:a?'Account':'',creditCardId:'',accountId:a?a.id:'',notes:'',amount:0}; }
   function renderSpendingEditor(id=null){
     const x=spendingDraft(id); if(!x) return; editor.type='spending'; editor.id=id||x.id; editor.isNew=!id;
     document.getElementById('v146EntryEditorDelete').style.visibility=id?'visible':'hidden';
@@ -25246,7 +25264,7 @@ maybeStartFirstRunSetup();
     if(!description){ toast('Enter an expense description.'); document.getElementById('v146SpendDescription')?.focus(); return; }
     if(amount<=0){ toast('Enter the expense amount.'); document.getElementById('v146SpendAmount')?.focus(); return; }
     const source=document.getElementById('v146SpendSource')?.value||''; if(status==='actual'&&!source){ toast('Choose the account, wallet, or credit card used for this expense.'); document.getElementById('v146SpendSource')?.focus(); return; }
-    const existing=editor.isNew?null:state.spending.find(x=>sameId(x.id,editor.id)); const payload={id:existing?.id||editor.id||uid(),date:document.getElementById('v146SpendDate')?.value||localDateKey(),description,category:document.getElementById('v146SpendCategory')?.value||state.categories.spending[0]||'Other',status,paymentMethod:'',creditCardId:'',accountId:'',notes:document.getElementById('v146SpendNotes')?.value.trim()||'',amount};
+    const existing=editor.isNew?null:state.spending.find(x=>sameId(x.id,editor.id)),date=document.getElementById('v146SpendDate')?.value||localDateKey(); const payload={id:existing?.id||editor.id||uid(),date,spentAt:status==='actual'?spendingTimestampForDate(date,existing?.spentAt):'',createdAt:existing?.createdAt||new Date().toISOString(),description,category:document.getElementById('v146SpendCategory')?.value||state.categories.spending[0]||'Other',status,paymentMethod:'',creditCardId:'',accountId:'',notes:document.getElementById('v146SpendNotes')?.value.trim()||'',amount};
     if(source.startsWith('account:')){ const account=accountById(source.slice(8)); if(!isSpendableAccount(account)){ toast('Time deposit and Pag-IBIG MP2 accounts cannot be used for spending.'); return; } payload.accountId=account.id; payload.paymentMethod='Account'; }
     else if(source.startsWith('card:')){ payload.creditCardId=source.slice(5); payload.paymentMethod='Credit card'; }
     if(existing) Object.assign(existing,payload); else state.spending.push(payload);
@@ -26431,7 +26449,7 @@ function renderDebtPlanner(){const root=document.getElementById('v172DebtPlanner
 let scanFile=null;
 function renderScanResult(parsed){const root=document.getElementById('v172ScanResult');if(!root)return;const rule=matchRule(`${parsed.merchant}\n${parsed.raw}`);const cats=state.categories.spending||[];const accounts=spendableAccounts();root.innerHTML=`<div class="v172-scan-result"><label class="v172-field full"><span>Merchant / description</span><input id="v172ScanMerchant" value="${esc(parsed.merchant)}"></label><label class="v172-field"><span>Amount</span><input id="v172ScanAmount" type="number" min="0" step="0.01" value="${parsed.amount||''}"></label><label class="v172-field"><span>Date</span><input id="v172ScanDate" type="date" value="${esc(parsed.date)}"></label><label class="v172-field"><span>Category</span><select id="v172ScanCategory">${cats.map(c=>`<option ${c===(rule?.category||'Other')?'selected':''}>${esc(c)}</option>`).join('')}</select></label><label class="v172-field"><span>Payment account</span><select id="v172ScanAccount"><option value="">Untracked / other</option>${accounts.map(a=>`<option value="${esc(a.id)}" ${sameId(a.id,rule?.accountId)?'selected':''}>${esc(a.name)}</option>`).join('')}</select></label><label class="v172-field"><span>Post as</span><select id="v172ScanTarget"><option value="inbox">Money Inbox</option><option value="spending">Actual Spending</option><option value="match_bill">Match recurring commitment</option></select></label><div class="full v172-scan-actions"><button class="btn btn-primary btn-sm" id="v172ApproveScan" type="button">Review & post</button><button class="btn btn-secondary btn-sm" id="v172SaveRuleFromScan" type="button">Save merchant rule</button>${rule?`<span class="badge">Rule matched: ${esc(rule.pattern)}</span>`:''}</div></div>`;root.querySelector('#v172ApproveScan').onclick=()=>postScan();root.querySelector('#v172SaveRuleFromScan').onclick=()=>saveRuleFromScan();}
 function parseCurrentScan(){const parsed=parserFromText(document.getElementById('v172ScanText')?.value||'');renderScanResult(parsed);}
-function postScan(){const merchant=document.getElementById('v172ScanMerchant')?.value.trim(),amount=Math.max(0,Number(document.getElementById('v172ScanAmount')?.value||0)),date=document.getElementById('v172ScanDate')?.value||today(),category=document.getElementById('v172ScanCategory')?.value||'Other',accountId=document.getElementById('v172ScanAccount')?.value||'',target=document.getElementById('v172ScanTarget')?.value||'inbox';if(!merchant||!amount){toast('Add a merchant/description and amount first.');return}if(target==='inbox'){state.moneyInbox.push({id:uid(),date,description:merchant,amount,accountId,createdAt:Date.now()});toast('Scanner result added to Money Inbox for review.')}else if(target==='spending'){state.spending.push({id:uid(),date,description:merchant,category,status:'actual',paymentMethod:accountId?'Account':'Other',accountId,creditCardId:'',notes:'Posted from receipt/bill scanner',amount});toast('Scanner result posted to Spending.')}else{const bill=state.bills.find(b=>String(merchant).toLowerCase().includes(String(b.name).toLowerCase())||String(b.name).toLowerCase().includes(String(merchant).toLowerCase()));if(!bill){toast('No recurring commitment matched that description. Use Money Inbox or Spending instead.');return}toast(`Matched ${bill.name}. Open Recurring to record this month's actual safely.`);document.querySelector('.nav-btn[data-target="bills"]')?.click()}scheduleAutoSave();render();}
+function postScan(){const merchant=document.getElementById('v172ScanMerchant')?.value.trim(),amount=Math.max(0,Number(document.getElementById('v172ScanAmount')?.value||0)),date=document.getElementById('v172ScanDate')?.value||today(),category=document.getElementById('v172ScanCategory')?.value||'Other',accountId=document.getElementById('v172ScanAccount')?.value||'',target=document.getElementById('v172ScanTarget')?.value||'inbox';if(!merchant||!amount){toast('Add a merchant/description and amount first.');return}if(target==='inbox'){state.moneyInbox.push({id:uid(),date,description:merchant,amount,accountId,createdAt:Date.now()});toast('Scanner result added to Money Inbox for review.')}else if(target==='spending'){state.spending.push({id:uid(),date,spentAt:spendingTimestampForDate(date),createdAt:new Date().toISOString(),description:merchant,category,status:'actual',paymentMethod:accountId?'Account':'Other',accountId,creditCardId:'',notes:'Posted from receipt/bill scanner',amount});toast('Scanner result posted to Spending.')}else{const bill=state.bills.find(b=>String(merchant).toLowerCase().includes(String(b.name).toLowerCase())||String(b.name).toLowerCase().includes(String(merchant).toLowerCase()));if(!bill){toast('No recurring commitment matched that description. Use Money Inbox or Spending instead.');return}toast(`Matched ${bill.name}. Open Recurring to record this month's actual safely.`);document.querySelector('.nav-btn[data-target="bills"]')?.click()}scheduleAutoSave();render();}
 function saveRuleFromScan(){const pattern=document.getElementById('v172ScanMerchant')?.value.trim(),category=document.getElementById('v172ScanCategory')?.value||'Other',accountId=document.getElementById('v172ScanAccount')?.value||'';if(!pattern)return;state.transactionRules.push({id:uid(),pattern,category,accountId,target:'spending',createdAt:nowIso(),updatedAt:nowIso()});scheduleAutoSave();renderRules();toast('Transaction rule saved.');}
 async function runOcr(){if(!scanFile){toast('Choose an image first.');return}const btn=document.getElementById('v172RunOcr');btn.disabled=true;btn.textContent='Reading…';try{if(!window.Tesseract){await new Promise((resolve,reject)=>{const s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js';s.onload=resolve;s.onerror=()=>reject(new Error('OCR library could not load.'));document.head.appendChild(s)})}const result=await Tesseract.recognize(scanFile,'eng');document.getElementById('v172ScanText').value=result?.data?.text||'';parseCurrentScan();toast('Text extracted. Review every field before posting.')}catch(e){console.error(e);toast('OCR is unavailable. Paste the receipt or bill text instead.')}finally{btn.disabled=false;btn.textContent='Read image'}}
 function renderRules(){const root=document.getElementById('v172RuleList');if(!root)return;root.innerHTML=state.transactionRules.length?`<div class="v172-rule-list">${state.transactionRules.map(r=>`<div class="v172-rule-row" data-rule-id="${esc(r.id)}"><span><strong>${esc(r.pattern)}</strong><br><small>Contains text</small></span><span>${esc(r.category)}</span><span>${esc(accountById(r.accountId)?.name||'Any / untracked')}</span><button class="icon-btn" data-rule-delete type="button" aria-label="Delete rule"><span data-hero="trash"></span></button></div>`).join('')}</div>`:'<div class="empty"><strong>No transaction rules yet.</strong> Save one from a scanner result or add one manually.</div>';root.querySelectorAll('[data-rule-delete]').forEach(b=>b.onclick=()=>{state.transactionRules=state.transactionRules.filter(r=>r.id!==b.closest('[data-rule-id]').dataset.ruleId);scheduleAutoSave();renderRules()});if(typeof hydrateHeroIcons==='function')hydrateHeroIcons(root);}
@@ -26806,6 +26824,78 @@ window.sinop175={ledger,installmentPaid,forecast,upcoming,issues,parseCSV,amount
 /* v175 initial refresh */ render();
 })();
 
+</script>
+<style id="sinop176-styles">
+#v176VoiceBtn{min-width:42px;padding:0 11px}.v176-voice-card{width:min(620px,calc(100vw - 28px))}.v176-voice-intro{display:grid;gap:12px}.v176-command-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:9px}.v176-command-row input{min-width:0}.v176-listen{display:flex;align-items:center;justify-content:center;gap:7px}.v176-listen.is-listening{color:var(--danger);border-color:var(--danger)}.v176-examples{display:flex;flex-wrap:wrap;gap:7px}.v176-example{border:1px solid var(--border);border-radius:999px;background:var(--soft);color:var(--text);padding:7px 10px;font:inherit;font-size:11px;cursor:pointer}.v176-status{min-height:20px;color:var(--muted);font-size:12px}.v176-status.error{color:var(--danger)}.v176-review{display:none;margin-top:14px;padding-top:14px;border-top:1px solid var(--border)}.v176-review.ready{display:block}.v176-review h3{margin:0 0 4px}.v176-fields{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}.v176-fields label{display:grid;gap:6px;color:var(--muted);font-size:11px;font-weight:700}.v176-fields input,.v176-fields select{width:100%}.v176-full{grid-column:1/-1}.v176-confidence{margin:10px 0 0;color:var(--muted);font-size:11px}.v176-modal-foot{display:flex;justify-content:flex-end;gap:9px;margin-top:16px}.v176-hidden{display:none!important}
+@media(max-width:760px){.v176-fields{grid-template-columns:1fr}.v176-full{grid-column:auto}.v176-command-row{grid-template-columns:1fr}.v176-modal-foot{position:sticky;bottom:0;background:var(--panel);padding-top:10px}.v176-voice-card{max-height:92vh;overflow:auto}}
+</style>
+<script id="sinop176-voice-quick-add">
+(()=>{
+'use strict';
+let recognition=null,parsed=null;
+const norm=v=>String(v||'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
+function amountFromWords(raw){
+  const text=String(raw||'').toLowerCase().replace(/,/g,'');
+  const m=text.match(/(?:php|₱)?\s*(\d+(?:\.\d+)?)\s*(k|thousand|million)?(?:\s*(?:php|peso|pesos))?/i);
+  if(!m)return 0;
+  const scale=m[2]==='k'||m[2]==='thousand'?1000:m[2]==='million'?1000000:1;
+  return Number(m[1])*scale;
+}
+function accountMatch(raw){
+  const wanted=norm(raw);if(!wanted)return null;
+  const ranked=(state.accounts||[]).map(a=>{const name=norm(a.name),exact=name===wanted,contains=name.includes(wanted)||wanted.includes(name);return {a,score:exact?3:contains?2:0}}).filter(x=>x.score).sort((a,b)=>b.score-a.score);
+  return ranked.length&&(!ranked[1]||ranked[0].score>ranked[1].score)?ranked[0].a:null;
+}
+function categoryFor(description){
+  const d=norm(description),rules=[['Food & dining',/coffee|cafe|food|meal|lunch|dinner|breakfast|restaurant|snack/],['Transportation',/transport|fare|taxi|grab|jeep|bus|train|gas|fuel|parking/],['Shopping',/shop|clothes|shoes|mall|purchase/],['Entertainment',/movie|cinema|game|concert|netflix/],['Health',/medicine|doctor|clinic|hospital|pharmacy/],['Household',/household|cleaning|furniture|appliance/],['Travel',/travel|hotel|flight|airfare/],['Education',/school|tuition|book|course/],['Personal care',/salon|barber|spa|skincare/]];
+  const hit=rules.find(([,rx])=>rx.test(d));return hit&&state.categories.spending.includes(hit[0])?hit[0]:(state.categories.spending.includes('Other')?'Other':state.categories.spending[0]||'Other');
+}
+function parseVoiceCommand(raw){
+  const original=String(raw||'').trim(),text=original.replace(/\s+/g,' '),lower=text.toLowerCase(),amount=amountFromWords(text);
+  if(!original)return {ok:false,error:'Say or type a command.'};
+  if(!amount)return {ok:false,error:'I could not find a valid amount.'};
+  const transfer=/\b(?:transfer|transferred|move|moved|send|sent)\b/i.test(text);
+  if(transfer){
+    const pair=text.match(/\bfrom\s+(.+?)\s+to\s+(.+?)(?:\s+(?:today|yesterday))?$/i);
+    const fromName=pair?.[1]?.trim()||'',toName=pair?.[2]?.trim()||'';
+    return {ok:true,type:'transfer',amount,date:localDateKey(),fromId:accountMatch(fromName)?.id||'',toId:accountMatch(toName)?.id||'',fromName,toName,note:`Voice quick add: ${original}`,warnings:[!pair?'Say “from [account] to [account]”.':'',pair&&!accountMatch(fromName)?`Choose the source account (${fromName}).`:'',pair&&!accountMatch(toName)?`Choose the destination account (${toName}).`:''].filter(Boolean)};
+  }
+  let description='';
+  const purpose=text.match(/\b(?:for|on)\s+(.+?)$/i);if(purpose)description=purpose[1].trim();
+  if(!description){description=text.replace(/\b(?:add|record|spent|spend|expense|expenses|php|peso|pesos|actual|for|on|in)\b/gi,' ').replace(/[₱,]?\s*\d+(?:\.\d+)?\s*(?:k|thousand|million)?/i,' ').replace(/\s+/g,' ').trim()}
+  const sourceMatch=text.match(/\bfrom\s+(.+?)$/i),source=sourceMatch?accountMatch(sourceMatch[1]):defaultSpendingAccount();
+  if(sourceMatch)description=description.replace(/\s+from\s+.+$/i,'').trim();
+  return {ok:true,type:'expense',amount,date:localDateKey(),description:description||'Expense',category:categoryFor(description),sourceId:source?.id||'',note:`Voice quick add: ${original}`,warnings:[!source?'Choose the account used for this expense.':''].filter(Boolean)};
+}
+function accountOptions176(selected='',spendable=false){return (state.accounts||[]).filter(a=>!spendable||isSpendableAccount(a)).map(a=>`<option value="${esc(a.id)}" ${sameId(a.id,selected)?'selected':''}>${esc(a.name)} · ${esc(accountTypeLabel(a.type))}</option>`).join('')}
+function mount(){
+  if(document.getElementById('v176VoiceModal'))return;
+  const timeline=document.getElementById('versionTimeline');if(timeline&&!timeline.querySelector('[data-version="v176"]'))timeline.insertAdjacentHTML('afterbegin',`<article class="version-entry" data-version="v176" data-date="September 11, 2026"><div class="version-node"><span></span></div><div class="version-entry-card"><header><div><span>v176</span><h3>Voice quick add & newest-first spending</h3></div><time>Sep 11, 2026</time></header><ul><li>New expenses default to Spent / actual on desktop and mobile.</li><li>Spending is ordered by newest spent date and time.</li><li>Voice or typed quick add parses expenses and account transfers, then requires confirmation.</li></ul></div></article>`);const latest=document.querySelector('.version-latest-card');if(latest){latest.querySelector('.version-latest-badge strong').textContent='v176';latest.querySelector('.version-latest-copy span').textContent='September 11, 2026';latest.querySelector('.version-latest-copy h3').textContent='Voice Quick Add & Spending Order';latest.querySelector('.version-latest-copy p').textContent='New expenses default to actual, spending is newest-first, and spoken or typed commands can prepare expenses and transfers for confirmation.'}
+  const top=document.getElementById('commandPaletteBtn');if(top){const b=document.createElement('button');b.id='v176VoiceBtn';b.className='command-button';b.type='button';b.title='Voice quick add';b.setAttribute('aria-label','Voice quick add');b.innerHTML=heroSvg('microphone');top.before(b)}
+  const grid=document.querySelector('#mobileCreateSheet .mobile-create-grid');if(grid){const b=document.createElement('button');b.className='mobile-create-action';b.type='button';b.dataset.v176Voice='1';b.innerHTML=`<span class="mobile-action-icon">${heroSvg('microphone')}</span><span><strong>Voice quick add</strong><small>Speak an expense or transfer</small></span>`;grid.prepend(b)}
+  const shell=document.createElement('div');shell.id='v176VoiceModal';shell.className='modal';shell.setAttribute('aria-hidden','true');shell.innerHTML=`<div class="modal-card v176-voice-card" role="dialog" aria-modal="true" aria-labelledby="v176VoiceTitle"><div class="modal-head"><div><p class="eyebrow">Quick capture</p><h2 id="v176VoiceTitle">Voice quick add</h2><p class="subtle">Speak or type. Review the details before anything is posted.</p></div><button class="icon-btn" id="v176VoiceClose" type="button" aria-label="Close">${heroSvg('x-mark')}</button></div><div class="modal-body"><div class="v176-voice-intro"><div class="v176-command-row"><input id="v176VoiceInput" type="text" autocomplete="off" placeholder="e.g. transferred 10,000 pesos from BPI to Maribank"><button class="btn btn-secondary v176-listen" id="v176ListenBtn" type="button">${heroSvg('microphone')}<span>Speak</span></button></div><div class="v176-examples"><button class="v176-example" type="button">Add 100 pesos in expense for coffee</button><button class="v176-example" type="button">Transferred 10,000 pesos from BPI to Maribank</button></div><div class="v176-status" id="v176VoiceStatus">Nothing will be saved until you confirm.</div><button class="btn btn-primary" id="v176ParseBtn" type="button">Review command</button></div><div class="v176-review" id="v176Review"></div></div></div>`;document.body.append(shell);
+  document.getElementById('v176VoiceBtn')?.addEventListener('click',open);document.querySelector('[data-v176-voice]')?.addEventListener('click',()=>{const mobileSheet=document.getElementById('mobileCreateSheet');mobileSheet?.classList.remove('open');mobileSheet?.setAttribute('aria-hidden','true');document.getElementById('mobileBottomCreateBtn')?.setAttribute('aria-expanded','false');document.body.classList.remove('mobile-sheet-open');open()});document.getElementById('v176VoiceClose').onclick=close;document.getElementById('v176ParseBtn').onclick=review;document.getElementById('v176ListenBtn').onclick=listen;document.getElementById('v176VoiceInput').addEventListener('keydown',e=>{if(e.key==='Enter')review()});document.querySelectorAll('.v176-example').forEach(b=>b.onclick=()=>{document.getElementById('v176VoiceInput').value=b.textContent;review()});shell.addEventListener('click',e=>{if(e.target===shell)close()});document.addEventListener('keydown',e=>{if(e.key==='Escape'&&shell.classList.contains('open'))close()});
+}
+function open(){const m=document.getElementById('v176VoiceModal');m.classList.add('open');m.setAttribute('aria-hidden','false');document.getElementById('v176VoiceInput').focus()}
+function close(){recognition?.abort?.();recognition=null;const m=document.getElementById('v176VoiceModal');m.classList.remove('open');m.setAttribute('aria-hidden','true');document.getElementById('v176ListenBtn')?.classList.remove('is-listening')}
+function status(message,error=false){const el=document.getElementById('v176VoiceStatus');el.textContent=message;el.classList.toggle('error',error)}
+function listen(){
+  const SpeechRecognition=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SpeechRecognition){status('Voice recognition is unavailable here. Type the command instead.',true);return}
+  if(recognition){recognition.stop();return}recognition=new SpeechRecognition();recognition.lang='en-PH';recognition.interimResults=true;recognition.continuous=false;const btn=document.getElementById('v176ListenBtn');btn.classList.add('is-listening');btn.querySelector('span').textContent='Listening…';status('Listening…');recognition.onresult=e=>{const words=[...e.results].map(r=>r[0].transcript).join(' ');document.getElementById('v176VoiceInput').value=words;if(e.results[e.results.length-1].isFinal)review()};recognition.onerror=e=>status(e.error==='not-allowed'?'Microphone access was blocked. You can type instead.':'I could not hear that clearly. Try again or type it.',true);recognition.onend=()=>{recognition=null;btn.classList.remove('is-listening');btn.querySelector('span').textContent='Speak'};try{recognition.start()}catch(e){status('Could not start the microphone. Type the command instead.',true)}
+}
+function review(){
+  parsed=parseVoiceCommand(document.getElementById('v176VoiceInput').value);const box=document.getElementById('v176Review');if(!parsed.ok){box.classList.remove('ready');status(parsed.error,true);return}status(parsed.warnings.length?parsed.warnings.join(' '):'Command understood. Check the details below.');
+  if(parsed.type==='expense')box.innerHTML=`<h3>Review expense</h3><p class="subtle">This will be recorded as Spent / actual.</p><div class="v176-fields"><label>Description<input id="v176Description" value="${esc(parsed.description)}"></label><label>Amount<input id="v176Amount" type="number" min="0" step="0.01" value="${parsed.amount}"></label><label>Category<select id="v176Category">${state.categories.spending.map(c=>`<option ${c===parsed.category?'selected':''}>${esc(c)}</option>`).join('')}</select></label><label>Pay from<select id="v176From"><option value="">Choose account</option>${accountOptions176(parsed.sourceId,true)}</select></label><label>Date<input id="v176Date" type="date" value="${parsed.date}"></label><label class="v176-full">Note<input id="v176Note" value="${esc(parsed.note)}"></label></div><div class="v176-modal-foot"><button class="btn btn-secondary" data-v176-cancel type="button">Cancel</button><button class="btn btn-primary" data-v176-confirm type="button">Add actual expense</button></div>`;
+  else box.innerHTML=`<h3>Review transfer</h3><p class="subtle">Both account balances will be recalculated.</p><div class="v176-fields"><label>Amount from source<input id="v176Amount" type="number" min="0" step="0.01" value="${parsed.amount}"></label><label>Date<input id="v176Date" type="date" value="${parsed.date}"></label><label>From<select id="v176From"><option value="">Choose source</option>${accountOptions176(parsed.fromId)}</select></label><label>To<select id="v176To"><option value="">Choose destination</option>${accountOptions176(parsed.toId)}</select></label><label class="v176-full">Note<input id="v176Note" value="${esc(parsed.note)}"></label></div><div class="v176-modal-foot"><button class="btn btn-secondary" data-v176-cancel type="button">Cancel</button><button class="btn btn-primary" data-v176-confirm type="button">Record transfer</button></div>`;
+  box.classList.add('ready');box.querySelector('[data-v176-cancel]').onclick=close;box.querySelector('[data-v176-confirm]').onclick=confirm;
+}
+function confirm(){
+  const amount=Math.max(0,Number(document.getElementById('v176Amount').value||0)),date=document.getElementById('v176Date').value||localDateKey(),from=accountById(document.getElementById('v176From').value);if(amount<=0){status('Enter a valid amount.',true);return}if(!from){status('Choose the source account.',true);return}
+  if(parsed.type==='expense'){const description=document.getElementById('v176Description').value.trim();if(!description){status('Enter a description.',true);return}if(!isSpendableAccount(from)){status('That account cannot be used for spending.',true);return}state.spending.push({id:uid(),date,spentAt:spendingTimestampForDate(date),createdAt:new Date().toISOString(),description,category:document.getElementById('v176Category').value||'Other',status:'actual',paymentMethod:'Account',creditCardId:'',accountId:from.id,notes:document.getElementById('v176Note').value.trim(),amount});scheduleAutoSave();close();render();toast(`Expense added: ${money(amount)} · ${description}.`);return}
+  const to=accountById(document.getElementById('v176To').value);if(!to){status('Choose the destination account.',true);return}if(sameId(from.id,to.id)){status('Choose two different accounts.',true);return}const fromCur=accountCurrency(from),toCur=accountCurrency(to);let rate=1,toAmount=amount;if(fromCur!==toCur){rate=fxRate(fromCur,toCur,from);if(!(rate>0)){status(`No current ${fromCur}/${toCur} rate is available. Open Transfers and fetch the rate first.`,true);return}toAmount=amount*rate}state.accountTransfers.push({id:uid(),fromId:from.id,toId:to.id,amount,fromAmount:amount,toAmount,fromCurrency:fromCur,toCurrency:toCur,fxRate:rate,fxDate:fxRecord(fromCur,toCur)?.date||'',date,note:document.getElementById('v176Note').value.trim(),createdAt:new Date().toISOString(),origin:'voice_quick_add'});scheduleAutoSave();close();render();toast(`Transfer recorded: ${moneyIn(amount,fromCur)} → ${moneyIn(toAmount,toCur)}.`)
+}
+window.sinop176={parseVoiceCommand,amountFromWords,spendingNewestFirst,openVoiceQuickAdd:open};mount();
+})();
 </script>
 </body>
 </html>
