@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0f766e">
-<title>SINOP v176.1 · Login Recovery</title>
+<title>SINOP v176.2 · Startup Reference Fix</title>
 <meta name="application-name" content="SINOP">
 <meta name="apple-mobile-web-app-title" content="SINOP">
 <meta name="description" content="SINOP — your personal money system for income, spending, savings, investments, goals, KKB, and financial tracking.">
@@ -19601,7 +19601,7 @@ function clearDailyAllowanceMonth(){
 }
 
 function spendingTimestampForDate(date,existing=""){
-  const day=validDate(date)?date:localDateKey(),prior=String(existing||"");
+  const day=spendingDateValid(date)?date:localDateKey(),prior=String(existing||"");
   if(prior.startsWith(day+"T"))return prior;
   const now=new Date();
   if(day===localDateKey(now))return now.toISOString();
@@ -19610,8 +19610,14 @@ function spendingTimestampForDate(date,existing=""){
 function spendingSortValue(x){
   const exactMs=Date.parse(String(x?.spentAt||x?.createdAt||""));
   if(Number.isFinite(exactMs))return exactMs;
-  const date=validDate(x?.date)?x.date:"0000-01-01",dateMs=Date.parse(`${date}T12:00:00.000Z`);
+  const date=spendingDateValid(x?.date)?x.date:"0000-01-01",dateMs=Date.parse(`${date}T12:00:00.000Z`);
   return Number.isFinite(dateMs)?dateMs:0;
+}
+function spendingDateValid(value){
+  const text=String(value||"");
+  if(!/^\d{4}-\d{2}-\d{2}$/.test(text))return false;
+  const parsed=new Date(`${text}T12:00:00`);
+  return Number.isFinite(parsed.getTime())&&parsed.getFullYear()===Number(text.slice(0,4))&&parsed.getMonth()+1===Number(text.slice(5,7))&&parsed.getDate()===Number(text.slice(8,10));
 }
 function spendingNewestFirst(items){
   return [...(items||[])].sort((a,b)=>spendingSortValue(b)-spendingSortValue(a)||String(b.id||"").localeCompare(String(a.id||"")));
